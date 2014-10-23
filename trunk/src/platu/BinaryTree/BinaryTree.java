@@ -8,7 +8,7 @@ public class BinaryTree {
 	HashMap<Node, Node> uniqueNodeTbl;
 	Vector<Node> NodeIdxTbl;
 	
-	/* Tables for storing root nodes and their indiceskk. */
+	/* Tables for storing root nodes and their indices. */
 	HashMap<Node, Node> uniqueRootNodeTbl;
 	Vector<Node> rootNodeIdxTbl;
 	
