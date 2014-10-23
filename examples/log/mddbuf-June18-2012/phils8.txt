@@ -1,0 +1,134 @@
+--> Number of modules: 16
+--> Length of global vecvtor: 16
+--> globalVarList
+[(p0.myFork, 0), (p1.myFork, 0), (p2.myFork, 0), (p3.myFork, 0), (p4.myFork, 0), (p5.myFork, 0), (p6.myFork, 0), (p7.myFork, 0), (p8.myFork, 0), (p9.myFork, 0), (p10.myFork, 0), (p11.myFork, 0), (p12.myFork, 0), (p13.myFork, 0), (p14.myFork, 0), (p15.myFork, 0)]
+--> gVarIndexMap
+(p0.myFork 0), (p1.myFork 1), (p2.myFork 2), (p3.myFork 3), (p4.myFork 4), (p5.myFork 5), (p6.myFork 6), (p7.myFork 7), (p8.myFork 8), (p9.myFork 9), (p10.myFork 10), (p11.myFork 11), (p12.myFork 12), (p13.myFork 13), (p14.myFork 14), (p15.myFork 15), 
+LPN: p0
+-->Internals: 		
+-->Globals: 		(p0.myFork 0 OUTPUT), (p1.myFork 1 INPUT), 
+--> VarIndexMap: 	(p0.myFork 0),  (p1.myFork 1),  
+
+LPN: p1
+-->Internals: 		
+-->Globals: 		(p2.myFork 0 INPUT), (p1.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p2.myFork 0),  (p1.myFork 1),  
+
+LPN: p2
+-->Internals: 		
+-->Globals: 		(p2.myFork 0 OUTPUT), (p3.myFork 1 INPUT), 
+--> VarIndexMap: 	(p2.myFork 0),  (p3.myFork 1),  
+
+LPN: p3
+-->Internals: 		
+-->Globals: 		(p4.myFork 0 INPUT), (p3.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p4.myFork 0),  (p3.myFork 1),  
+
+LPN: p4
+-->Internals: 		
+-->Globals: 		(p4.myFork 0 OUTPUT), (p5.myFork 1 INPUT), 
+--> VarIndexMap: 	(p4.myFork 0),  (p5.myFork 1),  
+
+LPN: p5
+-->Internals: 		
+-->Globals: 		(p6.myFork 0 INPUT), (p5.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p6.myFork 0),  (p5.myFork 1),  
+
+LPN: p6
+-->Internals: 		
+-->Globals: 		(p6.myFork 0 OUTPUT), (p7.myFork 1 INPUT), 
+--> VarIndexMap: 	(p6.myFork 0),  (p7.myFork 1),  
+
+LPN: p7
+-->Internals: 		
+-->Globals: 		(p8.myFork 0 INPUT), (p7.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p8.myFork 0),  (p7.myFork 1),  
+
+LPN: p8
+-->Internals: 		
+-->Globals: 		(p9.myFork 0 INPUT), (p8.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p9.myFork 0),  (p8.myFork 1),  
+
+LPN: p9
+-->Internals: 		
+-->Globals: 		(p10.myFork 0 INPUT), (p9.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p10.myFork 0),  (p9.myFork 1),  
+
+LPN: p10
+-->Internals: 		
+-->Globals: 		(p11.myFork 0 INPUT), (p10.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p11.myFork 0),  (p10.myFork 1),  
+
+LPN: p11
+-->Internals: 		
+-->Globals: 		(p11.myFork 0 OUTPUT), (p12.myFork 1 INPUT), 
+--> VarIndexMap: 	(p11.myFork 0),  (p12.myFork 1),  
+
+LPN: p12
+-->Internals: 		
+-->Globals: 		(p12.myFork 0 OUTPUT), (p13.myFork 1 INPUT), 
+--> VarIndexMap: 	(p12.myFork 0),  (p13.myFork 1),  
+
+LPN: p13
+-->Internals: 		
+-->Globals: 		(p14.myFork 0 INPUT), (p13.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p14.myFork 0),  (p13.myFork 1),  
+
+LPN: p14
+-->Internals: 		
+-->Globals: 		(p14.myFork 0 OUTPUT), (p15.myFork 1 INPUT), 
+--> VarIndexMap: 	(p14.myFork 0),  (p15.myFork 1),  
+
+LPN: p15
+-->Internals: 		
+-->Globals: 		(p0.myFork 0 INPUT), (p15.myFork 1 OUTPUT), 
+--> VarIndexMap: 	(p0.myFork 0),  (p15.myFork 1),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 999996, # of prjStates found: 760128, stack_depth: 760124 used memory: 1611.5955 free memory: 92.77882
+--->  # of global vectors: 65536
+---> state table stats: State count: 760128,  MDD node count: 0
+*** Verification failed: deadlock.
+*** Deadlock state layout:
+Marking: [1,]
+Vector: [p0.myFork=>0, p1.myFork=>0, ]
+Marking: [0,]
+Vector: [p2.myFork=>0, p1.myFork=>0, ]
+Marking: [1,]
+Vector: [p2.myFork=>0, p3.myFork=>0, ]
+Marking: [1,]
+Vector: [p4.myFork=>0, p3.myFork=>0, ]
+Marking: [1,]
+Vector: [p4.myFork=>0, p5.myFork=>0, ]
+Marking: [1,]
+Vector: [p6.myFork=>0, p5.myFork=>0, ]
+Marking: [1,]
+Vector: [p6.myFork=>0, p7.myFork=>0, ]
+Marking: [1,]
+Vector: [p8.myFork=>0, p7.myFork=>0, ]
+Marking: [1,]
+Vector: [p9.myFork=>0, p8.myFork=>0, ]
+Marking: [1,]
+Vector: [p10.myFork=>0, p9.myFork=>0, ]
+Marking: [1,]
+Vector: [p11.myFork=>0, p10.myFork=>0, ]
+Marking: [1,]
+Vector: [p11.myFork=>0, p12.myFork=>0, ]
+Marking: [1,]
+Vector: [p12.myFork=>0, p13.myFork=>0, ]
+Marking: [1,]
+Vector: [p14.myFork=>0, p13.myFork=>0, ]
+Marking: [1,]
+Vector: [p14.myFork=>0, p15.myFork=>0, ]
+Marking: [1,]
+Vector: [p0.myFork=>0, p15.myFork=>0, ]
+[(p0.myFork,1), (p1.myFork,1), (p2.myFork,1), (p3.myFork,1), (p4.myFork,1), (p5.myFork,1), (p6.myFork,1), (p7.myFork,1), (p8.myFork,1), (p9.myFork,1), (p10.myFork,1), (p11.myFork,1), (p12.myFork,1), (p13.myFork,1), (p14.myFork,1), (p15.myFork,1), ]
+
+---> Search stats:
+	# LPN transition firings: 1202832
+	# of states found: 914351
+	max_stack_depth: 914347
+	peak total memory: 2806 MB
+	peak used memory: 1707 MB
+	Total elapsed time = 13.532 sec
+

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui
+END
+GraphFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/GraphFrame.java
+END
+Graph.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/Graph.java
+END
+StateChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/StateChart.java
+END
+MemoryChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/MemoryChart.java
+END
+GraphFrame.form
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/GraphFrame.form
+END
+Graph.form
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/Graph.form
+END
+StackWindow.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/StackWindow.java
+END
+StackWindow.form
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/StackWindow.form
+END
+MemoryWindow.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/MemoryWindow.java
+END
+PrintTable.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/ui/PrintTable.java
+END

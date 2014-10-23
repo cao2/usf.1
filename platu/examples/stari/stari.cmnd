@@ -1,0 +1,8 @@
+readlpn examples/stari/stari_clock.lpn
+readlpn examples/stari/stari_emptystage_ackstage.lpn
+readlpn examples/stari/stari_emptystage_datastage.lpn
+readlpn examples/stari/stari_fullstage_ackstage.lpn
+readlpn examples/stari/stari_fullstage_datastage.lpn
+readlpn examples/stari/stari_left.lpn
+readlpn examples/stari/stari_right.lpn
+findsg

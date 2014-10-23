@@ -1,0 +1,5 @@
+Should find deadlock, but does not
+
+Also, finds 256 states where there should be 80
+
+Finds a disabling error in the new version, which eliminates arrays... Something might be wrong in the array code

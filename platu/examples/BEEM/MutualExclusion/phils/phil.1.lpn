@@ -1,0 +1,45 @@
+//LPN for philosopher's test
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+
+<main>
+	Phil p0(p1.this_fork);
+	Phil p1(p2.this_fork);
+	Phil p2(p3.this_fork);
+	Phil p3(p0.this_fork);
+</main>
+
+<class name="Phil" arg="other_fork">
+
+	<var>
+		this_fork = 0;
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(this_fork == 0);
+		this_fork = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(other_fork == 0);
+		other_fork = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		this_fork = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		other_fork = 0;
+	</tr>
+	
+</class>

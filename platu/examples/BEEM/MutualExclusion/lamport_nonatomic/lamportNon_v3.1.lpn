@@ -1,0 +1,424 @@
+<main>
+	//9 Channels:
+	//	read_0, write_0, done_0
+	//	read_1, write_1, done_1
+	//	read_1, write_1, done_1
+	
+	<var>
+		//Active channel
+		activeChan = 0;
+	
+		//Variables for read_0
+		read_0Val = 0;
+		read_0ChanIndex = 1;
+		read_0AckReady = 0;
+		//Variables for write_0
+		write_0Val = 0;
+		write_0ChanIndex = 2;
+		write_0AckReady = 1;
+		//Variables for done_0
+		done_0ChanIndex = 3;
+		done_0AckReady = 0;
+		
+		//Variables for read_1
+		read_1Val = 0;
+		read_1ChanIndex = 4;
+		read_1AckReady = 0;
+		//Variables for write_1
+		write_1Val = 0;
+		write_1ChanIndex = 5;
+		write_1AckReady = 1;
+		//Variables for done_1
+		done_1ChanIndex = 6;
+		done_1AckReady = 0;
+		
+
+		//Variables for read_2
+		read_2Val = 0;
+		read_2ChanIndex = 7;
+		read_2AckReady = 0;
+		//Variables for write_2
+		write_2Val = 0;
+		write_2ChanIndex = 8;
+		write_2AckReady = 1;
+		//Variables for done_2
+		done_2ChanIndex = 9;
+		done_2AckReady = 0;
+	</var>
+	
+	NonatomicVar v1(read_0Val, read_0AckReady, read_0ChanIndex, write_0Val, write_0AckReady, write_0ChanIndex, done_0AckReady, done_0ChanIndex, activeChan);
+	NonatomicVar v2(read_1Val, read_1AckReady, read_1ChanIndex, write_1Val, write_1AckReady, write_1ChanIndex, done_1AckReady, done_1ChanIndex, activeChan);
+	NonatomicVar v3(read_2Val, read_2AckReady, read_2ChanIndex, write_2Val, write_2AckReady, write_2ChanIndex, done_2AckReady, done_2ChanIndex, activeChan);
+	Process p1(0, read_0Val, read_0AckReady, read_0ChanIndex, read_1Val, read_1AckReady, read_1ChanIndex, read_2Val, read_2AckReady, read_2ChanIndex, write_0Val, write_0AckReady, write_0ChanIndex, done_0AckReady, done_0ChanIndex, activeChan);
+	Process p2(1, read_0Val, read_0AckReady, read_0ChanIndex, read_1Val, read_1AckReady, read_1ChanIndex, read_2Val, read_2AckReady, read_2ChanIndex, write_1Val, write_1AckReady, write_1ChanIndex, done_1AckReady, done_1ChanIndex, activeChan);
+	Process p3(2, read_0Val, read_0AckReady, read_0ChanIndex, read_1Val, read_1AckReady, read_1ChanIndex, read_2Val, read_2AckReady, read_2ChanIndex, write_2Val, write_2AckReady, write_2ChanIndex, done_2AckReady, done_2ChanIndex, activeChan);
+</main>
+
+<class name="NonatomicVar" arg="readVal, readAckReady, readChanIndex, writeVal, writeAckReady, writeChanIndex, doneAckReady, doneChanIndex, activeChan">
+	<const>
+		q = 0;
+		r = 1;
+	</const>
+	
+	<var>
+		x = 0;
+		v = 0;
+	</var>
+	
+	<m>
+		q
+	</m>
+	
+	//q->q, so still ready to address the write in tran 2
+	<tr label="0" preset="q" postset="q">
+		guard(activeChan == 0 && readAckReady > 0);
+		delay(0, inf);
+		activeChan = readChanIndex
+		readVal = x;
+	</tr>
+	
+	//Leaving state; no more AckReady
+	<tr label="2" preset="q" postset="r">
+		guard(activeChan == writeChanIndex);
+		delay(0, inf);
+		v = writeVal;
+		writeVal = 0;
+		writeAckReady = writeAckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	//Entering q; needs to be ready to address a writeReq
+	<tr label="4" preset="r" postset="q">
+		guard(activeChan == 0 && doneAckReady > 0);
+		delay(0, inf);
+		activeChan = doneChanIndex;
+		x = v;
+		writeAckReady = writeAckReady + 1;
+	</tr>
+	
+	//Stays in R, no changes to acks
+	<tr label="6" preset="r" postset="r">
+		guard(activeChan == 0 && writeAckReady > 0);
+		delay(0, inf);
+		readVal = 0;
+		activeChan = writeChanIndex;
+	</tr>
+	
+	//Stays in R, no changes to acks
+	<tr label="7" preset="r" postset="r">
+		guard(activeChan == 0 && writeAckReady > 0);
+		delay(0, inf);
+		readVal = 1;
+		activeChan = writeChanIndex;
+	</tr>
+</class>
+
+<class name="Process" arg="myVal, read_0Val, read_0AckReady, read_0ChanIndex, read_1Val, read_1AckReady, read_1ChanIndex, read_2Val, read_2AckReady, read_2ChanIndex, writeVal, writeAckReady, writeChanIndex, doneAckReady, doneChanIndex, activeChan">
+	<const>
+		NCS = 0;
+		w1 = 1;
+		p3 = 2;
+		p8 = 3;
+		p4 = 4;
+		p5 = 5;
+		p6 = 6;
+		p61 = 7;
+		w2 = 8;
+		p9 = 9;
+		CS = 10;
+		w3 = 11;
+		p30Ack = 12;
+		p31Ack = 13;
+		p32Ack = 14;
+		p80Ack = 15;
+		p81Ack = 16;
+		p82Ack = 17;
+		p610Ack = 18;
+		p611Ack = 19;
+		p612Ack = 20;
+		p90Ack = 21;
+		p91Ack = 22;
+		p92Ack = 23;
+	</const>
+	
+	<var>
+		i = 0;
+		v = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	//Ends in W1, needs an ack
+	<tr label="0" preset="NCS" postset="w1">
+		guard(activeChan == 0 && writeAckReady > 0);
+		delay(0, inf);
+		writeVal = 1;
+		activeChan = writeChanIndex;
+		doneAckReady = doneAckReady + 1;
+	</tr>
+	
+	//Leaves w1, loses ack
+	<tr label="2" preset="w1" postset="p3">
+		guard(activeChan == doneChanIndex);
+		delay(0, inf);
+		doneAckReady = doneAckReady - 1;
+		i = 0;
+		activeChan = 0;
+	</tr>
+	
+	//loses new acks, guards with activeChan == 0
+	//But p8 needs new acks, so no new change
+	<tr label="4" preset="p3" postset="p8">
+		guard(i ==0 && activeChan == 0);
+		delay(0, inf);
+		i = myVal + 1;
+	</tr>
+	
+	//Transfers out, loses ack
+	<tr label="5" preset="p3" postset="p30Ack">
+		guard(i == 0 && activeChan == 0);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady + 1;
+	</tr>
+	
+	<tr label="6" preset="p30Ack" postset="p4">
+		guard(activeChan == read_0ChanIndex);
+		delay(0, inf);
+		v = read_0Val;
+		read_0Val = 0;
+		read_0AckReady = read_0AckReady - 1;
+		activeChan = 0;
+	</tr>
+		
+	<tr label="7" preset="p3" postset="p31Ack">
+		guard(i == 1 && activeChan == 0);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady + 1;
+	</tr>
+	
+	<tr label="8" preset="p31Ack" postset="p4">
+		guard(activeChan == read_1ChanIndex);
+		delay(0, inf);
+		v = read_1Val;
+		read_1Val = 0;
+		read_1AckReady = read_1AckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="9" preset="p3" postset="p32Ack">
+		guard(i == 2 && activeChan == 0);
+		delay(0, inf);
+		read_2AckReady = read_2AckReady + 1;
+	</tr>
+	
+	<tr label="99" preset="p32Ack" postset="p4">
+		guard(activeChan == read_2ChanIndex);
+		delay(0, inf);
+		v = read_2Val;
+		read_2Val = 0;
+		read_2AckReady = read_2AckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="10" preset="p4" postset="p3">
+		guard(v == 0 && activeChan == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="11" preset="p4" postset="p5">
+		guard(v == 1 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="12" preset="p5" postset="p6">
+		guard(v == 1 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="13" preset="p5" postset="NCS">
+		guard(v == 0 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="14" preset="p6" postset="w2">
+		guard(activeChan == 0 && writeAckReady > 0);
+		delay(0, inf);
+		writeVal = 0;
+		activeChan = writeChanIndex;
+		doneAckReady = doneAckReady + 1;
+	</tr>
+	
+	<tr label="16" preset="w2" postset="p61">
+		guard(activeChan == doneChanIndex);
+		delay(0, inf);
+		doneAckReady = doneAckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="18" preset="p61" postset="p610Ack">
+		guard(i == 0 && activeChan == 0);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady + 1;
+	</tr>
+	
+	<tr label="19" preset="p610Ack" postset="p5">
+		guard(activeChan == read_0ChanIndex);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady - 1;
+		v = read_0Val;
+		read_0Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="20" preset="p61" postset="p611Ack">
+		guard(i == 1 && activeChan == 0);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady + 1;
+	</tr>
+	
+	<tr label="21" preset="p611Ack" postset="p5">
+		guard(activeChan == read_1ChanIndex);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady - 1;
+		v = read_1Val;
+		read_1Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="22" preset="p61" postset="p612Ack">
+		guard(i == 2 && activeChan == 0);
+		delay(0, inf);
+		read_2AckReady = read_2AckReady + 1;
+	</tr>
+	
+	<tr label="23" preset="p612Ack" postset="p5">
+		guard(activeChan == read_2ChanIndex);
+		delay(0, inf);
+		read_2AckReady = read_2AckReady - 1;
+		v = read_2Val;
+		read_2Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	//Acks are left as they are for the next 3 since p9 need sthem high
+	<tr label="24" preset="p8" postset="p80Ack">
+		guard(i == 0 && activeChan == 0);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady + 1;
+	</tr>
+	
+	<tr label="25" preset="p80Ack" postset="p9">
+		guard(activeChan == read_0ChanIndex);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady - 1;
+		v = read_0Val;
+		read_0Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="26" preset="p8" postset="p81Ack">
+		guard(i == 1 && activeChan == 0);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady + 1;
+	</tr>
+	
+	<tr label="27" preset="p81Ack" postset="p9">
+		guard(activeChan == read_1ChanIndex);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady - 1;
+		v = read_1Val;
+		read_1Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="28" preset="p8" postset="p82Ack">
+		guard(i == 2 && activeChan == 0);
+		delay(0, inf);
+		read_2AckReady = read_2AckReady + 1;
+	</tr>
+	
+	<tr label="29" preset="p82Ack" postset="p9">
+		guard(activeChan == read_2ChanIndex);
+		delay(0, inf);
+		read_2AckReady = read_2AckReady - 1;
+		v = read_2Val;
+		read_2Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="30" preset="p9" postset="p90Ack">
+		guard(v == 1 && i == 0 && activeChan == 0);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady + 1;
+	</tr>
+	
+	<tr label="31" preset="p90Ack" postset="p9">
+		guard(activeChan == read_0ChanIndex);
+		delay(0, inf);
+		read_0AckReady = read_0AckReady - 1;
+		v = read_0Val;
+		read_0Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="32" preset="p9" postset="p91Ack">
+		guard(v == 0 && i == 1 && activeChan == 0);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady + 1;
+	</tr>
+	
+	<tr label="33" preset="p91Ack" postset="p9">
+		guard(activeChan == read_1ChanIndex);
+		delay(0, inf);
+		read_1AckReady = read_1AckReady - 1;
+		v = read_1Val;
+		read_1Val = 0;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="34" preset="p9" postset="p92Ack">
+		guard(i == 2 && activeChan == 0);
+		delay(0, inf);
+		read_2AckReady = read_2AckReady + 1;
+	</tr>
+	
+	<tr label="35" preset="p92Ack" postset="p9">
+		guard(activeChan == read_2ChanIndex);
+		delay(0, inf);
+		v = read_2Val;
+		read_2Val = 0;
+		activeChan = 0;
+		read_2AckReady = read_2AckReady - 1;
+	</tr>
+	
+	<tr label="36" preset="p9" postset="p8">
+		guard(v == 0 && activeChan == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="37" preset="p8" postset="CS">
+		guard(i == 3 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="38" preset="CS" postset="w3">
+		guard(activeChan == 0 && writeAckReady > 0);
+		delay(0, inf);
+		writeVal = 0;
+		activeChan = writeChanIndex;
+		doneAckReady = doneAckReady + 1;
+	</tr>
+	
+	<tr label="40" preset="w3" postset="NCS">
+		guard(activeChan == doneChanIndex);
+		delay(0, inf);
+		activeChan = 0;
+		doneAckReady = doneAckReady - 1;
+	</tr>
+	
+</class>
+	

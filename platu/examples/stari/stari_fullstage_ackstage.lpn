@@ -1,0 +1,35 @@
+<mod name="stari_fullstage_ackstage.lpn">
+
+<input>  x2f,x2t  </input>
+<output>   ack2       </output>
+<var>             </var>
+<marking>   1      </marking>
+
+   <statevector>
+   ack2 = 1;
+   </statevector>
+
+//full stage - ackstage
+   <transition label="401" preset="1" postset="2">
+     x2t==1;
+     (100, 200);
+	 ack2 = 0;
+   </transition>
+   <transition label="402" preset="1" postset="2">
+     x2f==1;
+     (100, 200);
+	 ack2 = 0;
+   </transition>
+   <transition label="403" preset="2" postset="1">
+     x2t==0;
+     (100, 200);
+	 ack2 = 1;
+   </transition>
+   <transition label="404" preset="2" postset="1">
+     x2f==0;
+     (100, 200);
+	 ack2 = 1;
+   </transition>
+   
+   
+</mod>

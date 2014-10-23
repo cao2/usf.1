@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/platu/!svn/ver/624/trunk/nativeCode/NativeMDDHybrid
+END
+a.out
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/platu/!svn/ver/604/trunk/nativeCode/NativeMDDHybrid/a.out
+END
+NativeHybridMDDWrapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeMDDHybrid/NativeHybridMDDWrapper.h
+END
+BDDWrapper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/platu/!svn/ver/604/trunk/nativeCode/NativeMDDHybrid/BDDWrapper.cpp
+END
+NatArraySetEncodingByBdd.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeMDDHybrid/NatArraySetEncodingByBdd.hpp
+END
+cudd-2.4.2.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/platu/!svn/ver/608/trunk/nativeCode/NativeMDDHybrid/cudd-2.4.2.tar.gz
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeMDDHybrid/makefile
+END
+BDDWrapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/platu/!svn/ver/604/trunk/nativeCode/NativeMDDHybrid/BDDWrapper.h
+END
+Makefile-64bit
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/platu/!svn/ver/604/trunk/nativeCode/NativeMDDHybrid/Makefile-64bit
+END
+Makefile-64bit.inc
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeMDDHybrid/Makefile-64bit.inc
+END
+NativeHybridMDDWrapper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/platu/!svn/ver/624/trunk/nativeCode/NativeMDDHybrid/NativeHybridMDDWrapper.cpp
+END

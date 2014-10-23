@@ -1,0 +1,186 @@
+
+
+//LPN for philosopher's test
+
+<var>
+	fork0 = 0;
+	fork1 = 0;
+	fork2 = 0;
+	fork3 = 0;
+	fork4 = 0;
+</var>
+
+<main>
+	Phil0 p0();
+	Phil1 p1();
+	Phil2 p2();
+	Phil3 p3();
+	Phil4 p4();
+</main>
+
+<class name="Phil0" arg="">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(fork0 == 0);
+		delay(0, inf);
+		fork0 = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork1 == 0);
+		delay(0, inf);
+		fork1 = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork0 = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork1 = 0;
+	</tr>
+	
+</class>
+
+<class name="Phil1" arg="">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(fork1 == 0);
+		delay(0, inf);
+		fork1 = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork2 == 0);
+		delay(0, inf);
+		fork2 = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork1 = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork2 = 0;
+	</tr>
+	
+</class>
+
+<class name="Phil2" arg="">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label ="0" preset="think" postset="one">
+		guard(fork2 == 0);
+		delay(0, inf);
+		fork2 = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork3 == 0);
+		delay(0, inf);
+		fork3 = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork2 = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork2 = 0;
+	</tr>
+
+</class>
+
+<class name="Phil3" arg="">
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(fork3 == 0);
+		delay(0, inf);
+		fork3 = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork0 == 0);
+		delay(0, inf);
+		fork0 = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork3 = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork0 = 0;
+	</tr>
+</class>
+

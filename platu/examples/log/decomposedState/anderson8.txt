@@ -1,0 +1,76 @@
+--> Number of modules: 7
+--> Length of global vecvtor: 8
+--> globalVarList
+[(Slot[2], 0), (Slot[1], 0), (Slot[6], 0), (next, 0), (Slot[5], 0), (Slot[3], 0), (Slot[4], 0), (Slot[0], 1)]
+--> gVarIndexMap
+(Slot[2] 0), (Slot[1] 1), (Slot[6] 2), (next 3), (Slot[5] 4), (Slot[3] 5), (Slot[4] 6), (Slot[0] 7), 
+LPN: p0
+-->Internals: 		(p0.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p0.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+LPN: p1
+-->Internals: 		(p1.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p1.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+LPN: p2
+-->Internals: 		(p2.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p2.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+LPN: p3
+-->Internals: 		(p3.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p3.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+LPN: p4
+-->Internals: 		(p4.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p4.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+LPN: p5
+-->Internals: 		(p5.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p5.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+LPN: p6
+-->Internals: 		(p6.myPlace 0 INTERNAL), 
+-->Globals: 		(Slot[2] 1 GLOBAL), (Slot[1] 2 GLOBAL), (Slot[6] 3 GLOBAL), (next 4 GLOBAL), (Slot[5] 5 GLOBAL), (Slot[3] 6 GLOBAL), (Slot[4] 7 GLOBAL), (Slot[0] 8 GLOBAL), 
+--> VarIndexMap: 	(p6.myPlace 0),  (Slot[2] 1),  (Slot[1] 2),  (Slot[6] 3),  (next 4),  (Slot[5] 5),  (Slot[3] 6),  (Slot[4] 7),  (Slot[0] 8),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 860602, # of prjStates found: 210952, stack_depth: 71554, used memory: 139 MB, free memory: 92 MB, elapsed time: 7.006 seconds.
+--->  # of global vectors: 163
+---> state table stats: States in state table: 0
+---> Search stats:
+	LPN transition firing count: 1312892
+	State count: 255994
+	Global state vector count: 163
+	Local state pair counts:
+		Table 0 : 25622
+		Table 1 : 25829
+		Table 2 : 25967
+		Table 3 : 25898
+		Table 4 : 25842
+		Table 5 : 26287
+		Table 6 : 25958
+		Table 7 : 26323
+		Table 8 : 26183
+		Table 9 : 26297
+		Table 10 : 26377
+		Table 11 : 26236
+		Table 12 : 26568
+		Table 13 : 26447
+		Table 14 : 26460
+		Table 15 : 26425
+		Table 16 : 26486
+		Table 17 : 26838
+		Table 18 : 26546
+		Table 19 : 26734
+		Table 20 : 26804
+	max_stack_depth: 72768
+	peak total memory: 215 MB
+	peak used memory: 147 MB
+	Total elapsed time = 10.011 sec
+

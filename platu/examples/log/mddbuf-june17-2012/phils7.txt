@@ -1,0 +1,87 @@
+--> Number of modules: 13
+--> Length of global vecvtor: 14
+--> globalVarList
+[(count, 0), (p1.this_fork, 0), (p0.this_fork, 0), (p2.this_fork, 0), (p3.this_fork, 0), (p4.this_fork, 0), (p5.this_fork, 0), (p6.this_fork, 0), (p7.this_fork, 0), (p8.this_fork, 0), (p9.this_fork, 0), (p10.this_fork, 0), (p11.this_fork, 0), (p12.this_fork, 0)]
+--> gVarIndexMap
+(count 0), (p1.this_fork 1), (p0.this_fork 2), (p2.this_fork 3), (p3.this_fork 4), (p4.this_fork 5), (p5.this_fork 6), (p6.this_fork 7), (p7.this_fork 8), (p8.this_fork 9), (p9.this_fork 10), (p10.this_fork 11), (p11.this_fork 12), (p12.this_fork 13), 
+LPN: p0
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p1.this_fork 1 INPUT), (p0.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p1.this_fork 1),  (p0.this_fork 2),  
+
+LPN: p1
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p2.this_fork 1 INPUT), (p1.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p2.this_fork 1),  (p1.this_fork 2),  
+
+LPN: p2
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p2.this_fork 1 OUTPUT), (p3.this_fork 2 INPUT), 
+--> VarIndexMap: 	(count 0),  (p2.this_fork 1),  (p3.this_fork 2),  
+
+LPN: p3
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p4.this_fork 1 INPUT), (p3.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p4.this_fork 1),  (p3.this_fork 2),  
+
+LPN: p4
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p5.this_fork 1 INPUT), (p4.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p5.this_fork 1),  (p4.this_fork 2),  
+
+LPN: p5
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p5.this_fork 1 OUTPUT), (p6.this_fork 2 INPUT), 
+--> VarIndexMap: 	(count 0),  (p5.this_fork 1),  (p6.this_fork 2),  
+
+LPN: p6
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p7.this_fork 1 INPUT), (p6.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p7.this_fork 1),  (p6.this_fork 2),  
+
+LPN: p7
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p8.this_fork 1 INPUT), (p7.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p8.this_fork 1),  (p7.this_fork 2),  
+
+LPN: p8
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p8.this_fork 1 OUTPUT), (p9.this_fork 2 INPUT), 
+--> VarIndexMap: 	(count 0),  (p8.this_fork 1),  (p9.this_fork 2),  
+
+LPN: p9
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p9.this_fork 1 OUTPUT), (p10.this_fork 2 INPUT), 
+--> VarIndexMap: 	(count 0),  (p9.this_fork 1),  (p10.this_fork 2),  
+
+LPN: p10
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p11.this_fork 1 INPUT), (p10.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p11.this_fork 1),  (p10.this_fork 2),  
+
+LPN: p11
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p11.this_fork 1 OUTPUT), (p12.this_fork 2 INPUT), 
+--> VarIndexMap: 	(count 0),  (p11.this_fork 1),  (p12.this_fork 2),  
+
+LPN: p12
+-->Internals: 		
+-->Globals: 		(count 0 GLOBAL), (p0.this_fork 1 INPUT), (p12.this_fork 2 OUTPUT), 
+--> VarIndexMap: 	(count 0),  (p0.this_fork 1),  (p12.this_fork 2),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 999997, # of prjStates found: 642701, stack_depth: 642699 used memory: 1138.5084 free memory: 161.91838
+--->  # of global vectors: 19486
+---> state table stats: State count: 642701,  MDD node count: 0
+---> # LPN transition firings: 1999994, # of prjStates found: 1287042, stack_depth: 1287037 used memory: 762.4224 free memory: 1541.7333
+--->  # of global vectors: 30744
+---> state table stats: State count: 1287042,  MDD node count: 35701
+---> # LPN transition firings: 2999987, # of prjStates found: 1935438, stack_depth: 1935426 used memory: 672.9024 free memory: 1631.2533
+--->  # of global vectors: 37676
+---> state table stats: State count: 1935438,  MDD node count: 151671
+---> # LPN transition firings: 3999984, # of prjStates found: 2581860, stack_depth: 2581845 used memory: 759.78973 free memory: 1544.366
+--->  # of global vectors: 38780
+---> state table stats: State count: 2581860,  MDD node count: 231939
+---> # LPN transition firings: 4999984, # of prjStates found: 3189057, stack_depth: 3189042 used memory: 778.23047 free memory: 1525.9252
+--->  # of global vectors: 39354
+---> state table stats: State count: 3189057,  MDD node count: 279029

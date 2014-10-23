@@ -1,0 +1,24 @@
+<mod name="stari_right.lpn">
+
+<input>  clk </input>
+<output>    ack3      </output>
+<var>             </var>
+<marking>   1      </marking>
+
+   <statevector>
+		ack3=1;
+   </statevector>
+
+   //right
+   <transition label="701" preset="1" postset="2">
+     clk==1;
+     (0, 100);
+     ack3 = 0;
+   </transition>
+   <transition label="702" preset="2" postset="1">
+     clk==0;
+     (0, 100);
+     ack3 = 1;
+   </transition>
+   
+</mod>

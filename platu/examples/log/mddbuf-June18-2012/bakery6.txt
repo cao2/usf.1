@@ -1,0 +1,47 @@
+--> Number of modules: 4
+--> Length of global vecvtor: 8
+--> globalVarList
+[(number[3], 0), (choosing[0], 0), (number[1], 0), (choosing[1], 0), (choosing[2], 0), (number[0], 0), (number[2], 0), (choosing[3], 0)]
+--> gVarIndexMap
+(number[3] 0), (choosing[0] 1), (number[1] 2), (choosing[1] 3), (choosing[2] 4), (number[0] 5), (number[2] 6), (choosing[3] 7), 
+LPN: p0
+-->Internals: 		(p0.max 0 INTERNAL), (p0.j 1 INTERNAL), (p0.id 2 INTERNAL), 
+-->Globals: 		(number[3] 3 GLOBAL), (choosing[0] 4 GLOBAL), (number[1] 5 GLOBAL), (choosing[1] 6 GLOBAL), (choosing[2] 7 GLOBAL), (number[0] 8 GLOBAL), (number[2] 9 GLOBAL), (choosing[3] 10 GLOBAL), 
+--> VarIndexMap: 	(p0.max 0),  (p0.j 1),  (p0.id 2),  (number[3] 3),  (choosing[0] 4),  (number[1] 5),  (choosing[1] 6),  (choosing[2] 7),  (number[0] 8),  (number[2] 9),  (choosing[3] 10),  
+
+LPN: p1
+-->Internals: 		(p1.j 0 INTERNAL), (p1.id 1 INTERNAL), (p1.max 2 INTERNAL), 
+-->Globals: 		(number[3] 3 GLOBAL), (choosing[0] 4 GLOBAL), (number[1] 5 GLOBAL), (choosing[1] 6 GLOBAL), (choosing[2] 7 GLOBAL), (number[0] 8 GLOBAL), (number[2] 9 GLOBAL), (choosing[3] 10 GLOBAL), 
+--> VarIndexMap: 	(p1.j 0),  (p1.id 1),  (p1.max 2),  (number[3] 3),  (choosing[0] 4),  (number[1] 5),  (choosing[1] 6),  (choosing[2] 7),  (number[0] 8),  (number[2] 9),  (choosing[3] 10),  
+
+LPN: p2
+-->Internals: 		(p2.id 0 INTERNAL), (p2.max 1 INTERNAL), (p2.j 2 INTERNAL), 
+-->Globals: 		(number[3] 3 GLOBAL), (choosing[0] 4 GLOBAL), (number[1] 5 GLOBAL), (choosing[1] 6 GLOBAL), (choosing[2] 7 GLOBAL), (number[0] 8 GLOBAL), (number[2] 9 GLOBAL), (choosing[3] 10 GLOBAL), 
+--> VarIndexMap: 	(p2.id 0),  (p2.max 1),  (p2.j 2),  (number[3] 3),  (choosing[0] 4),  (number[1] 5),  (choosing[1] 6),  (choosing[2] 7),  (number[0] 8),  (number[2] 9),  (choosing[3] 10),  
+
+LPN: p3
+-->Internals: 		(p3.id 0 INTERNAL), (p3.max 1 INTERNAL), (p3.j 2 INTERNAL), 
+-->Globals: 		(number[3] 3 GLOBAL), (choosing[0] 4 GLOBAL), (number[1] 5 GLOBAL), (choosing[1] 6 GLOBAL), (choosing[2] 7 GLOBAL), (number[0] 8 GLOBAL), (number[2] 9 GLOBAL), (choosing[3] 10 GLOBAL), 
+--> VarIndexMap: 	(p3.id 0),  (p3.max 1),  (p3.j 2),  (number[3] 3),  (choosing[0] 4),  (number[1] 5),  (choosing[1] 6),  (choosing[2] 7),  (number[0] 8),  (number[2] 9),  (choosing[3] 10),  
+
+---> start search_dfs ...
+*** Verification failed: deadlock.
+*** Deadlock state layout:
+Marking: [2,]
+Vector: [p0.max=>3, p0.j=>3, p0.id=>0, number[3]=>0, choosing[0]=>0, number[1]=>0, choosing[1]=>0, choosing[2]=>0, number[0]=>0, number[2]=>0, choosing[3]=>0, ]
+Marking: [2,]
+Vector: [p1.j=>3, p1.id=>1, p1.max=>4, number[3]=>0, choosing[0]=>0, number[1]=>0, choosing[1]=>0, choosing[2]=>0, number[0]=>0, number[2]=>0, choosing[3]=>0, ]
+Marking: [2,]
+Vector: [p2.id=>2, p2.max=>2, p2.j=>3, number[3]=>0, choosing[0]=>0, number[1]=>0, choosing[1]=>0, choosing[2]=>0, number[0]=>0, number[2]=>0, choosing[3]=>0, ]
+Marking: [1,]
+Vector: [p3.id=>3, p3.max=>5, p3.j=>3, number[3]=>0, choosing[0]=>0, number[1]=>0, choosing[1]=>0, choosing[2]=>0, number[0]=>0, number[2]=>0, choosing[3]=>0, ]
+[(number[3],0), (choosing[0],0), (number[1],5), (choosing[1],0), (choosing[2],0), (number[0],4), (number[2],3), (choosing[3],1), ]
+
+---> Search stats:
+	# LPN transition firings: 2250
+	# of states found: 2012
+	max_stack_depth: 1896
+	peak total memory: 85 MB
+	peak used memory: 15 MB
+	Total elapsed time = 0.231 sec
+

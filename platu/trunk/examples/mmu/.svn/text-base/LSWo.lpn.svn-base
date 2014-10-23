@@ -1,0 +1,74 @@
+<mod name="LSWo.lpn">
+
+<input>
+bo, b2i, rai, rao, mdlo
+</input>
+<output>
+lswi, lswo
+</output>
+<var>
+w1_c4, w2_c4
+</var>
+
+   <marking>
+   26,   27,   29, 30
+   </marking>
+
+   <statevector>
+   b2i = 0;
+   bo = 0;
+   lswi = 0;
+   lswo = 0;
+   mdlo = 0;
+   rai = 0;
+   rao = 0;
+   w1_c4 = 0;
+   w2_c4 = 0;
+   </statevector>
+
+
+   <transition label="85" preset="27" postset="28">
+     rai && b2i && !lswi && rao && bo && !w1_c4;
+     (0, inf);
+     w1_c4 = 1;
+   </transition>
+   <transition label="86" preset="27" postset="28">
+     (!rai || !b2i || lswi || !rao || !bo) && w1_c4;
+     (0, inf);
+     w1_c4 = 0;
+   </transition>
+   <transition label="87" preset="28" postset="27">
+     true;
+     (0, inf);
+   </transition>
+   <transition label="88" preset="26" postset="26">
+     mdlo && lswo && !w2_c4;
+     (0, inf);
+     w2_c4 = 1;
+   </transition>
+   <transition label="89" preset="26" postset="26">
+     (!mdlo || !lswo) && w2_c4;
+     (0, inf);
+     w2_c4 = 0;
+   </transition>
+   <transition label="91" preset="29" postset="29">
+     !lswo && w1_c4 && !w2_c4;
+     (0, inf);
+     lswo = 1;
+   </transition>
+   <transition label="92" preset="29" postset="29">
+     lswo && !w1_c4 && w2_c4;
+     (0, inf);
+     lswo = 0;
+   </transition>
+   <transition label="93" preset="30" postset="30">
+     !lswi && lswo;
+     (0, inf);
+     lswi = 1;
+   </transition>
+   <transition label="94" preset="30" postset="30">
+     lswi && !lswo;
+     (0, inf);
+     lswi = 0;
+   </transition>
+</mod>

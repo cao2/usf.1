@@ -1,0 +1,82 @@
+<mod name="comsumer.lpn">
+<const>
+ready = 7;
+get_msg = 8;
+check = 9;
+st_error = 10;
+RoutReceiveInternal = 11;
+ShakePCReceiveInternal = 12;
+</const>
+
+<input>
+RoutReq,m,ShakePCReq,Prod_n
+</input>
+<output>
+RoutAck,ShakePCAck
+</output>
+
+<var>
+n, lm
+</var>
+
+<marking>
+7
+</marking>
+
+<statevector>
+RoutReq = 0;
+m = 0;
+ShakePCReq = 0;
+RoutAck = 0;
+ShakePCAck = 0;
+n = 0;
+Prod_n = 0;
+lm = 0;
+</statevector>
+
+<transition label="13" preset="ready" postset="RoutReceiveInternal">
+RoutReq == 1;
+(0, inf);
+lm = m; RoutAck = 1;n = n+1;
+</transition>
+
+<transition label="14" preset="RoutReceiveInternal" postset="get_msg">
+RoutReq == 0;
+(0, inf);
+RoutAck = 0;
+</transition>
+
+<transition label="15" preset="get_msg" postset="ready">
+lm == 4 || lm == 5;
+(0, inf);
+</transition>
+
+<transition label="16" preset="get_msg" postset="ready">
+lm == 2;
+(0, inf);
+n = 0;
+</transition>
+
+<transition label="17" preset="get_msg" postset="check">
+lm == 1;
+(0, inf);
+</transition>
+
+<transition label="18" preset="check" postset="ShakePCReceiveInternal">
+n == Prod_n && ShakePCReq==1;
+(0, inf);
+ShakePCAck=1;n=0;
+</transition>
+
+<transition label="19" preset="ShakePCReceiveInternal" postset="ready">
+ShakePCReq==0;
+(0, inf);
+ShakePCAck=0;
+</transition>
+
+<transition label="20" preset="check" postset="st_error">
+n != Prod_n; 
+(0, inf);
+</transition>
+
+</mod>

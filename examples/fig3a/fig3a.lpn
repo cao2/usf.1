@@ -1,0 +1,96 @@
+<var>
+q = 0;
+</var>
+
+<mod name="m1">    
+	<var>
+        u = 1;
+        y = 0;
+    </var>
+
+    <marking> 1,2 </marking>
+
+    <transition label="1" preset="1" postset="1"  >
+        z && u;
+        (2, 5);
+        u = 0;
+    </transition>
+    <transition label="2" preset="1" postset="1"  >
+        !z && !u;
+        (2, 5);
+        u = 1;
+    </transition>
+    <transition label="3" preset="2" postset="2"  >
+        u && y;
+        (2, 5);
+        y = 0;
+    </transition>
+    <transition label="4" preset="2" postset="2"  >
+        !u && !y;
+        (2, 5);
+        y = 1;
+    </transition>
+</mod>
+
+<mod name="m2">
+
+	<var>
+        v = 1;
+        x = 0;
+    </var>
+
+    <marking> 1,2 </marking>
+
+    <transition label="1" preset="1" postset="1"  >
+        z && v;
+        (1, 4);
+        v = 0;
+    </transition>
+    <transition label="2" preset="1" postset="1"  >
+        !z && !v;
+        (1, 4);
+        v = 1;
+    </transition>
+    <transition label="3" preset="2" postset="2"  >
+        v && x;
+        (1, 4);
+        x = 0;
+    </transition>
+    <transition label="4" preset="2" postset="2"  >
+        !v && !x;
+        (1, 4);
+        x = 1;
+    </transition>
+</mod>
+
+<mod name="m3">
+	<const> f = 1; </const>
+
+	<var>
+      w = 0;
+      z = 0;
+    </var>
+
+    <marking> f,2 </marking>
+
+    <transition label="1" preset="f" postset="1"  >
+      x && y && !w;
+      (0, 5);
+      w = 1;
+    </transition>
+    <transition label="2" preset="1" postset="1"  >
+      !x && !y && w;
+      (0, 5);
+      w = 0;
+    </transition>
+    <transition label="3" preset="2" postset="2"  >
+      w && z;
+      (0, 5);
+      z = 0;
+    </transition>
+    <transition label="4" preset="2" postset="2"  >
+      !w && !z;
+      (0, 5);
+      z = 1;
+    </transition>
+</mod>

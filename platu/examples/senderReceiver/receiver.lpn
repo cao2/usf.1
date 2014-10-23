@@ -1,0 +1,181 @@
+<mod name="receiver.lpn">
+
+<const>
+new_file = 32;
+first_safe = 33;
+frame_received = 34;
+frame_reported = 35;
+idle = 36;
+ret = 37;
+fromKReceiveInternal1 = 38;
+RoutSendInternal1 = 39;
+RoutSendInternal2 = 40;
+RoutSendInternal3 = 41;
+toLSendInternal1 = 42;
+toLSendInternal2 = 43;
+fromKReceiveInternal2 = 44;
+RoutSendInternal4 = 45;
+shakeReceiveInternal1 = 46;
+shakeReceiveInternal2 = 47;
+</const>
+
+<input>
+fromKReq,value,RoutAck,toLAck,shakeReq
+</input>
+<output>
+fromKAck,RoutReq,m,toLReq,shakeAck
+</output>
+
+<var>
+exp_ab
+</var>
+<marking>
+32
+</marking>
+
+<statevector>
+fromKReq = 0;
+value=0;
+RoutAck=0;
+toLAck=0;
+shakeReq=0;
+fromKAck=0;
+RoutReq=0;
+m=0;
+toLReq=0;
+shakeAck=0;
+exp_ab=0;
+</statevector>
+
+<transition label="76" preset=new_file postset=fromKReceiveInternal1>
+fromKReq == 1;
+(0, inf);
+fromKAck = 1;
+</transition>
+
+<transition label="77" preset=fromKReceiveInternal1 postset=first_safe>
+fromKReq == 0;
+(0, inf);
+fromKAck = 0;
+</transition>
+
+<transition label="78" preset=first_safe postset=frame_received>
+true;
+(0, inf);
+exp_ab = (value & 1);
+</transition>
+
+<transition label="79" preset=frame_received postset=RoutSendInternal1>
+(value & 1) == exp_ab && (value & 2)==2 && RoutAck==0 ;
+(0, inf);
+m=1;RoutReq=1;
+</transition>
+
+<transition label="80" preset=RoutSendInternal1 postset=frame_reported>
+RoutAck==1;
+(0, inf);
+RoutReq=0;
+</transition>
+
+<transition label="81" preset=frame_received postset=RoutSendInternal2>
+(value & 1) == exp_ab && (value & 2)==0 && (value & 4)==0 && RoutAck==0 ;
+(0, inf);
+m=5;RoutReq=1;
+</transition>
+
+<transition label="82" preset=RoutSendInternal2 postset=frame_reported>
+RoutAck==1;
+(0, inf);
+RoutReq=0;
+</transition>
+
+<transition label="83" preset=frame_received postset=RoutSendInternal3>
+(value & 1) == exp_ab && (value & 2)==0 && (value & 4)==4 && RoutAck==0;
+(0, inf);
+m=4;RoutReq=1;
+</transition>
+
+<transition label="84" preset=RoutSendInternal3 postset=frame_reported>
+RoutAck==1;
+(0, inf);
+RoutReq=0;
+</transition>
+
+<transition label="85" preset=frame_received postset=toLSendInternal1>
+exp_ab != (value & 1) && toLAck==0;
+(0, inf);
+toLReq=1;
+</transition>
+
+<transition label="86" preset=toLSendInternal1 postset=idle>
+toLAck==1;
+(0, inf);
+toLReq=0;
+</transition>
+
+<transition label="87" preset=frame_received postset=toLSendInternal2>
+toLAck==0;
+(0, inf);
+toLReq=1;exp_ab=1-exp_ab;
+</transition>
+
+<transition label="88" preset=toLSendInternal2 postset=idle>
+toLAck==1;
+(0, inf);
+toLReq=0;
+</transition>
+
+<transition label="89" preset=idle postset=fromKReceiveInternal2>
+fromKReq == 1;
+(0, inf);
+fromKAck = 1;
+</transition>
+
+<transition label="90" preset=fromKReceiveInternal2 postset=frame_received>
+fromKReq == 0;
+(0, inf);
+fromKAck = 0;
+</transition>
+
+<transition label="91" preset=idle postset=ret>
+(value & 2)==2;
+(0, inf);
+</transition>
+
+<transition label="92" preset=idle postset=RoutSendInternal4>
+RoutAck == 0;
+(0, inf);
+m=2;RoutReq = 1;
+</transition>
+
+<transition label="93" preset=RoutSendInternal4 postset=ret>
+RoutAck == 1;
+(0, inf);
+RoutReq = 0;
+</transition>
+
+<transition label="94" preset=ret postset=shakeReceiveInternal1>
+shakeReq == 1;
+(0, inf);
+shakeAck = 1;
+</transition>
+
+<transition label="95" preset=shakeReceiveInternal1 postset=new_file>
+shakeReq == 0;
+(0, inf);
+shakeAck = 0;
+</transition>
+
+<transition label="96" preset=new_file postset=shakeReceiveInternal2>
+shakeReq == 1;
+(0, inf);
+shakeAck = 1;
+</transition>
+
+<transition label="97" preset=shakeReceiveInternal2 postset=new_file>
+shakeReq == 0;
+(0, inf);
+shakeAck = 0;
+</transition>
+
+</mod>

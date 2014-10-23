@@ -1,0 +1,33 @@
+--> Number of modules: 3
+--> Length of global vecvtor: 6
+--> globalVarList
+[(c2.ackout, 0), (c3.reqout, 0), (c1.reqout, 0), (c1.ackout, 0), (c3.ackout, 0), (c2.reqout, 0)]
+--> gVarIndexMap
+(c2.ackout 0), (c3.reqout 1), (c1.reqout 2), (c1.ackout 3), (c3.ackout 4), (c2.reqout 5), 
+LPN: c1
+-->Internals: 		(c1.bfo 0 INTERNAL), (c1.b 1 INTERNAL), (c1.mack1 2 INTERNAL), (c1.so 3 INTERNAL), (c1.mreq1 4 INTERNAL), (c1.qo 5 INTERNAL), (c1.po 6 INTERNAL), (c1.bto 7 INTERNAL), (c1.to 8 INTERNAL), 
+-->Globals: 		(c2.ackout 9 INPUT), (c3.reqout 10 INPUT), (c1.reqout 11 OUTPUT), (c1.ackout 12 OUTPUT), 
+--> VarIndexMap: 	(c1.bfo 0),  (c1.b 1),  (c1.mack1 2),  (c1.so 3),  (c1.mreq1 4),  (c1.qo 5),  (c1.po 6),  (c1.bto 7),  (c1.to 8),  (c2.ackout 9),  (c3.reqout 10),  (c1.reqout 11),  (c1.ackout 12),  
+
+LPN: c2
+-->Internals: 		(c2.mack1 0 INTERNAL), (c2.to 1 INTERNAL), (c2.b 2 INTERNAL), (c2.bto 3 INTERNAL), (c2.mreq1 4 INTERNAL), (c2.qo 5 INTERNAL), (c2.po 6 INTERNAL), (c2.so 7 INTERNAL), (c2.bfo 8 INTERNAL), 
+-->Globals: 		(c2.ackout 9 OUTPUT), (c3.ackout 10 INPUT), (c2.reqout 11 OUTPUT), (c1.reqout 12 INPUT), 
+--> VarIndexMap: 	(c2.mack1 0),  (c2.to 1),  (c2.b 2),  (c2.bto 3),  (c2.mreq1 4),  (c2.qo 5),  (c2.po 6),  (c2.so 7),  (c2.bfo 8),  (c2.ackout 9),  (c3.ackout 10),  (c2.reqout 11),  (c1.reqout 12),  
+
+LPN: c3
+-->Internals: 		(c3.bfo 0 INTERNAL), (c3.to 1 INTERNAL), (c3.so 2 INTERNAL), (c3.bto 3 INTERNAL), (c3.mreq1 4 INTERNAL), (c3.qo 5 INTERNAL), (c3.mack1 6 INTERNAL), (c3.b 7 INTERNAL), (c3.po 8 INTERNAL), 
+-->Globals: 		(c3.reqout 9 OUTPUT), (c3.ackout 10 OUTPUT), (c2.reqout 11 INPUT), (c1.ackout 12 INPUT), 
+--> VarIndexMap: 	(c3.bfo 0),  (c3.to 1),  (c3.so 2),  (c3.bto 3),  (c3.mreq1 4),  (c3.qo 5),  (c3.mack1 6),  (c3.b 7),  (c3.po 8),  (c3.reqout 9),  (c3.ackout 10),  (c2.reqout 11),  (c1.ackout 12),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 832732, # of prjStates found: 180974, stack_depth: 13706 used memory: 18.3266 free memory: 66.67359
+--->  # of global vectors: 19
+---> state table stats: State count: 180974,  MDD node count: 0
+---> Search stats:
+	# LPN transition firings: 1290534
+	# of states found: 267999
+	max_stack_depth: 20858
+	peak total memory: 85 MB
+	peak used memory: 29 MB
+	Total elapsed time = 2.414 sec
+

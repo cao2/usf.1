@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/platu/!svn/ver/635/trunk/src/platu/logicAnalysis
+END
+PrjLpnState.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/platu/!svn/ver/533/trunk/src/platu/logicAnalysis/PrjLpnState.java
+END
+CompositionalThread.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/603/trunk/src/platu/logicAnalysis/CompositionalThread.java
+END
+Constraint.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/platu/!svn/ver/618/trunk/src/platu/logicAnalysis/Constraint.java
+END
+Analysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/platu/!svn/ver/634/trunk/src/platu/logicAnalysis/Analysis.java
+END
+CompositeState.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/platu/!svn/ver/617/trunk/src/platu/logicAnalysis/CompositeState.java
+END
+LpnState.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/platu/!svn/ver/533/trunk/src/platu/logicAnalysis/LpnState.java
+END
+CompositeStateTran.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/platu/!svn/ver/538/trunk/src/platu/logicAnalysis/CompositeStateTran.java
+END
+CompositeStateGraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/617/trunk/src/platu/logicAnalysis/CompositeStateGraph.java
+END
+CompositionalMinimization.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/platu/!svn/ver/621/trunk/src/platu/logicAnalysis/CompositionalMinimization.java
+END
+CompositionalAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/635/trunk/src/platu/logicAnalysis/CompositionalAnalysis.java
+END

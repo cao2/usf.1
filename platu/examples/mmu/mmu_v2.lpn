@@ -1,0 +1,775 @@
+<main>
+   Env env(mdlov.o, mdsov.o);
+
+   MDLo iMDLo(env.mdli, bov.o1, lsrov.o2, lsrov.o1, lswov.o2, lswov.o1, mslov.o2, raov.o1, mslov.o1);
+
+   Abst mdlov(iMDLo.mdlo);
+   
+   MDSo iMDSo(env.mdsi, sswov.o2, mssov.o2, sswov.o1, mssov.o1, bov.o1, waov.o1, ssrov.o2, ssrov.o1);
+
+   Abst mdsov(iMDSo.mdso);
+   
+   Bo iBo(sswov.o1, mssov.o1, env.mdsi, mdsov.o, lsrov.o1, lswov.o1, mslov.o1, env.mdli, ssrov.o1, mdlov.o);
+   Abst4 bov(iBo.bo, iBo.b1i, iBo.b2i, iBo.b3i);
+
+
+   RAo iRAo(lsrov.o1, lswov.o1, mslov.o1, env.mdli, mdlov.o);
+   Abst2 raov(iRAo.rao, iRAo.rai);
+
+   LSRo iLSRo(bov.o1, bov.o2, raov.o2, raov.o1, mdlov.o);
+   Abst2 lsrov(iLSRo.lsro, iLSRo.lsri);
+
+   LSWo iLSWo(bov.o1, bov.o3, raov.o2, raov.o1, mdlov.o);
+   Abst2 lswov(iLSWo.lswo, iLSWo.lswi);
+
+   MSLo iMSLo(bov.o1, bov.o4, raov.o2, raov.o1, mdlov.o;
+   Abst2 mslov(iMSLo.mslo, iMSLo.msli);
+
+
+   WAo iWAo(sswov.o1, mssov.o1, env.mdsi, mdsov.o, ssrov.o1);
+   Abst2 waov(iWAo.wao, iWAo.wai);
+
+   SSRo iSSRo(mdsov.o, bov.o1, waov.o2, waov.o1, bov.o2);
+   Abst2 ssrov(iSSRo.ssro, iSSRo.ssri);
+
+   SSWo iSSWo(mdsov.o, bov.o1, waov.o2, waov.o1, bov.o3);
+   Abst2 sswov(iSSWo.sswo, iSSWo.sswi);
+
+   MSSo iMSSo(mdsov.o, bov.o1, waov.o2, waov.o1, bov.o4);
+   Abst2 mssov(iMSSo.msso, iMSSo.mssi);
+</main>
+
+<class name="Env" arg="mdlo, mdso">
+<var>
+  mdsi = 0;
+  mdli = 0;
+</var>
+
+<m> 0 </m>
+
+  <tr label="1" preset="0" postset="1">
+     guard(!mdlo && !mdso);
+     mdli = 1;
+   </tr>
+   <tr label="2" preset="1" postset="0">
+     guard(mdli && mdlo);
+     mdli = 0;
+   </tr>
+
+   <tr label="3" preset="0" postset="2">
+     guard(!mdlo && !mdso);
+     mdsi = 1;
+   </tr>
+   <tr label="4" preset="2" postset="0">
+     guard(mdsi && mdso);
+     mdsi = 0;
+   </tr>
+</class>
+ 
+<class name="Abst" arg="i">
+<var> 
+   o = 0;
+</var>
+
+<m> 0 </m>
+
+  <tr label="1" preset="0" postset="0">
+     o = i;
+   </tr>
+
+</class>
+
+<class name="Abst2" arg="i1, i2">
+<var> 
+   o1 = 0;
+   o2 = 0;
+</var>
+
+<m> 0, 1 </m>
+
+  <tr label="1" preset="0" postset="0">
+     o1 = i1;
+   </tr>
+
+  <tr label="2" preset="1" postset="1">
+     o2 = i2;
+   </tr>
+
+</class>
+
+<class name="Abst3" arg="i1, i2, i3">
+<var> 
+   o1 = 0;
+   o2 = 0;
+   o3 = 0;
+</var>
+
+<m> 1, 2, 3 </m>
+
+  <tr label="1" preset="1" postset="1">
+     o1 = i1;
+   </tr>
+
+  <tr label="2" preset="2" postset="2">
+     o2 = i2;
+   </tr>
+
+  <tr label="3" preset="3" postset="3">
+     o3 = i3;
+   </tr>
+
+</class>
+
+<class name="Abst4" arg="i1, i2, i3, i4">
+<var> 
+   o1 = 0;
+   o2 = 0;
+   o3 = 0;
+   o4 = 0;
+</var>
+
+<m> 1, 2, 3, 4 </m>
+
+  <tr label="1" preset="1" postset="1">
+     o1 = i1;
+   </tr>
+
+  <tr label="2" preset="2" postset="2">
+     o2 = i2;
+   </tr>
+
+  <tr label="3" preset="3" postset="3">
+     o3 = i3;
+   </tr>
+
+  <tr label="4" preset="4" postset="4">
+     o4 = i4;
+   </tr>
+
+</class>
+
+
+<class name="MDLo" arg="mdli, bo, lsri, lsro, lswi, lswo, msli, rao, mslo">
+
+<var>
+mdlo = 0;
+w4_c1 = 0;
+w1_c1 = 0;
+w3_c1 = 0;
+w5_c1 = 1;
+w2_c1 = 0; 
+</var>
+
+
+   <m>
+   0,   2,   5,   6,   8,   10,   94
+   </m>
+
+   <tr label="20" preset="0" postset="0">
+     guard(lsri && !bo && !rao && lsro && !w1_c1);
+     w1_c1 = 1;
+   </tr>
+   <tr label="21" preset="0" postset="0">
+     guard((!lsri || bo || rao || !lsri) && w1_c1);
+     w1_c1 = 0;
+   </tr>
+   <tr label="23" preset="2" postset="2">
+     guard(lswi && !bo && !rao && lswo && !w2_c1);
+     w2_c1 = 1;
+   </tr>
+   <tr label="24" preset="2" postset="2">
+     guard((!lswi || bo || rao || !lswo) && w2_c1);
+     w2_c1 = 0;
+   </tr>
+   <tr label="26" preset="6" postset="6">
+     guard(msli && !bo && !rao && mslo && !w3_c1);
+     w3_c1 = 1;
+   </tr>
+   <tr label="27" preset="6" postset="6">
+     guard((!msli || bo || rao || !mslo) && w3_c1);
+     w3_c1 = 0;
+   </tr>
+   <tr label="28" preset="5" postset="5">
+     guard(!w1_c1 && !w2_c1 && !w3_c1 && w4_c1);
+     w4_c1 = 0;
+   </tr>
+   <tr label="31" preset="5" postset="5">
+     guard((w1_c1 || w2_c1 || w3_c1) && !w4_c1);
+     w4_c1 = 1;
+   </tr>
+   <tr label="32" preset="8" postset="8">
+     guard(!mdli && !lsro && !lswo && !mslo && !w5_c1);
+     w5_c1 = 1;
+   </tr>
+   <tr label="34" preset="8" postset="8">
+     guard((mdli || lsro || lswo || mslo) && w5_c1);
+     w5_c1 = 0;
+   </tr>
+   <tr label="33" preset="10" postset="10">
+      guard(!mdlo && w4_c1 && !w5_c1);
+     mdlo = 1;
+   </tr>
+   <tr label="35" preset="10" postset="10">
+     guard(mdlo && !w4_c1 && w5_c1);
+     mdlo = 0;
+   </tr>
+</class>
+
+
+
+<class name="MDSo" arg="mdsi, sswi, mssi, sswo, msso, bo, wao, ssri, ssro">
+
+<var>
+mdso = 0;
+w4_c5 = 0;
+w1_c5 = 0; 
+w3_c5 = 0; 
+w5_c5 = 1; 
+w2_c5 = 0;
+</var>
+
+   <m>
+   31,   33,   35,   37,   40,   42,   43
+   </m>
+
+   <tr label="114" preset="31" postset="31">
+     guard(ssri && !wao && !bo && ssro && !w1_c5);
+     w1_c5 = 1;
+   </tr>
+   <tr label="115" preset="31" postset="31">
+     guard((!ssri || wao || bo || !ssro) && w1_c5);
+     w1_c5 = 0;
+   </tr> 
+   <tr label="117" preset="37" postset="37">
+     guard(sswi && !wao && !bo && sswo && !w2_c5);
+     w2_c5 = 1;
+   </tr>
+   <tr label="118" preset="37" postset="37">
+     guard((!sswi || wao || bo || !sswo) && w2_c5);
+     w2_c5 = 0;
+   </tr> 
+   <tr label="120" preset="33" postset="33">
+     guard(mssi && !wao && !bo && msso && !w3_c5);
+     w3_c5 = 1;
+   </tr>
+   <tr label="121" preset="33" postset="33">
+     guard((!mssi || wao || bo || !msso) && w3_c5);
+     w3_c5 = 0;
+   </tr>
+   <tr label="122" preset="35" postset="35">
+     guard(!w1_c5 && !w2_c5 && !w3_c5 && w4_c5);
+     w4_c5 = 0;
+   </tr>
+   <tr label="125" preset="35" postset="35">
+     guard((w1_c5 || w2_c5 || w3_c5) && !w4_c5);
+     w4_c5 = 1;
+   </tr>
+   <tr label="126" preset="40" postset="40">
+     guard(!mdsi && !ssro && !sswo && !msso && !w5_c5);
+     w5_c5 = 1;
+   </tr>
+   <tr label="128" preset="40" postset="40">
+     guard((mdsi || ssro || sswo || msso) && w5_c5);
+     w5_c5 = 0;
+   </tr>
+   <tr label="127" preset="42" postset="42">
+     guard(!mdso && w4_c5 && !w5_c5);
+     mdso = 1;
+   </tr>
+   <tr label="129" preset="42" postset="42">
+     guard(mdso && !w4_c5 && w5_c5);
+     mdso = 0;
+   </tr>
+</class>
+
+
+
+<class name="MSLo" arg="bo, b3i, rai, rao, mdlo">
+
+<var> 
+msli = 0;
+mslo = 0; 
+w1_c2 = 0;
+w2_c2 = 0; 
+</var>
+
+   <m>
+   13,   15,   17, 18
+   </m>
+
+   <tr label="49" preset="13" postset="13">
+     guard(rai && b3i && !msli && rao && bo && !w1_c2);
+     w1_c2 = 1;
+   </tr>
+   <tr label="50" preset="13" postset="13">
+     guard((!rai || !b3i || msli || !rao || !bo) && w1_c2);
+     w1_c2 = 0;
+   </tr>
+   <tr label="52" preset="15" postset="15">
+     guard(mdlo && mslo&& !w2_c2);
+     w2_c2 = 1;
+   </tr>
+   <tr label="53" preset="15" postset="15">
+      guard(!mdlo && w2_c2 || mdlo && !mslo && w2_c2);
+     w2_c2 = 0;
+   </tr>
+   <tr label="55" preset="17" postset="17">
+      guard(!mslo && w1_c2 && !w2_c2);
+     mslo = 1;
+   </tr>
+   <tr label="56" preset="17" postset="17">
+     guard(mslo && !w1_c2 && w2_c2);
+     mslo = 0;
+   </tr>
+   <tr label="57" preset="18" postset="18">
+     guard(!msli && mslo);
+     msli = 1;
+   </tr>
+   <tr label="58" preset="18" postset="18">
+     guard(msli && !mslo);
+     msli = 0;
+   </tr>
+</class>
+
+
+<class name="MSSo" arg="mdso, bo, wai, wao, b3i">
+
+<var>
+mssi = 0;
+msso = 0;
+w1_c9 = 0;
+w2_c9 = 0;
+</var>
+
+   <m>
+   62,   64,   66, 67
+   </m>
+
+   <tr label="197" preset="62" postset="62">
+     guard(wai && b3i && !mssi && wao && bo && !w1_c9);
+     w1_c9 = 1;
+   </tr>
+   <tr label="198" preset="62" postset="62">
+     guard((!wai || !b3i || mssi || !wao || !bo) && w1_c9);
+     w1_c9 = 0;
+   </tr>
+   <tr label="200" preset="64" postset="64">
+     guard(mdso && msso && !w2_c9);
+     w2_c9 = 1;
+   </tr>
+   <tr label="201" preset="64" postset="64">
+     guard((!mdso || !msso) && w2_c9);
+     w2_c9 = 0;
+   </tr>
+   <tr label="203" preset="66" postset="66">
+      guard(!msso && w1_c9&& !w2_c9);
+     msso = 1;
+   </tr>
+   <tr label="204" preset="66" postset="66">
+     guard(msso&& !w1_c9 && w2_c9);
+     msso = 0;
+   </tr>
+   <tr label="205" preset="67" postset="67">
+     guard(!mssi && msso);
+     mssi = 1;
+   </tr>
+   <tr label="206" preset="67" postset="67">
+     guard(mssi && !msso);
+     mssi = 0;
+   </tr>
+</class>
+
+
+
+<class name="RAo" arg="lsro, lswo, mslo, mdli, mdlo">
+
+<var>	
+rao = 0;
+rai = 0;
+w1_c6 = 0; 
+w2_c6 = 0;
+</var>
+
+   <m>
+   44,   46,   48, 50
+   </m>
+
+   <tr label="143" preset="44" postset="44">
+     guard(mdli && !rai && !mdlo && !lsro && !lswo && !mslo && !w1_c6);
+     w1_c6 = 1;
+   </tr>
+   <tr label="144" preset="44" postset="44">
+     guard((!mdli || rai || mdlo || lsro || lswo || mslo) && w1_c6); 
+     w1_c6 = 0;
+   </tr>
+   <tr label="146" preset="48" postset="48">
+     guard((lsro || lswo || mslo ) && !w2_c6); 
+     w2_c6 = 1;
+   </tr>
+   <tr label="147" preset="48" postset="48">
+      guard(!lsro && !lswo && !mslo && w2_c6);
+     w2_c6 = 0;
+   </tr>
+   <tr label="149" preset="46" postset="46">
+      guard(!rao && w1_c6 && !w2_c6);
+     rao = 1;
+   </tr>
+   <tr label="150" preset="46" postset="46">
+     guard(rao&& !w1_c6 && w2_c6);
+     rao = 0;
+   </tr>
+   <tr label="152" preset="50" postset="50">
+     guard(!rai && rao);
+     rai = 1;
+   </tr>
+   <tr label="153" preset="50" postset="50">
+     guard(rai && !rao);
+     rai = 0;
+   </tr>
+</class>
+
+
+
+<class name="SSRo" arg="mdso, bo, wai, wao, b1i">
+
+<var>
+ssri = 0;
+ssro = 0;
+w1_c10 = 0; 
+w2_c10 = 0;
+</var>
+
+   <m>
+   69,   70,   72, 73
+   </m>
+
+   <tr label="215" preset="70" postset="70">
+     guard(wai && b1i && !ssri && wao && bo && !w1_c10);
+     w1_c10 = 1;
+   </tr>
+   <tr label="216" preset="70" postset="70">
+     guard((!wai || !b1i || ssri || !wao || !bo) && w1_c10);
+     w1_c10 = 0;
+   </tr>
+   <tr label="218" preset="69" postset="69">
+     guard(mdso && ssro && !w2_c10);
+     w2_c10 = 1;
+   </tr>
+   <tr label="219" preset="69" postset="69">
+     guard((!mdso || !ssro) && w2_c10);
+     w2_c10 = 0;
+   </tr>
+   <tr label="221" preset="72" postset="72">
+      guard(!ssro && w1_c10&& !w2_c10);
+     ssro = 1;
+   </tr>
+   <tr label="222" preset="72" postset="72">
+     guard(ssro&& !w1_c10 && w2_c10);
+     ssro = 0;
+   </tr>
+   <tr label="223" preset="73" postset="73">
+     guard(!ssri && ssro);
+     ssri = 1;
+   </tr>
+   <tr label="224" preset="73" postset="73">
+     guard(ssri && !ssro);
+     ssri = 0;
+   </tr>
+</class>
+
+
+
+
+<class name="SSWo" arg="mdso, bo, wai, wao, b2i">
+
+<var>
+sswi = 0; 
+sswo = 0;
+w1_c7 = 0; 
+w2_c7 = 0;
+</var>
+
+   <m>
+   50,   52,   54, 55
+   </m>
+
+
+   <tr label="161" preset="50" postset="50">
+     guard(wai && b2i && !sswi && wao && bo && !w1_c7);
+     w1_c7 = 1;
+   </tr>
+   <tr label="162" preset="50" postset="50">
+     guard((!wai || !b2i || sswi || !wao || !bo) && w1_c7);
+     w1_c7 = 0;
+   </tr>
+   <tr label="164" preset="52" postset="52">
+     guard(mdso && sswo && !w2_c7);
+     w2_c7 = 1;
+   </tr>
+   <tr label="165" preset="52" postset="52">
+     guard((!mdso || !sswo) && w2_c7);
+     w2_c7 = 0;
+   </tr>
+   <tr label="167" preset="54" postset="54">
+      guard(!sswo && w1_c7&& !w2_c7);
+     sswo = 1;
+   </tr>
+   <tr label="168" preset="54" postset="54">
+     guard(sswo&& !w1_c7 && w2_c7);
+     sswo = 0;
+   </tr>
+   <tr label="169" preset="55" postset="55">
+     guard(!sswi && sswo);
+     sswi = 1;
+   </tr>
+   <tr label="170" preset="55" postset="55">
+     guard(sswi && !sswo);
+     sswi = 0;
+   </tr>
+</class>
+
+
+
+<class name="WAo" arg="sswo, msso, mdsi, mdso, ssro">
+
+<var>
+wai = 0; 
+wao = 0;
+w1_c3 = 0; 
+w2_c3 = 0;
+</var>
+
+   <m>
+   19,   21,   23, 24
+   </m>
+
+   <tr label="67" preset="21" postset="21">
+     guard(mdsi && !wai && !mdso && !ssro && !sswo && !msso && !w1_c3);
+     w1_c3 = 1;
+   </tr>
+   <tr label="68" preset="21" postset="21">
+     guard((!mdsi || wai || mdso || ssro || sswo || msso) && w1_c3);
+     w1_c3 = 0;
+   </tr>
+   <tr label="70" preset="19" postset="20">
+     guard((ssro || sswo || msso) && !w2_c3);
+     w2_c3 = 1;
+   </tr>
+   <tr label="71" preset="19" postset="20">
+     guard(!ssro && !sswo && !msso && w2_c3);
+     w2_c3 = 0;
+   </tr>
+   <tr label="72" preset="20" postset="19">
+     guard(true);
+   </tr>
+   <tr label="73" preset="23" postset="23">
+      guard(!wao && w1_c3&& !w2_c3);
+     wao = 1;
+   </tr>
+   <tr label="74" preset="23" postset="23">
+     guard(wao&& !w1_c3 && w2_c3);
+     wao = 0;
+   </tr>
+   <tr label="75" preset="24" postset="24">
+     guard(!wai && wao);
+     wai = 1;
+   </tr>
+   <tr label="76" preset="24" postset="24">
+     guard(wai && !wao);
+     wai = 0;
+   </tr>
+</class>
+
+
+
+
+<class name="Bo" arg="sswo, msso, mdsi, mdso, lsro, lswo, mslo, mdli, ssro, mdlo">
+
+<var>
+bo = 0; 
+b1i = 0;
+b2i = 0;
+b3i = 0;
+w4_c11 = 0; 
+w1_c11 = 0; 
+w2_c11 = 0;
+w3_c11 = 0;
+</var>
+
+   <m>
+   74,   76,   78,   80,   84,   86
+   </m>
+
+   <tr label="246" preset="76" postset="76">
+     guard(mdli && !b1i && !b2i && !b3i && !mdlo && !lsro && !lswo && !mslo && !w1_c11);
+     w1_c11 = 1;
+   </tr>
+   <tr label="247" preset="76" postset="76">
+     guard((!mdli || b1i || b2i || b3i || mdlo || lsro || lswo || mslo) && w1_c11);
+     w1_c11 = 0;
+   </tr>
+   <tr label="249" preset="74" postset="74">
+     guard(mdsi && !b1i&& !b2i&& !b3i && !mdso && !ssro && !sswo && !msso && !w2_c11);
+     w2_c11 = 1;
+   </tr>
+   <tr label="250" preset="74" postset="74">
+     guard((!mdsi || b1i || b2i || b3i || mdso || ssro || sswo || msso) && w2_c11);
+     w2_c11 = 0;
+   </tr>
+   <tr label="252" preset="78" postset="78">
+     guard((w2_c11 || w1_c11) && !w3_c11);
+     w3_c11 = 1;
+   </tr>
+   <tr label="253" preset="78" postset="78">
+     guard(!w1_c11 && !w2_c11 && w3_c11);
+     w3_c11 = 0;
+   </tr>
+   <tr label="254" preset="80" postset="80">
+     guard(!lsro && !lswo && !mslo && !ssro && !sswo && !msso && w4_c11);
+     w4_c11 = 0;
+   </tr>
+   <tr label="257" preset="80" postset="80">
+     guard((lsro || lswo || mslo || ssro || sswo || msso) && !w4_c11);
+     w4_c11 = 1;
+   </tr>
+   <tr label="258" preset="84" postset="84">
+     guard(!bo && w3_c11 && !w4_c11);
+     bo = 1;
+   </tr>
+   <tr label="261" preset="84" postset="84">
+     guard(bo && !w3_c11 && w4_c11);
+     bo = 0;
+   </tr>
+   <tr label="259" preset="86" postset="83">
+     guard(bo);
+     b1i = 1;
+   </tr>
+   <tr label="262" preset="83" postset="86">
+     guard(!bo);
+     b1i = 0;
+   </tr>
+   <tr label="264" preset="86" postset="87">
+     guard(bo);
+     b2i = 1;
+   </tr>
+   <tr label="266" preset="87" postset="86">
+     guard(!bo);
+     b2i = 0;
+   </tr>
+   <tr label="267" preset="86" postset="88">
+    guard( bo);
+     b3i = 1;
+   </tr>
+   <tr label="265" preset="88" postset="86">
+     guard(!bo);
+     b3i = 0;
+   </tr>
+</class>
+
+
+
+
+<class name="LSRo" arg="bo, b1i, rai, rao, mdlo">
+
+<var>
+lsri = 0;
+lsro = 0;
+w1_c8 = 0;
+w2_c8 = 0;
+</var>
+
+   <m>
+   56,   58,   60, 62
+   </m>
+
+   <tr label="179" preset="56" postset="56">
+      guard(!lsri && b1i && rai && bo && rao && !w1_c8);
+     w1_c8 = 1;
+   </tr>
+   <tr label="180" preset="56" postset="56">
+     guard( (lsri || !b1i || !rai || !bo || !rao) && w1_c8);
+     w1_c8 = 0;
+   </tr>
+   <tr label="182" preset="58" postset="58">
+     guard(mdlo && lsro&& !w2_c8);
+     w2_c8 = 1;
+   </tr>
+   <tr label="183" preset="58" postset="58">
+      guard(!mdlo && w2_c8 || mdlo && !lsro && w2_c8);
+     w2_c8 = 0;
+   </tr>
+   <tr label="185" preset="60" postset="61">
+      guard(!lsro && w1_c8&& !w2_c8);
+     lsro = 1;
+   </tr>
+   <tr label="186" preset="60" postset="61">
+     guard(lsro&& !w1_c8 && w2_c8);
+     lsro = 0;
+   </tr>
+   <tr label="187" preset="61" postset="60">
+     guard(true);
+   </tr>
+   <tr label="188" preset="62" postset="62">
+     guard(!lsri && lsro);
+     lsri = 1;
+   </tr>
+   <tr label="189" preset="62" postset="62">
+     guard(lsri && !lsro);
+     lsri = 0;
+   </tr>
+
+</class>
+
+
+
+
+
+<class name="LSWo" arg="bo, b2i, rai, rao, mdlo">
+
+<var>
+w1_c4 = 0;
+w2_c4 = 0;
+lswi = 0;
+lswo = 0;
+</var>
+
+   <m>
+   26,   27,   29, 30
+   </m>
+
+   <tr label="85" preset="27" postset="28">
+     guard(rai && b2i && !lswi && rao && bo && !w1_c4);
+     w1_c4 = 1;
+   </tr>
+   <tr label="86" preset="27" postset="28">
+     guard((!rai || !b2i || lswi || !rao || !bo) && w1_c4);
+     w1_c4 = 0;
+   </tr>
+   <tr label="87" preset="28" postset="27">
+     guard(true);
+   </tr>
+   <tr label="88" preset="26" postset="26">
+     guard(mdlo && lswo && !w2_c4);
+     w2_c4 = 1;
+   </tr>
+   <tr label="89" preset="26" postset="26">
+     guard((!mdlo || !lswo) && w2_c4);
+     w2_c4 = 0;
+   </tr>
+   <tr label="91" preset="29" postset="29">
+     guard(!lswo && w1_c4 && !w2_c4);
+     lswo = 1;
+   </tr>
+   <tr label="92" preset="29" postset="29">
+     guard(lswo && !w1_c4 && w2_c4);
+     lswo = 0;
+   </tr>
+   <tr label="93" preset="30" postset="30">
+     guard(!lswi && lswo);
+     lswi = 1;
+   </tr>
+   <tr label="94" preset="30" postset="30">
+     guard(lswi && !lswo);
+     lswi = 0;
+   </tr>
+</class>

@@ -1,0 +1,63 @@
+<mod name="RAo.lpn">
+
+<input>	lsro, lswo, mslo, mdli, mdlo</input>
+<output>rao, rai</output>
+<var>	w1_c6, w2_c6 </var>
+
+   <marking>
+   44,   46,   48, 50
+   </marking>
+
+   <statevector>
+   lsro = 0;
+   lswo = 0;
+   mdli = 0;
+   mdlo = 0;
+   mslo = 0;
+   rao = 0;
+   w1_c6 = 0;
+   w2_c6 = 0;
+   </statevector>
+
+
+   <transition label="143" preset="44" postset="44">
+     mdli && !rai && !mdlo && !lsro && !lswo && !mslo && !w1_c6;
+     (0, inf);
+     w1_c6 = 1;
+   </transition>
+   <transition label="144" preset="44" postset="44">
+     (!mdli || rai || mdlo || lsro || lswo || mslo) && w1_c6; 
+     (0, inf);
+     w1_c6 = 0;
+   </transition>
+   <transition label="146" preset="48" postset="48">
+     (lsro || lswo || mslo ) && !w2_c6; 
+     (0, inf);
+     w2_c6 = 1;
+   </transition>
+   <transition label="147" preset="48" postset="48">
+      !lsro && !lswo && !mslo && w2_c6;
+     (0, inf);
+     w2_c6 = 0;
+   </transition>
+   <transition label="149" preset="46" postset="46">
+      !rao && w1_c6 && !w2_c6;
+     (0, inf);
+     rao = 1;
+   </transition>
+   <transition label="150" preset="46" postset="46">
+     rao&& !w1_c6 && w2_c6;
+     (0, inf);
+     rao = 0;
+   </transition>
+   <transition label="152" preset="50" postset="50">
+     !rai && rao;
+     (0, inf);
+     rai = 1;
+   </transition>
+   <transition label="153" preset="50" postset="50">
+     rai && !rao;
+     (0, inf);
+     rai = 0;
+   </transition>
+</mod>

@@ -1,0 +1,37 @@
+--> Number of modules: 6
+--> Length of global vecvtor: 8
+--> globalVarList
+[(p1.myT, 255), (p4.myT, 255), (p2.myT, 255), (p0.myT, 255), (p3.myT, 255), (z, 0), (y, 255), (x, 255)]
+--> gVarIndexMap
+(p1.myT 0), (p4.myT 1), (p2.myT 2), (p0.myT 3), (p3.myT 4), (z 5), (y 6), (x 7), 
+LPN: t1
+-->Internals: 		
+-->Globals: 		(p1.myT 0 INPUT), (p4.myT 1 INPUT), (p2.myT 2 INPUT), (p0.myT 3 INPUT), (p3.myT 4 INPUT), 
+--> VarIndexMap: 	(p1.myT 0),  (p4.myT 1),  (p2.myT 2),  (p0.myT 3),  (p3.myT 4),  
+
+LPN: p0
+-->Internals: 		(p0.id 0 INTERNAL), 
+-->Globals: 		(z 1 GLOBAL), (p0.myT 2 OUTPUT), (y 3 GLOBAL), (x 4 GLOBAL), 
+--> VarIndexMap: 	(p0.id 0),  (z 1),  (p0.myT 2),  (y 3),  (x 4),  
+
+LPN: p1
+-->Internals: 		(p1.id 0 INTERNAL), 
+-->Globals: 		(p1.myT 1 OUTPUT), (z 2 GLOBAL), (y 3 GLOBAL), (x 4 GLOBAL), 
+--> VarIndexMap: 	(p1.id 0),  (p1.myT 1),  (z 2),  (y 3),  (x 4),  
+
+LPN: p2
+-->Internals: 		(p2.id 0 INTERNAL), 
+-->Globals: 		(p2.myT 1 OUTPUT), (z 2 GLOBAL), (y 3 GLOBAL), (x 4 GLOBAL), 
+--> VarIndexMap: 	(p2.id 0),  (p2.myT 1),  (z 2),  (y 3),  (x 4),  
+
+LPN: p3
+-->Internals: 		(p3.id 0 INTERNAL), 
+-->Globals: 		(z 1 GLOBAL), (y 2 GLOBAL), (p3.myT 3 OUTPUT), (x 4 GLOBAL), 
+--> VarIndexMap: 	(p3.id 0),  (z 1),  (y 2),  (p3.myT 3),  (x 4),  
+
+LPN: p4
+-->Internals: 		(p4.id 0 INTERNAL), 
+-->Globals: 		(p4.myT 1 OUTPUT), (z 2 GLOBAL), (y 3 GLOBAL), (x 4 GLOBAL), 
+--> VarIndexMap: 	(p4.id 0),  (p4.myT 1),  (z 2),  (y 3),  (x 4),  
+
+---> start search_dfs ...

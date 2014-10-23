@@ -1,0 +1,72 @@
+<mod name="MSSo.lpn">
+
+<input>
+mdso, bo, wai, wao, b3i
+</input>
+
+<output>
+mssi, msso
+</output>
+
+<var>
+w1_c9, w2_c9
+</var>
+
+   <marking>
+   62,   64,   66, 67
+   </marking>
+
+   <statevector>
+   b3i = 0;
+   bo = 0;
+   mdso = 0;
+   mssi = 0;
+   msso = 0;
+   w1_c9 = 0;
+   w2_c9 = 0;
+   wai = 0;
+   wao = 0;
+   </statevector>
+
+
+   <transition label="197" preset="62" postset="62">
+     wai && b3i && !mssi && wao && bo && !w1_c9;
+     (0, inf);
+     w1_c9 = 1;
+   </transition>
+   <transition label="198" preset="62" postset="62">
+     (!wai || !b3i || mssi || !wao || !bo) && w1_c9;
+     (0, inf);
+     w1_c9 = 0;
+   </transition>
+   <transition label="200" preset="64" postset="64">
+     mdso && msso && !w2_c9;
+     (0, inf);
+     w2_c9 = 1;
+   </transition>
+   <transition label="201" preset="64" postset="64">
+     (!mdso || !msso) && w2_c9;
+     (0, inf);
+     w2_c9 = 0;
+   </transition>
+   <transition label="203" preset="66" postset="66">
+      !msso && w1_c9&& !w2_c9;
+     (0, inf);
+     msso = 1;
+   </transition>
+   <transition label="204" preset="66" postset="66">
+     msso&& !w1_c9 && w2_c9;
+     (0, inf);
+     msso = 0;
+   </transition>
+   <transition label="205" preset="67" postset="67">
+     !mssi && msso;
+     (0, inf);
+     mssi = 1;
+   </transition>
+   <transition label="206" preset="67" postset="67">
+     mssi && !msso;
+     (0, inf);
+     mssi = 0;
+   </transition>
+</mod>

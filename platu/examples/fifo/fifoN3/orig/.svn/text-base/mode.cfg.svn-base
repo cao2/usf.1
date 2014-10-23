@@ -1,0 +1,4 @@
+SEARCH = compositional
+COMPOSITIONAL_MINIMIZATION = abstraction
+PARALLEL = false
+NEW_PARSER_FLAG = false

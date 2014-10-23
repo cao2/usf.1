@@ -1,0 +1,258 @@
+<const>
+	idle	= 0;
+	chan0in	= 1;
+	chan0out	= 2;
+	chan1in	= 3;
+	chan1out	= 4;
+	chan2in	= 5;
+	chan2out	= 6;
+	chan3in	= 7;
+	chan3out	= 8;
+	chan4in	= 9;
+	chan4out	= 10;
+	chan5in	= 11;
+	chan5out	= 12;
+	chan6in	= 13;
+	chan6out	= 14;
+	chan7in	= 15;
+	chan7out	= 16;
+	chan8in	= 17;
+	chan8out	= 18;
+</const>
+
+<main>
+	<var>
+		chanIdx	= idle;
+		chanVal	= 0;
+		in0_ready	= 0;
+		out0_ready	= 0;
+		in1_ready	= 0;
+		out1_ready	= 0;
+		in2_ready	= 0;
+		out2_ready	= 0;
+		in3_ready	= 0;
+		out3_ready	= 0;
+		in4_ready	= 0;
+		out4_ready	= 0;
+		in5_ready	= 0;
+		out5_ready	= 0;
+		in6_ready	= 0;
+		out6_ready	= 0;
+		in7_ready	= 0;
+		out7_ready	= 0;
+		in8_ready	= 0;
+		out8_ready	= 0;
+
+		nr_leaders;
+	</var>
+	
+	
+	Node n0(24, chanIdx, chanVal, chan0out, chan1in, out0_ready, in1_ready, nr_leaders);
+	Node n1(14, chanIdx, chanVal, chan1out, chan2in, out1_ready, in2_ready, nr_leaders);
+	Node n2( 6, chanIdx, chanVal, chan2out, chan3in, out2_ready, in3_ready, nr_leaders);
+	Node n3( 0, chanIdx, chanVal, chan3out, chan4in, out3_ready, in4_ready, nr_leaders);
+	Node n4(23, chanIdx, chanVal, chan4out, chan5in, out4_ready, in5_ready, nr_leaders);
+	Node n5(21, chanIdx, chanVal, chan5out, chan6in, out5_ready, in6_ready, nr_leaders);
+	Node n6(21, chanIdx, chanVal, chan6out, chan7in, out6_ready, in7_ready, nr_leaders);
+	Node n7(23, chanIdx, chanVal, chan7out, chan8in, out7_ready, in8_ready, nr_leaders);
+	Node n8( 0, chanIdx, chanVal, chan8out, chan0in, out8_ready, in0_ready, nr_leaders);
+
+	Channel chan0(chanIdx, chanVal, chan0in, chan0out, in0_ready, out0_ready);
+	Channel chan1(chanIdx, chanVal, chan1in, chan1out, in1_ready, out1_ready);
+	Channel chan2(chanIdx, chanVal, chan2in, chan2out, in2_ready, out2_ready);
+	Channel chan3(chanIdx, chanVal, chan3in, chan3out, in3_ready, out3_ready);
+	Channel chan4(chanIdx, chanVal, chan4in, chan4out, in4_ready, out4_ready);
+	Channel chan5(chanIdx, chanVal, chan5in, chan5out, in5_ready, out5_ready);
+	Channel chan6(chanIdx, chanVal, chan6in, chan6out, in6_ready, out6_ready);
+	Channel chan7(chanIdx, chanVal, chan7in, chan7out, in7_ready, out7_ready);
+	Channel chan8(chanIdx, chanVal, chan8in, chan8out, in8_ready, out8_ready);
+
+</main>
+
+
+<class name="Node" arg="myVal, chanIdx, chanVal, chanIn, chanOut, in_ready, out_ready, nr_leaders">
+	<const>
+		start 	= 0;
+		wait	= 1; 
+		got_msg	= 2;
+		q1	= 3;
+		q1a	= 4;
+		q1n	= 5;
+		q2	= 6;
+		q2a	= 7;
+		q2n	= 8;
+		qw	= 9;
+		qwcheck	= 10;
+		wait1	= 11;
+	</const>
+	
+	<var> 
+		max	= myVal;
+		number	= 0;
+		neigh	= 0;
+		know	= 0;
+		active	= 1;
+	</var>
+	
+	<m> 	start	</m>
+
+	<tr label="0" preset="start" postset="wait">
+		guard(chanIdx == idle && out_ready == 1);
+		chanIdx = chanOut;
+		chanVal	= (30 + myVal) % 256;
+	</tr>
+	
+	<tr label="1" preset="wait" postset="wait1">
+		in_ready = 1;
+	</tr>
+	
+	<tr label="2" preset="wait1" postset="got_msg">
+		guard(chanIdx == chanIn);
+		chanIdx	= idle;
+		number	= chanVal;
+		in_ready = 0;
+	</tr>
+	
+	<tr label="3_0" preset="got_msg" postset="q1">
+		guard (number >= 30 && number < 60);
+		number = number % 30;
+	</tr>
+	
+	<tr label="3_1" preset="got_msg" postset="q2">
+		guard (number >= 60);
+		number	= number % 30;
+	</tr>
+	
+	<tr label="3_2" preset="got_msg" postset="qwcheck">
+		guard (number < 30);
+		number	= number % 30;
+	</tr>
+	
+	<tr label="4_0" preset="q1" postset="q1a">
+		guard (active > 0);
+	</tr>
+	
+	<tr label="4_1" preset="q1" postset="q1n">
+		guard (active == 0);
+	</tr>
+	
+	<tr label="5" preset="q1n" postset="wait">
+		guard (chanIdx == idle && out_ready == 1);
+		chanIdx = chanOut;
+		chanVal	= (30 + number) % 256;
+	</tr>
+	
+
+	<tr label="6_0" preset="q1a" postset="wait">
+		guard (number != max && chanIdx == idle && out_ready == 1);
+		chanIdx	= chanOut;
+		chanVal	= (60 + number) % 256;
+		neigh	= number;
+	</tr>
+
+	<tr label="6_1" preset="q1a" postset="wait">
+		guard (number == max && chanIdx == idle && out_ready == 1);
+		chanIdx	= chanOut;
+		chanVal	= number;
+		know	= 1;
+	</tr>
+	
+	<tr label="7_0" preset="q2" postset="q2a">
+		guard (active > 0);
+	</tr>
+	<tr label="7_1" preset="q2" postset="q2n">
+		guard (active == 0);
+	</tr>
+
+	<tr label="8" preset="q2n" postset="wait">
+		guard (chanIdx == idle && out_ready == 1);
+		chanIdx	= chanOut;
+		chanVal	= (60 + number) % 256;
+	</tr>
+
+	<tr label="9_0" preset="q2a" postset="wait">
+		guard (neigh > number && neigh > max && chanIdx == idle && out_ready == 1);
+		chanIdx	= chanOut;
+		chanVal	= (30 + neigh) % 256;
+		max 	= neigh;
+	</tr>
+	<tr label="9_1" preset="q2a" postset="wait">
+		guard (!(neigh > number && neigh > max));
+		active	= 0;
+	</tr>
+
+	<tr label="100" preset="qwcheck" postset="qw">
+		guard (number == myVal);
+		nr_leaders	= (nr_leaders + 1) %256;		
+	</tr>
+	<tr label="101" preset="qwcheck" postset="qw">
+		guard (number != myVal);
+	</tr>
+
+	<tr label="110" preset="qw" postset="wait">
+		guard (know > 0);
+	</tr>
+	<tr label="111" preset="qw" postset="wait">
+		guard (know == 0 && chanIdx == idle && out_ready == 1);
+		chanIdx	= chanOut;
+		chanVal	= number;
+	</tr>
+</class>
+
+
+
+<class name="Channel" arg="chanIdx, chanVal, in, out, in_ready, out_ready">
+	
+	<const>
+		q = 0;
+		q1 = 1;
+	</const>
+	
+	<var>
+		buf[18];
+		buf_act = 0;
+	</var>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="0" preset="q" postset="q1">
+		guard(buf_act != 18);
+		in_ready = 1;
+	</tr>
+
+	<tr label="1" preset="q1" postset="q">
+		guard(buf_act != 18 && chanIdx == in);
+		chanIdx = idle;
+		buf[buf_act] = chanVal;
+		buf_act = (buf_act + 1) % 256;
+		in_ready = 0;
+	</tr>
+	
+	<tr label="2" preset="q" postset="q">
+		guard (buf_act != 0 && chanIdx == idle && out_ready == 1);
+		chanIdx = out;
+		chanVal = buf[0];
+		buf[0]	= buf[1];
+		buf[1]	= buf[2];
+		buf[2]	= buf[3];
+		buf[3]	= buf[4];
+		buf[4]	= buf[5];
+		buf[5]	= buf[6];
+		buf[6]	= buf[7];
+		buf[7]	= buf[8];
+		buf[8]	= buf[9];
+		buf[9]	= buf[10];
+		buf[10]	= buf[11];
+		buf[11]	= buf[12];
+		buf[12]	= buf[13];
+		buf[13]	= buf[14];
+		buf[14]	= buf[15];
+		buf[15]	= buf[16];
+		buf[16]	= buf[17];
+		buf[17]	= 0;
+		buf_act = buf_act - 1;
+	</tr>
+</class>
+

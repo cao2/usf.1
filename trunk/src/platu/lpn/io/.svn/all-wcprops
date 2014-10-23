@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/platu/!svn/ver/620/trunk/src/platu/lpn/io
+END
+PlatuInstLexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/platu/!svn/ver/610/trunk/src/platu/lpn/io/PlatuInstLexer.java
+END
+PlatuGrammarParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/platu/!svn/ver/610/trunk/src/platu/lpn/io/PlatuGrammarParser.java
+END
+ctl.g
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/platu/!svn/ver/540/trunk/src/platu/lpn/io/ctl.g
+END
+PlatuInstParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/platu/!svn/ver/610/trunk/src/platu/lpn/io/PlatuInstParser.java
+END
+PlatuInst.g
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/platu/!svn/ver/610/trunk/src/platu/lpn/io/PlatuInst.g
+END
+PlatuGrammarLexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/platu/!svn/ver/610/trunk/src/platu/lpn/io/PlatuGrammarLexer.java
+END
+PlatuGrammar.tokens
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/platu/!svn/ver/503/trunk/src/platu/lpn/io/PlatuGrammar.tokens
+END
+PlatuGrammar.g
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/platu/!svn/ver/610/trunk/src/platu/lpn/io/PlatuGrammar.g
+END
+Instance.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/platu/!svn/ver/597/trunk/src/platu/lpn/io/Instance.java
+END
+ltl.g
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/platu/!svn/ver/540/trunk/src/platu/lpn/io/ltl.g
+END

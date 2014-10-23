@@ -1,0 +1,152 @@
+<main>
+	<var>
+		flag1 = 0;
+		flag2 = 0;
+		turn = 0;
+		x	= 0;
+	</var>
+
+	thread1 t1(flag1, flag2, turn, x);
+	thread2 t2(flag1, flag2, turn, x);
+</main>
+
+<class name="thread1" arg="flag1, flag2, turn, x">
+	<const>
+		q0 = 0;
+		q1 = 1;
+		q2 = 2;	
+		q3 = 3;
+		q4 = 4;
+		q5 = 5;
+		q6 = 6;
+		q2_1	= 7;
+		q2_2	= 8;
+		q2_3	= 9;
+	</const>
+
+	<m>
+		q0
+	</m>
+
+	<tr label="0" preset="q0" postset="q1">
+		flag1 	= 1;
+	</tr>
+
+	<tr label="1_1" preset="q1" postset="q2">
+		guard(flag2 >= 1);
+	</tr>
+	<tr label="1_2" preset="q1" postset="q3">
+		guard(flag2 < 1);
+	</tr>
+
+	<tr label="2_1" preset="q2" postset="q2_1">
+		guard (turn != 0);
+	</tr>
+	<tr label="2_2" preset="q2" postset="q1">
+		guard (turn == 0);
+	</tr>
+
+	<tr label="3" preset="q2_1" postset="q2_2">
+		flag1	= 0;
+	</tr>
+
+	<tr label="4_1" preset="q2_2" postset="q2_2">
+		guard (turn != 0);
+	</tr>
+	<tr label="4_2" preset="q2_2" postset="q2_3">
+		guard (turn == 0);
+	</tr>
+
+	<tr label="5" preset="q2_3" postset="q1">
+		flag1 = 1;
+	</tr>
+
+	<tr label="6" preset="q3" postset="q4">
+		x	= 0;
+	</tr>
+
+	<tr label="7" preset="q4" postset="q5">
+		assert (x <= 0);
+	</tr>
+
+	<tr label="8" preset="q5" postset="q6">
+		turn	= 1;
+	</tr>
+
+	<tr label="9" preset="q6" postset="q0">
+		flag1 = 0;
+	</tr>
+
+</class>
+
+
+<class name="thread2" arg="flag1, flag2, turn, x">
+	<const>
+		q0 = 0;
+		q1 = 1;
+		q2 = 2;	
+		q3 = 3;
+		q4 = 4;
+		q5 = 5;
+		q6 = 6;
+		q2_1	= 7;
+		q2_2	= 8;
+		q2_3	= 9;
+	</const>
+
+	<m>
+		q0
+	</m>
+
+	<tr label="0" preset="q0" postset="q1">
+		flag2 	= 1;
+	</tr>
+
+	<tr label="1_1" preset="q1" postset="q2">
+		guard(flag1 >= 1);
+	</tr>
+	<tr label="1_2" preset="q1" postset="q3">
+		guard(flag1 < 1);
+	</tr>
+
+	<tr label="2_1" preset="q2" postset="q2_1">
+		guard (turn != 0);
+	</tr>
+	<tr label="2_2" preset="q2" postset="q1">
+		guard (turn == 0);
+	</tr>
+
+	<tr label="3" preset="q2_1" postset="q2_2">
+		flag2	= 0;
+	</tr>
+
+	<tr label="4_1" preset="q2_2" postset="q2_2">
+		guard (turn != 1);
+	</tr>
+	<tr label="4_2" preset="q2_2" postset="q2_3">
+		guard (turn == 1);
+	</tr>
+
+	<tr label="5" preset="q2_3" postset="q1">
+		flag2 = 1;
+	</tr>
+
+	<tr label="6" preset="q3" postset="q4">
+		x	= 1;
+	</tr>
+
+	<tr label="7" preset="q4" postset="q5">
+		assert (x >= 1);
+	</tr>
+
+	<tr label="8" preset="q5" postset="q6">
+		turn	= 1;
+	</tr>
+
+	<tr label="9" preset="q6" postset="q0">
+		flag2 = 0;
+	</tr>
+
+</class>
+
+

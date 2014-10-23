@@ -1,0 +1,66 @@
+<mod name="processL.lpn">
+<const>
+ready = 53;
+got_msg = 54;
+toLReceiveInternal = 55;
+fromLSendInternal = 56;
+timeoutSendInternal = 57;
+</const>
+
+<input>
+toLReq,timeoutAck,fromLAck
+</input>
+<output>
+toLAck,timeoutReq,fromLReq
+</output>
+
+
+<marking>53</marking>
+
+<statevector>
+toLReq=0;
+timeoutAck=0;
+fromLAck=0;
+toLAck=0;
+timeoutReq=0;
+fromLReq=0;
+</statevector>
+
+<transition label="104" preset="ready" postset="toLReceiveInternal">
+toLReq == 1;
+(0, inf);
+toLAck=1;
+</transition>
+
+<transition label="105" preset="toLReceiveInternal" postset="got_msg">
+toLReq == 0;
+(0, inf);
+toLAck=0;
+</transition>
+
+<transition label="106" preset="got_msg" postset="fromLSendInternal">
+fromLAck == 0;
+(0, inf);
+fromLReq=1;
+</transition>
+
+<transition label="107" preset="fromLSendInternal" postset="ready">
+fromLAck == 1;
+(0, inf);
+fromLReq=0;
+</transition>
+
+<transition label="108" preset="got_msg" postset="timeoutSendInternal">
+timeoutAck == 0;
+(0, inf);
+timeoutReq=1;
+</transition>
+
+<transition label="109" preset="timeoutSendInternal" postset="ready">
+timeoutAck == 1;
+(0, inf);
+timeoutReq=0;
+</transition>
+
+
+</mod>

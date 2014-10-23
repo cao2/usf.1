@@ -1,0 +1,87 @@
+--> Number of modules: 9
+--> Length of global vecvtor: 9
+--> globalVarList
+[(id, 0), (p0.t, 255), (p1.t, 255), (p2.t, 255), (p3.t, 255), (p4.t, 255), (p5.t, 255), (p6.t, 255), (p7.t, 255)]
+--> gVarIndexMap
+(id 0), (p0.t 1), (p1.t 2), (p2.t 3), (p3.t 4), (p4.t 5), (p5.t 6), (p6.t 7), (p7.t 8), 
+LPN: p0
+-->Internals: 		(p0.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p0.t 2 OUTPUT), 
+--> VarIndexMap: 	(p0.myValue 0),  (id 1),  (p0.t 2),  
+
+LPN: p1
+-->Internals: 		(p1.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p1.t 2 OUTPUT), 
+--> VarIndexMap: 	(p1.myValue 0),  (id 1),  (p1.t 2),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p2.t 2 OUTPUT), 
+--> VarIndexMap: 	(p2.myValue 0),  (id 1),  (p2.t 2),  
+
+LPN: p3
+-->Internals: 		(p3.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p3.t 2 OUTPUT), 
+--> VarIndexMap: 	(p3.myValue 0),  (id 1),  (p3.t 2),  
+
+LPN: p4
+-->Internals: 		(p4.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p4.t 2 OUTPUT), 
+--> VarIndexMap: 	(p4.myValue 0),  (id 1),  (p4.t 2),  
+
+LPN: p5
+-->Internals: 		(p5.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p5.t 2 OUTPUT), 
+--> VarIndexMap: 	(p5.myValue 0),  (id 1),  (p5.t 2),  
+
+LPN: p6
+-->Internals: 		(p6.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p6.t 2 OUTPUT), 
+--> VarIndexMap: 	(p6.myValue 0),  (id 1),  (p6.t 2),  
+
+LPN: p7
+-->Internals: 		(p7.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p7.t 2 OUTPUT), 
+--> VarIndexMap: 	(p7.myValue 0),  (id 1),  (p7.t 2),  
+
+LPN: t
+-->Internals: 		
+-->Globals: 		(p6.t 0 INPUT), (p0.t 1 INPUT), (p5.t 2 INPUT), (p2.t 3 INPUT), (p3.t 4 INPUT), (p7.t 5 INPUT), (p1.t 6 INPUT), (p4.t 7 INPUT), 
+--> VarIndexMap: 	(p6.t 0),  (p0.t 1),  (p5.t 2),  (p2.t 3),  (p3.t 4),  (p7.t 5),  (p1.t 6),  (p4.t 7),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 804877, # of prjStates found: 234825, stack_depth: 39703 used memory: 62.010727 free memory: 22.989464
+--->  # of global vectors: 17858
+---> state table stats: State count: 234825,  MDD node count: 39091
+---> # LPN transition firings: 1594455, # of prjStates found: 461655, stack_depth: 56111 used memory: 102.122314 free memory: 21.609655
+--->  # of global vectors: 41043
+---> state table stats: State count: 461655,  MDD node count: 97816
+---> # LPN transition firings: 2381443, # of prjStates found: 686618, stack_depth: 68062 used memory: 170.6122 free memory: 24.136232
+--->  # of global vectors: 65976
+---> state table stats: State count: 686618,  MDD node count: 169186
+---> # LPN transition firings: 3164654, # of prjStates found: 911407, stack_depth: 76062 used memory: 206.31926 free memory: 110.17865
+--->  # of global vectors: 95338
+---> state table stats: State count: 911407,  MDD node count: 242770
+---> # LPN transition firings: 3944033, # of prjStates found: 1139891, stack_depth: 83925 used memory: 257.09622 free memory: 146.9414
+--->  # of global vectors: 127522
+---> state table stats: State count: 1139891,  MDD node count: 317281
+---> # LPN transition firings: 4706203, # of prjStates found: 1383305, stack_depth: 89509 used memory: 339.8852 free memory: 180.40512
+--->  # of global vectors: 170728
+---> state table stats: State count: 1383305,  MDD node count: 411325
+---> # LPN transition firings: 5470907, # of prjStates found: 1622054, stack_depth: 92962 used memory: 399.2074 free memory: 242.1402
+--->  # of global vectors: 212398
+---> state table stats: State count: 1622054,  MDD node count: 496359
+---> # LPN transition firings: 6235806, # of prjStates found: 1859599, stack_depth: 95406 used memory: 564.78503 free memory: 76.56254
+--->  # of global vectors: 250600
+---> state table stats: State count: 1859599,  MDD node count: 586307
+*** Time out
+	Elapsed time: 900.042 exceeds the limit 900.
+	Search terminated!
+---> Search stats:
+	# LPN transition firings: 6677402
+	# of states found: 1999002
+	max_stack_depth: 96410
+	peak total memory: 772 MB
+	peak used memory: 591 MB
+	Total elapsed time = 900.042 sec
+

@@ -1,0 +1,68 @@
+
+<main>
+	<var>
+		count = 0;
+	</var>
+	
+	//phils go here
+	Phil p0(count, p1.myFork);
+	Phil p1(count, p2.myFork);
+	Phil p2(count, p3.myFork);
+	Phil p3(count, p4.myFork);
+	Phil p4(count, p5.myFork);
+	Phil p5(count, p6.myFork);
+	Phil p6(count, p7.myFork);
+	Phil p7(count, p8.myFork);
+	Phil p8(count, p0.myFork);
+</main>
+
+<class name="Phil" arg="count, otherFork">
+	<const>
+		think = 0;
+		inside = 1;
+		one = 2;
+		eat = 3;
+		finish = 4;
+	</const>
+	
+	<var>
+		myFork = 0;
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="inside">
+		guard(count < 3);
+		delay(0, inf);
+		count = (count + 1) % 256;
+	</tr>
+	
+	<tr label="1" preset="inside" postset="think">
+		delay(0, inf);
+		count = count==0 ? 0 : count - 1;
+	</tr>
+	
+	<tr label="2" preset="inside" postset="one">
+		guard(myFork == 0);
+		delay(0, inf);
+		myFork = 1;
+	</tr>
+	
+	<tr label="3" preset="one" postset="eat">
+		guard(otherFork == 0);
+		delay(0, inf);
+		otherFork = 1;
+	</tr>
+	
+	<tr label="4" preset="eat" postset="finish">
+		delay(0, inf);
+		myFork = 0;
+	</tr>
+	
+	<tr label="5" preset="finish" postset="inside">
+		delay(0, inf);
+		otherFork = 0;
+	</tr>
+</class>

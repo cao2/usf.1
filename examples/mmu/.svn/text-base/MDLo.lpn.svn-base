@@ -1,0 +1,111 @@
+<mod name="MDLo.lpn">
+
+<input> mdso, bo, lsri, lsro, lswi, lswo, msli, rao, mslo</input>
+<output> mdsi, mdlo, mdli </output>
+<var> w4_c1, w1_c1, mdl, w3_c1, w5_c1, w2_c1 </var>
+
+   <marking>
+   0,   2,   5,   6,   8,   10,   94
+   </marking>
+
+   <statevector>
+   bo = 0;
+   lsri = 0;
+   lsro = 0;
+   lswi = 0;
+   lswo = 0;
+   mdli = 0;
+   mdlo = 0;
+   mdsi = 0;
+   msli = 0;
+   mslo = 0;
+   rao = 0;
+   w1_c1 = 0;
+   w2_c1 = 0;
+   w3_c1 = 0;
+   w4_c1 = 0;
+   w5_c1 = 1;
+   </statevector>
+
+
+   <transition label="20" preset="0" postset="0">
+     lsri && !bo && !rao && lsro && !w1_c1;
+     (0, inf);
+     w1_c1 = 1;
+   </transition>
+   <transition label="21" preset="0" postset="0">
+     (!lsri || bo || rao || !lsri) && w1_c1;
+     (0, inf);
+     w1_c1 = 0;
+   </transition>
+   <transition label="23" preset="2" postset="2">
+     lswi && !bo && !rao && lswo && !w2_c1;
+     (0, inf);
+     w2_c1 = 1;
+   </transition>
+   <transition label="24" preset="2" postset="2">
+     (!lswi || bo || rao || !lswo) && w2_c1;
+     (0, inf);
+     w2_c1 = 0;
+   </transition>
+   <transition label="26" preset="6" postset="6">
+     msli && !bo && !rao && mslo && !w3_c1;
+     (0, inf);
+     w3_c1 = 1;
+   </transition>
+   <transition label="27" preset="6" postset="6">
+      (!msli || bo || rao || !mslo) && w3_c1;
+     (0, inf);
+     w3_c1 = 0;
+   </transition>
+   <transition label="28" preset="5" postset="5">
+     !w1_c1 && !w2_c1 && !w3_c1 && w4_c1;
+     (0, inf);
+     w4_c1 = 0;
+   </transition>
+   <transition label="31" preset="5" postset="5">
+     (w1_c1 || w2_c1 || w3_c1) && !w4_c1;
+     (0, inf);
+     w4_c1 = 1;
+   </transition>
+   <transition label="32" preset="8" postset="8">
+     !mdli && !lsro && !lswo && !mslo && !w5_c1;
+     (0, inf);
+     w5_c1 = 1;
+   </transition>
+   <transition label="34" preset="8" postset="8">
+     (mdli || lsro || lswo || mslo) && w5_c1;
+     (0, inf);
+     w5_c1 = 0;
+   </transition>
+   <transition label="33" preset="10" postset="10">
+      !mdlo && w4_c1 && !w5_c1;
+     (0, inf);
+     mdlo = 1;
+   </transition>
+   <transition label="35" preset="10" postset="10">
+     mdlo && !w4_c1 && w5_c1;
+     (0, inf);
+     mdlo = 0;
+   </transition>
+   <transition label="268" preset="94" postset="90">
+     !mdlo && !mdso;
+     (0, inf);
+     mdli = 1;
+   </transition>
+   <transition label="269" preset="90" postset="94">
+     mdli && mdlo;
+     (0, inf);
+     mdli = 0;
+   </transition>
+   <transition label="270" preset="94" postset="92">
+     !mdlo && !mdso;
+     (0, inf);
+     mdsi = 1;
+   </transition>
+   <transition label="271" preset="92" postset="94">
+     mdsi && mdso;
+     (0, inf);
+     mdsi = 0;
+   </transition>
+</mod>

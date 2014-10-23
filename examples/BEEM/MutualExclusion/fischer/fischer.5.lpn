@@ -1,0 +1,91 @@
+<main>
+	<var>
+		id = 0;
+	</var>
+	
+	
+	Timer t(p0.timer, p1.timer, p2.timer, p3.timer,p4.timer,p5.timer,p6.timer);
+	Proc p0(0, id);
+	Proc p1(1, id);
+	Proc p2(2, id);
+	Proc p3(3, id);
+	Proc p4(4, id);
+	Proc p5(5, id);
+	Proc p6(6, id);
+</main>
+
+<class name="Timer" arg="t0, t1, t2, t3, t4, t5, t6">
+	
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="0" preset="q" postset="q">
+		guard(t0!= 0 && t1!=0 && t2!=0 && t3!=0 && t4!=0 && t5!=0 && t6!= 0);
+		delay(0, inf);
+		t0 = (t0 - 1) | ((t0 == 255) * 255);
+		t1 = (t1 - 1) | ((t1 == 255) * 255);
+		t2 = (t2 - 1) | ((t2 == 255) * 255);
+		t3 = (t3 - 1) | ((t3 == 255) * 255);
+		t4 = (t4 - 1) | ((t4 == 255) * 255);
+		t5 = (t5 - 1) | ((t5 == 255) * 255);
+		t6 = (t6 - 1) | ((t6 == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc" arg="myValue, id">
+	<const>
+		NCS = 0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var> 
+		timer = 255; 
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+
+	
+	<tr label="0" preset="NCS" postset="try">
+		guard(id == 0);
+		delay(0, inf);
+		timer = 4;
+	</tr>
+	
+	<tr label="1" preset="try" postset="wait">
+		delay(0, inf);
+		timer = 4;
+		id = (myValue + 1) % 256;
+	</tr>
+	
+	<tr label="2" preset="wait" postset="wait">
+		guard(timer == 0);
+		delay(0, inf);
+		timer = 255;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="CS">
+		guard(timer == 255 && id == (myValue + 1) % 256);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="4" preset="wait" postset="NCS">
+		guard(id != (myValue+1) % 256 && timer == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="CS" postset="NCS">
+		delay(0, inf);
+		id = 0;
+	</tr>
+
+</class>

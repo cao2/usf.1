@@ -1,0 +1,936 @@
+package platu.lpn;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+import platu.lpn.VarType;
+import platu.common.DualHashMap;
+import platu.expression.ArrayElement;
+import platu.expression.ArrayNode;
+import platu.expression.VarNode;
+import platu.project.Project;
+import platu.stategraph.State;
+import platu.stategraph.StateGraph;
+import platu.util.Pair;
+
+
+public class LPN {
+	//public static int nextID=1;
+    static private final List<String> emptyStringList = new LinkedList<String>();
+    
+    protected Project prj;  // Pointer to the top-level ProjDef..
+    protected String label;  // Label of this LPN.
+    protected int index;
+
+    /* Name of the class that this LPN is instantiated from. */
+    protected String className;
+    
+    /* List of argument names declared in the class of this.className. */
+    protected List<String> argumentList = emptyStringList;
+    
+    /* Variables defined and read only by this LPN.  */
+    protected VarSet internals;
+    
+    /* Variables defined in the main module that were passed to this module.  */
+    protected VarSet globals;
+
+    /*
+     * Mapping from atomic variable names, array names, and signatures of array elements to 
+     * their varNodes used in Expressions.  
+     */
+    protected HashMap<String, VarNode> varNodeMap;
+    
+    /*
+     * Mapping between variable signatures and their indices. These indices are from 0 to size-1.
+     * Signatures = atomic variable names or A[#1][#2]... for array elements of array A[][]....
+     */
+    protected DualHashMap<String, Integer> varIndexMap = new DualHashMap<String, Integer>(); 
+
+    protected LpnTranList transitions;
+    private int[] initMark;
+    private HashMap<String, Integer> initVector;
+    
+    /* Transitions that modify the input variables in 'inputs'*/
+    protected Set<LPNTran> inputTranSet = new HashSet<LPNTran>();
+    
+    /* Transitions that modify the output variables in 'outputs'*/
+    protected Set<LPNTran> outputTranSet = new HashSet<LPNTran>();
+    
+    /* State graph generated from this LPN. */
+    protected StateGraph stateGraph;
+
+    public StateGraph getStateGraph(){
+    	return this.stateGraph;
+    }
+    
+    @Override
+    public String toString() {
+        String ret = "";
+        ret += this.prj + "\n";
+        ret += this.label + "\n";
+        ret += this.globals + "\n";
+        ret += this.internals + "\n";
+        ret += this.transitions + "\n";
+        ret += this.varIndexMap + "\n";
+        ret += this.initVector + "\n";
+        ret += this.varNodeMap + "\n";
+        return ret;
+    }
+    
+    public LPN(Project prj, String label, VarSet globals, VarSet internals, HashMap<String, VarNode> varNodeMap, 
+    		LpnTranList transitions, HashMap<String, Integer> initialVector, int[] initialMarkings) {
+        this.prj = prj;
+        this.label = label;
+        this.globals = globals;
+        this.internals = internals;
+        this.transitions = transitions;
+        this.initVector = initialVector;
+        this.initMark = initialMarkings;
+        this.varNodeMap = varNodeMap;
+        
+        if (prj == null || label == null || globals == null || internals == null 
+        		|| transitions == null || initialVector == null || initialMarkings == null 
+        		|| varNodeMap == null) {
+            new NullPointerException().printStackTrace();
+        }
+        
+        // Adjust the visibility of the LPN transitions.
+        for (LPNTran curTran : transitions) {
+            curTran.initialize(this);
+        }
+        
+        this.stateGraph = new StateGraph(this);
+    }
+
+    /**
+     * Creates and returns an exact copy of this LPN.
+     * @return - New LPN
+     */
+    @Override
+    public LPN clone() {
+        // copy varNodeMap
+        HashMap<String, VarNode> varNodeMap = new HashMap<String, VarNode>();
+        List<ArrayNode> arrayNodes = new LinkedList<ArrayNode>();
+        
+        for(Entry<String, VarNode> e : this.varNodeMap.entrySet()){
+        	VarNode var = e.getValue();
+        	if(ArrayNode.class.isAssignableFrom(var.getClass())){
+        		arrayNodes.add((ArrayNode)var);
+        	}
+        	else{
+        		varNodeMap.put(e.getKey(), var.clone());
+        	}
+        }
+        
+        for(ArrayNode array : arrayNodes){
+        	ArrayNode copyNode = (ArrayNode) array.copy(varNodeMap);
+        	varNodeMap.put(copyNode.getName(), copyNode);
+        }
+        
+        // copy transitions
+        LpnTranList transitions = this.transitions.copy(varNodeMap);
+
+        // copy varIndexMap
+        DualHashMap<String, Integer> varIndexMap = this.varIndexMap.clone();
+        
+        // copy initVector
+        HashMap<String, Integer> initVector = new HashMap<String, Integer>(this.initVector);
+        
+        // copy of zone
+        LPN newLPN = new LPN(this.prj, this.label, this.globals.clone(), this.internals.clone(), 
+        		varNodeMap, transitions, initVector, this.initMark);
+        
+        transitions.setLPN(newLPN);
+        newLPN.setVarIndexMap(varIndexMap);
+        newLPN.argumentList = this.argumentList;
+
+        return newLPN;
+    }
+
+    public void setClassName(String className){
+    	this.className = className;
+    }
+    
+    public String getClassName(){
+    	return this.className;
+    }
+
+    /**
+     * Configures a global variable passed as an input.
+     * The input variable is renamed to match the global variable name.
+     * @param globalVar - Global variable name
+     * @param inputVar - Input variable name
+     * @param initialValue - Global variable's initial value
+     */
+    public void setGlobalVariable(String globalVar, String inputVar, int initialValue){
+    	int[] initialVector = this.getInitState().getVector();
+    		
+    	VarNode inputVarNode = this.varNodeMap.get(inputVar);
+    	if(inputVarNode == null){
+    		System.err.println("error: invalid input variable " + inputVar);
+    		System.exit(1);
+    	}
+    	else if(ArrayNode.class.isAssignableFrom(inputVarNode.getClass())){	
+    		// make sure input variable is not an array
+    		System.err.println("error: invalid input argument");
+    		System.exit(1);
+    	}
+    	
+    	// change input variable name
+    	inputVarNode.setName(globalVar);
+    	
+    	// rename global set entry
+    	this.globals.remove(inputVar);
+    	this.globals.add(globalVar);
+    	
+    	// set variable type as global
+    	inputVarNode.setType(VarType.GLOBAL);
+    	
+    	// set initial value
+    	this.initVector.remove(inputVar);
+    	this.initVector.put(globalVar, initialValue);	    	
+    	
+    	// rename VarIndexMap entry
+    	this.varIndexMap.delete(inputVar);
+    	this.varIndexMap.insert(globalVar, inputVarNode.getIndex(initialVector));
+    	
+    	// rename input variable's entry in VarNodeMap
+    	this.varNodeMap.remove(inputVar);
+    	this.varNodeMap.put(globalVar, inputVarNode);
+    }
+
+    /**
+     * Configures a global array passed as an input.
+     * The input array variable and it's elements are renamed to match the global array variable.
+     * @param globalArrayNode - Global array node
+     * @param inputVar - Input variable name
+     */
+    public void setGlobalArray(ArrayNode globalArrayNode, String inputVar){
+    	int[] initialVector = this.getInitState().getVector();
+    	
+    	VarNode inputVarNode = this.varNodeMap.get(inputVar);
+    	if(inputVarNode == null){
+    		System.err.println("error: invalid input array");
+    		System.exit(1);
+    	}
+    	
+    	// make sure inputVarNode is an array
+    	if(!ArrayNode.class.isAssignableFrom(inputVarNode.getClass())){
+    		System.err.println("error: invalid input argument");
+    		System.exit(1);
+    	}
+    	
+    	ArrayNode inputArrayNode = (ArrayNode) inputVarNode;
+    	
+    	// make sure the arrays are compatible
+    	if(inputArrayNode.numDimensions() != globalArrayNode.numDimensions()){
+    		System.err.println("error: invalid input argument");
+    		System.exit(1);
+    	}
+    	
+    	List<Integer> inputDimensionList = inputArrayNode.getDimensionList();
+    	List<Integer> globalDimensionList = globalArrayNode.getDimensionList();
+    	for(int i = 0; i < inputDimensionList.size(); i++){
+    		if(inputDimensionList.get(i) != globalDimensionList.get(i)){
+    			System.err.println("error: invalid input argument");
+    			System.exit(1);
+    		}
+    	}
+    	
+    	// change input variable name
+    	inputVarNode.setName(globalArrayNode.getName());
+    	
+    	// remove input var entry
+    	this.globals.remove(inputVar);
+    	
+    	// set type to global
+    	inputVarNode.setType(VarType.GLOBAL);
+    	
+    	// rename input variable's entry in VarNodeMap
+    	this.varNodeMap.remove(inputVar);
+    	this.varNodeMap.put(globalArrayNode.getName(), inputVarNode);
+    	
+    	List<VarNode> inputArrayElements = ((ArrayNode)inputVarNode).getElementList();
+    	List<VarNode> globalArrayElements = globalArrayNode.getElementList();
+    	
+    	boolean shared = false;
+    	for(int i = 0; i < inputArrayElements.size(); i++){
+    		String globalElementName = globalArrayElements.get(i).getName();
+    		VarNode inputElementNode = inputArrayElements.get(i);
+	    	
+	    	// set as global variable
+	    	inputElementNode.setType(VarType.GLOBAL);
+	    	
+	    	// add to global variable set
+	    	this.globals.add(globalElementName);
+	    	
+	    	// rename variable's entry in the initial state vector
+	    	int initialValue = this.initVector.get(inputElementNode.getName());
+	    	this.initVector.remove(inputElementNode.getName());
+	    	this.initVector.put(globalElementName, initialValue);
+	    	
+	    	// remove input element from VarIndexMap, and re-add with new name
+	    	this.varIndexMap.delete(inputElementNode.getName());
+	    	this.varIndexMap.insert(globalElementName, inputElementNode.getIndex(initialVector));
+	    	
+	    	// rename input array element, and add to VarNodeMap
+	    	inputElementNode.setName(globalElementName);
+	    	this.varNodeMap.put(globalElementName, inputElementNode);
+	    	
+	    	if(inputVarNode.isShared()){
+	    		shared = true;
+	    		inputElementNode.setShared();
+	    	}
+    	}
+    	
+    	if(shared){
+    		inputVarNode.setShared();
+    	}
+    }
+    
+    /**
+     * Configures an input variable assigned by a constant argument.
+     * The input variable is re-purposed as an internal variable.
+     * @param inputVar - Input variable name
+     * @param initialValue - Constant value passed as the argument
+     */
+    public void setConstantInput(String inputVar, int initialValue){
+    	VarNode inputVarNode = this.getVarNode(inputVar);
+    	if(inputVarNode == null){
+    		System.err.println("error: input variable " + inputVar + " not found");
+    		System.exit(1);
+    	}
+    	
+    	int[] initVector = this.getInitState().getVector();
+    	String newName = this.label + "." + inputVar;
+    	
+    	// set input value's type
+    	inputVarNode.setType(VarType.INTERNAL);
+    	
+    	// set initial value
+    	this.initVector.remove(inputVar);
+    	this.initVector.put(newName, initialValue);
+    	
+    	// rename entry in the varIndexMap
+    	this.varIndexMap.delete(inputVar);
+    	this.varIndexMap.insert(newName, inputVarNode.getIndex(initVector));
+    	
+    	// rename entry in the varNodeMap
+    	this.varNodeMap.remove(inputVar);
+    	this.varNodeMap.put(newName, inputVarNode);
+    	
+    	// change variable name
+    	inputVarNode.setName(newName);
+    }
+    
+    /**
+     * Creates a copy of this LPN and instantiates it with the supplied label.
+     * @param label - New LPN's label
+     * @return New LPN
+     */
+    public LPN instantiate(String label){
+    	LPN newLpn = this.clone(); // new LPN to instantiate
+    	newLpn.setLabel(label);
+    	newLpn.setClassName(this.label);
+ 
+    	int[] currentVector = newLpn.getInitState().getVector();
+    	HashMap<String, VarNode> newVarNodeMap = newLpn.getVarNodeMap();
+    	HashMap<String, Integer> newInitialVector = newLpn.getInitVector();
+    	DualHashMap<String, Integer> newVarIndexMap = newLpn.getVarIndexMap();
+    	
+    	// existing internal variable set
+    	String[] internalSet = newLpn.getInternals().toArray(new String[newLpn.getInternals().size()]);
+    	
+    	// clear the internal variable set
+    	VarSet newInternalSet = newLpn.getInternals();
+    	newInternalSet.clear();
+    	
+    	// go through internal variables and prefix the names with the module name
+    	for(String internal : internalSet){
+    		String newName = label + "." + internal;
+    		
+    		// add to new internal variable set
+    		newInternalSet.add(newName);
+    		
+    		// update VarNode name
+    		VarNode var = newVarNodeMap.get(internal);
+    		var.setName(newName);
+    		
+    		// update varNodeMap entry
+    		newVarNodeMap.remove(internal);
+    		newVarNodeMap.put(newName, var);
+    		
+    		// if it is an array update the array elements
+    		if(ArrayNode.class.isAssignableFrom(var.getClass())){
+    			// list of array elements
+    			List<VarNode> elementList = ((ArrayNode)var).getElementList();
+    			
+    			int numElements = elementList.size();
+    			for(int i = 0; i < numElements; i++){
+    				VarNode elementNode = elementList.get(i);
+    				
+    				// elements initial value
+    				int val = newInitialVector.get(elementNode.getName());
+    				
+    				// remove old entries
+    				newVarNodeMap.remove(elementNode.getName());
+    				newVarIndexMap.delete(elementNode.getName());
+    				newInitialVector.remove(elementNode.getName());
+    				
+    				// update element name
+    				String elementName = label + "." + elementNode.getName();
+    				elementNode.setName(elementName);
+    				
+    				// update entries
+    				newVarNodeMap.put(elementName, elementNode);
+    				newInitialVector.put(elementName, val);
+    				newVarIndexMap.insert(elementName, elementNode.getIndex(currentVector));
+    			}
+    		}
+    		else{
+    			// update entry in the initial state vector
+	    		int val = newInitialVector.get(internal);
+	    		newInitialVector.remove(internal);
+	    		newInitialVector.put(newName, val);
+	    		
+	    		// update entry in the varIndexMap
+	    		newVarIndexMap.delete(internal);
+	    		newVarIndexMap.insert(newName, var.getIndex(currentVector));
+    		}
+    	}
+    	
+    	return newLpn;
+    }
+    
+    /**
+     * Makes the connection from this LPN to the destination LPN via the supplied output and input variables.
+     * @param outputVar - Output variable of the source LPN
+     * @param dstLpn - Destination LPN of the output variable
+     * @param inputVar - Input variable of the destination LPN
+     */
+    public void connect(String outputVar, LPN dstLpn, String inputVar){
+    	int[] initVector = this.getInitState().getVector();
+    	
+    	// get output VarNode
+    	VarNode outputVarNode = this.varNodeMap.get(outputVar);
+    	if(outputVarNode == null){
+    		System.err.println("connect: variable " + outputVar + " does not exist in " + this.getLabel());
+    		System.exit(1);
+    	}
+		
+    	// get input VarNode, make sure it is an input
+    	VarNode inputVarNode = dstLpn.varNodeMap.get(inputVar);
+    	if(inputVarNode == null){
+    		System.err.println("connect: variable " + inputVar + " does not exist in " + dstLpn.getLabel());
+    		System.exit(1);
+    	}
+    	
+    	// rename input variable
+    	inputVarNode.setName(outputVar);
+    	
+    	// rename input variable's entry in VarNodeMap
+    	dstLpn.varNodeMap.remove(inputVar);
+    	dstLpn.varNodeMap.put(outputVar, inputVarNode);
+    	
+    	// make sure types are compatible
+    	if(ArrayNode.class.isAssignableFrom(inputVarNode.getClass())){
+			if(!ArrayNode.class.isAssignableFrom(outputVarNode.getClass())){
+				System.err.println("error: variable " + inputVar + " is an array");
+				System.exit(1);
+			}
+			
+			// make sure dimensions are the same
+			List<Integer> inputDimensions = ((ArrayNode)inputVarNode).getDimensionList();
+			List<Integer> outputDimensions = ((ArrayNode)outputVarNode).getDimensionList();
+			
+			if(inputDimensions.size() != outputDimensions.size()){
+				System.err.println("error: incompatible dimensions");
+				System.exit(1);
+			}
+			
+			for(int i = 0; i < inputDimensions.size(); i++){
+				if(inputDimensions.get(i) != outputDimensions.get(i)){
+					System.err.println("error: incompatible dimensions");
+					System.exit(1);
+				}
+			}
+    	}
+    	else if(ArrayNode.class.isAssignableFrom(outputVarNode.getClass())){
+    		System.err.println("error: variable " + outputVarNode.getName() + " is an array");
+			System.exit(1);
+    	}
+    	
+    	// set output variable as output
+		outputVarNode.setType(VarType.OUTPUT);
+		
+		// rename global set entry
+    	VarSet globals = dstLpn.getGlobals();
+    	globals.remove(inputVar);
+    	globals.add(outputVar);
+		
+    	// if output variable is an array
+    	if(ArrayNode.class.isAssignableFrom(outputVarNode.getClass())){
+    		ArrayNode inputArray = (ArrayNode) inputVarNode;
+    		ArrayNode outputArray = (ArrayNode) outputVarNode;
+    		
+	    	List<VarNode> inputVarList = inputArray.getElementList();
+	    	List<VarNode> outputVarList = outputArray.getElementList();
+	    	HashMap<String, VarNode> dstVarNodeMap = dstLpn.getVarNodeMap();
+	    	
+	    	// go through array element variables
+	    	for(int i = 0; i < inputVarList.size(); i++){
+	    		// get input array element, set type and remove from VarNodeMap
+	    		VarNode inputElementNode = inputVarList.get(i);
+	    		inputElementNode.setType(VarType.INPUT);
+	    		dstVarNodeMap.remove(inputElementNode.getName());
+	    		
+	    		// get associated output array element, and set type
+	    		VarNode outputElementNode = outputVarList.get(i);
+	    		outputElementNode.setType(VarType.OUTPUT);
+
+	    		// rename entry in the initial vector
+		    	HashMap<String, Integer> initialVector = dstLpn.getInitVector();
+		    	int initialValue = initialVector.get(inputElementNode.getName());
+		    	initialVector.remove(inputElementNode.getName());
+		    	initialVector.put(outputElementNode.getName(), initialValue);
+	    		
+		    	// remove input element from VarIndexMap, and re-add with new name
+		    	DualHashMap<String, Integer> varIndexMap = dstLpn.getVarIndexMap();
+		    	varIndexMap.delete(inputElementNode.getName());
+		    	varIndexMap.insert(outputElementNode.getName(), inputElementNode.getIndex(initVector));
+		    	
+		    	// rename input array element, and re-add to VarNodeMap
+		    	inputElementNode.setName(outputElementNode.getName());
+		    	dstVarNodeMap.put(inputElementNode.getName(), inputElementNode);
+	    	}
+	    	
+	    	// find transitions assigning array's elements
+	    		// put in outputTranList if not already
+	    		// put in dstLpn's inputTranList
+	    		// set as non local
+				// add destination lpn
+	    	for(LPNTran lpnTran : this.transitions){
+    			for(VarNode assignedVar : lpnTran.getAssignedVars()){
+	        		if(ArrayElement.class.isAssignableFrom(assignedVar.getClass()) && ((ArrayElement)assignedVar).getArray() == outputArray){
+	        			this.addOutputTran(lpnTran);
+	        			dstLpn.addInputTran(lpnTran);
+	        			lpnTran.setLocalFlag(false);
+	        			lpnTran.addDstLpn(dstLpn);
+	        		}
+    			}
+        	}
+    	}
+    	else{
+    		// find associated LPNTrans
+	    		// put in outputTranList if not already
+	    		// put in dstLpn's inputTranList
+	    		// set as non local
+    			// add destination lpn
+	    	for(LPNTran lpnTran : this.transitions){
+	    		if(lpnTran.getAssignedVars().contains(outputVarNode)){
+	    			this.addOutputTran(lpnTran);
+	    			dstLpn.addInputTran(lpnTran);
+	    			lpnTran.setLocalFlag(false);
+	    			lpnTran.addDstLpn(dstLpn);
+	    		}
+	    	}
+        	
+        	// rename entry in the initial vector
+	    	HashMap<String, Integer> initialVector = dstLpn.getInitVector();
+	    	int initialValue = initialVector.get(inputVar);
+	    	initialVector.remove(inputVar);
+	    	initialVector.put(outputVar, initialValue);
+	    	
+	    	// rename VarIndexMap entry
+	    	DualHashMap<String, Integer> varIndexMap = dstLpn.getVarIndexMap();
+	    	varIndexMap.delete(inputVar);
+	    	varIndexMap.insert(outputVar, inputVarNode.getIndex(initVector));
+    	}
+    	
+    	// if an input variable is modified, then also set output variable as shared
+    	if(inputVarNode.isShared()){
+    		outputVarNode.setShared();
+    	}
+    }
+    
+    /**
+     * Makes the connection between shared variables.
+     * @param srcNode - Variable that modifies a shared variable
+     * @param dstLpn - LPN that used a shared variable
+     * @param dstNode - Shared variable within the destination LPN (dstLpn)
+     */
+    public void share(VarNode srcNode, LPN dstLpn, VarNode dstNode){
+    	if(srcNode == dstNode || this == dstLpn){
+    		System.err.println("error: invalid share parameters");
+    		System.exit(1);
+    	}
+    	
+    	// If the variable is an array
+    	if(ArrayNode.class.isAssignableFrom(srcNode.getClass())){
+    		// find lpn transitions assigning array's elements
+	    		// put in outputTranList if not already
+	    		// put in dstLpn's inputTranList
+	    		// set as non local
+	    		// add destination lpn
+    		for(LPNTran lpnTran : this.transitions){
+    			for(VarNode assignedVar : lpnTran.getAssignedVars()){
+	        		if(ArrayElement.class.isAssignableFrom(assignedVar.getClass()) && ((ArrayElement)assignedVar).getArray() == srcNode){
+	        			this.addOutputTran(lpnTran);
+	        			dstLpn.addInputTran(lpnTran);
+	        			lpnTran.setLocalFlag(false);
+	        			lpnTran.addDstLpn(dstLpn);
+	        		}
+    			}
+        	}
+    	}
+    	else{ // non-array variables
+    		// find associated LPNTrans
+	    		// put in outputTranList if not already
+	    		// put in dstLpn's inputTranList
+	    		// set as non local
+	    		// add destination lpn
+	    	for(LPNTran lpnTran : this.transitions){
+	    		if(lpnTran.getAssignedVars().contains(srcNode)){
+	    			this.addOutputTran(lpnTran);
+	    			dstLpn.addInputTran(lpnTran);
+	    			lpnTran.setLocalFlag(false);
+	    			lpnTran.addDstLpn(dstLpn);
+	    		}
+	    	}
+    	}
+    }
+    
+    /**
+     * Returns the HashMap containing all the variable and array nodes contained in this LPN.
+     * @return LPN's VarNodeMap
+     */
+    public HashMap<String, VarNode> getVarNodeMap(){
+    	return this.varNodeMap;
+    }
+    
+    /**
+     * Returns the VarNode object associated wit the specified name.
+     * @param name - Variable name
+     * @return VarNode associated with the variable name specified, otherwise null
+     */
+    public VarNode getVarNode(String name){
+    	return this.varNodeMap.get(name);
+    }
+    
+    public void insert(LPNTran tran) {
+        tran.setLpn(this);
+        this.getTransitions().add(tran);
+    }
+
+    String blankString(int len) {
+        String ret = "";
+        for (int i = 0; i < len; i++) {
+            ret += " ";
+        }
+        return ret;
+    }
+
+    /**
+     * Returns this LPN's label.
+     */
+    public String getLabel() {
+        return label;
+    }
+    
+    public void setIndex(int newIdx) {
+    	this.index = newIdx;
+    }
+    
+    public int getIndex() {
+    	return this.index;
+    }
+
+    /**
+     * Returns the project to which this LPN belongs.
+     */
+    public Project getProj() {
+        return this.prj;
+    }
+    
+    /**
+     * Returns the set of global variables.
+     * @return Set of variables
+     */
+    public VarSet getGlobals(){
+    	return this.globals;
+    }
+
+    /**
+     * Returns the set of input variables.
+     * @return Set of variables
+     */
+    public VarSet getInternals() {
+        return internals;
+    }
+
+    /**
+     * Returns the set of transition pertaining to this LPN.
+     * @return Set of LPN transitions
+     */
+    public LpnTranList getTransitions() {
+        return transitions;
+    }
+    
+    /**
+     * Adds an LPN transition to the set of input transitions.
+     * @param inputTran - LPN transition
+     */
+    public void addInputTran(LPNTran inputTran){
+    	this.inputTranSet.add(inputTran);
+    }
+    
+    /**
+     * Adds an LPN transition to the set of output transitions.
+     * @param outputTran - LPN transition
+     */
+    public void addOutputTran(LPNTran outputTran){
+    	this.outputTranSet.add(outputTran);
+    }
+    
+    /**
+     * Adds a collection of LPN transitions to the set of input transitions.
+     * @param inputTrans - Collection of LPN transitions
+     */
+    public void addAllInputTrans(Collection<? extends LPNTran> inputTrans){
+    	this.inputTranSet.addAll(inputTrans);
+    }
+    
+    /**
+     * Adds a collection of LPN transitions to the set of output transitions.
+     * @param outputTrans - Collection of LPN transitions
+     */
+    public void addAllOutputTrans(Collection<? extends LPNTran> outputTrans){
+    	this.outputTranSet.addAll(outputTrans);
+    }
+
+    /**
+     * Creates the initial from the initial vector and marking.
+     * @return Initial LPN state
+     */
+    public State getInitState() {	
+    	// create initial vector
+		int size = this.varIndexMap.size();
+    	int[] initialVector = new int[size];
+    	for(int i = 0; i < size; i++) {
+    		String var = this.varIndexMap.getKey(i);
+    		int val = this.initVector.get(var);
+    		initialVector[i] = val;
+    	}
+    	
+		return new State(this, this.initMark, initialVector);
+    }
+    
+    /**
+     * Returns a hash map containing every variable's initial value.
+     * @return Hash map containing initial values
+     */
+    public HashMap<String, Integer> getInitVector(){
+    	return this.initVector;
+    }
+    
+    public int[] getInitMark(){
+    	return this.initMark;
+    }
+
+    /**
+     * Sets the LPN label.
+     * @param label - LPN label
+     */
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    /**
+     * Sets the LPN transitions in this LPN.
+     * @param transitions - Set of LPN transitions
+     */
+    public void setTransitions(LpnTranList transitions) {
+        this.transitions = transitions;
+    }
+
+    public void setVarIndexMap(DualHashMap<String, Integer> m) {
+        this.varIndexMap = m;
+    }
+
+    public DualHashMap<String, Integer> getVarIndexMap() {
+        return this.varIndexMap;
+    }
+    
+    /**
+     * Determines if this LPN modules modifies a variable in the other specified LPN module.
+     * @param otherLpn - Other LPN module to check with
+     * @return TRUE if this LPN modifies the specified LPN, otherwise false
+     */
+    public boolean modifies(LPN otherLpn){
+    	if(this == otherLpn){
+    		System.err.println("error (LPN.modifies()): same LPN");
+    		System.exit(1);
+    	}
+		
+		VarSet otherGlobalSet = otherLpn.getGlobals();
+		for(String global : this.globals){
+			VarNode globalNode = this.getVarNode(global);
+			if(globalNode.isShared() && otherGlobalSet.contains(global)){
+				return true;
+			}
+			else if(globalNode.getType() == VarType.OUTPUT && otherGlobalSet.contains(global)){
+				return true;
+			}
+		}
+		
+		return false;
+    }
+    
+    /**
+     * Determines if this LPN module shares a common variable with the other specified LPN module.
+     * @param otherLpn - Other LPN modules to check with
+     * @return TRUE if this LPN and the specified LPN share a variable, otherwise FALSE
+     */
+    public boolean sharesVar(LPN otherLpn){
+    	if(this == otherLpn){
+    		System.err.println("error (LPN.shareVar()): same LPN");
+    		System.exit(1);
+    	}
+    	
+    	DualHashMap<String, Integer> otherVarIndexMap = otherLpn.getVarIndexMap();
+    	for(String var : this.varIndexMap.keySet()){
+    		if(otherVarIndexMap.containsKey(var)){
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    
+    /**
+     * Finds the interfacing variables between two LPN, then  
+     * constructs arrays containing the indices of the common variables.
+     * @param thisIndexList - Array constructed with this LPN's interfacing varaible's indices
+     * @param otherIndexList - Array constructed with the other LPN's interfacing variable's indices
+     * @param otherLpn - Other LPN
+     */
+    public Pair<int[], int[]> constrInterfacePair(LPN otherLpn){
+    	List<Integer> thisIndexList = new LinkedList<Integer>();
+    	List<Integer> otherIndexList = new LinkedList<Integer>();
+    	DualHashMap<String, Integer> otherVarIndexMap = otherLpn.getVarIndexMap();
+    	
+    	//TODO iterate through smaller map
+    	
+    	// find common variables between the LPN modules
+    	for(int i = 0; i < otherVarIndexMap.size(); i++){
+			String var = otherVarIndexMap.getKey(i);
+
+			Integer thisIndex = this.varIndexMap.getValue(var);
+			if(thisIndex != null){
+				thisIndexList.add(thisIndex);
+				otherIndexList.add(otherVarIndexMap.getValue(var));
+			}
+		}
+    	
+    	int size = thisIndexList.size();
+
+    	int[] thisIndexArray = new int[size];
+    	int[] otherIndexArray = new int[size];
+    	
+    	for(int i = 0; i < size; i++){
+    		thisIndexArray[i] = thisIndexList.get(i);
+    		otherIndexArray[i] = otherIndexList.get(i);
+    	}
+    	
+    	return new Pair<int[], int[]>(thisIndexArray, otherIndexArray);
+    }
+    
+    /**
+     * Returns the set of LPN transitions that modify this LPN's inputs.
+     * @return Set of LPN transitions
+     */
+    public Set<LPNTran> getInputTranSet(){
+    	return this.inputTranSet;
+    }
+    
+    /**
+     * Returns the set of LPN transitions that modify this LPN's outputs
+     * @return Set of LPN transitions
+     */
+    public Set<LPNTran> getOutputTranSet(){
+    	return this.outputTranSet;
+    }
+    
+    public void setArgumentList(List<String> argList){
+    	this.argumentList = argList;
+    }
+    
+    public List<String> getArgumentList(){
+    	return this.argumentList;
+    }
+    
+    /* Check if a LPN transition is defined in this LPN or an input to this LPN. */
+    public boolean contains(LPNTran lpnTr) {
+    	return this.transitions.contains(lpnTr) || this.inputTranSet.contains(lpnTr);
+    }
+    
+    public boolean isInput(LPNTran lpnTr) {
+    	return this.inputTranSet.contains(lpnTr);
+    }
+    
+    public boolean isOutput(LPNTran lpnTr) {
+    	return this.outputTranSet.contains(lpnTr);
+    }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		
+		LPN other = (LPN) obj;
+		if (label == null) {
+			if (other.label != null)
+				return false;
+		} 
+		else if (!label.equals(other.label))
+			return false;
+		
+		return true;
+	}
+	
+	public void printHeader() {
+		System.out.println("LPN: " + this.label);
+
+		System.out.print("-->Internals: \t\t");
+		for(String i : this.internals)
+			System.out.print("(" + i + " " +  this.varNodeMap.get(i).getIndex(null) + " " + this.getVarNode(i).getType() + "), ");	
+		
+		System.out.print("\n-->Globals: \t\t");
+		for(String i : this.globals)
+			System.out.print("(" + i + " " +  this.varNodeMap.get(i).getIndex(null) + " " + this.getVarNode(i).getType() + "), ");
+		
+		System.out.print("\n--> VarIndexMap: \t");
+		for(int i = 0; i < this.varIndexMap.size(); i++){
+			String var = this.varIndexMap.getKey(i);
+			System.out.print("(" + var + " " + this.varIndexMap.getValue(var) +"),  ");
+		}
+		
+		System.out.println("\n");
+	}
+}

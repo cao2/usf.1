@@ -1,0 +1,308 @@
+<main>
+   sm_priv c1(c4.reqout, c2.ackout);
+   sm c2(c1.reqout, c3.ackout);
+   sm c3(c2.reqout, c4.ackout);
+   sm c4(c3.reqout, c1.ackout);
+</main>
+
+<class name="sm_priv" arg="reqin, ackin">
+
+   <var>
+   ackout = 0;
+   reqout = 0;
+
+   b = 1;
+   bfo = 0;
+   bto = 0;
+   mack1 = 0;
+   mreq1 = 0;
+   po = 0;
+   qo = 0;
+   so = 0;
+   to = 0;
+   </var>
+
+   <m>
+   13,   15,   80
+   </m>
+
+
+
+   <tr label="32" preset="0" postset="1">
+     guard(mreq1);
+     po = 1;
+   </tr>
+   <tr label="33" preset="1" postset="2">
+     guard(qo);
+     po = 0;
+   </tr>
+   <tr label="34" preset="2" postset="3">
+      guard(!qo);
+     mack1 = 1;
+   </tr>
+   <tr label="35" preset="3" postset="6">
+      guard(!mreq1);
+     mack1 = 0;
+   </tr>
+   <tr label="36" preset="6" postset="9">
+     bto = 1;
+   </tr>
+   <tr label="37" preset="9" postset="11">
+     guard(so);
+     bto = 0;
+   </tr>
+   <tr label="38" preset="11" postset="13">
+      guard(!so);
+   </tr>
+   <tr label="39" preset="0" postset="4">
+     guard(reqin);
+     po = 1;
+   </tr>
+   <tr label="40" preset="4" postset="5">
+     guard(qo);
+     po = 0;
+   </tr>
+   <tr label="41" preset="7" postset="8">
+     bfo = 1;
+   </tr>
+   <tr label="42" preset="8" postset="10">
+     guard(to);
+     bfo = 0;
+   </tr>
+   <tr label="43" preset="5" postset="12">
+      guard(!qo);
+     ackout = 1;
+   </tr>
+   <tr label="44" preset="10" postset="13">
+      guard(!to);
+   </tr>
+   <tr label="45" preset="12" postset="7">
+      guard(!reqin);
+     ackout = 0;
+   </tr>
+   <tr label="46" preset="13" postset="0">
+   </tr>
+   <tr label="47" preset="20" postset="21">
+      guard(!b && po);
+     reqout = 1;
+   </tr>
+   <tr label="48" preset="20" postset="14">
+     guard(b && po);
+     qo = 1;
+   </tr>
+   <tr label="49" preset="21" postset="16">
+     guard(ackin);
+     reqout = 0;
+   </tr>
+   <tr label="50" preset="14" postset="15">
+      guard(!po);
+     qo = 0;
+   </tr>
+   <tr label="51" preset="16" postset="17">
+      guard(!ackin);
+     qo = 1;
+   </tr>
+   <tr label="52" preset="18" postset="19">
+     so = 1;
+   </tr>
+   <tr label="53" preset="19" postset="15">
+      guard(!bto);
+     so = 0;
+   </tr>
+   <tr label="54" preset="17" postset="15">
+      guard(!po);
+     qo = 0;
+   </tr>
+   <tr label="55" preset="20" postset="23">
+     guard(b && bto);
+     so = 1;
+   </tr>
+   <tr label="56" preset="20" postset="18">
+      guard(!b && bto);
+     b = 1;
+   </tr>
+   <tr label="57" preset="25" postset="15">
+      guard(!bfo);
+     to = 0;
+   </tr>
+   <tr label="58" preset="23" postset="15">
+      guard(!bto);
+     so = 0;
+   </tr>
+   <tr label="59" preset="20" postset="24">
+      guard(!b && bfo);
+     to = 1;
+   </tr>
+   <tr label="60" preset="20" postset="22">
+     guard(b && bfo);
+     b = 0;
+   </tr>
+   <tr label="61" preset="24" postset="15">
+      guard(!bfo);
+     to = 0;
+   </tr>
+   <tr label="62" preset="22" postset="25">
+     to = 1;
+   </tr>
+   <tr label="63" preset="15" postset="20">
+   </tr>
+   <tr label="192" preset="80" postset="79">
+     guard(!mack1);
+     mreq1 = 1;
+   </tr>
+   <tr label="193" preset="79" postset="80">
+     guard(mack1);
+     mreq1 = 0;
+   </tr>
+</class>
+
+<class name="sm" arg="reqin, ackin">
+
+   <var>
+   ackout = 0;
+   reqout = 0;
+
+   b = 0;
+   bfo = 0;
+   bto = 0;
+   mack1 = 0;
+   mreq1 = 0;
+   po = 0;
+   qo = 0;
+   so = 0;
+   to = 0;
+   </var>
+
+   <m>
+   13,   15,   80
+   </m>
+
+
+
+   <tr label="32" preset="0" postset="1">
+     guard(mreq1);
+     po = 1;
+   </tr>
+   <tr label="33" preset="1" postset="2">
+     guard(qo);
+     po = 0;
+   </tr>
+   <tr label="34" preset="2" postset="3">
+      guard(!qo);
+     mack1 = 1;
+   </tr>
+   <tr label="35" preset="3" postset="6">
+      guard(!mreq1);
+     mack1 = 0;
+   </tr>
+   <tr label="36" preset="6" postset="9">
+     bto = 1;
+   </tr>
+   <tr label="37" preset="9" postset="11">
+     guard(so);
+     bto = 0;
+   </tr>
+   <tr label="38" preset="11" postset="13">
+      guard(!so);
+   </tr>
+   <tr label="39" preset="0" postset="4">
+     guard(reqin);
+     po = 1;
+   </tr>
+   <tr label="40" preset="4" postset="5">
+     guard(qo);
+     po = 0;
+   </tr>
+   <tr label="41" preset="7" postset="8">
+     bfo = 1;
+   </tr>
+   <tr label="42" preset="8" postset="10">
+     guard(to);
+     bfo = 0;
+   </tr>
+   <tr label="43" preset="5" postset="12">
+      guard(!qo);
+     ackout = 1;
+   </tr>
+   <tr label="44" preset="10" postset="13">
+      guard(!to);
+   </tr>
+   <tr label="45" preset="12" postset="7">
+      guard(!reqin);
+     ackout = 0;
+   </tr>
+   <tr label="46" preset="13" postset="0">
+   </tr>
+   <tr label="47" preset="20" postset="21">
+      guard(!b && po);
+     reqout = 1;
+   </tr>
+   <tr label="48" preset="20" postset="14">
+     guard(b && po);
+     qo = 1;
+   </tr>
+   <tr label="49" preset="21" postset="16">
+     guard(ackin);
+     reqout = 0;
+   </tr>
+   <tr label="50" preset="14" postset="15">
+      guard(!po);
+     qo = 0;
+   </tr>
+   <tr label="51" preset="16" postset="17">
+      guard(!ackin);
+     qo = 1;
+   </tr>
+   <tr label="52" preset="18" postset="19">
+     so = 1;
+   </tr>
+   <tr label="53" preset="19" postset="15">
+      guard(!bto);
+     so = 0;
+   </tr>
+   <tr label="54" preset="17" postset="15">
+      guard(!po);
+     qo = 0;
+   </tr>
+   <tr label="55" preset="20" postset="23">
+     guard(b && bto);
+     so = 1;
+   </tr>
+   <tr label="56" preset="20" postset="18">
+      guard(!b && bto);
+     b = 1;
+   </tr>
+   <tr label="57" preset="25" postset="15">
+      guard(!bfo);
+     to = 0;
+   </tr>
+   <tr label="58" preset="23" postset="15">
+      guard(!bto);
+     so = 0;
+   </tr>
+   <tr label="59" preset="20" postset="24">
+      guard(!b && bfo);
+     to = 1;
+   </tr>
+   <tr label="60" preset="20" postset="22">
+     guard(b && bfo);
+     b = 0;
+   </tr>
+   <tr label="61" preset="24" postset="15">
+      guard(!bfo);
+     to = 0;
+   </tr>
+   <tr label="62" preset="22" postset="25">
+     to = 1;
+   </tr>
+   <tr label="63" preset="15" postset="20">
+   </tr>
+   <tr label="192" preset="80" postset="79">
+     guard(!mack1);
+     mreq1 = 1;
+   </tr>
+   <tr label="193" preset="79" postset="80">
+     guard(mack1);
+     mreq1 = 0;
+   </tr>
+</class>

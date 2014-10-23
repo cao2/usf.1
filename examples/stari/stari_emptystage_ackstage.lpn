@@ -1,0 +1,36 @@
+<mod name="stari_emptystage_ackstage.lpn">
+
+<input>  x1t, x1f </input>
+<output>    ack1      </output>
+<var>             </var>
+<marking>   1      </marking>
+
+   <statevector>
+   ack1 = 1;
+   </statevector>
+
+//empty stage - ackstage
+   <transition label="201" preset="1" postset="2">
+     x1t==1;
+     (100, 200);
+	 ack1 = 0;
+   </transition>
+   <transition label="202" preset="1" postset="2">
+     x1f==1;
+     (100, 200);
+	 ack1 = 0;
+   </transition>
+   <transition label="203" preset="2" postset="1">
+     x1t==0;
+     (100, 200);
+	 ack1 = 1;
+   </transition>
+   <transition label="204" preset="2" postset="1">
+     x1f==0;
+     (100, 200);
+	 ack1 = 1;
+   </transition>
+   
+   
+   
+</mod>

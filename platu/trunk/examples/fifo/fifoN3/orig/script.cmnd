@@ -1,0 +1,5 @@
+readlpn examples/fifoN3/f1.lpn
+readlpn examples/fifoN3/f2.lpn
+readlpn examples/fifoN3/f3.lpn
+findrsg
+quit

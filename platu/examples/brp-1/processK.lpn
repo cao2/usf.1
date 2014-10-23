@@ -1,0 +1,68 @@
+<mod name="processK.lpn">
+
+<const>
+ready = 48;
+got_msg = 49;
+toKReceiveInternal = 50;
+timeoutSendInternal = 51;
+fromKSendInternal = 52;
+</const>
+
+<input>
+toKReq,value,timeoutAck,fromKAck
+</input>
+<output>
+toKAck,timeoutReq,fromKReq,value
+</output>
+
+
+<marking>48</marking>
+
+<statevector>
+toKReq=0;
+timeoutAck=0;
+fromKAck=0;
+toKAck=0;
+timeoutReq=0;
+fromKReq=0;
+value=0;
+</statevector>
+
+<transition label="98" preset="ready" postset="toKReceiveInternal">
+toKReq == 1;
+(0, inf);
+toKAck=1;
+</transition>
+
+<transition label="99" preset="toKReceiveInternal" postset="got_msg">
+toKReq == 0;
+(0, inf);
+toKAck=0;
+</transition>
+
+<transition label="100" preset="got_msg" postset="timeoutSendInternal">
+timeoutAck == 0;
+(0, inf);
+timeoutReq=1;
+</transition>
+
+<transition label="101" preset="timeoutSendInternal" postset="ready">
+timeoutAck == 1;
+(0, inf);
+timeoutReq=0;
+</transition>
+
+<transition label="102" preset="got_msg" postset="fromKSendInternal">
+fromKAck == 0;
+(0, inf);
+fromKReq=1;
+</transition>
+
+<transition label="103" preset="fromKSendInternal" postset="ready">
+fromKAck == 1;
+(0, inf);
+fromKReq=0;
+</transition>
+
+
+</mod>

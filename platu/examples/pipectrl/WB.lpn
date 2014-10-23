@@ -1,0 +1,123 @@
+<mod name="WB.lpn">
+
+   <var>
+   w10 = 1;
+   w1_WB = 1;
+   w2_WB = 0;
+   w4_WB = 1;
+   w5_WB = 0;
+   w6_WB = 1;
+   w7_WB = 1;
+   w8_WB = 0;
+   w9 = 0;
+   w9_WB = 1;
+   </var>
+
+   <marking>
+   40,   41,   42,   43,   44,   45,   46,   47,   48,   49
+   </marking>
+
+
+
+
+   <transition label="180" preset="40" postset="40">
+     w8&& !w1_WB && w7_WB;
+     (0, inf);
+     w1_WB = 1;
+   </transition>
+   <transition label="181" preset="40" postset="40">
+      !w8 && w1_WB&& !w7_WB;
+     (0, inf);
+     w1_WB = 0;
+   </transition>
+   <transition label="182" preset="41" postset="41">
+      !w10&& !w2_WB;
+     (0, inf);
+     w2_WB = 1;
+   </transition>
+   <transition label="183" preset="41" postset="41">
+     w10 && w2_WB;
+     (0, inf);
+     w2_WB = 0;
+   </transition>
+   <transition label="184" preset="42" postset="42">
+      !w9 && w1_WB && w2_WB;
+     (0, inf);
+     w9 = 1;
+   </transition>
+   <transition label="185" preset="42" postset="42">
+     w9&& !w1_WB&& !w2_WB;
+     (0, inf);
+     w9 = 0;
+   </transition>
+   <transition label="186" preset="45" postset="45">
+     w4_WB && w5_WB;
+     (0, inf);
+     w4_WB = 0;
+   </transition>
+   <transition label="187" preset="45" postset="45">
+      !w4_WB&& !w5_WB;
+     (0, inf);
+     w4_WB = 1;
+   </transition>
+   <transition label="188" preset="43" postset="43">
+     w2 && w5&& !w5_WB && w9_WB;
+     (0, inf);
+     w5_WB = 1;
+   </transition>
+   <transition label="189" preset="44" postset="44">
+      !w9&& !w6_WB;
+     (0, inf);
+     w6_WB = 1;
+   </transition>
+   <transition label="190" preset="43" postset="43">
+      !w2&& !w5 && w5_WB&& !w9_WB;
+     (0, inf);
+     w5_WB = 0;
+   </transition>
+   <transition label="191" preset="44" postset="44">
+     w9 && w6_WB;
+     (0, inf);
+     w6_WB = 0;
+   </transition>
+   <transition label="192" preset="46" postset="46">
+     w6_WB&& !w7_WB && w9_WB;
+     (0, inf);
+     w7_WB = 1;
+   </transition>
+   <transition label="193" preset="47" postset="47">
+      !w7_WB&& !w8_WB;
+     (0, inf);
+     w8_WB = 1;
+   </transition>
+   <transition label="194" preset="46" postset="46">
+      !w6_WB && w7_WB&& !w9_WB;
+     (0, inf);
+     w7_WB = 0;
+   </transition>
+   <transition label="195" preset="47" postset="47">
+     w7_WB && w8_WB;
+     (0, inf);
+     w8_WB = 0;
+   </transition>
+   <transition label="196" preset="48" postset="48">
+      !w10&& !w8_WB && w9_WB;
+     (0, inf);
+     w9_WB = 0;
+   </transition>
+   <transition label="197" preset="48" postset="48">
+     w10 && w8_WB&& !w9_WB;
+     (0, inf);
+     w9_WB = 1;
+   </transition>
+   <transition label="198" preset="49" postset="49">
+     w9&& !w10 && w4_WB;
+     (0, inf);
+     w10 = 1;
+   </transition>
+   <transition label="199" preset="49" postset="49">
+      !w9 && w10&& !w4_WB;
+     (0, inf);
+     w10 = 0;
+   </transition>
+</mod>

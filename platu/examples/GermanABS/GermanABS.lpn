@@ -1,0 +1,478 @@
+<mod name="GermanABS">
+  
+	<const>
+		I = 0 ;
+		S = 1 ;
+		E = 2 ;
+		Empty = 3 ;
+		ReqS = 4 ;
+		ReqE = 5 ;
+		Inv = 6 ;
+		InvAck = 7 ;
+		GntS = 8 ;
+		GntE = 9 ;
+	</const>
+/*
+        <var> 
+		Cache_0, Cache_1, Cache_2, Cache_3, 
+		Chan1_0.Cmd, Chan1_0.Data,
+ 		Chan1_1.Cmd, Chan1_1.Data,
+		Chan1_2.Cmd, Chan1_2.Data,
+		Chan1_3.Cmd, Chan1_3.Data,
+		Chan2_0.Cmd, Chan2_0.Data,
+ 		Chan2_1.Cmd, Chan2_1.Data,
+		Chan2_2.Cmd, Chan2_2.Data,
+		Chan2_3.Cmd, Chan2_3.Data,
+		Chan3_0.Cmd, Chan3_0.Data,
+ 		Chan3_1.Cmd, Chan3_1.Data,
+		Chan3_2.Cmd, Chan3_2.Data,
+		Chan3_3.Cmd, Chan3_3.Data,
+		Cache_0.State, Cache_1.State, Cache_2.State, Cache_3.State,
+		InvSet_0, InvSet_1, InvSet_2, InvSet_3,
+		ShrSet_0, ShrSet_1, ShrSet_2, ShrSet_3,
+		ExGntD, CurCmd, CurPtr, MemData, AuxData
+	</var>
+*/
+
+        <var>
+            Chan1_0.Cmd = Empty ;
+            Chan1_1.Cmd = Empty ;
+            Chan1_2.Cmd = Empty ;
+            Chan1_3.Cmd = Empty ;
+
+            Chan2_0.Cmd = Empty ;
+            Chan2_1.Cmd = Empty ;
+            Chan2_2.Cmd = Empty ;
+            Chan2_3.Cmd = Empty ;
+
+            Chan3_0.Cmd = Empty ;
+            Chan3_1.Cmd = Empty ;
+            Chan3_2.Cmd = Empty ;
+            Chan3_3.Cmd = Empty ;
+
+            Cache_0.State = I ;
+            Cache_1.State = I ;
+            Cache_2.State = I ;
+            Cache_3.State = I ;
+
+            InvSet_0 = 0 ;
+            InvSet_1 = 0 ;
+            InvSet_2 = 0 ;
+            InvSet_3 = 0 ;
+
+            ShrSet_0 = 0 ;
+            ShrSet_1 = 0 ;
+            ShrSet_2 = 0 ;
+            ShrSet_3 = 0 ;
+
+	   CurCmd = Empty;
+        </var>
+
+
+	<marking> 
+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+		11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+		21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+		31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+		41, 42, 43, 44, 45, 46, 47, 48
+	</marking>
+
+
+	   // <!-- Rule SendReqS -->
+            <transition label="1" preset="1" postset="1" >
+                Chan1_0.Cmd == Empty && Cache_0.State == I    ;
+		(0, inf);
+                Chan1_0.Cmd =   ReqS      ;
+            </transition>
+            <transition label="2" preset="2" postset="2"  >
+                Chan1_1.Cmd == Empty && Cache_1.State == I    ;
+		(0, inf);
+                Chan1_1.Cmd =   ReqS      ;
+            </transition>
+            <transition label="3" preset="3" postset="3">
+                Chan1_2.Cmd == Empty && Cache_2.State == I    ;
+		(0, inf);
+                Chan1_2.Cmd =   ReqS      ;
+            </transition>
+            <transition label="4" preset="4" postset="4"  >
+                Chan1_3.Cmd == Empty && Cache_3.State == I    ;
+		(0, inf);
+                Chan1_3.Cmd =   ReqS      ;
+            </transition>
+
+	    //<!-- Rule SendReqE -->
+            <transition label="5" preset="1" postset="1"  >
+                 Chan1_0.Cmd == Empty && (Cache_0.State == I || Cache_0.State == S) ;
+		(0, inf);
+                Chan1_0.Cmd = ReqE ;
+            </transition>
+            <transition label="6" preset="2" postset="2"  >
+                 Chan1_1.Cmd == Empty && (Cache_1.State == I || Cache_1.State == S) ;
+		(0, inf);
+                Chan1_1.Cmd = ReqE ;
+            </transition>
+            <transition label="7" preset="3" postset="3"  >
+                 Chan1_2.Cmd == Empty && (Cache_2.State == I || Cache_2.State == S) ;
+		(0, inf);
+                Chan1_2.Cmd = ReqE ;
+            </transition>
+            <transition label="8" preset="4" postset="4"  >
+                 Chan1_3.Cmd == Empty && (Cache_3.State == I || Cache_3.State == S) ;
+		(0, inf);
+                Chan1_3.Cmd = ReqE ;
+            </transition>
+
+
+	    //<!-- Rule RecvReqS -->
+            <transition label="9" preset="9" postset="9">
+                 CurCmd == Empty && Chan1_0.Cmd == ReqS   ;
+		(0, inf);
+                CurCmd = ReqS ;
+                CurPtr = 0 ;
+                Chan1_0.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+            <transition label="10" preset="10" postset="10">
+                 CurCmd == Empty && Chan1_1.Cmd == ReqS   ;
+		(0, inf);
+                CurCmd = ReqS ;
+                CurPtr = 1 ;
+                Chan1_1.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+            <transition label="11" preset="11" postset="11">
+                 CurCmd == Empty && Chan1_2.Cmd == ReqS   ;
+		(0, inf);
+                CurCmd = ReqS ;
+                CurPtr = 2 ;
+                Chan1_2.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+            <transition label="12" preset="12" postset="12">
+                 CurCmd == Empty && Chan1_3.Cmd == ReqS   ;
+		(0, inf);
+                CurCmd = ReqS ;
+                CurPtr = 3 ;
+                Chan1_3.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+
+
+	    //<!-- Rule RecvReqE -->
+            <transition label="13" preset="13" postset="13">
+                 CurCmd == Empty && Chan1_0.Cmd == ReqE   ;
+		(0, inf);
+                CurCmd = ReqE ;
+                CurPtr = 0 ;
+                Chan1_0.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+            <transition label="14" preset="14" postset="14">
+                 CurCmd == Empty && Chan1_1.Cmd == ReqE   ;
+		(0, inf);
+                CurCmd = ReqE ;
+                CurPtr = 1 ;
+                Chan1_1.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+            <transition label="15" preset="15" postset="15">
+                 CurCmd == Empty && Chan1_2.Cmd == ReqE   ;
+		(0, inf);
+                CurCmd = ReqE ;
+                CurPtr = 2 ;
+                Chan1_2.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+            <transition label="16" preset="16" postset="16">
+                 CurCmd == Empty && Chan1_3.Cmd == ReqE   ;
+		(0, inf);
+                CurCmd = ReqE ;
+                CurPtr = 3 ;
+                Chan1_3.Cmd = Empty ;
+                InvSet_0 = ShrSet_0 ;
+                InvSet_1 = ShrSet_1 ;
+                InvSet_2 = ShrSet_2 ;
+                InvSet_3 = ShrSet_3 ;
+            </transition>
+	    
+
+	    //<!-- Rule SendInv -->
+            <transition label="17" preset="17" postset="17"  >
+                 Chan2_0.Cmd == Empty && InvSet_0 == 1 && (CurCmd == ReqE || CurCmd == ReqS && ExGntD == 1) ;
+		(0, inf);
+                Chan2_0.Cmd = Inv ;
+                InvSet_0 = 0 ;
+            </transition>
+            <transition label="18" preset="18" postset="18"  >
+                 Chan2_1.Cmd == Empty && InvSet_1 == 1 && (CurCmd == ReqE || CurCmd == ReqS && ExGntD == 1) ;
+		(0, inf);
+                Chan2_1.Cmd = Inv ;
+                InvSet_1 = 0 ;
+            </transition>
+            <transition label="19" preset="19" postset="19"  >
+                 Chan2_2.Cmd == Empty && InvSet_2 == 1 && (CurCmd == ReqE || CurCmd == ReqS && ExGntD == 1) ;
+		(0, inf);
+                Chan2_2.Cmd = Inv ;
+                InvSet_2 = 0 ;
+            </transition>
+            <transition label="20" preset="20" postset="20"  >
+                 Chan2_3.Cmd == Empty && InvSet_3 == 1 && (CurCmd == ReqE || CurCmd == ReqS && ExGntD == 1) ;
+		(0, inf);
+                Chan2_3.Cmd = Inv ;
+                InvSet_3 = 0 ;
+            </transition>
+
+
+	    //<!-- Rule SendInvAck -->
+            <transition label="21" preset="21" postset="21"  >
+                 Chan2_0.Cmd == Inv && Chan3_0.Cmd == Empty ;
+		(0, inf);
+                Chan2_0.Cmd = Empty ;
+                Chan3_0.Cmd = InvAck ;
+                Chan3_0.Data = Cache_0.State == E ? Chan1_0.Data : Chan3_0.Data ;
+		Cache_0.State = I ;
+            </transition>
+            <transition label="22" preset="22" postset="22"  >
+                 Chan2_1.Cmd == Inv && Chan3_1.Cmd == Empty ;
+		(0, inf);
+                Chan2_1.Cmd = Empty ;
+                Chan3_1.Cmd = InvAck ;
+                Chan3_1.Data = Cache_0.State == E ? Chan1_1.Data : Chan3_1.Data ;
+		Cache_1.State = I ;
+            </transition>
+            <transition label="23" preset="23" postset="23"  >
+                 Chan2_2.Cmd == Inv && Chan3_2.Cmd == Empty ;
+		(0, inf);
+                Chan2_2.Cmd = Empty ;
+                Chan3_2.Cmd = InvAck ;
+                Chan3_2.Data = Cache_0.State == E ? Chan1_2.Data : Chan3_2.Data ;
+		Cache_2.State = I ;
+            </transition>
+            <transition label="24" preset="24" postset="24"  >
+                 Chan2_3.Cmd == Inv && Chan3_3.Cmd == Empty ;
+		(0, inf);
+                Chan2_3.Cmd = Empty ;
+                Chan3_3.Cmd = InvAck ;
+                Chan3_3.Data = Cache_0.State == E ? Chan3_3.Data : Chan3_3.Data ;
+		Cache_3.State = I ;
+            </transition>
+
+
+	    //<!-- Rule RecvInvAck -->
+            <transition label="25" preset="25" postset="25"  >
+                 Chan3_0.Cmd == InvAck && CurCmd != Empty ;
+		(0, inf);
+                Chan3_0.Cmd = Empty ;
+                ShrSet_0 = 0 ;
+                ExGntD = ExGntD == 1 ? 0 : 1 ;
+		MemData = ExGntD == 1 ? Chan3_0.Data : MemData ;
+            </transition>
+            <transition label="26" preset="26" postset="26"  >
+                 Chan3_1.Cmd == InvAck && CurCmd != Empty ;
+		(0, inf);
+                Chan3_1.Cmd = Empty ;
+                ShrSet_1 = 0 ;
+                ExGntD = ExGntD == 1 ? 0 : 1 ;
+		MemData = ExGntD == 1 ? Chan3_1.Data : MemData ;
+            </transition>
+            <transition label="27" preset="27" postset="27"  >
+                 Chan3_2.Cmd == InvAck && CurCmd != Empty ;
+		(0, inf);
+                Chan3_2.Cmd = Empty ;
+                ShrSet_2 = 0 ;
+                ExGntD = ExGntD == 1 ? 0 : 1 ;
+		MemData = ExGntD == 1 ? Chan3_2.Data : MemData ;
+            </transition>
+            <transition label="28" preset="28" postset="28"  >
+                 Chan3_3.Cmd == InvAck && CurCmd != Empty ;
+		(0, inf);
+                Chan3_3.Cmd = Empty ;
+                ShrSet_3 = 0 ;
+                ExGntD = ExGntD == 1 ? 0 : 1 ;
+		MemData = ExGntD == 1 ? Chan3_3.Data : MemData ;
+            </transition>
+
+
+	    //<!-- Rule SendGntS -->
+            <transition label="29" preset="29" postset="29"  >
+                 CurCmd == ReqS && CurPtr == 0 && Chan2_0.Cmd == Empty && ExGntD == 0 ;
+		(0, inf);
+                Chan2_0.Cmd = GntS ;
+                Chan2_0.Data = MemData ;
+                ShrSet_0 = 1 ;
+		CurCmd = Empty ;
+            </transition>
+            <transition label="30" preset="30" postset="30"  >
+                 CurCmd == ReqS && CurPtr == 1 && Chan2_1.Cmd == Empty && ExGntD == 0 ;
+		(0, inf);
+                Chan2_1.Cmd = GntS ;
+                Chan2_1.Data = MemData ;
+                ShrSet_1 = 1 ;
+		CurCmd = Empty ;
+            </transition>
+            <transition label="31" preset="31" postset="31"  >
+                 CurCmd == ReqS && CurPtr == 2 && Chan2_2.Cmd == Empty && ExGntD == 0 ;
+		(0, inf);
+                Chan2_2.Cmd = GntS ;
+                Chan2_2.Data = MemData ;
+                ShrSet_2 = 1 ;
+		CurCmd = Empty ;
+            </transition>
+            <transition label="32" preset="32" postset="32"  >
+                 CurCmd == ReqS && CurPtr == 3 && Chan2_3.Cmd == Empty && ExGntD == 0 ;
+		(0, inf);
+                Chan2_3.Cmd = GntS ;
+                Chan2_3.Data = MemData ;
+                ShrSet_3 = 1 ;
+		CurCmd = Empty ;
+            </transition>
+
+
+	    //<!-- Rule SendGntE -->
+            <transition label="33" preset="33" postset="33"  >
+                 CurCmd == ReqE && CurPtr == 0 && Chan2_0.Cmd == Empty && ExGntD == 0 && ShrSet_0 == 0 && ShrSet_1 == 0 && ShrSet_2 == 0 && ShrSet_3 == 0 ;
+		(0, inf);
+                Chan2_0.Cmd = GntE ;
+                Chan2_0.Data = MemData ;
+                ShrSet_0 = 1 ;
+                ExGntD = 1 ;
+		CurCmd = Empty ;
+            </transition>
+            <transition label="34" preset="34" postset="34"  >
+                 CurCmd == ReqE && CurPtr == 1 && Chan2_1.Cmd == Empty && ExGntD == 0 && ShrSet_0 == 0 && ShrSet_1 == 0 && ShrSet_2 == 0 && ShrSet_3 == 0 ;
+		(0, inf);
+                Chan2_1.Cmd = GntE ;
+                Chan2_1.Data = MemData ;
+                ShrSet_1 = 1 ;
+                ExGntD = 1 ;
+		CurCmd = Empty ;
+            </transition>
+            <transition label="35" preset="35" postset="35"  >
+                 CurCmd == ReqE && CurPtr == 2 && Chan2_2.Cmd == Empty && ExGntD == 0 && ShrSet_0 == 0 && ShrSet_1 == 0 && ShrSet_2 == 0 && ShrSet_3 == 0 ;
+		(0, inf);
+                Chan2_2.Cmd = GntE ;
+                Chan2_2.Data = MemData ;
+                ShrSet_2 = 1 ;
+                ExGntD = 1 ;
+		CurCmd = Empty ; 
+            </transition>
+            <transition label="36" preset="36" postset="36">
+                 CurCmd == ReqE && CurPtr == 3 && Chan2_3.Cmd == Empty && ExGntD == 0 && ShrSet_0 == 0 && ShrSet_1 == 0 && ShrSet_2 == 0 && ShrSet_3 == 0 ;
+		(0, inf);
+                Chan2_3.Cmd = GntE ;
+                Chan2_3.Data = MemData ;
+                ShrSet_3 = 1 ;
+                ExGntD = 1 ;
+		CurCmd = Empty ;
+            </transition>
+
+
+	    //<!-- Rule RecvGntExGntDS -->
+            <transition label="37" preset="37" postset="37">
+                 Chan2_0.Cmd == GntS ;
+		(0, inf);
+                Cache_0.State = S ;
+                Chan2_0.Data = Chan2_0.Data ;
+                Chan2_0.Cmd = Empty ;
+            </transition>
+            <transition label="38" preset="38" postset="38">
+                 Chan2_1.Cmd == GntS ;
+		(0, inf);
+                Cache_1.State = S ;
+                Chan2_1.Data = Chan2_1.Data ;
+                Chan2_1.Cmd = Empty ;
+            </transition>
+            <transition label="39" preset="39" postset="39">
+                 Chan2_2.Cmd == GntS ;
+		(0, inf);
+                Cache_2.State = S ;
+                Chan2_2.Data = Chan2_2.Data ;
+                Chan2_2.Cmd = Empty ;
+            </transition>
+            <transition label="40" preset="40" postset="40">
+                 Chan2_3.Cmd == GntS ;
+		(0, inf);
+                Cache_3.State = S ;
+                Chan2_3.Data = Chan2_3.Data ;
+                Chan2_3.Cmd = Empty;
+            </transition>
+
+
+	    //<!-- Rule RecvGntE -->
+            <transition label="41" preset="41" postset="41">
+                 Chan2_0.Cmd == GntE ;
+		(0, inf);
+                Cache_0.State = E ;
+                Chan2_0.Data = Chan2_0.Data ;
+                Chan2_0.Cmd = Empty ;
+            </transition>
+            <transition label="42" preset="42" postset="42">
+                 Chan2_1.Cmd == GntE ;
+		(0, inf);
+                Cache_1.State = E ;
+                Chan2_1.Data = Chan2_1.Data ;
+                Chan2_1.Cmd = Empty ;
+            </transition>
+            <transition label="43" preset="43" postset="43">
+                 Chan2_2.Cmd == GntE ;
+		(0, inf);
+                Cache_2.State = E ;
+                Chan2_2.Data = Chan2_2.Data ;
+                Chan2_2.Cmd = Empty ;
+            </transition>
+            <transition label="44" preset="44" postset="44">
+                 Chan2_3.Cmd == GntE;
+		(0, inf);
+                Cache_3.State = E ;
+                Chan2_3.Data = Chan2_3.Data ;
+                Chan2_3.Cmd = Empty;
+            </transition>
+
+	    //<!-- Rule Store -->
+            <transition label="45" preset="45" postset="45">
+                 Cache_0.State == E ;
+		(0, inf);
+                Chan1_0.Data = 0 ;
+                AuxData = 0;
+            </transition>
+            <transition label="46" preset="46" postset="46">
+                 Cache_1.State == E ;
+		(0, inf);
+                Chan1_1.Data = 0 ;
+                AuxData = 0 ;
+            </transition>
+            <transition label="47" preset="47" postset="47">
+                 Cache_2.State == E ;
+		(0, inf);
+                Chan1_2.Data = 0 ;
+                AuxData = 0 ;
+            </transition>
+            <transition label="48" preset="48" postset="48">
+                Cache_3.State == E ; 
+		(0, inf);
+                Chan1_3.Data = 0 ;
+                AuxData = 0 ;           
+            </transition>
+</mod>
+

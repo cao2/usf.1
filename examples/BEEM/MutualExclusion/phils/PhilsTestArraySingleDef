@@ -1,0 +1,178 @@
+//LPN for philosopher's test
+
+<var>
+	fork[4];
+</var>
+
+<main>
+	Phil0 p0(0);
+	Phil1 p1(1);
+	Phil2 p2(2);
+	Phil3 p3(3);
+</main>
+
+<class name="Phil0" arg="id">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(fork[id] == 0);
+		delay(0, inf);
+		fork[id] = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork[id+1] == 0);
+		delay(0, inf);
+		fork[id+1] = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork[0] = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork[1] = 0;
+	</tr>
+	
+</class>
+
+<class name="Phil1" arg="">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(fork[1] == 0);
+		delay(0, inf);
+		fork[1] = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork[2] == 0);
+		delay(0, inf);
+		fork[2] = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork[1] = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork[2] = 0;
+	</tr>
+	
+</class>
+
+<class name="Phil2" arg="">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label ="0" preset="think" postset="one">
+		guard(fork[2] == 0);
+		delay(0, inf);
+		fork[2] = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork[3] == 0);
+		delay(0, inf);
+		fork[3] = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork[2] = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork[3] = 0;
+	</tr>
+
+</class>
+
+<class name="Phil3" arg="">
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(fork[3] == 0);
+		delay(0, inf);
+		fork[3] = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(fork[0] == 0);
+		delay(0, inf);
+		fork[0] = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		fork[id] = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		fork[id==#? 0 : id+1] = 0;
+	</tr>
+</class>

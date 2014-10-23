@@ -1,0 +1,68 @@
+<mod name="f1">
+   <var>
+	   ce_fifo1 = 0;
+	   li = 0;
+	   lo = 0;
+	   nor_fifo1 = 1;
+	   t1 = 0;
+   </var>
+
+	<marking>
+   		0,   2,   4,   6,   26
+   </marking>
+
+   <transition label="8" preset="0" postset="1">
+     li && nor_fifo1;
+     (0, inf);
+     lo = 1;
+   </transition>
+   <transition label="9" preset="1" postset="0">
+      !li&& !nor_fifo1;
+     (0, inf);
+     lo = 0;
+   </transition>
+   
+   <transition label="10" preset="2" postset="3">
+      !b1 && ce_fifo1 || b1;
+     (0, inf);
+     nor_fifo1 = 0;
+   </transition>
+   <transition label="11" preset="3" postset="2">
+      !b1&& !ce_fifo1;
+     (0, inf);
+     nor_fifo1 = 1;
+   </transition>
+   
+   <transition label="12" preset="4" postset="5">
+     lo&& !b1;
+     (0, inf);
+     ce_fifo1 = 1;
+   </transition>
+   <transition label="13" preset="5" postset="4">
+      !lo && b1;
+     (0, inf);
+     ce_fifo1 = 0;
+   </transition>
+   
+   <transition label="14" preset="6" postset="7">
+      !lo && ce_fifo1;
+     (0, inf);
+     t1 = 1;
+   </transition>
+   <transition label="15" preset="7" postset="6">
+      !lo && !ce_fifo1 || lo;
+     (0, inf);
+     t1 = 0;
+   </transition>
+   
+   <transition label="48" preset="26" postset="25">
+      !lo;
+     (0, inf);
+     li = 1;
+   </transition>
+   <transition label="50" preset="25" postset="26">
+     lo;
+     (0, inf);
+     li = 0;
+   </transition>
+</mod>

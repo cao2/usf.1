@@ -1,0 +1,71 @@
+--> Number of modules: 4
+--> Length of global vecvtor: 28
+--> globalVarList
+[(request[2], 0), (request[4], 0), (acquiring[0], 0), (resources[0], 0), (resources[2], 0), (starvers[2], 0), (request[0], 0), (res1[0], 0), (starvers[0], 0), (res1[2], 0), (res0[1], 0), (starvers[4], 0), (acquiring[2], 0), (request[3], 0), (entryRound, 1), (request[5], 0), (acquiring[1], 0), (resources[1], 0), (resources[3], 0), (fire, 0), (res1[1], 0), (res0[0], 0), (request[1], 0), (starvers[1], 0), (starvers[3], 0), (starvers[5], 0), (res0[2], 0), (phase, 0)]
+--> gVarIndexMap
+(request[2] 0), (request[4] 1), (acquiring[0] 2), (resources[0] 3), (resources[2] 4), (starvers[2] 5), (request[0] 6), (res1[0] 7), (starvers[0] 8), (res1[2] 9), (res0[1] 10), (starvers[4] 11), (acquiring[2] 12), (request[3] 13), (entryRound 14), (request[5] 15), (acquiring[1] 16), (resources[1] 17), (resources[3] 18), (fire 19), (res1[1] 20), (res0[0] 21), (request[1] 22), (starvers[1] 23), (starvers[3] 24), (starvers[5] 25), (res0[2] 26), (phase 27), 
+LPN: r
+-->Internals: 		(r.i 0 INTERNAL), 
+-->Globals: 		(request[2] 1 GLOBAL), (request[4] 2 GLOBAL), (acquiring[0] 3 GLOBAL), (resources[0] 4 GLOBAL), (resources[2] 5 GLOBAL), (starvers[2] 6 GLOBAL), (request[0] 7 GLOBAL), (res1[0] 8 GLOBAL), (starvers[0] 9 GLOBAL), (res1[2] 10 GLOBAL), (res0[1] 11 GLOBAL), (starvers[4] 12 GLOBAL), (acquiring[2] 13 GLOBAL), (request[3] 14 GLOBAL), (entryRound 15 GLOBAL), (request[5] 16 GLOBAL), (acquiring[1] 17 GLOBAL), (resources[1] 18 GLOBAL), (resources[3] 19 GLOBAL), (fire 20 GLOBAL), (res1[1] 21 GLOBAL), (res0[0] 22 GLOBAL), (request[1] 23 GLOBAL), (starvers[1] 24 GLOBAL), (starvers[3] 25 GLOBAL), (starvers[5] 26 GLOBAL), (res0[2] 27 GLOBAL), (phase 28 GLOBAL), 
+--> VarIndexMap: 	(r.i 0),  (request[2] 1),  (request[4] 2),  (acquiring[0] 3),  (resources[0] 4),  (resources[2] 5),  (starvers[2] 6),  (request[0] 7),  (res1[0] 8),  (starvers[0] 9),  (res1[2] 10),  (res0[1] 11),  (starvers[4] 12),  (acquiring[2] 13),  (request[3] 14),  (entryRound 15),  (request[5] 16),  (acquiring[1] 17),  (resources[1] 18),  (resources[3] 19),  (fire 20),  (res1[1] 21),  (res0[0] 22),  (request[1] 23),  (starvers[1] 24),  (starvers[3] 25),  (starvers[5] 26),  (res0[2] 27),  (phase 28),  
+
+LPN: p0
+-->Internals: 		(p0.myValue 0 INTERNAL), 
+-->Globals: 		(request[3] 1 GLOBAL), (request[2] 2 GLOBAL), (entryRound 3 GLOBAL), (acquiring[0] 4 GLOBAL), (request[4] 5 GLOBAL), (acquiring[1] 6 GLOBAL), (request[5] 7 GLOBAL), (resources[0] 8 GLOBAL), (resources[1] 9 GLOBAL), (resources[3] 10 GLOBAL), (fire 11 GLOBAL), (resources[2] 12 GLOBAL), (res1[1] 13 GLOBAL), (request[1] 14 GLOBAL), (res0[0] 15 GLOBAL), (request[0] 16 GLOBAL), (res1[0] 17 GLOBAL), (res1[2] 18 GLOBAL), (res0[1] 19 GLOBAL), (res0[2] 20 GLOBAL), (acquiring[2] 21 GLOBAL), (phase 22 GLOBAL), 
+--> VarIndexMap: 	(p0.myValue 0),  (request[3] 1),  (request[2] 2),  (entryRound 3),  (acquiring[0] 4),  (request[4] 5),  (acquiring[1] 6),  (request[5] 7),  (resources[0] 8),  (resources[1] 9),  (resources[3] 10),  (fire 11),  (resources[2] 12),  (res1[1] 13),  (request[1] 14),  (res0[0] 15),  (request[0] 16),  (res1[0] 17),  (res1[2] 18),  (res0[1] 19),  (res0[2] 20),  (acquiring[2] 21),  (phase 22),  
+
+LPN: p1
+-->Internals: 		(p1.myValue 0 INTERNAL), 
+-->Globals: 		(request[3] 1 GLOBAL), (request[2] 2 GLOBAL), (entryRound 3 GLOBAL), (acquiring[0] 4 GLOBAL), (request[4] 5 GLOBAL), (acquiring[1] 6 GLOBAL), (request[5] 7 GLOBAL), (resources[0] 8 GLOBAL), (resources[1] 9 GLOBAL), (resources[3] 10 GLOBAL), (fire 11 GLOBAL), (resources[2] 12 GLOBAL), (res1[1] 13 GLOBAL), (request[1] 14 GLOBAL), (res0[0] 15 GLOBAL), (request[0] 16 GLOBAL), (res1[0] 17 GLOBAL), (res1[2] 18 GLOBAL), (res0[1] 19 GLOBAL), (res0[2] 20 GLOBAL), (acquiring[2] 21 GLOBAL), (phase 22 GLOBAL), 
+--> VarIndexMap: 	(p1.myValue 0),  (request[3] 1),  (request[2] 2),  (entryRound 3),  (acquiring[0] 4),  (request[4] 5),  (acquiring[1] 6),  (request[5] 7),  (resources[0] 8),  (resources[1] 9),  (resources[3] 10),  (fire 11),  (resources[2] 12),  (res1[1] 13),  (request[1] 14),  (res0[0] 15),  (request[0] 16),  (res1[0] 17),  (res1[2] 18),  (res0[1] 19),  (res0[2] 20),  (acquiring[2] 21),  (phase 22),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), 
+-->Globals: 		(request[3] 1 GLOBAL), (request[2] 2 GLOBAL), (entryRound 3 GLOBAL), (acquiring[0] 4 GLOBAL), (request[4] 5 GLOBAL), (acquiring[1] 6 GLOBAL), (request[5] 7 GLOBAL), (resources[0] 8 GLOBAL), (resources[1] 9 GLOBAL), (resources[3] 10 GLOBAL), (fire 11 GLOBAL), (resources[2] 12 GLOBAL), (res1[1] 13 GLOBAL), (request[1] 14 GLOBAL), (res0[0] 15 GLOBAL), (request[0] 16 GLOBAL), (res1[0] 17 GLOBAL), (res1[2] 18 GLOBAL), (res0[1] 19 GLOBAL), (res0[2] 20 GLOBAL), (acquiring[2] 21 GLOBAL), (phase 22 GLOBAL), 
+--> VarIndexMap: 	(p2.myValue 0),  (request[3] 1),  (request[2] 2),  (entryRound 3),  (acquiring[0] 4),  (request[4] 5),  (acquiring[1] 6),  (request[5] 7),  (resources[0] 8),  (resources[1] 9),  (resources[3] 10),  (fire 11),  (resources[2] 12),  (res1[1] 13),  (request[1] 14),  (res0[0] 15),  (request[0] 16),  (res1[0] 17),  (res1[2] 18),  (res0[1] 19),  (res0[2] 20),  (acquiring[2] 21),  (phase 22),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 786447, # of prjStates found: 257314, stack_depth: 43761 used memory: 75.56185 free memory: 9.438344
+--->  # of global vectors: 43216
+---> state table stats: State count: 257314,  MDD node count: 8424
+---> # LPN transition firings: 1573323, # of prjStates found: 490148, stack_depth: 63471 used memory: 116.594765 free memory: 49.57176
+--->  # of global vectors: 78236
+---> state table stats: State count: 490148,  MDD node count: 16736
+---> # LPN transition firings: 2358095, # of prjStates found: 715945, stack_depth: 74040 used memory: 154.52472 free memory: 84.02632
+--->  # of global vectors: 114092
+---> state table stats: State count: 715945,  MDD node count: 25825
+---> # LPN transition firings: 3139274, # of prjStates found: 942380, stack_depth: 81654 used memory: 203.03708 free memory: 35.51397
+--->  # of global vectors: 148685
+---> state table stats: State count: 942380,  MDD node count: 35232
+---> # LPN transition firings: 3921231, # of prjStates found: 1166867, stack_depth: 88098 used memory: 242.13232 free memory: 108.82524
+--->  # of global vectors: 185537
+---> state table stats: State count: 1166867,  MDD node count: 45317
+---> # LPN transition firings: 4702796, # of prjStates found: 1384738, stack_depth: 87534 used memory: 294.5859 free memory: 56.371662
+--->  # of global vectors: 224595
+---> state table stats: State count: 1384738,  MDD node count: 56809
+---> # LPN transition firings: 5478583, # of prjStates found: 1587745, stack_depth: 66328 used memory: 348.66595 free memory: 164.7062
+--->  # of global vectors: 262314
+---> state table stats: State count: 1587745,  MDD node count: 70603
+---> # LPN transition firings: 6253840, # of prjStates found: 1792712, stack_depth: 46552 used memory: 384.23212 free memory: 129.14003
+--->  # of global vectors: 300876
+---> state table stats: State count: 1792712,  MDD node count: 84325
+---> # LPN transition firings: 7025607, # of prjStates found: 1997312, stack_depth: 22919 used memory: 450.72064 free memory: 62.65152
+--->  # of global vectors: 343699
+---> state table stats: State count: 1997312,  MDD node count: 99492
+---> # LPN transition firings: 7799301, # of prjStates found: 2211641, stack_depth: 10942 used memory: 476.98108 free memory: 259.42645
+--->  # of global vectors: 387986
+---> state table stats: State count: 2211641,  MDD node count: 113510
+---> # LPN transition firings: 8583716, # of prjStates found: 2433623, stack_depth: 17339 used memory: 534.60364 free memory: 201.80391
+--->  # of global vectors: 422081
+---> state table stats: State count: 2433623,  MDD node count: 124483
+*** Time out
+	Elapsed time: 900.0 exceeds the limit 900.
+	Search terminated!
+---> Search stats:
+	# LPN transition firings: 9031303
+	# of states found: 2551815
+	max_stack_depth: 90007
+	peak total memory: 736 MB
+	peak used memory: 573 MB
+	Total elapsed time = 900.0 sec
+

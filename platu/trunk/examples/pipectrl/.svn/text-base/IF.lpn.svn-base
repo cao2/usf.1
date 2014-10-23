@@ -1,0 +1,123 @@
+<mod name="IF.lpn">
+
+   <var>
+   w1 = 0;
+   w11 = 1;
+   w1_IF = 0;
+   w2_IF = 1;
+   w4_IF = 1;
+   w5_IF = 0;
+   w6_IF = 0;
+   w7_IF = 0;
+   w8_IF = 1;
+   w9_IF = 0;
+   </var>
+
+   <marking>
+   0,   1,   2,   3,   4,   5,   6,   7,   8,   9
+   </marking>
+
+
+
+
+   <transition label="20" preset="0" postset="0">
+     w4&& !w1_IF && w7_IF;
+     (0, inf);
+     w1_IF = 1;
+   </transition>
+   <transition label="21" preset="0" postset="0">
+      !w4 && w1_IF&& !w7_IF;
+     (0, inf);
+     w1_IF = 0;
+   </transition>
+   <transition label="22" preset="1" postset="1">
+      !w1&& !w2_IF;
+     (0, inf);
+     w2_IF = 1;
+   </transition>
+   <transition label="23" preset="1" postset="1">
+     w1 && w2_IF;
+     (0, inf);
+     w2_IF = 0;
+   </transition>
+   <transition label="24" preset="2" postset="2">
+      !w11 && w1_IF && w2_IF;
+     (0, inf);
+     w11 = 1;
+   </transition>
+   <transition label="25" preset="2" postset="2">
+     w11&& !w1_IF&& !w2_IF;
+     (0, inf);
+     w11 = 0;
+   </transition>
+   <transition label="26" preset="5" postset="5">
+     w4_IF && w5_IF;
+     (0, inf);
+     w4_IF = 0;
+   </transition>
+   <transition label="27" preset="5" postset="5">
+      !w4_IF&& !w5_IF;
+     (0, inf);
+     w4_IF = 1;
+   </transition>
+   <transition label="28" preset="3" postset="3">
+     w2&& !w5_IF && w9_IF;
+     (0, inf);
+     w5_IF = 1;
+   </transition>
+   <transition label="29" preset="4" postset="4">
+      !w11&& !w6_IF;
+     (0, inf);
+     w6_IF = 1;
+   </transition>
+   <transition label="30" preset="3" postset="3">
+      !w2 && w5_IF&& !w9_IF;
+     (0, inf);
+     w5_IF = 0;
+   </transition>
+   <transition label="31" preset="4" postset="4">
+     w11 && w6_IF;
+     (0, inf);
+     w6_IF = 0;
+   </transition>
+   <transition label="32" preset="6" postset="6">
+     w6_IF&& !w7_IF && w9_IF;
+     (0, inf);
+     w7_IF = 1;
+   </transition>
+   <transition label="33" preset="7" postset="7">
+      !w7_IF&& !w8_IF;
+     (0, inf);
+     w8_IF = 1;
+   </transition>
+   <transition label="34" preset="6" postset="6">
+      !w6_IF && w7_IF&& !w9_IF;
+     (0, inf);
+     w7_IF = 0;
+   </transition>
+   <transition label="35" preset="7" postset="7">
+     w7_IF && w8_IF;
+     (0, inf);
+     w8_IF = 0;
+   </transition>
+   <transition label="36" preset="8" postset="8">
+      !w1&& !w8_IF && w9_IF;
+     (0, inf);
+     w9_IF = 0;
+   </transition>
+   <transition label="37" preset="8" postset="8">
+     w1 && w8_IF&& !w9_IF;
+     (0, inf);
+     w9_IF = 1;
+   </transition>
+   <transition label="38" preset="9" postset="9">
+      !w1 && w11 && w4_IF;
+     (0, inf);
+     w1 = 1;
+   </transition>
+   <transition label="39" preset="9" postset="9">
+     w1&& !w11&& !w4_IF;
+     (0, inf);
+     w1 = 0;
+   </transition>
+</mod>

@@ -1,0 +1,5 @@
+readlpn examples/pipectrl/all.lpn
+
+findsg
+
+quit

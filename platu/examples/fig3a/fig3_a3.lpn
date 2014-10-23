@@ -1,0 +1,32 @@
+<mod name="m3">
+	<input> x, y </input>
+	<output> z </output>
+	<var> w </var>
+
+        <marking> 1,2 </marking>
+        <statevector>
+          w = 0;
+          z = 0;
+        </statevector>
+
+        <transition label="1" preset="1" postset="1"  >
+          x && y && !w;
+          (0, inf);
+          w = 1;
+        </transition>
+        <transition label="2" preset="1" postset="1"  >
+          !x && !y && w;
+          (0, inf);
+          w = 0;
+        </transition>
+        <transition label="3" preset="2" postset="2"  >
+          w && z;
+          (0, inf);
+          z = 0;
+        </transition>
+        <transition label="4" preset="2" postset="2"  >
+          !w && !z;
+          (0, inf);
+          z = 1;
+        </transition>
+</mod>

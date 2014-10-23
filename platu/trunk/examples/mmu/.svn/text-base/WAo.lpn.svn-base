@@ -1,0 +1,75 @@
+<mod name="WAo.lpn">
+
+<input>
+sswo, msso, mdsi, mdso, ssro
+</input>
+
+<output>
+wai, wao
+</output>
+
+<var>
+w1_c3, w2_c3
+</var>
+
+   <marking>
+   19,   21,   23, 24
+   </marking>
+
+   <statevector>
+   mdsi = 0;
+   mdso = 0;
+   msso = 0;
+   ssro = 0;
+   sswo = 0;
+   w1_c3 = 0;
+   w2_c3 = 0;
+   wao = 0;
+   </statevector>
+
+
+   <transition label="67" preset="21" postset="21">
+     mdsi && !wai && !mdso && !ssro && !sswo && !msso && !w1_c3;
+     (0, inf);
+     w1_c3 = 1;
+   </transition>
+   <transition label="68" preset="21" postset="21">
+     (!mdsi || wai || mdso || ssro || sswo || msso) && w1_c3;
+     (0, inf);
+     w1_c3 = 0;
+   </transition>
+   <transition label="70" preset="19" postset="20">
+     (ssro || sswo || msso) && !w2_c3;
+     (0, inf);
+     w2_c3 = 1;
+   </transition>
+   <transition label="71" preset="19" postset="20">
+     !ssro && !sswo && !msso && w2_c3;
+     (0, inf);
+     w2_c3 = 0;
+   </transition>
+   <transition label="72" preset="20" postset="19">
+     true;
+     (0, inf);
+   </transition>
+   <transition label="73" preset="23" postset="23">
+      !wao && w1_c3&& !w2_c3;
+     (0, inf);
+     wao = 1;
+   </transition>
+   <transition label="74" preset="23" postset="23">
+     wao&& !w1_c3 && w2_c3;
+     (0, inf);
+     wao = 0;
+   </transition>
+   <transition label="75" preset="24" postset="24">
+     !wai && wao;
+     (0, inf);
+     wai = 1;
+   </transition>
+   <transition label="76" preset="24" postset="24">
+     wai && !wao;
+     (0, inf);
+     wai = 0;
+   </transition>
+</mod>

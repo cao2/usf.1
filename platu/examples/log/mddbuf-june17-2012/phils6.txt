@@ -1,0 +1,124 @@
+--> Number of modules: 15
+--> Length of global vecvtor: 15
+--> globalVarList
+[(p1.this_fork, 0), (p0.this_fork, 0), (p2.this_fork, 0), (p3.this_fork, 0), (p4.this_fork, 0), (p5.this_fork, 0), (p6.this_fork, 0), (p7.this_fork, 0), (p8.this_fork, 0), (p9.this_fork, 0), (p10.this_fork, 0), (p11.this_fork, 0), (p12.this_fork, 0), (p13.this_fork, 0), (p14.this_fork, 0)]
+--> gVarIndexMap
+(p1.this_fork 0), (p0.this_fork 1), (p2.this_fork 2), (p3.this_fork 3), (p4.this_fork 4), (p5.this_fork 5), (p6.this_fork 6), (p7.this_fork 7), (p8.this_fork 8), (p9.this_fork 9), (p10.this_fork 10), (p11.this_fork 11), (p12.this_fork 12), (p13.this_fork 13), (p14.this_fork 14), 
+LPN: p0
+-->Internals: 		
+-->Globals: 		(p1.this_fork 0 INPUT), (p0.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p1.this_fork 0),  (p0.this_fork 1),  
+
+LPN: p1
+-->Internals: 		
+-->Globals: 		(p2.this_fork 0 INPUT), (p1.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p2.this_fork 0),  (p1.this_fork 1),  
+
+LPN: p2
+-->Internals: 		
+-->Globals: 		(p2.this_fork 0 OUTPUT), (p3.this_fork 1 INPUT), 
+--> VarIndexMap: 	(p2.this_fork 0),  (p3.this_fork 1),  
+
+LPN: p3
+-->Internals: 		
+-->Globals: 		(p4.this_fork 0 INPUT), (p3.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p4.this_fork 0),  (p3.this_fork 1),  
+
+LPN: p4
+-->Internals: 		
+-->Globals: 		(p5.this_fork 0 INPUT), (p4.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p5.this_fork 0),  (p4.this_fork 1),  
+
+LPN: p5
+-->Internals: 		
+-->Globals: 		(p5.this_fork 0 OUTPUT), (p6.this_fork 1 INPUT), 
+--> VarIndexMap: 	(p5.this_fork 0),  (p6.this_fork 1),  
+
+LPN: p6
+-->Internals: 		
+-->Globals: 		(p7.this_fork 0 INPUT), (p6.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p7.this_fork 0),  (p6.this_fork 1),  
+
+LPN: p7
+-->Internals: 		
+-->Globals: 		(p8.this_fork 0 INPUT), (p7.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p8.this_fork 0),  (p7.this_fork 1),  
+
+LPN: p8
+-->Internals: 		
+-->Globals: 		(p8.this_fork 0 OUTPUT), (p9.this_fork 1 INPUT), 
+--> VarIndexMap: 	(p8.this_fork 0),  (p9.this_fork 1),  
+
+LPN: p9
+-->Internals: 		
+-->Globals: 		(p9.this_fork 0 OUTPUT), (p10.this_fork 1 INPUT), 
+--> VarIndexMap: 	(p9.this_fork 0),  (p10.this_fork 1),  
+
+LPN: p10
+-->Internals: 		
+-->Globals: 		(p11.this_fork 0 INPUT), (p10.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p11.this_fork 0),  (p10.this_fork 1),  
+
+LPN: p11
+-->Internals: 		
+-->Globals: 		(p11.this_fork 0 OUTPUT), (p12.this_fork 1 INPUT), 
+--> VarIndexMap: 	(p11.this_fork 0),  (p12.this_fork 1),  
+
+LPN: p12
+-->Internals: 		
+-->Globals: 		(p13.this_fork 0 INPUT), (p12.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p13.this_fork 0),  (p12.this_fork 1),  
+
+LPN: p13
+-->Internals: 		
+-->Globals: 		(p14.this_fork 0 INPUT), (p13.this_fork 1 OUTPUT), 
+--> VarIndexMap: 	(p14.this_fork 0),  (p13.this_fork 1),  
+
+LPN: p14
+-->Internals: 		
+-->Globals: 		(p14.this_fork 0 OUTPUT), (p0.this_fork 1 INPUT), 
+--> VarIndexMap: 	(p14.this_fork 0),  (p0.this_fork 1),  
+
+---> start search_dfs ...
+*** Verification failed: deadlock.
+*** Deadlock state layout:
+Marking: [1,]
+Vector: [p1.this_fork=>0, p0.this_fork=>0, ]
+Marking: [0,]
+Vector: [p2.this_fork=>0, p1.this_fork=>0, ]
+Marking: [1,]
+Vector: [p2.this_fork=>0, p3.this_fork=>0, ]
+Marking: [1,]
+Vector: [p4.this_fork=>0, p3.this_fork=>0, ]
+Marking: [1,]
+Vector: [p5.this_fork=>0, p4.this_fork=>0, ]
+Marking: [1,]
+Vector: [p5.this_fork=>0, p6.this_fork=>0, ]
+Marking: [1,]
+Vector: [p7.this_fork=>0, p6.this_fork=>0, ]
+Marking: [1,]
+Vector: [p8.this_fork=>0, p7.this_fork=>0, ]
+Marking: [1,]
+Vector: [p8.this_fork=>0, p9.this_fork=>0, ]
+Marking: [1,]
+Vector: [p9.this_fork=>0, p10.this_fork=>0, ]
+Marking: [1,]
+Vector: [p11.this_fork=>0, p10.this_fork=>0, ]
+Marking: [1,]
+Vector: [p11.this_fork=>0, p12.this_fork=>0, ]
+Marking: [1,]
+Vector: [p13.this_fork=>0, p12.this_fork=>0, ]
+Marking: [1,]
+Vector: [p14.this_fork=>0, p13.this_fork=>0, ]
+Marking: [1,]
+Vector: [p14.this_fork=>0, p0.this_fork=>0, ]
+[(p1.this_fork,1), (p0.this_fork,1), (p2.this_fork,1), (p3.this_fork,1), (p4.this_fork,1), (p5.this_fork,1), (p6.this_fork,1), (p7.this_fork,1), (p8.this_fork,1), (p9.this_fork,1), (p10.this_fork,1), (p11.this_fork,1), (p12.this_fork,1), (p13.this_fork,1), (p14.this_fork,1), ]
+
+---> Search stats:
+	# LPN transition firings: 854936
+	# of states found: 649826
+	max_stack_depth: 649822
+	peak total memory: 1220 MB
+	peak used memory: 1043 MB
+	Total elapsed time = 17.188 sec
+

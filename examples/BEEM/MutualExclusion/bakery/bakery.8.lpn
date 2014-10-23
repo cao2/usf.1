@@ -1,0 +1,84 @@
+//Supposed to deadlock
+
+<main>
+	<var>
+		choosing[5];
+		number[5];
+	</var>
+	
+	Proc p0(0, choosing, number);
+	Proc p1(1, choosing, number);
+	Proc p2(2, choosing, number);
+	Proc p3(3, choosing, number);
+	Proc p4(4, choosing, number);
+</main>
+
+<class name="Proc" arg="myVal, choosing[5], number[5]">
+	<const>
+		NCS = 0;
+		choose = 1;
+		for_loop = 2;
+		wait = 3;
+		CS = 4;
+	</const>
+	
+	<var>
+		j = 0;
+		max = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="choose">
+		choosing[myVal] = 1;
+		j = 0;
+		max = 0;
+	</tr>
+	
+	<tr label="1" preset="choose" postset="choose">
+		guard(j < 5 && number[j] > max);
+		max = number[j];
+		j = (j + 1) % 8;
+		assert (j < 5);
+	</tr>
+	
+	<tr label="2" preset="choose" postset="choose">
+		guard(j < 5  && number[j] <= max);
+		j = (j+1) % 8;
+		assert (j < 5);		
+	</tr>
+	
+	<tr label="3" preset="choose" postset="for_loop">
+		guard(j == 5 && max < 5);
+		number[myVal] = (max + 1) % 8;
+		j = 0;
+		choosing[myVal] = 0;
+	</tr>
+	
+	<tr label="4" preset="for_loop" postset="wait">
+		
+		guard(j < 5 && max < 5);
+	
+	</tr>
+	
+
+	<tr label="5" preset="wait" postset="for_loop">
+		guard(number[j] == 0 || (number[j] > number[myVal]) || (number[j] == number[myVal] && myVal <= j));
+		j = (j + 1) % 8;
+		assert (j < 5);
+	</tr>
+	
+	<tr label="6" preset="for_loop" postset="NCS">
+		guard(j == 5);
+		
+		number[myVal] = 0;
+	</tr>
+	/*
+	<tr label="7" preset="CS" postset="NCS">
+		number[myVal] = 0;
+	</tr>
+*/
+</class>
+		

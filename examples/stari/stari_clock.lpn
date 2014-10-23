@@ -1,0 +1,24 @@
+<mod name="stari_clock.lpn">
+
+<input>   </input>
+<output>    clk      </output>
+<var>             </var>
+<marking>   1      </marking>
+
+   <statevector>
+   clk = 0;
+   </statevector>
+
+   //clock
+   <transition label="501" preset="1" postset="2">
+     true;
+     (1200, 1200);
+     clk = 1;
+   </transition>
+   <transition label="502" preset="2" postset="1">
+     true;
+     (1200, 1200);
+     clk = 0;
+   </transition>
+     
+</mod>

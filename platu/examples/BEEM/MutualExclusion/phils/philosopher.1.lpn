@@ -1,0 +1,62 @@
+
+
+//LPN for philosopher's test
+
+<main>
+
+<var>
+	fork0 = 0;
+	fork1 = 0;
+	fork2 = 0;
+	fork3 = 0;
+	fork4 = 0;
+</var>
+
+	Phil p0(fork0, fork1);
+	Phil p1(fork1, fork2);
+	Phil p2(fork2, fork3);
+	Phil p3(fork3, fork4);
+	Phil p4(fork4, fork0);
+</main>
+
+<class name="Phil" arg="left, right">
+
+	<const>
+		think = 0;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	//technically uneeded
+	<var>
+		test[1];
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="0" preset="think" postset="one">
+		guard(left == 0);
+		delay(0, inf);
+		left = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(right == 0);
+		delay(0, inf);
+		right = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		left = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="think">
+		delay(0, inf);
+		right = 0;
+	</tr>
+	
+</class>

@@ -1,0 +1,582 @@
+//Generally, a channel consists of two transisions in each of the modules
+//First, the request bit (first module) is set to 1
+//Next, the ack bit (second module) is set to 1
+//After that, the request bit (first module) is set to 0
+//The ack bit (second module) is set to 0
+//blocks on exclamation points, not question makrs
+//! is active
+//? is passive
+
+<main>	
+	NonAtomicVar v1(p1.readOneReq, p2.readOneReq, p3.readOneReq, p1.writeAck, p1.outgoingWrite, p1.doneReq);
+	NonAtomicVar v2(p1.readTwoReq, p2.readTwoReq, p3.readTwoReq, p2.writeAck, p2.outgoingWrite, p2.doneReq);
+	NonAtomicVar v3(p1.readThreeReq, p2.readThreeReq, p3.readThreeReq, p3.writeAck, p3.outgoingWrite, p3.doneReq);
+	Process p1(0, v1.readAck1, v2.readAck1, v3.readAck1, v1.varOut, v2.varOut, v3.varOut, v1.writeReq, v1.doneAck);
+	Process p2(1, v1.readAck2, v2.readAck2, v3.readAck2, v1.varOut, v2.varOut, v3.varOut, v2.writeReq, v2.doneAck);
+	Process p3(2, v1.readAck3, v2.readAck3, v3.readAck3, v1.varOut, v2.varOut, v3.varOut, v3.writeReq, v3.doneAck);
+</main>
+
+<class name="NonAtomicVar" arg="readReqOne, readReqTwo, readReqThree, writeAck, writeVal, doneReq">
+	<const>
+		q = 0;
+		r = 1;
+		qReadAck1 = 21;
+		qReadAck2 = 22;
+		qReadAck3 = 23;
+		qWriteReq = 3;
+		rDoneAck = 4;
+		rReadAck1 = 51;
+		rReadAck2 = 52;
+		rReadAck3 = 53;		
+		qWriteReqAckd = 6;
+	</const>
+	
+	<var>
+		x = 0;
+		v = 0;
+		readAck1 = 0;
+		readAck2 = 0;
+		readAck3 = 0;
+		doneAck = 0;
+		writeReq = 0;
+		varOut = 0;
+	</var>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="10" preset="q" postset="qReadAck1">
+		guard(readReqOne == 1);
+		delay(0, inf);
+		readAck1 = 1;
+		varOut = x;
+	</tr>
+	
+	<tr label="11" preset="qReadAck1" postset="q">
+		guard(readReqOne == 0);
+		delay(0, inf);
+		readAck1 = 0;
+	</tr>
+	
+	<tr label="12" preset="q" postset="qReadAck2">
+		guard(readReqTwo == 1);
+		delay(0, inf);
+		readAck2 = 1;
+		varOut = x;
+	</tr>
+	
+	<tr label="13" preset="qReadAck2" postset="q">
+		guard(readReqTwo == 0);
+		delay(0, inf);
+		readAck2 = 0;
+	</tr>
+	
+	<tr label="14" preset="q" postset="qReadAck3">
+		guard(readReqThree == 1);
+		delay(0, inf);
+		readAck3 = 1;
+		varOut = x;
+	</tr>
+	
+	<tr label="1" preset="qReadAck3" postset="q">
+		guard(readReqThree == 0);
+		delay(0, inf);
+		readAck3 = 0;
+	</tr>
+	
+	<tr label="2" preset="q" postset="qWriteReq">
+		guard(readReqOne == 0 && readReqTwo == 0 && readReqThree == 0);
+		delay(0, inf);
+		writeReq = 1;
+	</tr>
+	
+	<tr label="3" preset="qWriteReq" postset="qWriteReqAckd">
+		guard(writeAck == 1);
+		delay(0, inf);
+		writeReq = 0;
+		v = writeVal;
+	</tr>
+	
+	<tr label="33" preset="qWriteReqAckd" postset="r">
+		guard(writeAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="4" preset="r" postset="rDoneAck">
+		guard(doneReq == 1);
+		delay(0, inf);
+		doneAck = 1;
+	</tr>
+	
+	<tr label="5" preset="rDoneAck" postset="q">
+		guard(doneReq == 0);
+		delay(0, inf);
+		doneAck = 0;
+		x = v;
+	</tr>
+	
+	<tr label="61" preset="r" postset="rReadAck1">
+		guard(readReqOne == 1);
+		delay(0, inf);
+		readAck1 = 1;
+	</tr>
+	
+	<tr label="62" preset="rReadAck1" postset="r">
+		guard(readReqOne == 0);
+		delay(0, inf);
+		varOut = 0;
+		readAck1 = 0;
+	</tr>
+	
+	<tr label="63" preset="rReadAck1" postset="r">
+		guard(readReqOne == 0);
+		delay(0, inf);
+		varOut = 1;
+		readAck1 = 0;
+	</tr>	
+	
+	<tr label="71" preset="r" postset="rReadAck2">
+		guard(readReqTwo == 1);
+		delay(0, inf);
+		readAck2 = 1;
+	</tr>
+	
+	<tr label="72" preset="rReadAck2" postset="r">
+		guard(readReqTwo == 0);
+		delay(0, inf);
+		varOut = 0;
+		readAck2 = 0;
+	</tr>
+	
+	<tr label="73" preset="rReadAck2" postset="r">
+		guard(readReqTwo == 0);
+		delay(0, inf);
+		varOut = 1;
+		readAck2 = 0;
+	</tr>
+		
+	<tr label="81" preset="r" postset="rReadAck3">
+		guard(readReqThree == 1);
+		delay(0, inf);
+		readAck3 = 1;
+	</tr>
+	
+	<tr label="82" preset="rReadAck3" postset="r">
+		guard(readReqThree == 0);
+		delay(0, inf);
+		varOut = 0;
+		readAck3 = 0;
+	</tr>
+	
+	<tr label="83" preset="rReadAck3" postset="r">
+		guard(readReqThree == 0);
+		delay(0, inf);
+		varOut = 1;
+		readAck3 = 0;
+	</tr>
+</class>
+
+<class name="Process" arg="myValue, readOneAck, readTwoAck, readThreeAck, varOne, varTwo, varThree, writeReq, doneAck">
+	<const>
+		//Numerically assigns states
+		NCS = 0;
+		w1 = 1;
+		p3 = 2;
+		p8 = 3;
+		p4 = 4;
+		p5 = 5;
+		p6 = 6;
+		p61 = 7;
+		w2 = 8;
+		p9 = 9;
+		CS = 10;
+		w3 = 11;
+		NCSWriteAck = 12;
+		w1DoneReq = 13;
+		p3ReadReq1 = 14;
+		p3ReadReq1Ackd = 144;
+		p3ReadReq2 = 15;
+		p3ReadReq2Ackd = 155;
+		p3ReadReq3 = 16;
+		p3ReadReq3Ackd = 166;
+		p6WriteAck = 17;
+		w2DoneReq = 18;
+		w2DoneReqAckd = 188;
+		p61ReadReq1 = 19;
+		p61ReadReq1Ackd = 199;
+		p61ReadReq2 = 20;
+		p61ReadReq2Ackd = 200;
+		p61ReadReq3 = 21;
+		p61ReadReq3Ackd = 211;
+		p8ReadReq1 = 22;
+		p8ReadReq1Ackd = 222;
+		p8ReadReq2 = 23;
+		p8ReadReq2Ackd = 233;
+		p8ReadReq3 = 24;
+		p8ReadReq3Ackd = 244;
+		p9ReadReq1 = 25;
+		p9ReadReq1Ackd = 255;
+		p9ReadReq2 = 26;
+		p9ReadReq2Ackd = 266;
+		p9ReadReq3 = 27;
+		p9ReadReq3Ackd = 277;
+		CSWriteAck = 28;
+		w3DoneReq = 29;
+		w3DoneReqAckd = 299;
+	</const>
+	
+	<var>
+		i = 0;
+		v = 0;
+		readOneReq = 0;
+		readTwoReq = 0;
+		readThreeReq = 0;
+		writeAck = 0;
+		doneReq = 0;
+		outgoingWrite = 1;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="NCSWriteAck">
+		guard(writeReq == 1);
+		delay(0, inf);
+		writeAck = 1;
+		outgoingWrite = 1;
+	</tr>
+	
+		//need to switch the ack off!
+	<tr label="100" preset="NCSWriteAck" postset="w1">
+		guard(writeReq == 0);
+		delay(0, inf);
+		writeAck = 0;
+	</tr>
+	
+	<tr label="1" preset="w1" postset="w1DoneReq">
+		delay(0, inf);
+		doneReq = 1;
+	</tr>
+	
+	<tr label="2" preset="w1DoneReq" postset="p3">
+		guard(doneAck == 1);
+		delay(0, inf);
+		doneReq = 0;
+		i = 0;
+	</tr>
+	
+	<tr label="3" preset="p3" postset="p8">
+		guard(i == myValue);
+		delay(0, inf);
+		i = myValue + 1;
+	</tr>
+	
+	<tr label="4" preset="p3" postset="p3ReadReq1">
+		guard(i == 0);
+		delay(0, inf);
+		readOneReq = 1;
+	</tr>
+	
+	<tr label="5" preset="p3ReadReq1" postset="p3ReadReq1Ackd">
+		guard(readOneAck == 1);
+		delay(0, inf);
+		readOneReq = 0;
+		v = varOne;
+	</tr>
+	
+	<tr label="55" preset="p3ReadReq1Ackd" postset="p4">
+		guard(readOneAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="6" preset="p3" postset="p3ReadReq2">
+		guard(i == 1);
+		delay(0, inf);
+		readTwoReq = 1;
+	</tr>
+		
+	<tr label="7" preset="p3ReadReq2" postset="p3ReadReq2Ackd">
+		guard(readTwoAck == 1);
+		delay(0, inf);
+		readTwoReq = 0;
+		v = varTwo;
+	</tr>
+	
+	<tr label="77" preset="p3ReadReq2Ackd" postset="p4">
+		guard(readTwoAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="8" preset="p3" postset="p3ReadReq3">
+		guard(i == 3);
+		delay(0, inf);
+		readThreeReq = 1;
+	</tr>
+	
+	<tr label="9" preset="p3ReadReq3" postset="p3ReadReq3Ackd">
+		guard(readThreeAck == 1 );
+		delay(0, inf);
+		readThreeReq = 0;
+		v = varThree;
+	</tr>
+	
+	<tr label="99" preset="p3ReadReq3Ackd" postset="p4">
+		guard(readThreeAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="10" preset="p4" postset="p3">
+		guard(v == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="11" preset="p4" postset="p5">
+		guard(v == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="12" preset="p5" postset="p6">
+		guard(v == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="13" preset="p5" postset="NCS">
+		guard(v == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="14" preset="p6" postset="p6WriteAck">
+		guard(writeReq == 1);
+		delay(0, inf);
+		writeAck = 1;
+		outgoingWrite = 0;
+	</tr>
+	
+	<tr label="15" preset="p6WriteAck" postset="w2">
+		guard(writeReq == 0);
+		delay(0, inf);
+		writeAck = 0;
+	</tr>
+	
+	<tr label="16" preset="w2" postset="w2DoneReq">
+		delay(0, inf);
+		doneReq = 1;
+	</tr>
+	
+	<tr label="17" preset="w2DoneReq" postset="w2DoneReqAckd">
+		guard(doneAck == 1);
+		delay(0, inf);
+		doneReq = 0;
+	</tr>
+	
+	<tr label="177" preset="w2DoneReqAckd" postset="p61">
+		guard(doneAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="18" preset="p61" postset="p61ReadReq1">
+		guard(i == 0);
+		delay(0, inf);
+		readOneReq = 1;
+	</tr>
+	
+	<tr label="19" preset="p61ReadReq1" postset="p61ReadReq1Ackd">
+		guard(readOneAck == 1);
+		delay(0, inf);
+		readOneReq = 0;
+		v = varOne;
+	</tr>
+	
+	<tr label="199" preset="p61ReadReq1Ackd" postset="p5">
+		guard(readOneAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="20" preset="p61" postset="p61ReadReq2">
+		guard(i == 1);
+		delay(0, inf);
+		readTwoReq = 1;
+	</tr>
+	
+	<tr label="21" preset="p61ReadReq2" postset="p61ReadReq2Ackd">
+		guard(readTwoAck == 1);
+		delay(0, inf);
+		readTwoReq = 0;
+		v = varTwo;
+	</tr>
+	
+	<tr label="211" preset="p61ReadReq2Ackd" postset="p5">
+		guard(readTwoAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="22" preset="p61" postset="p61ReadReq3">
+		guard(i == 2);
+		delay(0, inf);
+		readThreeReq = 1;
+	</tr>
+	
+	<tr label="23" preset="p61ReadReq3" postset="p61ReadReq3Ackd">
+		guard(readThreeAck == 1);
+		delay(0, inf);
+		readThreeReq = 0;
+		v = varThree;
+	</tr>
+	
+	<tr label="233" preset="p61ReadReq3Ackd" postset="p5">
+		guard(readThreeAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="24" preset="p8" postset="p8ReadReq1">
+		guard(i == 0);
+		delay(0, inf);
+		readOneReq = 1;
+	</tr>
+	
+	<tr label="25" preset="p8ReadReq1" postset="p8ReadReq1Ackd">
+		guard(readOneAck == 1);
+		delay(0, inf);
+		readOneReq = 0;
+		v = varOne;
+	</tr>
+	
+	<tr label="255" preset="p8ReadReq1Ackd" postset="p9">
+		guard(readOneAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="26" preset="p8" postset="p8ReadReq2">
+		guard(i == 1);
+		delay(0, inf);
+		readTwoReq = 1;
+	</tr>
+	
+	<tr label="27" preset="p8ReadReq2" postset="p8ReadReq2Ackd">
+		guard(readTwoAck == 1);
+		delay(0, inf);
+		readTwoReq = 0;
+		v = varTwo;
+	</tr>
+	
+	<tr label="28" preset="p8ReadReq2Ackd" postset="p9">
+		guard(readTwoAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="28" preset="p8" postset="p8ReadReq3">
+		guard(i == 2);
+		delay(0, inf);
+		readThreeReq = 1;
+	</tr>
+	
+	<tr label="29" preset="p8ReadReq3" postset="p8ReadReq3Ackd">
+		guard(readThreeAck == 1);
+		delay(0, inf);
+		readThreeReq = 0;
+		v = varThree;
+	</tr>
+	
+	<tr label="299" preset="p8ReadReq3Ackd" postset="p9">
+		guard(readThreeAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="30" preset="p9" postset="p9ReadReq1">
+		guard(i == 0&& v == 1);
+		delay(0, inf);
+		readOneReq = 1;
+	</tr>
+	
+	<tr label="31" preset="p9ReadReq1" postset="p9ReadReq1Ackd">
+		guard(readOneAck == 1);
+		delay(0, inf);
+		readOneReq = 0;
+		v = varOne;
+	</tr>
+	
+	<tr label="311" preset="p9ReadReq1Ackd" postset="p9">
+		guard(readOneAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="32" preset="p9" postset="p9ReadReq2">
+		guard(i==1 && v == 1);
+		delay(0, inf);
+		readTwoReq = 1;
+	</tr>
+	
+	<tr label="33" preset="p9ReadReq2" postset="p9ReadReq2Ackd">
+		guard(readTwoAck == 1);
+		delay(0, inf);
+		readTwoReq = 0;
+		v = varTwo;
+	</tr>
+	
+	<tr label="333" preset="p9ReadReq2Ackd" postset="p9">
+		guard(readTwoAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="34" preset="p9" postset="p9ReadReq3">
+		guard(i == 2 && v == 1);
+		delay(0, inf);
+		readThreeReq = 1;
+	</tr>
+	
+	<tr label="35" preset="p9ReadReq3" postset="p9ReadReq3Ackd">
+		guard(readThreeAck == 1);
+		delay(0, inf);
+		readThreeReq = 0;
+		v = varThree;
+	</tr>
+	
+	<tr label="355" preset="p9ReadReq3Ackd" postset="p9">
+		guard(readThreeAck == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="36" preset="p9" postset="p8">
+		guard(v == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="37" preset="p8" postset="CS">
+		guard(i == 3);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="38" preset="CS" postset="CSWriteAck">
+		guard(writeReq == 1);
+		delay(0, inf);
+		writeAck = 1;
+		outgoingWrite = 0;
+	</tr>
+	
+	<tr label="39" preset="CSWriteAck" postset="w3">
+		guard(writeReq == 0);
+		delay(0, inf);
+		writeAck = 0;
+	</tr>
+	
+	<tr label="40" preset="w3" postset="w3DoneReq">
+		delay(0, inf);
+		doneReq = 1;
+	</tr>
+	
+	<tr label="41" preset="w3DoneReq" postset="w3DoneReqAckd">
+		guard(doneAck == 1);
+		delay(0, inf);
+		doneReq = 0;
+	</tr>
+	
+	<tr label="411" preset="w3DoneReqAckd" postset="NCS">
+		guard(doneAck == 0);
+		delay(0, inf);
+	</tr>
+	
+</class>

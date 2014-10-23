@@ -1,0 +1,344 @@
+<var>
+	x = 255;
+	y = 255;
+	z=0;
+	t[3];
+</var>
+
+<main>
+	timer t1();
+	Process0 p0();
+	Process1 p1();
+	Process2 p2();
+</main>
+
+<class name= "timer" arg="">
+
+	<m>
+	1
+	</m>
+
+	<tr label="1" preset="1" postset="1">
+		guard(t[0] != 0 && t[1] != 0 && t[2] != 0);
+		delay(0, inf);
+		t[0] = (t[0]-1) | ((t[0] == 255) * 255);
+		t[1] = (t[1]-1) | ((t[1] == 255) * 255);
+		t[2] = (t[2]-1) | ((t[2]==255)*255);
+	</tr>
+</class>
+
+<class name = "Process0" arg="">
+	
+	<const>
+	NCS = 0;
+	p2 = 1;
+	p3 = 2;
+	p4 = 3;
+	p5 = 4;
+	p6 = 5;
+	p7 = 6;
+	p8 = 7;
+	p9 = 8;
+	CS = 9;
+	p12 = 10;
+	p13 = 11;
+	</const>
+
+	<m>
+	NCS
+	</m>
+	
+	<tr label="2" preset="NCS" postset="p3">
+		delay(0, inf);
+		x = 0;
+		t[0] = 255;
+	</tr>
+	
+	<tr label="3" preset="p3" postset="p4">
+		guard(y == 255);
+		delay(0, inf);
+		t[0] = 2;	
+	</tr>
+
+	<tr label="4" preset="p4" postset="p5">
+		delay(0,inf);
+		y = 0;
+		t[0] = 2;
+	</tr>
+	
+	<tr label="5" preset="p5" postset="p9">
+		guard(x == 0);
+		delay(0, inf);
+		t[0] = 2;
+	</tr>
+
+	<tr label="6" preset="p9" postset="CS">
+		delay(0, inf);
+		z = 1;
+		t[0] = 255;
+	</tr>
+
+	<tr label="7" preset="p5" postset="p6">
+		guard(x != 0);
+		delay(0, inf);
+		t[0] = 5;
+	</tr>
+
+	<tr label="8" preset="p6" postset="p7">
+		guard(t[0] == 0);
+		delay(0, inf);
+		t[0] = 2;
+	</tr>
+
+	<tr label="9" preset="p7" postset="NCS">
+		guard(y !=0);
+		delay(0, inf);
+		t[0] = 2;
+	</tr>
+
+	<tr label="10" preset="p7" postset="p8">
+		guard(y == 0);
+		delay(0, inf);
+		t[0] = 255;
+	</tr>
+
+	<tr label="11" preset="p8" postset="CS">
+		guard(z == 0);
+		delay(0, inf);
+	</tr>
+
+	<tr label="12" preset="CS" postset="p12">
+		delay(0, inf);
+		z = 0;
+		t[0] = 2;
+	</tr>
+
+	<tr label="13" preset="p12" postset="NCS">
+		guard(y != 0);
+		delay(0, inf);
+		t[0] = 255;
+	</tr>
+
+	<tr label="14" preset="p12" postset="p13">
+		guard(y== 0);
+		delay(0, inf);
+		t[0] = 2;
+	</tr>
+
+	<tr label="15" preset="p13" postset="NCS">
+		delay(0, inf);
+		y = 255;
+		t[0] = 255;
+	</tr>
+</class>
+
+<class name = "Process1" arg="">
+	
+	<const>
+	NCS = 0;
+	p2 = 1;
+	p3 = 2;
+	p4 = 3;
+	p5 = 4;
+	p6 = 5;
+	p7 = 6;
+	p8 = 7;
+	p9 = 8;
+	CS = 9;
+	p12 = 10;
+	p13 = 11;
+	</const>
+	
+	<m>
+	NCS
+	</m>
+
+	<tr label="1" preset="NCS" postset="p3">
+		delay(0, inf);
+		x = 1;
+		t[1] = 255;
+	</tr>
+	
+	<tr label="2" preset="p3" postset="p4">
+		guard(y == 255);
+		delay(0, inf);
+		t[1] = 2;
+	</tr>
+
+	<tr label="3" preset="p4" postset="p5">
+		delay(0, inf);
+		y = 1;
+		t[1] = 2;
+	</tr>
+
+	<tr label="4" preset="p5" postset="p9">
+		guard(x == 1);
+		delay(0, inf);
+		t[1] = 2;
+	</tr>
+
+	<tr label="5" preset="p9" postset="CS">
+		delay(0, inf);
+		z = 1;
+		t[1] = 255;
+	</tr>
+
+	<tr label="6" preset="p5" postset="p6">
+		guard(x!=1);
+		delay(0, inf);
+		t[1] = 5;
+	</tr>
+
+	<tr label="7" preset="p6" postset="p7">
+		guard(t[1] == 0);
+		delay(0, inf);
+		t[1] = 2;
+	</tr>
+
+	<tr label="8" preset="p7" postset="NCS">
+		guard(y!=1);
+		delay(0, inf);
+		t[1] = 2;
+	</tr>
+
+	<tr label="9" preset="p7" postset="p8">
+		guard(y==1);
+		delay(0, inf);
+		t[1] = 255;
+	</tr>
+
+	<tr label="10" preset="p8" postset="CS">
+		guard(z==0);
+		delay(0, inf);
+	</tr>
+
+	<tr label="11" preset="CS" postset="p12">
+		delay(0,inf);
+		z = 0;
+		t[1] = 2;
+	</tr>
+
+	<tr label="12" preset="p12" postset="NCS">
+		guard(y!=1);
+		delay(0,inf);
+		t[1] = 255;
+	</tr>
+
+	<tr label="13" preset="p12" postset="p13">
+		guard(y==1);
+		delay(0, inf);
+		t[1] = 2;
+	</tr>
+
+	<tr label="14" preset="p13" postset="NCS">
+		delay(0, inf);
+		y=255;
+		t[1]=255;
+	</tr>
+</class>
+
+<class name="Process2" arg="">
+	
+	<const>
+	NCS = 0;
+	p2 = 1;
+	p3 = 2;
+	p4 = 3;
+	p5 = 4;
+	p6 = 5;
+	p7 = 6;
+	p8 = 7;
+	p9 = 8;
+	CS = 9;
+	p12 = 10;
+	p13 = 11;
+	</const>
+	
+	<m>
+	NCS
+	</m>
+
+	<tr label="1" preset="NCS" postset="p3">
+		delay(0, inf);
+		x = 2;
+		t[2] =255;
+	</tr>
+
+	<tr label="2" preset="p3" postset="p4">
+		guard(y==255);
+		delay(0, inf);
+		t[2] = 2;
+	</tr>
+	
+	<tr label="3" preset="p4" postset="p5">
+		delay(0,inf);
+		y = 2;
+		t[2] = 2;
+	</tr>
+
+	<tr label="4" preset="p5" postset="p9">
+		guard(x==2);
+		delay(0, inf);
+		t[2] = 2;
+	</tr>
+	
+	<tr label="5" preset="p9" postset="CS">
+		delay(0, inf);
+		z = 1;
+		t[2] = 255;
+	</tr>
+
+	<tr label="6" preset="p5" postset="p6">
+		guard(x!=2);
+		delay(0,inf);
+		t[2] = 5;
+	</tr>
+
+	<tr label="7" preset="p6" postset="p7">
+		guard(t[2]==0);
+		delay(0, inf);
+		t[2] = 2;
+	</tr>
+	
+	<tr label="8" preset="p7" postset="NCS">
+		guard(y!=2);
+		delay(0, inf);
+		t[2] = 2;
+	</tr>
+
+	<tr label="9" preset="p7" postset="p8">
+		guard(y==2);
+		delay(0,inf);
+		t[2] = 255;
+	</tr>
+	
+	<tr label="10" preset="p8" postset="CS">
+		guard(z==0);
+		delay(0,inf);
+	</tr>
+
+	<tr label="11" preset="CS" postset="p12">
+		delay(0, inf);
+		z=0;
+		t[2] = 2;
+	</tr>
+
+	<tr label="12" preset="p12" postset="NCS">
+		guard(y!=2);
+		delay(0, inf);
+		t[2] = 255;
+	</tr>
+
+	<tr label="13" preset="p12" postset="p13">
+		guard(y==2);
+		delay(0, inf);
+		t[2] = 2;
+	</tr>
+
+	<tr label="14" preset="p13" postset="NCS">
+		delay(0, inf);
+		y=255;
+		t[2] = 255;
+	</tr>
+</class>
+	

@@ -1,0 +1,54 @@
+--> Number of modules: 5
+--> Length of global vecvtor: 7
+--> globalVarList
+[(b[0], 0), (b[1], 0), (b[2], 0), (b[4], 0), (y, 255), (b[3], 0), (x, 255)]
+--> gVarIndexMap
+(b[0] 0), (b[1] 1), (b[2] 2), (b[4] 3), (y 4), (b[3] 5), (x 6), 
+LPN: p1
+-->Internals: 		(p1.j 0 INTERNAL), (p1.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (b[2] 4 GLOBAL), (b[4] 5 GLOBAL), (y 6 GLOBAL), (b[3] 7 GLOBAL), (x 8 GLOBAL), 
+--> VarIndexMap: 	(p1.j 0),  (p1.myValue 1),  (b[0] 2),  (b[1] 3),  (b[2] 4),  (b[4] 5),  (y 6),  (b[3] 7),  (x 8),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), (p2.j 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (b[2] 4 GLOBAL), (b[4] 5 GLOBAL), (y 6 GLOBAL), (b[3] 7 GLOBAL), (x 8 GLOBAL), 
+--> VarIndexMap: 	(p2.myValue 0),  (p2.j 1),  (b[0] 2),  (b[1] 3),  (b[2] 4),  (b[4] 5),  (y 6),  (b[3] 7),  (x 8),  
+
+LPN: p3
+-->Internals: 		(p3.j 0 INTERNAL), (p3.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (b[2] 4 GLOBAL), (b[4] 5 GLOBAL), (y 6 GLOBAL), (b[3] 7 GLOBAL), (x 8 GLOBAL), 
+--> VarIndexMap: 	(p3.j 0),  (p3.myValue 1),  (b[0] 2),  (b[1] 3),  (b[2] 4),  (b[4] 5),  (y 6),  (b[3] 7),  (x 8),  
+
+LPN: p4
+-->Internals: 		(p4.j 0 INTERNAL), (p4.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (b[2] 4 GLOBAL), (b[4] 5 GLOBAL), (y 6 GLOBAL), (b[3] 7 GLOBAL), (x 8 GLOBAL), 
+--> VarIndexMap: 	(p4.j 0),  (p4.myValue 1),  (b[0] 2),  (b[1] 3),  (b[2] 4),  (b[4] 5),  (y 6),  (b[3] 7),  (x 8),  
+
+LPN: p5
+-->Internals: 		(p5.j 0 INTERNAL), (p5.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (b[2] 4 GLOBAL), (b[4] 5 GLOBAL), (y 6 GLOBAL), (b[3] 7 GLOBAL), (x 8 GLOBAL), 
+--> VarIndexMap: 	(p5.j 0),  (p5.myValue 1),  (b[0] 2),  (b[1] 3),  (b[2] 4),  (b[4] 5),  (y 6),  (b[3] 7),  (x 8),  
+
+---> start search_dfs ...
+*** Verification failed: deadlock.
+*** Deadlock state layout:
+Marking: [4,]
+Vector: [p1.j=>0, p1.myValue=>0, b[0]=>0, b[1]=>0, b[2]=>0, b[4]=>0, y=>255, b[3]=>0, x=>255, ]
+Marking: [8,]
+Vector: [p2.myValue=>1, p2.j=>5, b[0]=>0, b[1]=>0, b[2]=>0, b[4]=>0, y=>255, b[3]=>0, x=>255, ]
+Marking: [4,]
+Vector: [p3.j=>0, p3.myValue=>2, b[0]=>0, b[1]=>0, b[2]=>0, b[4]=>0, y=>255, b[3]=>0, x=>255, ]
+Marking: [4,]
+Vector: [p4.j=>0, p4.myValue=>3, b[0]=>0, b[1]=>0, b[2]=>0, b[4]=>0, y=>255, b[3]=>0, x=>255, ]
+Marking: [3,]
+Vector: [p5.j=>0, p5.myValue=>4, b[0]=>0, b[1]=>0, b[2]=>0, b[4]=>0, y=>255, b[3]=>0, x=>255, ]
+[(b[0],0), (b[1],0), (b[2],0), (b[4],0), (y,1), (b[3],0), (x,4), ]
+
+---> Search stats:
+	# LPN transition firings: 55
+	# of states found: 50
+	max_stack_depth: 50
+	peak total memory: 85 MB
+	peak used memory: 11 MB
+	Total elapsed time = 0.0 sec
+

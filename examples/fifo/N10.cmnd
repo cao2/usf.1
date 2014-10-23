@@ -1,0 +1,3 @@
+readlpn examples/fifo/fifoN10.lpn
+findsg
+quit

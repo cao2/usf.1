@@ -1,0 +1,92 @@
+<mod name="m1">    
+    <var>
+        m1.u = 1;
+        m1o = 0;
+    </var>
+
+    <marking> 1,2 </marking>
+
+    <transition label="1" preset="1" postset="1"  >
+        m3.o && m1.u;
+        (0, inf);
+        m1.u = 0;
+    </transition>
+    <transition label="2" preset="1" postset="1"  >
+        !m3.o && !m1.u;
+        (0, inf);
+        m1.u = 1;
+    </transition>
+    <transition label="3" preset="2" postset="2"  >
+        m1.u && m1.o;
+        (0, inf);
+        m1.o = 0;
+    </transition>
+    <transition label="4" preset="2" postset="2"  >
+        !m1.u && !m1.o;
+        (0, inf);
+        m1.o = 1;
+    </transition>
+</mod>
+
+<mod name="m2">    
+    <var>
+        m2.u = 1;
+        m2.o = 0;
+    </var>
+
+    <marking> 1,2 </marking>
+
+    <transition label="1" preset="1" postset="1"  >
+        m3.o && m2.u;
+        (0, inf);
+        m2.u = 0;
+    </transition>
+    <transition label="2" preset="1" postset="1"  >
+        !m3.o && !m2.u;
+        (0, inf);
+        m2.u = 1;
+    </transition>
+    <transition label="3" preset="2" postset="2"  >
+        m2.u && m2.o;
+        (0, inf);
+        m2.o = 0;
+    </transition>
+    <transition label="4" preset="2" postset="2"  >
+        !m2.u && !m2.o;
+        (0, inf);
+        m2.o = 1;
+    </transition>
+</mod>
+
+
+<mod name="m3">
+	<const> f = 1; </const>
+
+    <var>
+      m3.w = 0;
+      m3.o = 0;
+    </var>
+
+    <marking> f,2 </marking>
+
+    <transition label="1" preset="f" postset="1"  >
+      m1.o && m2.o && !m3.w;
+      (0, inf);
+      m3.w = 1;
+    </transition>
+    <transition label="2" preset="1" postset="1"  >
+      !m1.o && !m2.o && m3.w;
+      (0, inf);
+      m3.w = 0;
+    </transition>
+    <transition label="3" preset="2" postset="2"  >
+      m3.w && m3.o;
+      (0, inf);
+      m3.o = 0;
+    </transition>
+    <transition label="4" preset="2" postset="2"  >
+      !m3.w && !m3.o;
+      (0, inf);
+      m3.o = 1;
+    </transition>
+</mod>

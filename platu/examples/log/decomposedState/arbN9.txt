@@ -1,0 +1,119 @@
+--> Number of modules: 9
+--> Length of global vecvtor: 16
+--> globalVarList
+[(c3.sreq, 0), (top.ack1, 0), (top.ack2, 0), (bot5.sreq, 0), (bot2.sreq, 0), (bot1.sreq, 0), (c3.uack1, 0), (c1.uack2, 0), (c1.sreq, 0), (c1.uack1, 0), (bot4.sreq, 0), (c2.sreq, 0), (c2.uack1, 0), (c3.uack2, 0), (c2.uack2, 0), (bot3.sreq, 0)]
+--> gVarIndexMap
+(c3.sreq 0), (top.ack1 1), (top.ack2 2), (bot5.sreq 3), (bot2.sreq 4), (bot1.sreq 5), (c3.uack1 6), (c1.uack2 7), (c1.sreq 8), (c1.uack1 9), (bot4.sreq 10), (c2.sreq 11), (c2.uack1 12), (c3.uack2 13), (c2.uack2 14), (bot3.sreq 15), 
+LPN: top
+-->Internals: 		(top.x2 0 INTERNAL), (top.x1 1 INTERNAL), (top.sa 2 INTERNAL), (top.g2 3 INTERNAL), (top.g1 4 INTERNAL), (top.sr 5 INTERNAL), 
+-->Globals: 		(c3.sreq 6 INPUT), (top.ack1 7 OUTPUT), (top.ack2 8 OUTPUT), (bot5.sreq 9 INPUT), 
+--> VarIndexMap: 	(top.x2 0),  (top.x1 1),  (top.sa 2),  (top.g2 3),  (top.g1 4),  (top.sr 5),  (c3.sreq 6),  (top.ack1 7),  (top.ack2 8),  (bot5.sreq 9),  
+
+LPN: c1
+-->Internals: 		(c1.g2 0 INTERNAL), (c1.g1 1 INTERNAL), (c1.x1 2 INTERNAL), (c1.x2 3 INTERNAL), 
+-->Globals: 		(bot2.sreq 4 INPUT), (bot1.sreq 5 INPUT), (c3.uack1 6 INPUT), (c1.uack2 7 OUTPUT), (c1.sreq 8 OUTPUT), (c1.uack1 9 OUTPUT), 
+--> VarIndexMap: 	(c1.g2 0),  (c1.g1 1),  (c1.x1 2),  (c1.x2 3),  (bot2.sreq 4),  (bot1.sreq 5),  (c3.uack1 6),  (c1.uack2 7),  (c1.sreq 8),  (c1.uack1 9),  
+
+LPN: c2
+-->Internals: 		(c2.x1 0 INTERNAL), (c2.x2 1 INTERNAL), (c2.g2 2 INTERNAL), (c2.g1 3 INTERNAL), 
+-->Globals: 		(bot4.sreq 4 INPUT), (c2.sreq 5 OUTPUT), (c2.uack1 6 OUTPUT), (c3.uack2 7 INPUT), (c2.uack2 8 OUTPUT), (bot3.sreq 9 INPUT), 
+--> VarIndexMap: 	(c2.x1 0),  (c2.x2 1),  (c2.g2 2),  (c2.g1 3),  (bot4.sreq 4),  (c2.sreq 5),  (c2.uack1 6),  (c3.uack2 7),  (c2.uack2 8),  (bot3.sreq 9),  
+
+LPN: c3
+-->Internals: 		(c3.x1 0 INTERNAL), (c3.g2 1 INTERNAL), (c3.g1 2 INTERNAL), (c3.x2 3 INTERNAL), 
+-->Globals: 		(top.ack1 4 INPUT), (c3.sreq 5 OUTPUT), (c2.sreq 6 INPUT), (c1.sreq 7 INPUT), (c3.uack1 8 OUTPUT), (c3.uack2 9 OUTPUT), 
+--> VarIndexMap: 	(c3.x1 0),  (c3.g2 1),  (c3.g1 2),  (c3.x2 3),  (top.ack1 4),  (c3.sreq 5),  (c2.sreq 6),  (c1.sreq 7),  (c3.uack1 8),  (c3.uack2 9),  
+
+LPN: bot1
+-->Internals: 		(bot1.x1 0 INTERNAL), (bot1.x2 1 INTERNAL), (bot1.g2 2 INTERNAL), (bot1.ur1 3 INTERNAL), (bot1.g1 4 INTERNAL), (bot1.ur2 5 INTERNAL), (bot1.ua2 6 INTERNAL), (bot1.ua1 7 INTERNAL), 
+-->Globals: 		(c1.uack1 8 INPUT), (bot1.sreq 9 OUTPUT), 
+--> VarIndexMap: 	(bot1.x1 0),  (bot1.x2 1),  (bot1.g2 2),  (bot1.ur1 3),  (bot1.g1 4),  (bot1.ur2 5),  (bot1.ua2 6),  (bot1.ua1 7),  (c1.uack1 8),  (bot1.sreq 9),  
+
+LPN: bot2
+-->Internals: 		(bot2.x1 0 INTERNAL), (bot2.ua1 1 INTERNAL), (bot2.ua2 2 INTERNAL), (bot2.x2 3 INTERNAL), (bot2.ur1 4 INTERNAL), (bot2.g2 5 INTERNAL), (bot2.g1 6 INTERNAL), (bot2.ur2 7 INTERNAL), 
+-->Globals: 		(c1.uack2 8 INPUT), (bot2.sreq 9 OUTPUT), 
+--> VarIndexMap: 	(bot2.x1 0),  (bot2.ua1 1),  (bot2.ua2 2),  (bot2.x2 3),  (bot2.ur1 4),  (bot2.g2 5),  (bot2.g1 6),  (bot2.ur2 7),  (c1.uack2 8),  (bot2.sreq 9),  
+
+LPN: bot3
+-->Internals: 		(bot3.g1 0 INTERNAL), (bot3.ur2 1 INTERNAL), (bot3.g2 2 INTERNAL), (bot3.ur1 3 INTERNAL), (bot3.ua2 4 INTERNAL), (bot3.ua1 5 INTERNAL), (bot3.x1 6 INTERNAL), (bot3.x2 7 INTERNAL), 
+-->Globals: 		(c2.uack1 8 INPUT), (bot3.sreq 9 OUTPUT), 
+--> VarIndexMap: 	(bot3.g1 0),  (bot3.ur2 1),  (bot3.g2 2),  (bot3.ur1 3),  (bot3.ua2 4),  (bot3.ua1 5),  (bot3.x1 6),  (bot3.x2 7),  (c2.uack1 8),  (bot3.sreq 9),  
+
+LPN: bot4
+-->Internals: 		(bot4.g1 0 INTERNAL), (bot4.g2 1 INTERNAL), (bot4.ur2 2 INTERNAL), (bot4.ua2 3 INTERNAL), (bot4.x2 4 INTERNAL), (bot4.x1 5 INTERNAL), (bot4.ua1 6 INTERNAL), (bot4.ur1 7 INTERNAL), 
+-->Globals: 		(c2.uack2 8 INPUT), (bot4.sreq 9 OUTPUT), 
+--> VarIndexMap: 	(bot4.g1 0),  (bot4.g2 1),  (bot4.ur2 2),  (bot4.ua2 3),  (bot4.x2 4),  (bot4.x1 5),  (bot4.ua1 6),  (bot4.ur1 7),  (c2.uack2 8),  (bot4.sreq 9),  
+
+LPN: bot5
+-->Internals: 		(bot5.g1 0 INTERNAL), (bot5.g2 1 INTERNAL), (bot5.ur1 2 INTERNAL), (bot5.x2 3 INTERNAL), (bot5.ur2 4 INTERNAL), (bot5.x1 5 INTERNAL), (bot5.ua1 6 INTERNAL), (bot5.ua2 7 INTERNAL), 
+-->Globals: 		(bot5.sreq 8 OUTPUT), (top.ack2 9 INPUT), 
+--> VarIndexMap: 	(bot5.g1 0),  (bot5.g2 1),  (bot5.ur1 2),  (bot5.x2 3),  (bot5.ur2 4),  (bot5.x1 5),  (bot5.ua1 6),  (bot5.ua2 7),  (bot5.sreq 8),  (top.ack2 9),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 864085, # of prjStates found: 262751, stack_depth: 126836, used memory: 176 MB, free memory: 43 MB, elapsed time: 13.016 seconds.
+--->  # of global vectors: 1532
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 1719560, # of prjStates found: 448515, stack_depth: 168075, used memory: 210 MB, free memory: 88 MB, elapsed time: 26.028 seconds.
+--->  # of global vectors: 1881
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 2571503, # of prjStates found: 615182, stack_depth: 186685, used memory: 256 MB, free memory: 46 MB, elapsed time: 38.039 seconds.
+--->  # of global vectors: 2071
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 3424809, # of prjStates found: 770937, stack_depth: 195746, used memory: 272 MB, free memory: 141 MB, elapsed time: 49.051 seconds.
+--->  # of global vectors: 2153
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 4273865, # of prjStates found: 921278, stack_depth: 195143, used memory: 295 MB, free memory: 114 MB, elapsed time: 61.062 seconds.
+--->  # of global vectors: 2181
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 5119721, # of prjStates found: 1065068, stack_depth: 184789, used memory: 322 MB, free memory: 83 MB, elapsed time: 73.074 seconds.
+--->  # of global vectors: 2181
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 5944150, # of prjStates found: 1176729, stack_depth: 120879, used memory: 348 MB, free memory: 63 MB, elapsed time: 84.088 seconds.
+--->  # of global vectors: 2181
+---> state table stats: States in state table: 0
+---> Search stats:
+	LPN transition firing count: 6467110
+	State count: 1206047
+	Global state vector count: 2181
+	Local state pair counts:
+		Table 0 : 10776
+		Table 1 : 10776
+		Table 2 : 8772
+		Table 3 : 54493
+		Table 4 : 54504
+		Table 5 : 54483
+		Table 6 : 54502
+		Table 7 : 50458
+		Table 8 : 7120
+		Table 9 : 5708
+		Table 10 : 30844
+		Table 11 : 30844
+		Table 12 : 36144
+		Table 13 : 36144
+		Table 14 : 45752
+		Table 15 : 5708
+		Table 16 : 36144
+		Table 17 : 36144
+		Table 18 : 30844
+		Table 19 : 30844
+		Table 20 : 45752
+		Table 21 : 29636
+		Table 22 : 29636
+		Table 23 : 29636
+		Table 24 : 29636
+		Table 25 : 38514
+		Table 26 : 111374
+		Table 27 : 113573
+		Table 28 : 116100
+		Table 29 : 179021
+		Table 30 : 116518
+		Table 31 : 118528
+		Table 32 : 178388
+		Table 33 : 113324
+		Table 34 : 179565
+		Table 35 : 184853
+	max_stack_depth: 198112
+	peak total memory: 412 MB
+	peak used memory: 358 MB
+	Total elapsed time = 92.096 sec
+

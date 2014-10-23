@@ -1,0 +1,108 @@
+<mod name="producer.lpn">
+
+<const>
+ready = 0;
+start_send = 1;
+wait_result = 2;
+check = 3;
+SinSendInternal = 4;
+SoutReceiveInternal = 5;
+ShakePCSendInternal = 6;
+</const>
+
+<input>
+SinAck,SoutReq,result,ShakePCAck
+</input>
+<output>
+SinReq,Prod_n,SoutAck,ShakePCReq
+</output>
+
+
+<marking>
+0
+</marking>
+
+<statevector>
+SinAck = 0;
+SoutReq = 0;
+result = 0;
+ShakePCAck = 0;
+SinReq = 0;
+Prod_n = 0;
+SoutAck = 0;
+ShakePCReq = 0;
+</statevector>
+
+<transition label="1" preset="ready" postset="start_send">
+true;
+(0, inf);
+Prod_n = 1;
+</transition>
+
+<transition label="2" preset="ready" postset="start_send">
+true;
+(0, inf);
+Prod_n = 2;
+</transition>
+
+<transition label="3" preset="ready" postset="start_send">
+true;
+(0, inf);
+Prod_n = 3;
+</transition>
+
+<transition label="4" preset="ready" postset="start_send">
+true;
+(0, inf);
+Prod_n = 4;
+</transition>
+
+<transition label="5" preset="ready" postset="start_send">
+true;
+(0, inf);
+Prod_n = 5;
+</transition>
+
+<transition label="6" preset="start_send" postset="SinSendInternal">
+SinAck==0;
+(0, inf);
+SinReq = 1;
+</transition>
+
+<transition label="7" preset="SinSendInternal" postset="wait_result">
+SinAck==1;
+(0, inf);
+SinReq = 0;
+</transition>
+
+<transition label="8" preset="wait_result" postset="SoutReceiveInternal">
+SoutReq==1;
+(0, inf);
+SoutAck = 1;
+</transition>
+
+<transition label="9" preset="SoutReceiveInternal" postset="check">
+SoutReq==0;
+(0, inf);
+SoutAck = 0;
+</transition>
+
+<transition label="10" preset="check" postset="ShakePCSendInternal">
+result==1 && ShakePCAck==0;
+(0, inf);
+ShakePCReq = 1;
+</transition>
+
+<transition label="11" preset="ShakePCSendInternal" postset="ready">
+ShakePCAck==1;
+(0, inf);
+ShakePCReq = 0;
+</transition>
+
+<transition label="12" preset="check" postset="start_send">
+result==2 || result==3;
+(0, inf);
+</transition>
+
+
+</mod>

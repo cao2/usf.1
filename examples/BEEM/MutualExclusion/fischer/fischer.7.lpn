@@ -1,0 +1,101 @@
+<main>
+	<const>
+		value0 = 0;
+		value1 = 1;
+		value2 = 2;
+		value3 = 3;
+		value4 = 4;
+		value5 = 5;
+		value6 = 6;
+		value7 = 7;
+	</const>
+	
+	<var>
+		id;
+		t[8] = {255, 255, 255, 255, 255, 255, 255, 255};
+		CSGuard = 0;
+	</var>
+	
+	Proc p0(t, id, value0, CSGuard);
+	Proc p1(t, id, value1, CSGuard);
+	Proc p2(t, id, value2, CSGuard);
+	Proc p3(t, id, value3, CSGuard);
+	Proc p4(t, id, value4, CSGuard);
+	Proc p5(t, id, value5, CSGuard);
+	Proc p6(t, id, value6, CSGuard);
+	Proc p7(t, id, value7, CSGuard);
+	
+	Timer t(t);
+</main>
+
+<class name="Timer" arg="t[8]">
+	
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="0" preset="q" postset="q">
+		guard(t[0] != 0 && t[1] != 0 && t[2] != 0 && t[3] != 0 && t[4] != 0 && t[5] != 0 && t[6] != 0 && t[7] != 0);
+		delay(0, inf);
+		t[0] = (t[0] - 1) | ((t[0] == 255) * 255);
+		t[1] = (t[1] - 1) | ((t[1] == 255) * 255);
+		t[2] = (t[2] - 1) | ((t[2] == 255) * 255);
+		t[3] = (t[3] - 1) | ((t[3] == 255) * 255);
+		t[4] = (t[4] - 1) | ((t[4] == 255) * 255);
+		t[5] = (t[5] - 1) | ((t[5] == 255) * 255);
+		t[6] = (t[6] - 1) | ((t[6] == 255) * 255);
+		t[7] = (t[7] - 1) | ((t[7] == 255) * 255);
+	</tr>
+	
+</class>
+
+<class name="Proc" arg="t[8], id, myValue, CSGuard">
+	
+	<const>
+		NCS = 0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="try">
+		guard(id == 0);
+		delay(0, inf);
+		t[myValue] = 3;
+	</tr>
+	
+	<tr label="1" preset="try" postset="wait">
+		t[myValue] = 3;
+		id = myValue + 1;
+	</tr>
+	
+	<tr label="2" preset="wait" postset="wait">
+		guard(t[myValue] == 0);
+		delay(0, inf);
+		t[myValue] = 255;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="CS">
+		guard(t[myValue] == 255 && id == (myValue+1));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="4" preset="wait" postset="NCS">
+		guard(id != (myValue+1) && t[myValue] == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="CS" postset="NCS">
+		delay(0, inf);
+		id = 0;
+	</tr>
+	
+</class>

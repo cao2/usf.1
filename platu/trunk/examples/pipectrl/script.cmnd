@@ -1,0 +1,13 @@
+readlpn examples/pipectrl/IF.lpn
+
+readlpn examples/pipectrl/ID.lpn
+
+readlpn examples/pipectrl/EX.lpn
+
+readlpn examples/pipectrl/ME.lpn
+
+readlpn examples/pipectrl/WB.lpn
+
+findsg
+
+quit

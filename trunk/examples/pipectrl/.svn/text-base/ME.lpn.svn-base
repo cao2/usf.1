@@ -1,0 +1,120 @@
+<mod name="ME.lpn">
+
+   <var>
+   w1_ME = 0;
+   w2_ME = 0;
+   w4_ME = 1;
+   w5_ME = 0;
+   w6_ME = 1;
+   w7 = 0;
+   w7_ME = 1;
+   w8 = 1;
+   w8_ME = 0;
+   w9_ME = 1;
+   </var>
+
+   <marking>
+   30,   31,   32,   33,   34,   35,   36,   37,   38,   39
+   </marking>
+
+   <transition label="140" preset="32" postset="32">
+     w6&& !w1_ME && w7_ME;
+     (0, inf);
+     w1_ME = 1;
+   </transition>
+   <transition label="141" preset="32" postset="32">
+      !w6 && w1_ME&& !w7_ME;
+     (0, inf);
+     w1_ME = 0;
+   </transition>
+   <transition label="142" preset="33" postset="33">
+      !w8&& !w2_ME;
+     (0, inf);
+     w2_ME = 1;
+   </transition>
+   <transition label="143" preset="33" postset="33">
+     w8 && w2_ME;
+     (0, inf);
+     w2_ME = 0;
+   </transition>
+   <transition label="144" preset="34" postset="34">
+      !w7 && w1_ME && w2_ME;
+     (0, inf);
+     w7 = 1;
+   </transition>
+   <transition label="145" preset="34" postset="34">
+     w7&& !w1_ME&& !w2_ME;
+     (0, inf);
+     w7 = 0;
+   </transition>
+   <transition label="146" preset="37" postset="37">
+     w4_ME && w5_ME;
+     (0, inf);
+     w4_ME = 0;
+   </transition>
+   <transition label="147" preset="37" postset="37">
+      !w4_ME&& !w5_ME;
+     (0, inf);
+     w4_ME = 1;
+   </transition>
+   <transition label="148" preset="35" postset="35">
+     w9&& !w5_ME && w9_ME;
+     (0, inf);
+     w5_ME = 1;
+   </transition>
+   <transition label="149" preset="36" postset="36">
+      !w7&& !w6_ME;
+     (0, inf);
+     w6_ME = 1;
+   </transition>
+   <transition label="150" preset="35" postset="35">
+      !w9 && w5_ME&& !w9_ME;
+     (0, inf);
+     w5_ME = 0;
+   </transition>
+   <transition label="151" preset="36" postset="36">
+     w7 && w6_ME;
+     (0, inf);
+     w6_ME = 0;
+   </transition>
+   <transition label="152" preset="38" postset="38">
+     w6_ME&& !w7_ME && w9_ME;
+     (0, inf);
+     w7_ME = 1;
+   </transition>
+   <transition label="153" preset="39" postset="39">
+      !w7_ME&& !w8_ME;
+     (0, inf);
+     w8_ME = 1;
+   </transition>
+   <transition label="154" preset="38" postset="38">
+      !w6_ME && w7_ME&& !w9_ME;
+     (0, inf);
+     w7_ME = 0;
+   </transition>
+   <transition label="155" preset="39" postset="39">
+     w7_ME && w8_ME;
+     (0, inf);
+     w8_ME = 0;
+   </transition>
+   <transition label="156" preset="30" postset="30">
+      !w8&& !w8_ME && w9_ME;
+     (0, inf);
+     w9_ME = 0;
+   </transition>
+   <transition label="157" preset="30" postset="30">
+     w8 && w8_ME&& !w9_ME;
+     (0, inf);
+     w9_ME = 1;
+   </transition>
+   <transition label="158" preset="31" postset="31">
+     w7&& !w8 && w4_ME;
+     (0, inf);
+     w8 = 1;
+   </transition>
+   <transition label="159" preset="31" postset="31">
+      !w7 && w8&& !w4_ME;
+     (0, inf);
+     w8 = 0;
+   </transition>
+</mod>

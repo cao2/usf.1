@@ -1,0 +1,474 @@
+<const>
+	idle = 0;
+	Sin = 1;
+	Sout = 2;
+	toK = 3;
+	fromK = 4;
+	toL = 5;
+	fromL = 6;
+	timeout = 7;
+	Rout = 8;
+	shake = 9;
+	shakePC = 10;
+</const>
+
+<main>
+	<var>
+		chanIdx = idle;
+		chanVal = 0;
+	
+		Sin_ready = 0;
+		Sout_ready = 0;
+		toK_ready = 0;
+		fromK_ready = 0;
+		toL_ready = 0;
+		fromL_ready = 0;
+		timeout_ready = 0;
+		Rout_ready = 0;
+		shake_ready = 0;
+		shakePC_ready = 0;
+
+		prod_n = 0;
+	</var>
+	
+	Producer p(chanIdx, chanVal, prod_n, Sin_ready, Sout_ready, shakePC_ready);
+
+	Consumer c(chanIdx, chanVal, prod_n, Rout_ready, shakePC_ready);
+
+	Sender s(chanIdx, chanVal, prod_n, Sin_ready, toK_ready, fromL_ready, timeout_ready, Sout_ready, shake_ready);
+	
+	Receiver re(chanIdx, chanVal, prod_n, fromK_ready, Rout_ready, toL_ready, shake_ready);
+	
+	K KChan(chanIdx, chanVal, toK_ready, timeout_ready, fromK_ready);
+
+	L LChan(chanIdx, chanVal, toL_ready, fromL_ready, timeout_ready);
+</main>
+
+
+<class name="Producer" arg="chanIdx, chanVal, prod_n, Sin_ready, Sout_ready, shakePC_ready">
+	<const>
+		ready = 0;
+		start_send = 1;
+		wait_result = 2;
+		check = 3;
+		wait_ready = 4;
+	</const>
+
+	<var>
+		result = 0;
+		n = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+
+	<tr label="0" preset="ready" postset="start_send">
+		prod_n = 1;
+	</tr>
+
+	<tr label="1" preset="ready" postset="start_send">
+		prod_n = 2;
+	</tr>
+
+	<tr label="2" preset="ready" postset="start_send">
+		prod_n = 3;
+	</tr>
+
+	<tr label="3" preset="ready" postset="start_send">
+		prod_n = 4;
+	</tr>
+
+	<tr label="4" preset="ready" postset="start_send">
+		prod_n = 5;
+	</tr>
+
+	<tr label="5" preset="start_send" postset="wait_result">
+		guard(chanIdx == idle && Sin_ready == 1);
+		chanIdx = Sin;
+		chanVal = prod_n;
+	</tr>
+
+	<tr label="6" preset="wait_result" postset="wait_ready">
+		Sout_ready = 1;
+	</tr>
+
+	<tr label="6_1" preset="wait_ready" postset="check">
+		guard(chanIdx == Sout);
+		chanIdx = idle;
+		result = chanVal;
+		Sout_ready = 0;
+	</tr>
+	
+	<tr label="7" preset="check" postset="ready">
+		guard(result == 1 && chanIdx == idle && shakePC_ready == 1);
+		chanIdx = shakePC;
+	</tr>
+	
+	<tr label="8" preset="check" postset="start_send">
+		guard(result == 2 || result == 3);
+	</tr>
+</class>
+
+
+<class name="Consumer" arg="chanIdx, chanVal, prod_n, Rout_ready, shakePC_ready">
+	<const>
+		ready = 0;
+		get_msg = 1;
+		check = 2;
+		st_error = 3;
+		ready1 = 4;
+		check1 = 5;
+	</const>
+	
+	<var>
+		mv = 0;
+		n = 0;	
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="ready1">
+		Rout_ready = 1;
+	</tr>
+
+	<tr label="01" preset="ready" postset="get_msg">
+		guard(chanIdx == Rout);
+		chanIdx = idle;
+		mv = chanVal;
+		n = n + 1;
+		Rout_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="get_msg" postset="ready">
+		guard(mv == 4 || mv == 5);
+	</tr>
+	
+	<tr label="2" preset="get_msg" postset="ready">
+		guard(mv == 2);
+		n = 0;
+	</tr>
+	
+	<tr label="3" preset="get_msg" postset="check">
+		guard(mv == 1);
+	</tr>
+	
+	<tr label="4" preset="check" postset="check1">
+		shakePC_ready = 1;
+	</tr>
+
+	<tr label="4_1" preset="check" postset="ready">
+		guard(n == prod_n && chanIdx == shakePC);
+		n = 0;
+		chanIdx = idle;
+		shakePC_ready = 0;
+	</tr>
+	
+	<tr label="5" preset="check" postset="st_error">
+		guard(n != prod_n);
+	</tr>
+</class>
+
+
+<class name="Sender" arg="chanIdx, chanVal, prod_n, Sin_ready, toK_ready, fromL_ready, timeout_ready, Sout_ready, shake_ready">
+	<const>
+		st_idle = 0;
+		next_frame = 1;
+		wait_ack = 2;
+		send = 3;
+		success = 4;
+		q_error = 5;
+		ret = 6;
+		st_idle1 = 7;
+		wait_ack1 = 8;
+	</const>
+	
+	<var>
+		ab = 0;
+		n = 0;
+		i = 0;
+		counter = 0;
+	</var>
+	
+	<m>
+		st_idle
+	</m>
+	
+	<tr label="0" preset="st_idle" postset="st_idle1">
+		Sin_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="st_idle1" postset="next_frame">
+		guard(chanIdx == Sin);
+		n = chanVal;
+		i = 1;
+		chanIdx = idle;
+		Sin_ready = 0;	
+	</tr>
+	
+	<tr label="1" preset="next_frame" postset="send">
+		counter = 0;
+	</tr>
+	
+	<tr label="2" preset="send" postset="wait_ack">
+		guard(i == 1 && i == n && chanIdx == idle && toK_ready == 1);
+		chanIdx = toK;
+		chanVal = 4 + 2 + ab;
+	</tr>
+
+	<tr label="3" preset="send" postset="wait_ack">
+		guard(i > 1 && i == n && chanIdx == idle && toK_ready == 1);
+		chanIdx = toK;
+		chanVal = 2 + ab;
+	</tr>
+
+	<tr label="4" preset="send" postset="wait_ack">
+		guard(i == 1 && i < n && chanIdx == idle && toK_ready == 1);
+		chanIdx = toK;
+		chanVal = 4 + ab;
+	</tr>
+
+	<tr label="5" preset="send" postset="wait_ack">
+		guard(i > 1 && i < n && chanIdx == idle && toK_ready == 1);
+		chanIdx = toK;
+		chanVal = ab;
+	</tr>
+	
+	<tr label="6" preset="wait_ack" postset="wait_ack1">
+		fromL_ready = 1;
+	</tr>
+
+	<tr label="6_1" preset="wait_ack" postset="wait_ack1">
+		timeout_ready = 1;
+	</tr>
+
+	<tr label="6_2" preset="wait_ack1" postset="success">
+		guard(chanIdx == fromL);
+		ab = 1 - ab;
+		chanIdx = idle;
+		fromL_ready = 0;
+	</tr>
+	
+	<tr label="7" preset="wait_ack1" postset="q_error">
+		guard(chanIdx == timeout && counter == 3);
+		chanIdx = idle;
+		timeout_ready = 0;
+	</tr>
+	
+	<tr label="8" preset="wait_ack1" postset="send">
+		guard(counter < 3 && chanIdx == timeout);
+		counter = counter+1;
+		chanIdx = idle;
+		timeout_ready = 0;
+	</tr>
+	
+	<tr label="9" preset="success" postset="next_frame">
+		guard( i < n);
+		i = i + 1;
+	</tr>
+	
+	<tr label="10" preset="success" postset="ret">
+		guard (i == n && chanIdx == idle && Sout_ready == 1);
+		chanIdx = Sout;
+		chanVal = 1;
+	</tr>
+	
+	<tr label="11" preset="q_error" postset="ret">
+		guard (i < n && chanIdx == idle && Sout_ready == 1);
+		chanIdx = Sout;
+		chanVal = 2;
+	</tr>
+	
+	<tr label="12" preset="q_error" postset="ret">
+		guard (i == n && chanIdx == idle && Sout_ready == 1);
+		chanIdx = Sout;
+		chanVal = 3;
+	</tr>
+	
+	<tr label="13" preset="ret" postset="st_idle">
+		guard(chanIdx == idle && shake_ready == 1);
+		chanIdx = shake;
+	</tr>
+</class>
+
+
+<class name="Receiver" arg="chanIdx, chanVal, prod_n, fromK_ready, Rout_ready, toL_ready, shake_ready">
+	<const>
+		st_idle = 0;
+		new_file = 1;
+		frame_received = 2;
+		frame_reported = 3;
+		first_safe = 4;
+		ret = 5;
+		new_file1 = 6;
+		st_idle1 = 7;
+		ret1 = 8;
+		new_file2 = 9;
+	</const>
+	
+	<var>
+		value = 0;
+		exp_ab = 0;
+	</var>
+	
+	<m>
+		new_file
+	</m>
+	
+	<tr label="0" preset="new_file" postset="new_file1">
+		fromK_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="new_file1" postset="first_safe">
+		guard(chanIdx == fromK);
+		value = chanVal;
+		chanIdx = idle;
+		fromK_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="first_safe" postset="frame_received">
+		exp_ab = (value & 1);
+	</tr>
+	
+	<tr label="2" preset="frame_received" postset="frame_reported">
+		guard ((value & 1) == exp_ab && (value & 2) == 2 && chanIdx == idle && Rout_ready == 1);
+		chanVal = 1;
+		chanIdx = Rout;
+	</tr>
+	
+	<tr label="3" preset="frame_received" postset="frame_reported">
+		guard((value & 1) == exp_ab && ((value & 2) == 0) && ((value&4) == 0) && chanIdx == idle && Rout_ready == 1);
+		chanVal = 5;
+		chanIdx = Rout;
+	</tr>
+	
+	<tr label="4" preset="frame_received" postset="frame_reported">
+		guard((value & 1) == exp_ab && ((value & 2) == 0) && ((value&4) == 4) && chanIdx == idle && Rout_ready == 1);
+		chanVal = 4;
+		chanIdx = Rout;	
+	</tr>
+	
+	<tr label="5" preset="frame_received" postset="st_idle">
+		guard(exp_ab != (value & 1) && chanIdx == idle && toL_ready == 1);
+		chanIdx = toL;		
+	</tr>
+	
+	<tr label="6" preset="frame_reported" postset="st_idle">
+		guard(chanIdx == idle && toL_ready == 1);
+		exp_ab = 1 - exp_ab;
+		chanIdx = toL;
+	</tr>
+	
+	<tr label="7" preset="st_idle" postset="st_idle1">
+		fromK_ready = 1;
+	</tr>
+
+	<tr label="7_1" preset="st_idle1" postset="frame_received">
+		guard(chanIdx == fromK);
+		value = chanVal;
+		chanIdx = idle;
+		fromK_ready = 0;
+	</tr>
+	
+	<tr label="8" preset="st_idle" postset="ret">
+		guard((value & 2) == 2);
+	</tr>
+	
+	<tr label="9" preset="st_idle" postset="ret">
+		guard(chanIdx == idle &&  Rout_ready == 1);
+		chanVal = 2;
+		chanIdx = Rout;
+	</tr>
+	
+	<tr label="10" preset="ret" postset="ret1">
+		shake_ready = 1;
+	</tr>
+
+	<tr label="101" preset="ret1" postset="new_file">
+		guard(chanIdx == shake);
+		chanIdx = idle;
+		shake_ready = 0;
+	</tr>
+	
+	<tr label="11" preset="new_file" postset="new_file2">
+		shake_ready = 1;
+	</tr>
+
+	<tr label="111" preset="new_file2" postset="new_file">
+		guard (chanIdx == shake);
+		chanIdx = idle;
+		shake_ready = 0;
+	</tr>
+</class>
+
+<class name="K" arg="chanIdx, chanVal, toK_ready, timeout_ready, fromK_ready">
+	<const>
+		ready = 0;
+		got_msg = 1;
+		ready1 = 2;
+	</const>
+
+	<var>
+		value = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="ready1">
+		toK_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="ready1" postset="got_msg">
+		guard(chanIdx == toK);
+		value = chanVal;
+		chanIdx = idle;
+		toK_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="ready">
+		guard(chanIdx == idle && timeout_ready == 1);
+		chanIdx = timeout;
+	</tr>
+	
+	<tr label="2" preset="got_msg" postset="ready">
+		guard(chanIdx == idle && fromK_ready == 1);
+		chanVal = value;
+		chanIdx = fromK;
+	</tr>
+</class>
+
+<class name="L" arg="chanIdx, chanVal, toL_ready, fromL_ready, timeout_ready">
+	<const>
+		ready = 0;
+		got_msg = 1;
+		ready1 = 2;
+	</const>
+
+	<m>
+		ready
+	</m>	
+	
+	<tr label="0" preset="ready" postset="ready1">
+		toL_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="ready1" postset="got_msg">
+		guard(chanIdx == toL);
+		chanIdx = idle;
+		toL_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="ready">
+		guard(chanIdx == idle && fromL_ready == 1);
+		chanIdx = fromL;
+	</tr>
+	
+	<tr label="2" preset="got_msg" postset="ready">
+		guard(chanIdx == idle && timeout_ready == 1);
+		chanIdx = timeout;
+	</tr>
+</class>

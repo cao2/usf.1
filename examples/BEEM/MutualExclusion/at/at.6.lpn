@@ -1,0 +1,129 @@
+
+<main>
+<var>
+	x = 255;
+	y = 255;
+	z;
+</var>
+
+	timer t1(p0.myT, p1.myT, p2.myT, p3.myT, p4.myT);
+	Process p0(0, x, y, z);
+	Process p1(1, x, y, z);
+	Process p2(2, x, y, z);
+	Process p3(3, x, y, z);
+	Process p4(4, x, y, z);
+</main>
+
+<class name= "timer" arg="T0, T1, T2, T3, T4">
+	
+	<m>
+	1
+	</m>
+
+	<tr label="1" preset="1" postset="1">
+		guard(T0 != 0 && T1 != 0 && T2 != 0 && T3 != 0 && T4 != 0);
+		T0 = (T0-1) | ((T0 == 255) * 255);
+		T1 = (T1-1) | ((T1 == 255) * 255);
+		T2 = (T2-1) | ((T2==255)*255);
+		T3 = (T3-1) | ((T3==255)*255);
+		T4 = (T4-1) | ((T4==255)*255);
+	</tr>
+</class>
+
+<class name = "Process" arg="id, x, y, z">
+	<const>
+		NCS = 0;
+		p2 = 1;
+		p3 = 2;
+		p4 = 3;
+		p5 = 4;
+		p6 = 5;
+		p7 = 6;
+		p8 = 7;
+		p9 = 8;
+		CS = 9;
+		p12 = 10;
+		p13 = 11;
+	</const>
+
+	<var> 
+		myT = 255; 
+	</var>
+
+	<m> 
+	NCS
+	</m>
+
+
+	
+	<tr label="2" preset="NCS" postset="p3">
+		x = id;
+		myT = 255;
+	</tr>
+	
+	<tr label="3" preset="p3" postset="p5">
+		guard(y == 255);
+		myT = 3;
+		y = id;	
+	</tr>
+/*
+	<tr label="4" preset="p4" postset="p5">
+		y = id;
+		myT = 3;
+	</tr>
+*/	
+	<tr label="5" preset="p5" postset="p9">
+		guard(x == id);
+		myT = 3;
+	</tr>
+
+	<tr label="6" preset="p9" postset="CS">
+		z = 1;
+		myT = 255;
+	</tr>
+
+	<tr label="7" preset="p5" postset="p6">
+		guard(x != id);
+		myT = 5;
+	</tr>
+
+	<tr label="8" preset="p6" postset="p7">
+		guard(myT == 0);
+		myT = 3;
+	</tr>
+
+	<tr label="9" preset="p7" postset="NCS">
+		guard(y != id);
+		myT = 3;
+	</tr>
+
+	<tr label="10" preset="p7" postset="p8">
+		guard(y == id);
+		myT = 255;
+	</tr>
+
+	<tr label="11" preset="p8" postset="p12">
+		guard(z == 0);
+		myT = 3;
+	</tr>
+
+	<tr label="12" preset="CS" postset="p12">
+		z = 0;
+		myT = 3;
+	</tr>
+
+	<tr label="13" preset="p12" postset="NCS">
+		guard(y != id);
+		myT = 255;
+	</tr>
+
+	<tr label="14" preset="p12" postset="p13">
+		guard(y== id);
+		myT = 3;
+	</tr>
+
+	<tr label="15" preset="p13" postset="NCS">
+		y = 255;
+		myT = 255;
+	</tr>
+</class>

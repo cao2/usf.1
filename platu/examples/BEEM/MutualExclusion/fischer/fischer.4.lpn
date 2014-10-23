@@ -1,0 +1,92 @@
+//I originally wanted to have the constants as the argumens
+//Should find 634 states without deadlock
+
+<main>
+	<var>
+		id = 0;
+		value0 = 0;
+		value1 = 1;
+		value2 = 2;
+		value3 = 3;
+		value4 = 4;
+		value5 = 5;
+		value6 = 6;
+	</var>
+	
+	Timer t(p0.myT, p1.myT, p2.myT, p3.myT, p4.myT, p5.myT, p6.myT);
+	Proc p0(value0, id);
+	Proc p1(value1, id);
+	Proc p2(value2, id);
+	Proc p3(value3, id);
+	Proc p4(value4, id);
+	Proc p5(value5, id);
+	Proc p6(value6, id);
+</main>
+
+<class name="Timer" arg="T0, T1, T2, T3, T4, T5, T6">
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="1" preset="q" postset="q">
+		guard(T0 != 0 && T1 != 0 && T2 != 0 && T3 != 0 && T4 != 0 && T5 != 0 && T6 != 0);
+		delay(0, inf);
+		T0 = (T0 - 1) | ((T0 == 255) * 255);
+		T1 = (T1 - 1) | ((T1 == 255) * 255);
+		T2 = (T2 - 1) | ((T2 == 255) * 255);
+		T3 = (T3 - 1) | ((T3 == 255) * 255);
+		T4 = (T4 - 1) | ((T4 == 255) * 255);
+		T5 = (T5 - 1) | ((T5 == 255) * 255);
+		T6 = (T6 - 1) | ((T6 == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc" arg="myNum, id">
+	<const>
+		NCS =0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>
+		myT = 255;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="try">
+		guard(id == 0);
+		myT = 2;
+	</tr>
+	
+	<tr label="2" preset="try" postset="wait">
+		myT = 3;
+		id = myNum + 1;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="wait">
+		guard(myT == 0);
+		myT = 255;
+	</tr>
+
+	<tr label="4" preset="wait" postset="CS">
+		guard(myT == 255 && id == (myNum + 1));
+	</tr>
+	
+	<tr label="5" preset="wait" postset="NCS">
+		guard(id != (myNum + 1) && myT == 255);
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		id = 0;
+	</tr>
+	
+</class>
+	

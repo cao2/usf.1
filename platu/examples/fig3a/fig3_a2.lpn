@@ -1,0 +1,33 @@
+<mod name="m2">
+
+	<input> z </input>
+	<output> x </output>
+	<var> v </var>
+	
+        <marking> 1,2 </marking>
+        <statevector>
+            v = 1;
+            x = 0;
+        </statevector>
+
+        <transition label="1" preset="1" postset="1"  >
+            z && v;
+            (0, inf);
+            v = 0;
+        </transition>
+        <transition label="2" preset="1" postset="1"  >
+            !z && !v;
+            (0, inf);
+            v = 1;
+        </transition>
+        <transition label="3" preset="2" postset="2"  >
+            v && x;
+            (0, inf);
+            x = 0;
+        </transition>
+        <transition label="4" preset="2" postset="2"  >
+            !v && !x;
+            (0, inf);
+            x = 1;
+        </transition>
+</mod>

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io
+END
+PlatuInstLexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuInstLexer.java
+END
+PlatuGrammarParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuGrammarParser.java
+END
+PlatuInstParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuInstParser.java
+END
+WriteLPN.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/WriteLPN.java
+END
+PlatuInst.g
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuInst.g
+END
+PlatuGrammarLexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuGrammarLexer.java
+END
+PlatuGrammar.tokens
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuGrammar.tokens
+END
+PlatuGrammar.g
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/PlatuGrammar.g
+END
+Instance.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/io/Instance.java
+END

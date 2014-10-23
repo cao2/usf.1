@@ -1,0 +1,31 @@
+<mod name="wine">
+
+	<var></var>
+
+	<marking> 1 </marking>
+
+	<transition label="1" preset="1" postset="2, 3">
+	true;
+	(2, 3);	
+	</transition>
+	<transition label="2" preset="2" postset="4">
+	true;
+	(2, 3); 
+	</transition>
+	<transition label="4" preset="4" postset="6">
+	true;
+	(2, 3); 
+	</transition>
+	<transition label="3" preset="3" postset="5">
+	true;	
+	(2, 3);
+	</transition>
+	<transition label="5" preset="5" postset="7">
+	true;
+	(5,inf); 
+	</transition>
+	<transition label="6" preset="6,7" postset="1">
+	true;	
+	(2, 3); 
+	</transition>
+</mod>

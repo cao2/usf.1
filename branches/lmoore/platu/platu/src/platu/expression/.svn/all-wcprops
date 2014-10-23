@@ -1,0 +1,179 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression
+END
+BitXorNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/BitXorNode.java
+END
+GreatNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/GreatNode.java
+END
+BitAndNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/BitAndNode.java
+END
+GreatEqualNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/GreatEqualNode.java
+END
+VarNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/VarNode.java
+END
+RightShiftNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/RightShiftNode.java
+END
+BitNegNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/BitNegNode.java
+END
+NotEquivNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/NotEquivNode.java
+END
+OrNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/OrNode.java
+END
+ConstNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/ConstNode.java
+END
+ModNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/ModNode.java
+END
+ArrayElement.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/ArrayElement.java
+END
+AddNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/AddNode.java
+END
+SubNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/SubNode.java
+END
+LessEqualNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/LessEqualNode.java
+END
+ImplicationNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/ImplicationNode.java
+END
+TernaryNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/TernaryNode.java
+END
+LeftShiftNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/LeftShiftNode.java
+END
+LessNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/LessNode.java
+END
+ArrayNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/ArrayNode.java
+END
+ExpressionNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/ExpressionNode.java
+END
+AndNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/AndNode.java
+END
+EquivNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/EquivNode.java
+END
+Expression.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/Expression.java
+END
+MinNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/MinNode.java
+END
+DivNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/DivNode.java
+END
+NegNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/NegNode.java
+END
+BitOrNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/BitOrNode.java
+END
+MultNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/expression/MultNode.java
+END

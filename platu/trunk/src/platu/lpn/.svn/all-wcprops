@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/platu/!svn/ver/632/trunk/src/platu/lpn
+END
+VarExpr.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/platu/!svn/ver/502/trunk/src/platu/lpn/VarExpr.java
+END
+VarSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/platu/!svn/ver/519/trunk/src/platu/lpn/VarSet.java
+END
+VarExprList.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/platu/!svn/ver/524/trunk/src/platu/lpn/VarExprList.java
+END
+LPN.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/platu/!svn/ver/632/trunk/src/platu/lpn/LPN.java
+END
+VarVal.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/platu/!svn/ver/449/trunk/src/platu/lpn/VarVal.java
+END
+VarValSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/platu/!svn/ver/538/trunk/src/platu/lpn/VarValSet.java
+END
+LPNTran.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/platu/!svn/ver/632/trunk/src/platu/lpn/LPNTran.java
+END
+LpnTranList.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/platu/!svn/ver/449/trunk/src/platu/lpn/LpnTranList.java
+END
+VarType.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/platu/!svn/ver/519/trunk/src/platu/lpn/VarType.java
+END
+LPNTranRelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/platu/!svn/ver/630/trunk/src/platu/lpn/LPNTranRelation.java
+END

@@ -1,0 +1,44 @@
+<mod name="stari_fullstage_datastage.lpn">
+
+<input>   ack3, x1t, x1f  </input>
+<output>   x2f,x2t       </output>
+<var>             </var>
+<marking>   1      </marking>
+
+   <statevector>
+   x2t = 0;
+   x2f = 0;
+   </statevector>
+
+//full stage - datastage
+   <transition label="301" preset="1" postset="2">
+     x1t==1;
+     (100, 200);
+     x2t = 1;
+   </transition>
+   <transition label="302" preset="1" postset="2">
+     x1f==1;
+     (100, 200);
+     x2f = 1;
+   </transition>
+   <transition label="303" preset="2" postset="3">
+     ack3==0;
+     (100, 200);
+   </transition>
+   <transition label="304" preset="3" postset="4">
+     x1t==0;
+     (100, 200);
+     x2t = 1;
+   </transition>
+   <transition label="305" preset="3" postset="4">
+     x1f==0;
+     (100, 200);
+     x2f = 1;
+   </transition>
+   <transition label="306" preset="4" postset="1">
+     ack3==1;
+     (100, 200);
+   </transition>
+   
+   
+</mod>

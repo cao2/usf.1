@@ -1,0 +1,43 @@
+--> Number of modules: 4
+--> Length of global vecvtor: 12
+--> globalVarList
+[(s[3], 0), (w[2], 0), (a[2], 0), (a[0], 0), (s[1], 0), (a[1], 0), (a[3], 0), (s[2], 0), (w[3], 0), (s[0], 0), (w[0], 0), (w[1], 0)]
+--> gVarIndexMap
+(s[3] 0), (w[2] 1), (a[2] 2), (a[0] 3), (s[1] 4), (a[1] 5), (a[3] 6), (s[2] 7), (w[3] 8), (s[0] 9), (w[0] 10), (w[1] 11), 
+LPN: p0
+-->Internals: 		(p0.j 0 INTERNAL), (p0.myValue 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p0.j 0),  (p0.myValue 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+LPN: p1
+-->Internals: 		(p1.j 0 INTERNAL), (p1.myValue 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p1.j 0),  (p1.myValue 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), (p2.j 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p2.myValue 0),  (p2.j 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+LPN: p3
+-->Internals: 		(p3.j 0 INTERNAL), (p3.myValue 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p3.j 0),  (p3.myValue 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+---> start search_dfs ...
+---> Search stats:
+	LPN transition firing count: 568720
+	State count: 161550
+	Global state vector count: 735
+	Local state pair counts:
+		Table 0 : 30591
+		Table 1 : 32653
+		Table 2 : 33519
+		Table 3 : 35511
+		Table 4 : 36543
+		Table 5 : 39449
+	max_stack_depth: 19113
+	peak total memory: 152 MB
+	peak used memory: 94 MB
+	Total elapsed time = 3.003 sec
+

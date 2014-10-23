@@ -1,0 +1,63 @@
+//Should find deadlock
+
+<main>
+	<var>
+		Slot[3];
+		next = 0;
+	</var>
+	Proc proc1(Slot, next);
+	Proc proc2(Slot, next);
+</main>
+
+<class name="Proc" arg="Slot[3], next">
+
+	<const>
+		NCS = 1;
+		p1 = 2;
+		p2 = 3;
+		p3 = 4;
+		CS = 5;
+	</const>
+	
+	<var>
+		my_place = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="p1">
+		delay(0, inf);
+		my_place = next;
+		next = next+1;
+	</tr>
+	
+	<tr label="2" preset="p1" postset="p2">
+		guard(my_place == 1);
+		delay(0, inf);
+		next = next - 2;
+	</tr>
+	
+	<tr label="3" preset="p1" postset="p2">
+		guard(my_place != 1);
+		delay(0, inf);
+		my_place = my_place%2;
+	</tr>
+	
+	<tr label="4" preset="p2" postset="p3">
+		guard(Slot[my_place] == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="p3" postset="CS">
+		delay(0, inf);
+		Slot[(my_place+1)%2] = 0;
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		delay(0, inf);
+		Slot[(my_place+1)%2] = 1;
+	</tr>
+
+</class>

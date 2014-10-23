@@ -1,0 +1,3 @@
+readlpn examples/syzmanskiTest/syzmanskiTest.lpn
+findallsg
+quit

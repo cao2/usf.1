@@ -1,0 +1,240 @@
+Initial State: 
+p: [0] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [0] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 0, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 0, s.n = 0, p.SoutAckReady = 0, s.SinAckReady = 1, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 0, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+0 --> p:0
+
+p: [1] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [0] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 0, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 0, p.SoutAckReady = 0, s.SinAckReady = 1, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 0, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+1 --> p:5
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [0] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 0, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 1, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 0, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+2 --> s:0
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [1] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 0, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+3 --> s:1
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [3] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 0, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+4 --> s:2
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 2, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+5 --> KChan:0
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [1] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 0, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+6 --> KChan:1
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 0, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 6, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+7 --> s:8
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [3] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 1, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+8 --> s:2
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 1, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 2, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+9 --> KChan:0
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 1, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [1] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 0, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+10 --> KChan:1
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 1, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 6, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+11 --> s:8
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [3] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 2, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+12 --> s:2
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 2, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 2, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+13 --> KChan:0
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 2, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [1] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 0, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+14 --> KChan:1
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 2, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 6, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+15 --> s:8
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [3] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+16 --> s:2
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 2, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+17 --> KChan:0
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [1] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 0, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+18 --> KChan:1
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [2] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 6, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 1, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 1, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+19 --> s:7
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [5] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 0, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+20 --> s:12
+
+p: [2] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [6] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 1, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 3, activeChan = 1, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+21 --> p:6
+
+p: [3] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [6] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 0, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 3, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+22 --> p:8
+
+p: [1] + [p.ShakePCChannelIndex = 9, p.SinChannelIndex = 0, p.SoutChannelIndex = 1]
+c: [0] + [c.ShakePCChannelIndex = 9, c.n = 0, c.RoutChannelIndex = 7]
+s: [6] + [s.toKChannelIndex = 2, s.ShakeChannelIndex = 8, s.i = 1, s.SoutChannelIndex = 1, s.FromLChannelIndex = 5, s.timeoutChannelIndex = 6, s.ab = 0, s.counter = 3, s.SinChannelIndex = 0]
+re: [1] + [re.fromKChannelIndex = 3, re.shakeChannelIndex = 8, re.toLChannelIndex = 4, re.exp_ab = 0, re.routChannelIndex = 7]
+KChan: [0] + [KChan.timeoutChannelIndex = 6, KChan.fromKChannelIndex = 3, KChan.toKChannelIndex = 2]
+LChan: [0] + [LChan.fromLChannelIndex = 5, LChan.timeoutChannelIndex = 6, LChan.toLChannelIndex = 4]
+[prod_n = 1, s.n = 1, p.SoutAckReady = 0, s.SinAckReady = 0, c.ShakePCAckReady = 0, p.result = 3, activeChan = 0, c.RoutAckReady = 1, c.mVar = 0, s.timeoutAckReady = 0, KChan.toKAckReady = 1, re.shakeAckReady = 0, s.fromLAckReady = 0, KChan.value = 6, LChan.toLAckReady = 1, re.value = 0, re.fromKAckReady = 1]
+
+#Error: Deadlock

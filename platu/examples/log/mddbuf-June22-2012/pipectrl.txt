@@ -1,0 +1,228 @@
+--> Number of modules: 5
+--> Length of global vecvtor: 11
+--> globalVarList
+[(me.w8, 1), (wb.w10, 1), (wb.w9, 0), (ex.w5, 0), (id.w2, 0), (if.w1, 0), (if.w11, 1), (id.w3, 0), (me.w7, 0), (ex.w6, 0), (ex.w4, 0)]
+--> gVarIndexMap
+(me.w8 0), (wb.w10 1), (wb.w9 2), (ex.w5 3), (id.w2 4), (if.w1 5), (if.w11 6), (id.w3 7), (me.w7 8), (ex.w6 9), (ex.w4 10), 
+LPN: wb
+-->Internals: 		(wb.w1_WB 0 INTERNAL), (wb.w7_WB 1 INTERNAL), (wb.w5_WB 2 INTERNAL), (wb.w8_WB 3 INTERNAL), (wb.w6_WB 4 INTERNAL), (wb.w4_WB 5 INTERNAL), (wb.w9_WB 6 INTERNAL), (wb.w2_WB 7 INTERNAL), 
+-->Globals: 		(me.w8 8 INPUT), (wb.w10 9 OUTPUT), (wb.w9 10 OUTPUT), (ex.w5 11 INPUT), (id.w2 12 INPUT), 
+--> VarIndexMap: 	(wb.w1_WB 0),  (wb.w7_WB 1),  (wb.w5_WB 2),  (wb.w8_WB 3),  (wb.w6_WB 4),  (wb.w4_WB 5),  (wb.w9_WB 6),  (wb.w2_WB 7),  (me.w8 8),  (wb.w10 9),  (wb.w9 10),  (ex.w5 11),  (id.w2 12),  
+
+LPN: id
+-->Internals: 		(id.w1_ID 0 INTERNAL), (id.w9_ID 1 INTERNAL), (id.w5_ID 2 INTERNAL), (id.w4_ID 3 INTERNAL), (id.w7_ID 4 INTERNAL), (id.w6_ID 5 INTERNAL), (id.w8_ID 6 INTERNAL), (id.w2_ID 7 INTERNAL), 
+-->Globals: 		(if.w1 8 INPUT), (if.w11 9 INPUT), (wb.w10 10 INPUT), (ex.w5 11 INPUT), (id.w2 12 OUTPUT), (id.w3 13 OUTPUT), 
+--> VarIndexMap: 	(id.w1_ID 0),  (id.w9_ID 1),  (id.w5_ID 2),  (id.w4_ID 3),  (id.w7_ID 4),  (id.w6_ID 5),  (id.w8_ID 6),  (id.w2_ID 7),  (if.w1 8),  (if.w11 9),  (wb.w10 10),  (ex.w5 11),  (id.w2 12),  (id.w3 13),  
+
+LPN: ex
+-->Internals: 		(ex.w5_EX 0 INTERNAL), (ex.w4_EX 1 INTERNAL), (ex.w6_EX 2 INTERNAL), (ex.w7_EX 3 INTERNAL), (ex.w9_EX 4 INTERNAL), (ex.w2_EX 5 INTERNAL), (ex.w8_EX 6 INTERNAL), 
+-->Globals: 		(me.w8 7 INPUT), (me.w7 8 INPUT), (ex.w6 9 OUTPUT), (ex.w5 10 OUTPUT), (id.w3 11 INPUT), (ex.w4 12 OUTPUT), 
+--> VarIndexMap: 	(ex.w5_EX 0),  (ex.w4_EX 1),  (ex.w6_EX 2),  (ex.w7_EX 3),  (ex.w9_EX 4),  (ex.w2_EX 5),  (ex.w8_EX 6),  (me.w8 7),  (me.w7 8),  (ex.w6 9),  (ex.w5 10),  (id.w3 11),  (ex.w4 12),  
+
+LPN: if
+-->Internals: 		(if.w2_IF 0 INTERNAL), (if.w7_IF 1 INTERNAL), (if.w8_IF 2 INTERNAL), (if.w5_IF 3 INTERNAL), (if.w6_IF 4 INTERNAL), (if.w1_IF 5 INTERNAL), (if.w4_IF 6 INTERNAL), (if.w9_IF 7 INTERNAL), 
+-->Globals: 		(if.w1 8 OUTPUT), (if.w11 9 OUTPUT), (id.w2 10 INPUT), (ex.w4 11 INPUT), 
+--> VarIndexMap: 	(if.w2_IF 0),  (if.w7_IF 1),  (if.w8_IF 2),  (if.w5_IF 3),  (if.w6_IF 4),  (if.w1_IF 5),  (if.w4_IF 6),  (if.w9_IF 7),  (if.w1 8),  (if.w11 9),  (id.w2 10),  (ex.w4 11),  
+
+LPN: me
+-->Internals: 		(me.w1_ME 0 INTERNAL), (me.w6_ME 1 INTERNAL), (me.w9_ME 2 INTERNAL), (me.w5_ME 3 INTERNAL), (me.w8_ME 4 INTERNAL), (me.w7_ME 5 INTERNAL), (me.w2_ME 6 INTERNAL), (me.w4_ME 7 INTERNAL), 
+-->Globals: 		(me.w8 8 OUTPUT), (wb.w9 9 INPUT), (ex.w6 10 INPUT), (me.w7 11 OUTPUT), 
+--> VarIndexMap: 	(me.w1_ME 0),  (me.w6_ME 1),  (me.w9_ME 2),  (me.w5_ME 3),  (me.w8_ME 4),  (me.w7_ME 5),  (me.w2_ME 6),  (me.w4_ME 7),  (me.w8 8),  (wb.w9 9),  (ex.w6 10),  (me.w7 11),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 960417, # of prjStates found: 340905, stack_depth: 301322 used memory: 176.44437 free memory: 44.62904
+--->  # of global vectors: 191
+---> state table stats: State count: 340905,  MDD node count: 0
+---> # LPN transition firings: 1922721, # of prjStates found: 643071, stack_depth: 565792 used memory: 261.5369 free memory: 57.799553
+--->  # of global vectors: 216
+---> state table stats: State count: 643071,  MDD node count: 0
+---> # LPN transition firings: 2884826, # of prjStates found: 932482, stack_depth: 817308 used memory: 341.9658 free memory: 157.0294
+--->  # of global vectors: 226
+---> state table stats: State count: 932482,  MDD node count: 0
+---> # LPN transition firings: 3847459, # of prjStates found: 1211980, stack_depth: 1059439 used memory: 419.7252 free memory: 79.270004
+--->  # of global vectors: 232
+---> state table stats: State count: 1211980,  MDD node count: 0
+---> # LPN transition firings: 4808809, # of prjStates found: 1485996, stack_depth: 1294805 used memory: 482.34085 free memory: 273.07623
+--->  # of global vectors: 244
+---> state table stats: State count: 1485996,  MDD node count: 0
+---> # LPN transition firings: 5769312, # of prjStates found: 1752341, stack_depth: 1521653 used memory: 566.5929 free memory: 281.14392
+--->  # of global vectors: 245
+---> state table stats: State count: 1752341,  MDD node count: 0
+---> # LPN transition firings: 6728922, # of prjStates found: 2013918, stack_depth: 1742840 used memory: 630.17883 free memory: 217.55798
+--->  # of global vectors: 246
+---> state table stats: State count: 2013918,  MDD node count: 0
+---> # LPN transition firings: 7689127, # of prjStates found: 2270830, stack_depth: 1959957 used memory: 696.7383 free memory: 150.99857
+--->  # of global vectors: 247
+---> state table stats: State count: 2270830,  MDD node count: 0
+---> # LPN transition firings: 8648923, # of prjStates found: 2525122, stack_depth: 2174045 used memory: 757.40314 free memory: 90.33367
+--->  # of global vectors: 250
+---> state table stats: State count: 2525122,  MDD node count: 0
+---> # LPN transition firings: 9609151, # of prjStates found: 2778434, stack_depth: 2387585 used memory: 809.9964 free memory: 479.34247
+--->  # of global vectors: 254
+---> state table stats: State count: 2778434,  MDD node count: 0
+---> # LPN transition firings: 10569270, # of prjStates found: 3028766, stack_depth: 2598036 used memory: 871.35016 free memory: 417.98874
+--->  # of global vectors: 262
+---> state table stats: State count: 3028766,  MDD node count: 0
+---> # LPN transition firings: 11528619, # of prjStates found: 3278357, stack_depth: 2806976 used memory: 954.51874 free memory: 564.83105
+--->  # of global vectors: 264
+---> state table stats: State count: 3278357,  MDD node count: 0
+---> # LPN transition firings: 12486266, # of prjStates found: 3521980, stack_depth: 3008246 used memory: 1019.3495 free memory: 500.00024
+--->  # of global vectors: 265
+---> state table stats: State count: 3521980,  MDD node count: 0
+---> # LPN transition firings: 13442846, # of prjStates found: 3764189, stack_depth: 3207035 used memory: 1072.4603 free memory: 446.8894
+--->  # of global vectors: 265
+---> state table stats: State count: 3764189,  MDD node count: 0
+---> # LPN transition firings: 14399553, # of prjStates found: 4003512, stack_depth: 3403065 used memory: 1129.5756 free memory: 389.77414
+--->  # of global vectors: 267
+---> state table stats: State count: 4003512,  MDD node count: 0
+---> # LPN transition firings: 15358099, # of prjStates found: 4244602, stack_depth: 3602701 used memory: 1175.4978 free memory: 343.85184
+--->  # of global vectors: 268
+---> state table stats: State count: 4244602,  MDD node count: 0
+---> # LPN transition firings: 16316221, # of prjStates found: 4485000, stack_depth: 3801221 used memory: 1237.2855 free memory: 282.06427
+--->  # of global vectors: 269
+---> state table stats: State count: 4485000,  MDD node count: 0
+---> # LPN transition firings: 17272921, # of prjStates found: 4721010, stack_depth: 3993931 used memory: 1289.2617 free memory: 230.088
+--->  # of global vectors: 271
+---> state table stats: State count: 4721010,  MDD node count: 0
+---> # LPN transition firings: 18230218, # of prjStates found: 4956094, stack_depth: 4186312 used memory: 1341.9751 free memory: 177.37477
+--->  # of global vectors: 271
+---> state table stats: State count: 4956094,  MDD node count: 0
+---> # LPN transition firings: 19186070, # of prjStates found: 5189526, stack_depth: 4375596 used memory: 1402.5944 free memory: 930.67163
+--->  # of global vectors: 271
+---> state table stats: State count: 5189526,  MDD node count: 0
+---> # LPN transition firings: 20141952, # of prjStates found: 5421178, stack_depth: 4563130 used memory: 1445.3113 free memory: 887.9548
+--->  # of global vectors: 271
+---> state table stats: State count: 5421178,  MDD node count: 0
+---> # LPN transition firings: 21096896, # of prjStates found: 5651679, stack_depth: 4748575 used memory: 1495.7095 free memory: 837.5565
+--->  # of global vectors: 272
+---> state table stats: State count: 5651679,  MDD node count: 0
+---> # LPN transition firings: 22051113, # of prjStates found: 5879882, stack_depth: 4930995 used memory: 1560.9144 free memory: 772.35156
+--->  # of global vectors: 272
+---> state table stats: State count: 5879882,  MDD node count: 0
+---> # LPN transition firings: 23004745, # of prjStates found: 6106661, stack_depth: 5111406 used memory: 1604.3668 free memory: 728.89905
+--->  # of global vectors: 272
+---> state table stats: State count: 6106661,  MDD node count: 0
+---> # LPN transition firings: 23957950, # of prjStates found: 6331879, stack_depth: 5289829 used memory: 1783.3175 free memory: 549.9485
+--->  # of global vectors: 272
+---> state table stats: State count: 6331879,  MDD node count: 0
+---> # LPN transition firings: 24907712, # of prjStates found: 6554073, stack_depth: 5461785 used memory: 1770.422 free memory: 1105.4082
+--->  # of global vectors: 272
+---> state table stats: State count: 6554073,  MDD node count: 0
+*** stop buffering
+---> # LPN transition firings: 25858168, # of prjStates found: 6775515, stack_depth: 5633683 used memory: 876.2909 free memory: 2058.4563
+--->  # of global vectors: 272
+---> state table stats: State count: 6775515,  MDD node count: 179270
+---> # LPN transition firings: 26809439, # of prjStates found: 6996446, stack_depth: 5805885 used memory: 978.1325 free memory: 1956.6146
+--->  # of global vectors: 272
+---> state table stats: State count: 6996446,  MDD node count: 179270
+---> # LPN transition firings: 27760592, # of prjStates found: 7217198, stack_depth: 5977790 used memory: 997.573 free memory: 1937.1742
+--->  # of global vectors: 272
+---> state table stats: State count: 7217198,  MDD node count: 179270
+---> # LPN transition firings: 28710922, # of prjStates found: 7437213, stack_depth: 6148135 used memory: 1071.7435 free memory: 1863.0037
+--->  # of global vectors: 272
+---> state table stats: State count: 7437213,  MDD node count: 179270
+---> # LPN transition firings: 29660905, # of prjStates found: 7655191, stack_depth: 6316096 used memory: 1138.893 free memory: 1795.8542
+--->  # of global vectors: 272
+---> state table stats: State count: 7655191,  MDD node count: 179270
+---> # LPN transition firings: 30605668, # of prjStates found: 7867971, stack_depth: 6473639 used memory: 1230.1658 free memory: 1704.5814
+--->  # of global vectors: 272
+---> state table stats: State count: 7867971,  MDD node count: 179270
+---> # LPN transition firings: 31551613, # of prjStates found: 8079512, stack_depth: 6631125 used memory: 1258.2477 free memory: 1676.4995
+--->  # of global vectors: 272
+---> state table stats: State count: 8079512,  MDD node count: 179270
+---> # LPN transition firings: 32498609, # of prjStates found: 8291991, stack_depth: 6790600 used memory: 1294.1664 free memory: 1640.5807
+--->  # of global vectors: 272
+---> state table stats: State count: 8291991,  MDD node count: 179270
+---> # LPN transition firings: 33444866, # of prjStates found: 8504028, stack_depth: 6948894 used memory: 1391.7919 free memory: 1542.9553
+--->  # of global vectors: 272
+---> state table stats: State count: 8504028,  MDD node count: 179270
+---> # LPN transition firings: 34390594, # of prjStates found: 8713976, stack_depth: 7104570 used memory: 1413.3718 free memory: 1521.3754
+--->  # of global vectors: 272
+---> state table stats: State count: 8713976,  MDD node count: 179270
+---> # LPN transition firings: 35336650, # of prjStates found: 8924536, stack_depth: 7261186 used memory: 1500.5939 free memory: 1434.1532
+--->  # of global vectors: 272
+---> state table stats: State count: 8924536,  MDD node count: 179270
+---> # LPN transition firings: 36283697, # of prjStates found: 9134347, stack_depth: 7418044 used memory: 1525.7258 free memory: 1409.0214
+--->  # of global vectors: 272
+---> state table stats: State count: 9134347,  MDD node count: 179270
+---> # LPN transition firings: 37230882, # of prjStates found: 9343453, stack_depth: 7574335 used memory: 1549.325 free memory: 1385.4222
+--->  # of global vectors: 272
+---> state table stats: State count: 9343453,  MDD node count: 179270
+---> # LPN transition firings: 38171692, # of prjStates found: 9547352, stack_depth: 7719044 used memory: 1665.8153 free memory: 1268.9319
+--->  # of global vectors: 272
+---> state table stats: State count: 9547352,  MDD node count: 179270
+---> # LPN transition firings: 39117506, # of prjStates found: 9753383, stack_depth: 7870889 used memory: 1675.7008 free memory: 1259.0463
+--->  # of global vectors: 272
+---> state table stats: State count: 9753383,  MDD node count: 179270
+---> # LPN transition firings: 40061936, # of prjStates found: 9958507, stack_depth: 8020443 used memory: 1745.4036 free memory: 1189.3436
+--->  # of global vectors: 272
+---> state table stats: State count: 9958507,  MDD node count: 179270
+*** stop buffering
+---> # LPN transition firings: 41003848, # of prjStates found: 10161651, stack_depth: 8165499 used memory: 1378.5198 free memory: 1556.2273
+--->  # of global vectors: 272
+---> state table stats: State count: 10161651,  MDD node count: 588345
+---> # LPN transition firings: 41947514, # of prjStates found: 10365549, stack_depth: 8313063 used memory: 1425.726 free memory: 1509.0212
+--->  # of global vectors: 272
+---> state table stats: State count: 10365549,  MDD node count: 588345
+---> # LPN transition firings: 42887188, # of prjStates found: 10563831, stack_depth: 8451019 used memory: 1494.815 free memory: 1439.9321
+--->  # of global vectors: 272
+---> state table stats: State count: 10563831,  MDD node count: 588345
+---> # LPN transition firings: 43824941, # of prjStates found: 10760857, stack_depth: 8585798 used memory: 1546.3391 free memory: 1388.4081
+--->  # of global vectors: 272
+---> state table stats: State count: 10760857,  MDD node count: 588345
+---> # LPN transition firings: 44764162, # of prjStates found: 10958337, stack_depth: 8722499 used memory: 1602.5132 free memory: 1332.234
+--->  # of global vectors: 272
+---> state table stats: State count: 10958337,  MDD node count: 588345
+---> # LPN transition firings: 45702065, # of prjStates found: 11154057, stack_depth: 8856122 used memory: 1642.7144 free memory: 1292.0327
+--->  # of global vectors: 272
+---> state table stats: State count: 11154057,  MDD node count: 588345
+---> # LPN transition firings: 46641810, # of prjStates found: 11350613, stack_depth: 8992423 used memory: 1695.9257 free memory: 1238.8215
+--->  # of global vectors: 272
+---> state table stats: State count: 11350613,  MDD node count: 588345
+*** stop buffering
+---> # LPN transition firings: 47579034, # of prjStates found: 11544539, stack_depth: 9123573 used memory: 1565.3286 free memory: 1369.4185
+--->  # of global vectors: 272
+---> state table stats: State count: 11544539,  MDD node count: 787256
+---> # LPN transition firings: 48515364, # of prjStates found: 11739359, stack_depth: 9254723 used memory: 1630.9042 free memory: 1303.8429
+--->  # of global vectors: 272
+---> state table stats: State count: 11739359,  MDD node count: 787256
+---> # LPN transition firings: 49455579, # of prjStates found: 11934868, stack_depth: 9390447 used memory: 1705.5913 free memory: 1229.1559
+--->  # of global vectors: 272
+---> state table stats: State count: 11934868,  MDD node count: 787256
+---> # LPN transition firings: 50395858, # of prjStates found: 12129486, stack_depth: 9525344 used memory: 1704.8799 free memory: 1229.8673
+--->  # of global vectors: 273
+---> state table stats: State count: 12129486,  MDD node count: 787256
+*** stop buffering
+---> # LPN transition firings: 51331513, # of prjStates found: 12319429, stack_depth: 9650942 used memory: 1685.8943 free memory: 1248.8529
+--->  # of global vectors: 273
+---> state table stats: State count: 12319429,  MDD node count: 893815
+---> # LPN transition firings: 52271545, # of prjStates found: 12513068, stack_depth: 9784613 used memory: 1769.0619 free memory: 1165.6853
+--->  # of global vectors: 274
+---> state table stats: State count: 12513068,  MDD node count: 893815
+*** stop buffering
+---> # LPN transition firings: 53208269, # of prjStates found: 12703244, stack_depth: 9911513 used memory: 1675.6696 free memory: 1259.0776
+--->  # of global vectors: 274
+---> state table stats: State count: 12703244,  MDD node count: 968098
+---> # LPN transition firings: 54145155, # of prjStates found: 12892429, stack_depth: 10037584 used memory: 1730.6782 free memory: 1204.0688
+--->  # of global vectors: 274
+---> state table stats: State count: 12892429,  MDD node count: 985926
+---> # LPN transition firings: 55077074, # of prjStates found: 13078970, stack_depth: 10156044 used memory: 1751.5695 free memory: 1183.1777
+--->  # of global vectors: 274
+---> state table stats: State count: 13078970,  MDD node count: 1002678
+---> # LPN transition firings: 56011183, # of prjStates found: 13266360, stack_depth: 10277543 used memory: 1789.1111 free memory: 1145.6361
+--->  # of global vectors: 274
+---> state table stats: State count: 13266360,  MDD node count: 1019068
+---> # LPN transition firings: 56945041, # of prjStates found: 13453050, stack_depth: 10398091 used memory: 1826.2535 free memory: 1108.4935
+--->  # of global vectors: 274
+---> state table stats: State count: 13453050,  MDD node count: 1034237
+*** Memory out
+	Used memory: 2140 exceeds the limit 2000.
+	Search terminated!
+---> Search stats:
+	# LPN transition firings: 57616940
+	# of states found: 13587029
+	max_stack_depth: 10485772
+	peak total memory: 2934 MB
+	peak used memory: 2140 MB
+	Total elapsed time = 825.273 sec
+

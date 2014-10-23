@@ -1,0 +1,204 @@
+<main>
+	M1 m1(m2.GATA3, m2.STAT3);
+	M2 m2(m1.SOCS1, m1.TBET, m1.STAT1);
+</main>
+
+<class name="M1" arg="GATA3, STAT3">
+
+   <var>
+SOCS1 = 0;
+TBET = 0;
+IFNG = 0;
+IFNGR = 0;
+JAK1 = 0;
+STAT1 = 0;
+
+   </var>
+
+   <m>
+   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+   14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26
+   </m>
+
+   // Initialization
+   <tr label="init_socs1_0" preset="0" postset="100">
+	SOCS1 = 0;
+   </tr>
+   <tr label="init_socs1_1" preset="0" postset="100">
+	SOCS1 = 1;
+   </tr>
+
+   <tr label="init_tbet_0" preset="1" postset="101">
+	TBET = 0;
+   </tr>
+   <tr label="init_tbet_1" preset="1" postset="101">
+	TBET = 1;
+   </tr>
+
+   <tr label="init_ifng_0" preset="2" postset="102">
+	IFNG = 0;
+   </tr>
+   <tr label="init_ifng_1" preset="2" postset="102">
+	IFNG = 1;
+   </tr>
+
+   <tr label="init_ifngr_0" preset="3" postset="103">
+	IFNGR = 0;
+   </tr>
+   <tr label="init_ifngr_1" preset="3" postset="103">
+	IFNGR = 1;
+   </tr>
+
+   <tr label="init_jak1_0" preset="4" postset="104">
+	JAK1 = 0;
+   </tr>
+   <tr label="init_jak1_1" preset="4" postset="104">
+	JAK1 = 1;
+   </tr>
+
+   <tr label="init_stat1_0" preset="5" postset="105">
+	STAT1 = 0;
+   </tr>
+   <tr label="init_stat1_1" preset="5" postset="105">
+	STAT1 = 1;
+   </tr>
+
+   <tr label="init_end" preset="100, 101, 102, 103, 104, 105" postset="13">
+   </tr>
+   // end of initialization
+
+
+
+
+   <tr label="socs1" preset="13, 14" postset="13, 14">
+     SOCS1 = TBET && STAT1;
+   </tr>
+
+   <tr label="tbet" preset="13, 15" postset="13, 15">
+     TBET = GATA3==1 ? 0 : TBET || STAT1;
+   </tr>
+
+   <tr label="ifng" preset="13, 16" postset="13, 16">
+      IFNG = STAT3==1 ? 0 : TBET;
+     IFNGR = IFNG;
+   </tr>
+/*
+   <tr label="ifngr" preset="13, 17" postset="13, 17">
+     IFNGR = IFNG;
+   </tr>
+*/
+   <tr label="jak1" preset="13, 18" postset="13, 18">
+	JAK1 = SOCS1 || IFNGR;	
+   </tr>
+
+   <tr label="stat1" preset="13, 19" postset="13, 19">
+	STAT1 = JAK1;
+   </tr>
+</class>
+
+
+<class name="M2" arg="SOCS1, TBET, STAT1">
+
+   <var>
+IL4 = 0;
+IL4R = 0;
+STAT6 = 0;
+GATA3 = 0;
+IL10 = 0;
+IL10R = 0;
+STAT3 = 0;
+
+   </var>
+
+   <m>
+   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+   14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26
+   </m>
+
+   // Initialization
+   <tr label="init_il4_0" preset="6" postset="106">
+	IL4 = 0;
+   </tr>
+   <tr label="init_il4_1" preset="6" postset="106">
+	IL4 = 1;
+   </tr>
+
+   <tr label="init_il4r_0" preset="7" postset="107">
+	IL4R = 0;
+   </tr>
+   <tr label="init_il4r_1" preset="7" postset="107">
+	IL4R = 1;
+   </tr>
+
+   <tr label="init_stat6_0" preset="8" postset="108">
+	STAT6 = 0;
+   </tr>
+   <tr label="init_stat6_1" preset="8" postset="108">
+	STAT6 = 1;
+   </tr>
+
+   <tr label="init_gata3_0" preset="9" postset="109">
+	GATA3 = 0;
+   </tr>
+   <tr label="init_gata3_1" preset="9" postset="109">
+	GATA3 = 1;
+   </tr>
+
+   <tr label="init_il10_0" preset="10" postset="110">
+	IL10 = 0;
+   </tr>
+   <tr label="init_il10_1" preset="10" postset="110">
+	IL10 = 1;
+   </tr>
+
+   <tr label="init_il10r_0" preset="11" postset="111">
+	IL10R = 0;
+   </tr>
+   <tr label="init_il10r_1" preset="11" postset="111">
+	IL10R = 1;
+   </tr>
+
+   <tr label="init_stat3_0" preset="12" postset="112">
+	STAT3 = 0;
+   </tr>
+   <tr label="init_stat3_1" preset="12" postset="112">
+	STAT3 = 1;
+   </tr>
+
+   <tr label="init_end" preset="106, 107, 108, 109, 110, 111, 112" postset="13">
+   </tr>
+   // end of initialization
+
+   <tr label="il4" preset="13, 20" postset="13, 20">
+	IL4 = STAT1==1 ? 0 : GATA3;
+   </tr>
+
+   <tr label="il4r" preset="13, 21" postset="13, 21">
+ 	IL4R = SOCS1 || IL4;
+   </tr>
+
+   <tr label="stat6" preset="13, 22" postset="13, 22">
+ 	STAT6 = IL4R;
+   </tr>
+
+   <tr label="gata3" preset="13, 23" postset="13, 23">
+  	GATA3 = TBET==1 ? 0 : (STAT6 || GATA3);
+   </tr>
+
+   <tr label="il10" preset="13, 24" postset="13, 24">
+   	IL10 = (GATA3);
+   	IL10R = IL10;
+    	STAT3 = IL10R
+
+        //assert(GATA3==0);
+   </tr>
+/*
+   <tr label="il10r" preset="13, 25" postset="13, 25">
+   	IL10R = IL10;
+   </tr>
+
+   <tr label="stat3" preset="13, 26" postset="13, 26">
+    	STAT3 = IL10R
+   </tr>
+*/
+</class>

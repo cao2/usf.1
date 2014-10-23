@@ -1,0 +1,200 @@
+<main>
+	left left(c1.lo);
+	cell c1(left.ro, c2.lo);
+	cell c2(c1.ro, c3.lo);
+	cell c3(c2.ro, c4.lo);
+	cell c4(c3.ro, c5.lo);
+	cell c5(c4.ro, right.lo);
+	right right(c5.ro);
+</main>
+
+
+<class name="left" arg="ri">
+   <var>
+   ce = 0;
+   li = 0;
+   lo = 0;
+   nor = 1;
+   ro = 0;
+   </var>
+
+   <m>
+      0,   2,   4,   6,   26
+   </m>
+
+   <tr label="8" preset="0" postset="1">
+     guard(li && nor);
+     delay(0, inf);
+     lo = 1;
+   </tr>
+   <tr label="9" preset="1" postset="0">
+      guard(!li && !nor);
+     delay(0, inf);
+     lo = 0;
+   </tr>
+   <tr label="10" preset="2" postset="3">
+      guard(!ri && ce || ri);
+     delay(0, inf);
+     nor = 0;
+   </tr>
+   <tr label="11" preset="3" postset="2">
+      guard(!ri && !ce);
+     delay(0, inf);
+     nor = 1;
+   </tr>
+   <tr label="12" preset="4" postset="5">
+     guard(lo&& !ri);
+     delay(0, inf);
+     ce = 1;
+   </tr>
+   <tr label="13" preset="5" postset="4">
+      guard(!lo && ri);
+     delay(0, inf);
+     ce = 0;
+   </tr>
+   <tr label="14" preset="6" postset="7">
+      guard(!lo && ce);
+     delay(0, inf);
+     ro = 1;
+   </tr>
+   <tr label="15" preset="7" postset="6">
+      guard(!lo&& !ce || lo);
+     delay(0, inf);
+     ro = 0;
+   </tr>
+   <tr label="48" preset="26" postset="25">
+      guard(!lo);
+     delay(0, inf);
+     li = 1;
+   </tr>
+   <tr label="50" preset="25" postset="26">
+     guard(lo);
+     delay(0, inf);
+     li = 0;
+   </tr>
+</class>
+
+
+<class name="cell" arg="li, ri">
+
+   <var>
+   lo = 0;
+   ce = 0;
+   nor = 1;
+   ro = 0;
+   </var>
+
+   <m>
+   8,   10,   12,   14
+   </m>
+
+   <tr label="24" preset="8" postset="9">
+     guard(li && nor);
+     delay(0, inf);
+     lo = 1;
+   </tr>
+   <tr label="25" preset="9" postset="8">
+      guard(!li && !nor);
+     delay(0, inf);
+     lo = 0;
+   </tr>
+   <tr label="26" preset="12" postset="13">
+      guard(!ri && ce || ri);
+     delay(0, inf);
+     nor = 0;
+   </tr>
+   <tr label="27" preset="13" postset="12">
+      guard(!ri && !ce);
+     delay(0, inf);
+     nor = 1;
+   </tr>
+   <tr label="28" preset="14" postset="15">
+     guard(lo && !ri);
+     delay(0, inf);
+     ce = 1;
+   </tr>
+   <tr label="29" preset="15" postset="14">
+      guard(!lo && ri);
+     delay(0, inf);
+     ce = 0;
+   </tr>
+   <tr label="30" preset="10" postset="11">
+      guard(!lo && ce);
+     delay(0, inf);
+     ro = 1;
+   </tr>
+   <tr label="31" preset="11" postset="10">
+      guard(!lo && !ce || lo);
+     delay(0, inf);
+     ro = 0;
+   </tr>
+</class>
+
+
+<class name="right" arg="li">
+
+   <var>
+   lo = 0;
+   ce = 0;
+   nor = 1;
+   ri = 0;
+   ro = 0;
+   </var>
+
+   <m>
+   16,   18,   20,   22,   28
+   </m>
+
+
+   <tr label="40" preset="16" postset="17">
+     guard(li && nor);
+     delay(0, inf);
+     lo = 1;
+   </tr>
+   <tr label="41" preset="17" postset="16">
+      guard(!li && !nor);
+     delay(0, inf);
+     lo = 0;
+   </tr>
+   <tr label="42" preset="18" postset="19">
+      guard(!ri && ce || ri);
+     delay(0, inf);
+     nor = 0;
+   </tr>
+   <tr label="43" preset="19" postset="18">
+      guard(!ri && !ce);
+     delay(0, inf);
+     nor = 1;
+   </tr>
+   <tr label="44" preset="20" postset="21">
+      guard(!ri && lo);
+     delay(0, inf);
+     ce = 1;
+   </tr>
+   <tr label="45" preset="21" postset="20">
+     guard(ri && !lo);
+     delay(0, inf);
+     ce = 0;
+   </tr>
+   <tr label="46" preset="22" postset="23">
+      guard(!lo && ce);
+     delay(0, inf);
+     ro = 1;
+   </tr>
+   <tr label="47" preset="23" postset="22">
+      guard(!lo && !ce || lo);
+     delay(0, inf);
+     ro = 0;
+   </tr>
+   <tr label="52" preset="28" postset="27">
+     guard(ro);
+     delay(0, inf);
+     ri = 1;
+   </tr>
+   <tr label="54" preset="27" postset="28">
+      guard(!ro);
+     delay(0, inf);
+     ri = 0;
+   </tr>
+</class>
+

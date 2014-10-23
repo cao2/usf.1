@@ -1,0 +1,8 @@
+readlpn examples/senderReceiver/sender.lpn
+readlpn examples/senderReceiver/receiver.lpn
+readlpn examples/senderReceiver/producer.lpn
+readlpn examples/senderReceiver/consumer.lpn
+readlpn examples/senderReceiver/processK.lpn
+readlpn examples/senderReceiver/processL.lpn
+findsg
+quit

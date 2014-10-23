@@ -1,0 +1,43 @@
+--> Number of modules: 4
+--> Length of global vecvtor: 6
+--> globalVarList
+[(b[0], 0), (b[1], 0), (y, 255), (b[3], 0), (b[2], 0), (x, 255)]
+--> gVarIndexMap
+(b[0] 0), (b[1] 1), (y 2), (b[3] 3), (b[2] 4), (x 5), 
+LPN: p1
+-->Internals: 		(p1.j 0 INTERNAL), (p1.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (y 4 GLOBAL), (b[3] 5 GLOBAL), (b[2] 6 GLOBAL), (x 7 GLOBAL), 
+--> VarIndexMap: 	(p1.j 0),  (p1.myValue 1),  (b[0] 2),  (b[1] 3),  (y 4),  (b[3] 5),  (b[2] 6),  (x 7),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), (p2.j 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (y 4 GLOBAL), (b[3] 5 GLOBAL), (b[2] 6 GLOBAL), (x 7 GLOBAL), 
+--> VarIndexMap: 	(p2.myValue 0),  (p2.j 1),  (b[0] 2),  (b[1] 3),  (y 4),  (b[3] 5),  (b[2] 6),  (x 7),  
+
+LPN: p3
+-->Internals: 		(p3.j 0 INTERNAL), (p3.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (y 4 GLOBAL), (b[3] 5 GLOBAL), (b[2] 6 GLOBAL), (x 7 GLOBAL), 
+--> VarIndexMap: 	(p3.j 0),  (p3.myValue 1),  (b[0] 2),  (b[1] 3),  (y 4),  (b[3] 5),  (b[2] 6),  (x 7),  
+
+LPN: p4
+-->Internals: 		(p4.j 0 INTERNAL), (p4.myValue 1 INTERNAL), 
+-->Globals: 		(b[0] 2 GLOBAL), (b[1] 3 GLOBAL), (y 4 GLOBAL), (b[3] 5 GLOBAL), (b[2] 6 GLOBAL), (x 7 GLOBAL), 
+--> VarIndexMap: 	(p4.j 0),  (p4.myValue 1),  (b[0] 2),  (b[1] 3),  (y 4),  (b[3] 5),  (b[2] 6),  (x 7),  
+
+---> start search_dfs ...
+---> Search stats:
+	LPN transition firing count: 214210
+	State count: 67764
+	Global state vector count: 360
+	Local state pair counts:
+		Table 0 : 16754
+		Table 1 : 16818
+		Table 2 : 16265
+		Table 3 : 16253
+		Table 4 : 16023
+		Table 5 : 15888
+	max_stack_depth: 8301
+	peak total memory: 152 MB
+	peak used memory: 87 MB
+	Total elapsed time = 1.001 sec
+

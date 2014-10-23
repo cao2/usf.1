@@ -1,0 +1,293 @@
+//Six channels
+
+//link0In, link0Out
+//link1In, link1Out
+//link2In, link2Out
+//link3In, link3Out
+
+<main>
+	<var>
+		activeChan = 0;
+		
+		link0InIndex = 1;
+		link0OutIndex = 2;
+		
+		link1InIndex = 3;
+		link1OutIndex = 4;
+		
+		link2InIndex = 5;
+		link2OutIndex = 6;
+
+		link3InIndex = 7;
+		link3OutIndex = 8;
+		
+	</var>
+	
+	LinkA l0(activeChan, link0InIndex, link0OutIndex);
+	Link l1(activeChan, link1InIndex, link1OutIndex);
+	Link l2(activeChan, link2InIndex, link2OutIndex);
+	Link l3(activeChan, link3InIndex, link3OutIndex);
+	
+	ProcA p0(activeChan, 24, link1InIndex, l1.linkInVar, l1.linkInAckReady, link0OutIndex, l0.linkOutVar, l0.linkOutAckReady);
+	Proc p1(activeChan, 14, link2InIndex, l2.linkInVar, l2.linkInAckReady, link1OutIndex, l1.linkOutVar, l1.linkOutAckReady);
+	Proc p2(activeChan, 6, link3InIndex, l3.linkInVar, l3.linkInAckReady, link2OutIndex, l2.linkOutVar, l2.linkOutAckReady);
+	Proc p3(activeChan, 0, link0InIndex, l0.linkInVar, l0.linkInAckReady, link3OutIndex, l3.linkOutVar, l3.linkOutAckReady);
+</main>
+
+<class name="ProcA" arg="activeChan, myVal, linkInIndex, linkInVar, linkInAckReady, linkOutIndex, linkOutVar, linkOutAckReady">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+	</var>
+	
+	<m>
+		CS
+	</m>
+
+	<tr label="0" preset="wait" postset="got_msg">
+		guard(activeChan == linkOutIndex);
+		delay(0, inf);
+		v = linkOutVar;
+		linkOutVar = 0;
+		linkOutAckReady = linkOutAckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(activeChan == 0 && linkInAckReady > 0);
+		delay(0, inf);
+		activeChan = linkInIndex;
+		linkInVar = 255;
+		status = 0;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="4" preset="wait" postset="wait">
+		guard(status == 0 && activeChan == 0 && linkInAckReady > 0);
+		delay(0, inf);
+		linkInVar = myVal;
+		activeChan = linkInIndex;
+		status = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(activeChan == 0 && v != 255 && v > myVal);
+		delay(0, inf);
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(activeChan == 0 && linkInAckReady > 0 && v != 255 && v < myVal && status == 1);
+		delay(0, inf);
+		status = 2;
+		activeChan = linkInIndex;
+		linkInVar = v;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(activeChan == 0 && linkInAckReady > 0 && v != 255 && v < myVal && status == 0);
+		delay(0, inf);
+		activeChan = linkInIndex;
+		linkInVar = v;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == myVal && status != 1 && activeChan == 0);
+		delay(0, inf);
+		status = 0;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == myVal && status == 1 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+</class>
+
+<class name="Proc" arg="activeChan, myVal, linkInIndex, linkInVar, linkInAckReady, linkOutIndex, linkOutVar, linkOutAckReady">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		
+		CSReq = 3;
+		waitReq = 4;
+		got_msgReq = 5;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+	</var>
+	
+	<m>
+		wait
+	</m>
+
+	<tr label="0" preset="wait" postset="got_msg">
+		guard(activeChan == linkOutIndex);
+		delay(0, inf);
+		v = linkOutVar;
+		linkOutVar = 0;
+		linkOutAckReady = linkOutAckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(activeChan == 0 && linkInAckReady > 0);
+		delay(0, inf);
+		activeChan = linkInIndex;
+		linkInVar = 255;
+		status = 0;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="4" preset="wait" postset="wait">
+		guard(status == 0 && activeChan == 0 && linkInAckReady > 0);
+		delay(0, inf);
+		linkInVar = myVal;
+		activeChan = linkInIndex;
+		status = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(activeChan == 0 && v != 255 && v > myVal);
+		delay(0, inf);
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(activeChan == 0 && linkInAckReady > 0 && v != 255 && v < myVal && status == 1);
+		delay(0, inf);
+		status = 2;
+		activeChan = linkInIndex;
+		linkInVar = v;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(activeChan == 0 && linkInAckReady > 0 && v != 255 && v < myVal && status == 0);
+		delay(0, inf);
+		activeChan = linkInIndex;
+		linkInVar = v;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == myVal && status != 1 && activeChan == 0);
+		delay(0, inf);
+		status = 0;
+		linkOutAckReady = linkOutAckReady + 1;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == myVal && status == 1 && activeChan == 0);
+		delay(0, inf);
+	</tr>
+</class>
+
+<class name="Link" arg="activeChan, linkInIndex, linkOutIndex">
+	
+	<const>
+		ready = 0;
+		trans = 1;
+	</const>
+	
+	<var>
+		v = 0;
+		
+		linkInAckReady = 1;
+		linkInVar = 0;
+		
+		linkOutAckReady = 1;
+		linkOutVar = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="trans">
+		guard(activeChan == linkInIndex);
+		delay(0, inf);
+		v = linkInVar;
+		linkInVar = 0;
+		linkInAckReady = linkInAckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="1" preset="trans" postset="ready">
+		guard(activeChan == 0 && linkOutAckReady > 0);
+		delay(0, inf);
+		linkOutVar = v;
+		activeChan = linkOutIndex;
+		linkInAckReady = linkInAckReady + 1;
+	</tr>
+
+	<tr label="2" preset="trans" postset="ready">
+		delay(0, inf);
+	</tr>
+</class>
+
+<class name="LinkA" arg="activeChan, linkInIndex, linkOutIndex">
+	
+	<const>
+		ready = 0;
+		trans = 1;
+	</const>
+	
+	<var>
+		v = 0;
+		
+		linkInAckReady = 1;
+		linkInVar = 0;
+		
+		linkOutAckReady = 0;
+		linkOutVar = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="trans">
+		guard(activeChan == linkInIndex);
+		delay(0, inf);
+		v = linkInVar;
+		linkInVar = 0;
+		linkInAckReady = linkInAckReady - 1;
+		activeChan = 0;
+	</tr>
+	
+	<tr label="1" preset="trans" postset="ready">
+		guard(activeChan == 0 && linkOutAckReady > 0);
+		delay(0, inf);
+		linkOutVar = v;
+		activeChan = linkOutIndex;
+		linkInAckReady = linkInAckReady + 1;
+	</tr>
+
+	<tr label="2" preset="trans" postset="ready">
+		delay(0, inf);
+	</tr>
+</class>

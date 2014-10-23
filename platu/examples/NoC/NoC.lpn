@@ -1,0 +1,600 @@
+<var>
+ch_10_buff_win_rcv = 0;
+ch_10_buff_win_send = 0;
+ch_10_buff_win_data = 0;
+
+ch_10_wout_buff_send = 0;
+ch_10_wout_buff_rcv = 0;
+ch_10_wout_buff_data = 0;
+
+ch_10_wout_buff_bad_rcv = 0;
+ch_10_wout_buff_bad_send = 0;
+ch_10_wout_buff_bad_data = 0;
+
+ch_00_buff_ein_rcv = 0;
+ch_00_buff_ein_send = 0;
+ch_00_buff_ein_data = 0;
+
+ch_00_eout_buff_send = 0;
+ch_00_eout_buff_rcv = 0;
+ch_00_eout_buff_data = 0;
+
+ch_00_eout_buff_bad_send = 0;
+ch_00_eout_buff_bad_rcv = 0;
+ch_00_eout_buff_bad_data = 0;
+
+ch_r00_ip_rcv = 0;
+ch_r00_ip_send = 0;
+ch_r00_ip_data = 0;
+
+ch_ip_r00_rcv = 0;
+ch_ip_r00_send = 0;
+ch_ip_r00_data = 0;
+
+ch_ip_r10_rcv = 0;
+ch_ip_r10_send = 0;
+ch_ip_r10_data = 0;
+
+ch_r10_ip_rcv = 0;
+ch_r10_ip_send = 0;
+ch_r10_ip_data = 0;
+
+dest_buff10_00 = 0;
+dest_buff00_10 = 0;
+dest_r00 = 0;
+dest_r10 = 0;
+
+rcvdest_ip10 = 0;
+rcvdest_ip00 = 0;
+
+</var>
+
+
+<mod name = "m1">
+ <var></var>
+ <marking>1</marking>
+
+<transition label="d_16P_rsouthwestcorner_r001" preset="1" postset="2">			
+(ch_ip_r00_send==1 || ch_ip_r00_rcv==1) && (((ch_00_eout_buff_send==1 || ch_00_eout_buff_rcv==1) || (ch_00_eout_buff_bad_send==1 || ch_00_eout_buff_bad_rcv==1)) && (ch_r00_ip_send==1 || ch_r00_ip_rcv==1));
+(0, inf);
+</transition>
+   <transition label="ch_ip_r00_rcvP1" preset="2" postset="3">
+     true;
+     (0, inf);
+     ch_ip_r00_rcv = 1;
+   </transition>
+   <transition label="ch_ip_r00_rcvM1" preset="3" postset="4">
+      ch_ip_r00_send == 1;
+      (0, inf);
+      ch_ip_r00_rcv = 0; dest_r00 = ch_ip_r00_data;
+   </transition>
+   <transition label="d_8P_rsouthwestcorner_r001" preset="4" postset="5">
+      ch_ip_r00_send == 0;
+      (0, inf);
+    </transition>
+
+    <transition label="d_14P_rsouthwestcorner_r001" preset="5" postset="6">
+	    (dest_r00 & 1)==1 && (dest_r00 & 2)==2;
+        (0, inf);
+    </transition>	
+         <transition label="d_11P_rsouthwestcorner_r001" preset="6" postset="7">
+	    ch_00_eout_buff_send ==1 || ch_00_eout_buff_rcv == 1;
+         (0, inf);
+         </transition>
+             <transition label="ch_00_eout_buff_sendP1" preset="7" postset="8">
+		true;
+		(0, inf);
+		ch_00_eout_buff_send = 1; ch_00_eout_buff_data = dest_r00;
+             </transition>
+             <transition label="ch_00_eout_buff_sendM1" preset="8" postset="9">
+             ch_00_eout_buff_rcv == 1;
+             (0, inf);
+		ch_00_eout_buff_send = 0;
+             </transition>
+             <transition label="d_9P_rsouthwestcorner_r001" preset="9" postset="10">
+             ch_00_eout_buff_rcv == 0;
+             (0, inf);
+             </transition>
+         <transition label="d_12P_rsouthwestcorner_r001" preset="6" postset="11">
+		!(ch_00_eout_buff_send==1 || ch_00_eout_buff_rcv==1);
+         (0, inf);
+         </transition>
+             <transition label="ch_00_eout_buff_bad_sendP1" preset="11" postset="12">
+             true;
+             (0, inf);
+		ch_00_eout_buff_bad_send = 1; ch_00_eout_buff_bad_data = dest_r00;
+             </transition>
+             <transition label="ch_00_eout_buff_bad_sendM1" preset="12" postset="13">
+             ch_00_eout_buff_bad_rcv == 1;
+             (0, inf);
+		ch_00_eout_buff_bad_send = 0;
+             </transition>
+             <transition label="d_10P_rsouthwestcorner_r001" preset="13" postset="10">
+             ch_00_eout_buff_bad_rcv == 0;
+             (0, inf);
+             </transition>
+
+    <transition label="d_15P_rsouthwestcorner_r001" preset="5" postset="14">
+	    !((dest_r00 & 1)==1 && (dest_r00 & 2)==2);
+        (0, inf);
+    </transition>
+	<transition label="ch_r00_ip_sendP1" preset="14" postset="15">
+        true;
+        (0, inf);
+		ch_r00_ip_send = 1; ch_r00_ip_data = dest_r00;
+        </transition>
+	<transition label="ch_r00_ip_sendM1" preset="15" postset="16">
+        ch_r00_ip_rcv == 1;
+		(0, inf);
+		ch_r00_ip_send = 0;
+        </transition>
+	<transition label="d_13P_rsouthwestcorner_r001" preset="16" postset="10">
+        ch_r00_ip_rcv == 0;
+        (0, inf);
+        </transition>
+
+//
+// Branch 2 on place 1
+//
+<transition label="d_17P_rsouthwestcorner_r001" preset="1" postset="10">
+        !((ch_ip_r00_send==1 || ch_ip_r00_rcv==1)&(((ch_00_eout_buff_send==1 || ch_00_eout_buff_rcv==1)||(ch_00_eout_buff_bad_send==1 || ch_00_eout_buff_bad_rcv==1)) && (ch_r00_ip_send==1 || ch_r00_ip_rcv==1)));
+        (0, inf);
+</transition>
+<transition label="d_18P_rsouthwestcorner_r001" preset="10" postset="17">
+	    true;
+        (0, inf);
+</transition>
+    
+    //
+    // Branch 1 on place 17
+    // 
+    <transition label="d_22P_rsouthwestcorner_r001" preset="17" postset="24">
+		!((ch_00_buff_ein_send==1 || ch_00_buff_ein_rcv==1) && (ch_r00_ip_send==1 || ch_r00_ip_rcv==1));
+        (0, inf);
+    </transition>	
+    <transition label="d_23P_rsouthwestcorner_r001" preset="24" postset="1">
+         true;
+        (0, inf);
+    </transition>
+
+    //
+    // Branch 2 on place 17
+    //	
+    <transition label="d_21P_rsouthwestcorner_r001" preset="17" postset="18">
+        (ch_00_buff_ein_send==1 || ch_00_buff_ein_rcv==1) && (ch_r00_ip_send==1 || ch_r00_ip_rcv==1);
+        (0, inf);
+    </transition>
+    <transition label="ch_00_buff_ein_rcvP1" preset="18" postset="19">
+        true;
+        (0, inf);
+		ch_00_buff_ein_rcv = 1;
+    </transition>	
+	<transition label="ch_00_buff_ein_rcvM1" preset="19" postset="20">
+        ch_00_buff_ein_send == 1;
+        (0, inf);
+		ch_00_buff_ein_rcv = 0; dest_r00 = ch_00_buff_ein_data;
+    </transition>	
+	<transition label="d_19P_rsouthwestcorner_r001" preset="20" postset="21">
+        ch_00_buff_ein_send == 0;
+        (0, inf);
+    </transition>
+	<transition label="ch_r00_ip_sendP2" preset="21" postset="22">
+        true;
+        (0, inf);
+		ch_r00_ip_send = 1; ch_r00_ip_data = dest_r00;
+    </transition>
+	<transition label="ch_r00_ip_sendM2" preset="22" postset="23">
+        ch_r00_ip_rcv == 1;
+        (0, inf);
+		ch_r00_ip_send = 0;
+    </transition>		
+	<transition label="d_20P_rsouthwestcorner_r001" preset="23" postset="24">
+        ch_r00_ip_rcv == 0;
+        (0, inf);
+    </transition>
+	
+</mod>
+
+
+
+<mod name = "m2">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="d_33P_rsoutheastcorner_r101" preset="1" postset="2">
+		(ch_ip_r10_send == 1 || ch_ip_r10_rcv == 1) && (((ch_10_wout_buff_send == 1 || ch_10_wout_buff_rcv == 1) || (ch_10_wout_buff_bad_send == 1 || ch_10_wout_buff_bad_rcv == 1)) && (ch_r10_ip_send == 1 || ch_r10_ip_rcv == 1));
+        (0, inf);
+    </transition>
+    <transition label="ch_ip_r10_rcvP1" preset="2" postset="3">
+        true;
+        (0, inf);
+		ch_ip_r10_rcv = 1;
+    </transition>
+	<transition label="ch_ip_r10_rcvM1" preset="3" postset="4">
+        ch_ip_r10_send == 1;
+        (0, inf);
+		ch_ip_r10_rcv = 0; dest_r10 = ch_ip_r10_data;
+    </transition>
+	<transition label="d_25P_rsoutheastcorner_r101" preset="4" postset="5">
+        ch_ip_r10_send == 0;
+        (0, inf);
+    </transition>
+	<transition label="d_32P_rsoutheastcorner_r101" preset="5" postset="6">
+	    !( (dest_r10 & 1)==0 && (dest_r10 & 2)==0);  
+        (0, inf);
+    </transition>	
+	<transition label="ch_r10_ip_sendP1" preset="6" postset="7">
+        true;
+        (0, inf);
+		ch_r10_ip_send = 1; ch_r10_ip_data = dest_r10;
+    </transition>
+    <transition label="ch_r10_ip_sendM1" preset="7" postset="8">
+        ch_r10_ip_rcv == 1;
+        (0, inf);
+		ch_r10_ip_send = 0;
+    </transition>
+    <transition label="d_30P_rsoutheastcorner_r101" preset="8" postset="9">
+        ch_r10_ip_rcv == 0;
+        (0, inf);
+    </transition>
+    <transition label="d_35P_rsoutheastcorner_r101" preset="9" postset="10">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="d_38P_rsoutheastcorner_r101" preset="10" postset="11">
+	    (ch_10_buff_win_send == 1 || ch_10_buff_win_rcv == 1) && (ch_r10_ip_send == 1 || ch_r10_ip_rcv == 1);
+        (0, inf);
+    </transition>
+    <transition label="ch_10_buff_win_rcvP1" preset="11" postset="12">
+        true;
+        (0, inf);
+		ch_10_buff_win_rcv = 1;
+    </transition>	
+    <transition label="ch_10_buff_win_rcvM1" preset="12" postset="13">
+        ch_10_buff_win_send == 1;
+        (0, inf);
+		ch_10_buff_win_rcv = 0; dest_r10 = ch_10_buff_win_data;
+    </transition>
+    <transition label="d_36P_rsoutheastcorner_r101" preset="13" postset="14">
+        ch_10_buff_win_send == 0;
+        (0, inf);
+    </transition>
+    <transition label="ch_r10_ip_sendP2" preset="14" postset="15">
+        true;
+        (0, inf);
+		ch_r10_ip_send = 1; ch_r10_ip_data = dest_r10;
+    </transition>
+    <transition label="ch_r10_ip_sendM2" preset="15" postset="16">
+        ch_r10_ip_rcv == 1;
+        (0, inf);
+		ch_r10_ip_send = 0;
+    </transition>
+    <transition label="d_37P_rsoutheastcorner_r101" preset="16" postset="17">
+        ch_r10_ip_rcv == 0;
+        (0, inf);
+    </transition>
+    <transition label="d_40P_rsoutheastcorner_r101" preset="17" postset="1">
+        true;
+        (0, inf);
+    </transition>
+	
+	<transition label="d_39P_rsoutheastcorner_r101" preset="10" postset="17">
+        !((ch_10_buff_win_send==1 || ch_10_buff_win_rcv==1) && (ch_r10_ip_send==1 || ch_r10_ip_rcv==1));
+        (0, inf);
+    </transition>
+	
+	<transition label="d_34P_rsoutheastcorner_r101" preset="1" postset="9">
+        !((ch_ip_r10_send==1 || ch_ip_r10_rcv==1) && (((ch_10_wout_buff_send==1 || ch_10_wout_buff_rcv==1) || (ch_10_wout_buff_bad_send==1 || ch_10_wout_buff_bad_rcv==1)) && (ch_r10_ip_send==1 || ch_r10_ip_rcv==1)));
+        (0, inf);
+    </transition>
+	
+	
+	<transition label="d_31P_rsoutheastcorner_r101" preset="5" postset="18">
+	    (dest_r10 & 2)==0 && (dest_r10 & 1)==0;
+        (0, inf);
+    </transition>
+	<transition label="d_29P_rsoutheastcorner_r101" preset="18" postset="19">
+        !(ch_10_wout_buff_send==1 || ch_10_wout_buff_rcv==1);
+        (0, inf);
+    </transition>	
+	<transition label="ch_10_wout_buff_bad_sendP1" preset="19" postset="20">
+        true;
+        (0, inf);
+		ch_10_wout_buff_bad_send = 1; ch_10_wout_buff_bad_data = dest_r10;
+    </transition>
+	<transition label="ch_10_wout_buff_bad_sendM1" preset="20" postset="21">
+        ch_10_wout_buff_bad_rcv == 1;
+        (0, inf);
+		ch_10_wout_buff_bad_send = 0;
+    </transition>	
+	<transition label="d_27P_rsoutheastcorner_r101" preset="21" postset="9">
+        ch_10_wout_buff_bad_rcv == 0;
+        (0, inf);
+    </transition>
+	
+	<transition label="d_28P_rsoutheastcorner_r101" preset="18" postset="22">
+		ch_10_wout_buff_send == 1 || ch_10_wout_buff_rcv == 1;
+        (0, inf);
+    </transition>	
+	<transition label="ch_10_wout_buff_sendP1" preset="22" postset="23">
+        true;
+        (0, inf);
+		ch_10_wout_buff_send = 1; ch_10_wout_buff_data = dest_r10;
+    </transition>
+	<transition label="ch_10_wout_buff_sendM1" preset="23" postset="24">
+        ch_10_wout_buff_rcv == 1;
+        (0, inf);
+		ch_10_wout_buff_send = 0;
+    </transition>	
+	<transition label="d_26P_rsoutheastcorner_r101" preset="24" postset="9">
+        ch_10_wout_buff_rcv == 0;
+        (0, inf);
+    </transition>	
+</mod>
+
+
+<mod name = "m3">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="d_2P_ipcore_ip001" preset="1" postset="2">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="d_6P_ipcore_ip001" preset="2" postset="3">
+        true;
+        (0, inf);
+    </transition>
+	<transition label="ch_ip_r00_sendP2" preset="3" postset="4">
+        true;
+        (0, inf);
+		ch_ip_r00_send = 1; ch_ip_r00_data = 2;
+    </transition>
+	<transition label="ch_ip_r00_sendM2" preset="4" postset="5">
+        ch_ip_r00_rcv == 1;
+        (0, inf);
+		ch_ip_r00_send = 0;
+    </transition>
+	<transition label="d_4P_ipcore_ip001" preset="5" postset="1">
+        ch_ip_r00_rcv == 0;
+        (0, inf);
+    </transition>	
+	
+	
+	<transition label="d_5P_ipcore_ip001" preset="2" postset="6">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="ch_ip_r00_sendP1" preset="6" postset="7">
+        true;
+        (0, inf);
+		ch_ip_r00_send = 1; ch_ip_r00_data = 0;
+    </transition>
+    <transition label="ch_ip_r00_sendM1" preset="7" postset="8">
+        ch_ip_r00_rcv == 1;
+        (0, inf);
+		ch_ip_r00_send = 0;
+    </transition>
+    <transition label="d_3P_ipcore_ip001" preset="8" postset="1">
+        ch_ip_r00_rcv == 0;
+        (0, inf);
+    </transition>
+
+	
+</mod>
+
+
+
+<mod name = "m4">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="d_45P_oneplacebuff_buff00_101" preset="1" postset="2">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="ch_00_eout_buff_bad_rcvP1" preset="2" postset="3">
+        true;
+        (0, inf);
+		ch_00_eout_buff_bad_rcv = 1;
+    </transition>
+	<transition label="ch_00_eout_buff_bad_rcvM1" preset="3" postset="4">
+        ch_00_eout_buff_bad_send == 1;
+        (0, inf);
+		ch_00_eout_buff_bad_rcv = 0; dest_buff00_10 = ch_00_eout_buff_bad_data;
+    </transition>
+	<transition label="d_42P_oneplacebuff_buff00_101" preset="4" postset="1">
+        ch_00_eout_buff_bad_send == 0;
+        (0, inf);
+    </transition>
+	
+	
+	<transition label="d_46P_oneplacebuff_buff00_101" preset="1" postset="5">
+        true;
+        (0, inf);
+    </transition>	
+	<transition label="ch_00_eout_buff_rcvP1" preset="5" postset="6">
+        true;
+        (0, inf);
+		ch_00_eout_buff_rcv = 1;
+    </transition>
+    <transition label="ch_00_eout_buff_rcvM1" preset="6" postset="7">
+        ch_00_eout_buff_send == 1;
+        (0, inf);
+		ch_00_eout_buff_rcv = 0; dest_buff00_10 = ch_00_eout_buff_data;
+    </transition>
+    <transition label="d_43P_oneplacebuff_buff00_101" preset="7" postset="8">
+        ch_00_eout_buff_send == 0;
+        (0, inf);
+    </transition>
+    <transition label="ch_10_buff_win_sendP1" preset="8" postset="9">
+        true;
+        (0, inf);
+		ch_10_buff_win_send = 1; ch_10_buff_win_data = dest_buff00_10 ;
+    </transition>
+    <transition label="ch_10_buff_win_sendM1" preset="9" postset="10">
+        ch_10_buff_win_rcv == 1;
+        (0, inf);
+		ch_10_buff_win_send = 0;
+    </transition>
+    <transition label="d_44P_oneplacebuff_buff00_101" preset="10" postset="1">
+        ch_10_buff_win_rcv == 0;
+        (0, inf);
+    </transition>
+	
+</mod>
+
+
+<mod name = "m5">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="d_46P_oneplacebuff_buff10_001" preset="1" postset="2">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="ch_10_wout_buff_rcvP1" preset="2" postset="3">
+        true;
+        (0, inf);
+		ch_10_wout_buff_rcv = 1;
+    </transition>
+	<transition label="ch_10_wout_buff_rcvM1" preset="3" postset="4">
+        ch_10_wout_buff_send == 1;
+        (0, inf);
+		ch_10_wout_buff_rcv = 0; dest_buff10_00 = ch_10_wout_buff_data;
+    </transition>
+	<transition label="d_43P_oneplacebuff_buff10_001" preset="4" postset="5">
+        ch_10_wout_buff_send == 0;
+        (0, inf);
+    </transition>
+	<transition label="ch_00_buff_ein_sendP1" preset="5" postset="6">
+        true;
+        (0, inf);
+		ch_00_buff_ein_send = true; ch_00_buff_ein_data = dest_buff10_00;
+    </transition>	
+	<transition label="ch_00_buff_ein_sendM1" preset="6" postset="7">
+        ch_00_buff_ein_rcv == 1;
+        (0, inf);
+		ch_00_buff_ein_send = 0;
+    </transition>
+    <transition label="d_44P_oneplacebuff_buff10_001" preset="7" postset="1">
+        ch_00_buff_ein_rcv == 0;
+        (0, inf);
+    </transition>
+	
+    <transition label="d_45P_oneplacebuff_buff10_001" preset="1" postset="8">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="ch_10_wout_buff_bad_rcvP1" preset="8" postset="9">
+        true;
+        (0, inf);
+		ch_10_wout_buff_bad_rcv = 1;
+    </transition>
+    <transition label="ch_10_wout_buff_bad_rcvM1" preset="9" postset="10">
+        ch_10_wout_buff_bad_send == 1;
+        (0, inf);
+		ch_10_wout_buff_bad_rcv = 0; dest_buff10_00 = ch_10_wout_buff_bad_data;
+    </transition>
+    <transition label="d_42P_oneplacebuff_buff10_001" preset="10" postset="1">
+        ch_10_wout_buff_bad_send == 0;
+        (0, inf);
+    </transition>
+	
+</mod>
+
+
+<mod name = "m6">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="d_2P_ipcore_ip101" preset="1" postset="2">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="d_6P_ipcore_ip101" preset="2" postset="3">
+        true;
+        (0, inf);
+    </transition>
+	<transition label="ch_ip_r10_sendP2" preset="3" postset="4">
+        true;
+        (0, inf);
+		ch_ip_r10_send = 1; ch_ip_r10_data = 2;
+    </transition>
+	<transition label="ch_ip_r10_sendM2" preset="4" postset="5">
+        ch_ip_r10_rcv == 1;
+        (0, inf);
+		ch_ip_r10_send = 0;
+    </transition>
+	<transition label="d_4P_ipcore_ip101" preset="5" postset="1">
+        ch_ip_r10_rcv == 0;
+        (0, inf);
+    </transition>	
+	
+	
+	<transition label="d_5P_ipcore_ip101" preset="2" postset="6">
+        true;
+        (0, inf);
+    </transition>
+    <transition label="ch_ip_r10_sendP1" preset="6" postset="7">
+        true;
+        (0, inf);
+		ch_ip_r10_send = 1; ch_ip_r10_data = 0;
+    </transition>
+    <transition label="ch_ip_r10_sendM1" preset="7" postset="8">
+        ch_ip_r10_rcv == 1;
+        (0, inf);
+		ch_ip_r10_send = 0;
+    </transition>
+    <transition label="d_3P_ipcore_ip101" preset="8" postset="1">
+        ch_ip_r10_rcv == 0;
+        (0, inf);
+    </transition>
+	
+</mod>
+
+
+
+<mod name = "m7">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="ch_r10_ip_rcvP1" preset="1" postset="2">
+        true;
+        (0, inf);
+        ch_r10_ip_rcv = 1;
+    </transition>
+    <transition label="ch_r10_ip_rcvM1" preset="2" postset="3">
+        ch_r10_ip_send == 1;
+        (0, inf);
+        ch_r10_ip_rcv = 0; rcvdest_ip10 = ch_r10_ip_data;
+    </transition>
+    <transition label="d_1P_ipcore_ip101" preset="3" postset="1">
+        ch_r10_ip_send == 0;
+        (0, inf);
+    </transition>
+	
+</mod>
+
+
+
+<mod name = "m8">
+ <var></var>
+ <marking>1</marking>
+
+    <transition label="ch_r00_ip_rcvP1" preset="1" postset="2">
+        true;
+        (0, inf);
+        ch_r00_ip_rcv = 1;
+    </transition>
+    <transition label="ch_r00_ip_rcvM1" preset="2" postset="3">
+        ch_r00_ip_send == 1;
+        (0, inf);
+        ch_r00_ip_rcv = 0; rcvdest_ip00 = ch_r00_ip_data;
+    </transition>
+    <transition label="d_1P_ipcore_ip001" preset="3" postset="1">
+        ch_r00_ip_send == 0;
+        (0, inf);
+    </transition>
+	
+</mod>

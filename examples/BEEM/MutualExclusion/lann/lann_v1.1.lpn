@@ -1,0 +1,82 @@
+//Eight channels:
+//Link in/out 0-3
+
+<main>
+	<var>
+		activeChan = 0;
+		linkIn0Index = 1;
+		linkOut0Index = 2;
+		linkIn1Index = 3;
+		linkOut1Index = 4;
+		linkIn2Index = 5;
+		linkOut2Index = 6;
+		linkIn3Index = 7;
+		linkOut3Index = 8;
+	</var>
+	//3 procs and 3 links
+</main>
+
+<class name="Proc" arg="myId, nextId, myVal, linkInIndex, linkInAckReady, linkOutIndex, linkOutAckReady, activeChannel, linkInValue, linkOutValue">
+	<var>
+		status = 0
+		v = 0;
+		sended = 0;
+	</var>
+	
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+	</const>
+	
+	//three nodes start here, another starts in CS
+	<m>
+		wait
+	</m>
+
+	<tr label="0" preset="wait" postset="got_msn">
+		guard(activeChannel = linkInIndex);
+		delay(0, inf);
+		activeChannel = 0;
+		v = linkInValue;
+		linkInValue = 0;
+	</tr>
+
+	<tr label="1" preset="wait" postset="wait">
+		guard(
+</cass>
+
+<class name="ChannelLink" arg="linkInIndex, linkOutIndex, activeChannel">
+	<const>
+		ready = 0;
+		tr = 1;
+	</const>
+	
+	<var>
+		v = 0;
+		linkInAckReady = 0;
+		linkInValue = 0;
+		linkOutAckReady = 0;
+		linkOutValue = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="tr">
+		guard(activeChannel == linkInIndex);
+		delay(0, inf);
+		v = linkInValue;
+		linkInValue = 0;
+		linkInAckReady = linkInAckReady - 1;
+	</tr>
+	
+	<tr label="1" preset="tr" postset="ready">
+		guard(activeChannel == 0 && linkOutAckReady > 0);
+		delay(0, inf);
+		linkOutValue = v;
+		activeChannel = linkOutIndex;
+		linkInAckReady = linkInAckReady + 1;
+	</tr>
+</class>

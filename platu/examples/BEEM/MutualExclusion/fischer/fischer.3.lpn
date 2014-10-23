@@ -1,0 +1,122 @@
+//I originally wanted to have the constants as the argumens
+//Should find 634 states without deadlock
+
+<main>
+	<var>
+		id = 0;
+		T0 = 255;
+		T1 = 255;
+		T2 = 255;
+		T3 = 255;
+		T4 = 255;
+		T5 = 255;
+		cs0	= 0;
+		cs1	= 0;
+		cs2	= 0;
+		cs3	= 0;
+		cs4	= 0;
+		cs5	= 0;
+	</var>
+	
+	Timer t(T0, T1, T2, T3, T4, T5);
+	Proc p0(0, id, T0, cs0);
+	Proc p1(1, id, T1, cs1);
+	Proc p2(2, id, T2, cs2);
+	Proc p3(3, id, T3, cs3);
+	Proc p4(4, id, T4, cs4);
+	Proc p5(5, id, T5, cs5);
+
+	//Prop monitor(cs0, cs1, cs2, cs3, cs4, cs5);
+
+</main>
+
+<class name="Timer" arg="T0, T1, T2, T3, T4, T5">
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="1" preset="q" postset="q">
+		guard(T0 != 0 && T1 != 0 && T2 != 0 && T3 != 0 && T4 != 0 && T5 != 00);
+		delay(0, inf);
+		T0 = (T0 - 1) | ((T0 == 255) * 255);
+		T1 = (T1 - 1) | ((T1 == 255) * 255);
+		T2 = (T2 - 1) | ((T2 == 255) * 255);
+		T3 = (T3 - 1) | ((T3 == 255) * 255);
+		T4 = (T4 - 1) | ((T4 == 255) * 255);
+		T5 = (T5 - 1) | ((T5 == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc" arg="myNum, id, myT, cs">
+	<const>
+		NCS =0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="try">
+		guard(id == 0);
+		myT = 3;
+	</tr>
+	
+	<tr label="2" preset="try" postset="wait">
+		myT = 3;
+		id = myNum + 1;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="wait">
+		guard(myT == 0);
+		myT = 255;
+	</tr>
+
+	<tr label="4" preset="wait" postset="CS">
+		guard(myT == 255 && id == (myNum + 1));
+		cs = 1;
+	</tr>
+	
+	<tr label="5" preset="wait" postset="NCS">
+		guard(id != (myNum + 1) && myT == 255);
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		id = 0;
+		cs = 0;
+	</tr>
+	
+</class>
+
+
+<class name="Prop" arg="cs0, cs1, cs2, cs3, cs4, cs5">
+	<const>
+		q0 = 0
+	</const>
+	
+	<var>
+	</var>
+	
+	<m>
+		q0
+	</m>
+	
+	<tr label="1" preset="q0" postset="q0">
+		assert ((cs0==0 && cs1==0 && cs2==0 && cs3==0 && cs4==0 && cs5==0) ||
+			(cs0==1 && cs1==0 && cs2==0 && cs3==0 && cs4==0 && cs5==0) ||
+			(cs0==0 && cs1==1 && cs2==0 && cs3==0 && cs4==0 && cs5==0) ||
+			(cs0==0 && cs1==0 && cs2==1 && cs3==0 && cs4==0 && cs5==0) ||
+			(cs0==0 && cs1==0 && cs2==0 && cs3==1 && cs4==0 && cs5==0) ||
+			(cs0==0 && cs1==0 && cs2==0 && cs3==0 && cs4==1 && cs5==0) ||
+			(cs0==0 && cs1==0 && cs2==0 && cs3==0 && cs4==0 && cs5==1)) 
+	</tr>
+</class>

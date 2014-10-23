@@ -1,0 +1,3 @@
+Warning: internal variable p2.i is not read or modified, and as a result will be removed
+Warning: internal variable p1.i is not read or modified, and as a result will be removed
+Warning: internal variable p0.i is not read or modified, and as a result will be removed

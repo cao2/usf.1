@@ -1,0 +1,4 @@
+readlpn examples/sunfifo/N3.lpn
+findsg
+quit
+

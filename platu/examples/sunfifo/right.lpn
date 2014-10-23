@@ -1,0 +1,83 @@
+//<!--  Process scheduling algorithm from paper "The Model Checker SPIN" -->
+
+<mod name="right">
+	<input>  fout0 </input>
+	<output> seout1 </output>
+	<var> eoutb1, eout1, fout1, foutb1, sein </var>
+
+        <marking> 0, 1, 2, 3, 4, 5 </marking>
+        <statevector>
+	  seout1 = 1;
+	  eoutb1 = 0;
+	  eout1 = 1;
+	  foutb1 = 1;
+	  fout1 = 0;
+	  sein = 1;
+        </statevector>
+
+	<transition label="1" preset="0" postset="0">
+	   fout0 && eout1 && seout1;
+           (90, 110);
+	   seout1 = 0;
+	</transition>
+	<transition label="2" preset="0" postset="0">
+	   (!fout0 || !eout1) && !seout1;
+           (90, 110);
+	   seout1 = 1;
+	</transition>
+
+	<transition label="3" preset="1" postset="1">
+           seout1 && foutb1 && eoutb1;
+	   (90, 110);
+           eoutb1 = 0;
+	</transition>
+	<transition label="4" preset="1" postset="1">
+           (!seout1 || !foutb1) && !eoutb1;
+	   (90, 110);
+           eoutb1 = 1;
+	</transition>
+
+	<transition label="5" preset="2" postset="2">
+           eoutb1 && eout1;
+	   (90, 110);
+           eout1 = 0;
+	</transition>
+	<transition label="6" preset="2" postset="2">
+           !eoutb1 && !eout1;
+	   (90, 110);
+           eout1 = 1;
+	</transition>
+
+	<transition label="7" preset="3" postset="3">
+           eoutb1 && sein && foutb1;
+           (90, 110);
+           foutb1 = 0;
+	</transition>
+	<transition label="8" preset="3" postset="3">
+           (!eoutb1 || !sein) && !foutb1;
+           (90, 110);
+           foutb1 = 1;
+	</transition>
+
+	<transition label="9" preset="4" postset="4">
+           foutb1 && fout1;
+	   (90, 110);
+           fout1 = 0;
+	</transition>
+	<transition label="10" preset="4" postset="4">
+           !foutb1 && !fout1;
+	   (90, 110);
+           fout1 = 1;
+	</transition>
+
+	<transition label="11" preset="5" postset="5">
+           fout1 && sein;
+	   (90, 110);
+           sein = 0;
+	</transition>
+	<transition label="12" preset="5" postset="5">
+           !fout1 && !sein;
+	   (90, inf);
+           sein = 1;
+	</transition>
+</mod>

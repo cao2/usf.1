@@ -1,0 +1,70 @@
+<main>
+	<var>
+		pos[4];
+		step[4];
+	</var>
+	
+	Proc p0(0, pos, step);
+	Proc p1(1, pos, step);
+	Proc p2(2, pos, step);
+	Proc p3(3, pos, step);
+</main>
+
+<class name="Proc" arg="myNum, pos[4], step[4]">
+	<const>
+		NCS = 0;
+		CS = 1;
+		wait = 2;
+		q2 = 3;
+		q3 = 4;
+	</const>
+	
+	<var>
+		j = 0;
+		k = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="wait">
+		delay(0, inf);
+		j = 1;
+	</tr>
+	
+	<tr label="2" preset="wait" postset="q2">
+		guard(j < 4);
+		delay(0, inf);
+		pos[myNum] = j;
+	</tr>
+	
+	<tr label="3" preset="q2" postset="q3">
+		delay(0, inf);
+		step[j-1] = myNum;
+		k = 0;
+	</tr>
+	
+	<tr label="4" preset="q3" postset="q3">
+		guard(k < 4 && (k == myNum || pos[k] <= j));
+		delay(0, inf);
+		k = (k + 1) % 256;
+	</tr>
+	
+	<tr label="5" preset="q3" postset="wait">
+		guard(step[j-1] != myNum || k == 4);
+		delay(0, inf);
+		j = (j + 1) % 256;
+	</tr>
+	
+	<tr label="6" preset="wait" postset="CS">
+		guard(j == 4);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="7" preset="CS" postset="NCS">
+		delay(0, inf);
+		pos[myNum] = 0;
+	</tr>
+	
+</class>

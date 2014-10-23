@@ -1,0 +1,90 @@
+<main>
+	<var>
+		count = 0;
+	</var>
+	
+	//phils go here
+	LeftyPhil p0(p1.myFork);
+	Phil p1(p2.myFork);
+	Phil p2(p3.myFork);
+	Phil p3(p4.myFork);
+	Phil p4(p0.myFork);
+</main>
+
+<class name="Phil" arg="otherFork">
+	<const>
+		think = 0;
+		one = 2;
+		eat = 3;
+		finish = 4;
+	</const>
+	
+	<var>
+		myFork = 0;
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="2" preset="think" postset="one">
+		guard(myFork == 0);
+		delay(0, inf);
+		myFork = 1;
+	</tr>
+	
+	<tr label="3" preset="one" postset="eat">
+		guard(otherFork == 0);
+		delay(0, inf);
+		otherFork = 1;
+	</tr>
+	
+	<tr label="4" preset="eat" postset="finish">
+		delay(0, inf);
+		myFork = 0;
+	</tr>
+	
+	<tr label="5" preset="finish" postset="think">
+		delay(0, inf);
+		otherFork = 0;
+	</tr>
+</class>
+
+<class name="LeftyPhil" arg="otherFork">
+	<const>
+		think = 0;
+		one = 2;
+		eat = 3;
+		finish = 4;
+	</const>
+	
+	<var>
+		myFork = 0;
+	</var>
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="2" preset="think" postset="one">
+		guard(otherFork == 0);
+		delay(0, inf);
+		otherFork = 1;
+	</tr>
+	
+	<tr label="3" preset="one" postset="eat">
+		guard(myFork == 0);
+		delay(0, inf);
+		myFork = 1;
+	</tr>
+	
+	<tr label="4" preset="eat" postset="finish">
+		delay(0, inf);
+		otherFork = 0;
+	</tr>
+	
+	<tr label="5" preset="finish" postset="think">
+		delay(0, inf);
+		myFork = 0;
+	</tr>
+</class>

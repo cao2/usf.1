@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/bakery
+END
+script.cmnd
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/bakery/script.cmnd
+END
+bakeryTestOriginal.txt
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/bakery/bakeryTestOriginal.txt
+END
+mode.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/bakery/mode.cfg
+END
+bakeryTest.lpn
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/bakery/bakeryTest.lpn
+END

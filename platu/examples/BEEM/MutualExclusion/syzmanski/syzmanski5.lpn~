@@ -1,0 +1,179 @@
+<main>
+	<var>
+		a[5];
+		w[5];
+		s[5];
+	</var>
+	
+	Proc p0(0, a, w, s);
+	Proc p1(1, a, w, s);
+	Proc p2(2, a, w, s);
+	Proc p3(3, a, w, s);
+	Proc p4(4, a, w, s);
+	
+</main>
+
+<class name="Proc" arg="myValue, a[4], w[4], s[4]">
+	<const>
+		NCS = 0;
+		p2 = 1;
+		p3 = 2;
+		p4 = 3;
+		p5 = 4;
+		p6 = 5;
+		p61 = 6;
+		p64 = 7;
+		p7 = 8;
+		p71 = 9;
+		p8 = 10;
+		p9 = 11;
+		CS = 12;
+	</const>
+
+
+	<var>
+		j = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+
+	<tr label="0" preset="NCS" postset="p2">
+		delay(0, inf);
+		a[myValue] = 1;
+		j = 0;
+	</tr>
+	
+	<tr label="1" preset="p2" postset="p2">
+		guard(j < 5 && s[j] == 0);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+	
+	<tr label="2" preset="p2" postset="p3">
+		guard(j == 5);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="3" preset="p3" postset="p4">
+		delay(0, inf);
+		w[myValue] = 1;
+		a[myValue] = 0;
+	</tr>
+	
+	<tr label="4" preset="p4" postset="p9">
+		guard(s[myValue] == 1);
+		delay(0, inf);
+		j = 0;
+	</tr>
+	
+	<tr label="5" preset="p4" postset="p5">
+		guard(s[myValue] == 0);
+		delay(0, inf);
+		j = 0;
+	</tr>
+	
+	<tr label="6" preset="p5" postset="p5">
+		guard(j < 5 && a[j] == 0);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+	
+	<tr label="7" preset="p5" postset="p6">
+		guard(!(j < 5 && a[j] == 0));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="8" preset="p6" postset="p7">
+		guard(j < 5);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="9" preset="p6" postset="p61">
+		guard(j == 5);
+		delay(0, inf);
+		s[myValue] = 1;
+		j = 0;
+	</tr>
+	
+	<tr label="10" preset="p61" postset="p61">
+		guard(j < 5 && a[j] == 0);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+	
+	<tr label="11" preset="p61" postset="p7">
+		guard(j < 5 && a[j] == 1);
+		delay(0, inf);
+		s[myValue] = 0;
+	</tr>
+	
+	<tr label="12" preset="p61" postset="p64">
+		guard(j == 5);
+		delay(0, inf);
+		w[myValue] = 0;
+		j = 0;
+	</tr>
+	
+	<tr label="13" preset="p64" postset="p64">
+		guard(j < 5 && w[j] == 0);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+	
+	<tr label="14" preset="p64" postset="p7">
+		guard(j == 5);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="15" preset="p7" postset="p8">
+		guard(j == 5);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="16" preset="p7" postset="p71">
+		guard(j < 5);
+		delay(0, inf);
+		j = 0;
+	</tr>
+	
+	<tr label="17" preset="p71" postset="p71">
+		guard(j < 5 && (w[j] == 1 || s[j] == 0));
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+	
+	<tr label="18" preset="p71" postset="p8">
+		guard(!(j < 5 && (w[j] == 1 || s[j] == 0)));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="19" preset="p8" postset="p4">
+		guard(j != myValue && j < 5);
+		delay(0, inf);
+		s[myValue] = 1;
+		w[myValue] = 0;
+	</tr>
+	
+	<tr label="20" preset="p8" postset="p4">
+		guard(!(j!=myValue && j < 5));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="21" preset="p9" postset="p9">
+		guard(j <myValue && w[j] == 0 && s[j] == 0);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+	
+	<tr label="22" preset="p9" postset="CS">
+		guard(j == myValue);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="23" preset="CS" postset="NCS">
+		delay(0, inf);
+		s[myValue] = 0;
+	</tr>
+</class>

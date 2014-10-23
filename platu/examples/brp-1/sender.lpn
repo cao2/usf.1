@@ -1,0 +1,219 @@
+<mod name="sender.lpn">
+
+<const>
+idle = 13;
+next_frame = 14;
+send = 15;
+wait_ack = 16;
+success = 17;
+q_error = 18;
+ret = 19;
+SinReceiveInternal = 20;
+toKSendInternal1 = 21;
+toKSendInternal2 = 22;
+toKSendInternal3 = 23;
+toKSendInternal4 = 24;
+fromLReceiveInternal = 25;
+timeoutReceiveInternal1 = 26;
+timeoutReceiveInternal2 = 27;
+SoutSendInternal1 = 28;
+SoutSendInternal2 = 29;
+SoutSendInternal3 = 30;
+shakeSendInternal = 31;
+</const>
+
+<input>
+SinReq,Prod_n,toKAck,fromLReq,timeoutReq,SoutAck,shakeAck
+</input>
+<output>
+SinAck,toKReq,value,fromLAck,timeoutAck,SoutReq,result,shakeReq
+</output>
+
+<var>
+i,ab,n,counter
+</var>
+
+<marking>
+13
+</marking>
+
+<statevector>
+SinReq = 0;
+Prod_n = 0;
+toKAck = 0;
+fromLReq = 0;
+timeoutReq = 0;
+SoutAck = 0;
+shakeAck = 0;
+SinAck = 0;
+toKReq = 0;
+value = 0;
+fromLAck = 0;
+timeoutAck = 0;
+SoutReq = 0;
+result = 0;
+shakeReq = 0;
+i = 0;
+ab = 0;
+n = 0;
+counter = 0;
+</statevector>
+
+<transition label="50" preset="idle" postset="SinReceiveInternal">
+SinReq == 1;
+(0, inf);
+n = Prod_n;SinAck = 1;i=1;
+</transition>
+
+<transition label="51" preset="SinReceiveInternal" postset="next_frame">
+SinReq == 0;
+(0, inf);
+SinAck = 0;
+</transition>
+
+<transition label="52" preset="next_frame" postset="send">
+true;
+(0, inf);
+counter = 0;
+</transition>
+
+<transition label="53" preset="send" postset="toKSendInternal1">
+i==1 && i==n && toKAck==0;
+(0, inf);
+value = 4+2+ab; toKReq=1;
+</transition>
+
+<transition label="54" preset="toKSendInternal1" postset="wait_ack">
+toKAck==1;
+(0, inf);
+toKReq=0;
+</transition>
+
+<transition label="55" preset="send" postset="toKSendInternal2">
+i>1 && i==n && toKAck==0;
+(0, inf);
+value = 2+ab; toKReq=1;
+</transition>
+
+<transition label="56" preset="toKSendInternal2" postset="wait_ack">
+toKAck==1;
+(0, inf);
+toKReq=0;
+</transition>
+
+<transition label="57" preset="send" postset="toKSendInternal3">
+i==1 && i<n && toKAck==0;
+(0, inf);
+value = 4+ab; toKReq=1;
+</transition>
+
+<transition label="58" preset="toKSendInternal3" postset="wait_ack">
+toKAck==1;
+(0, inf);
+toKReq=0;
+</transition>
+
+<transition label="59" preset="send" postset="toKSendInternal4">
+i>1 && i<n && toKAck==0;
+(0, inf);
+value = ab; toKReq=1;
+</transition>
+
+<transition label="60" preset="toKSendInternal4" postset="wait_ack">
+toKAck==1;
+(0, inf);
+toKReq=0;
+</transition>
+
+<transition label="61" preset="wait_ack" postset="fromLReceiveInternal">
+fromLReq==1;
+(0, inf);
+fromLAck=1;ab=1-ab;
+</transition>
+
+<transition label="62" preset="fromLReceiveInternal" postset="success">
+fromLReq==0;
+(0, inf);
+fromLAck=0;
+</transition>
+
+<transition label="63" preset="wait_ack" postset="timeoutReceiveInternal1">
+counter==3 && timeoutReq==1;
+(0, inf);
+timeoutAck=1;
+</transition>
+
+<transition label="64" preset="timeoutReceiveInternal1" postset="q_error">
+timeoutReq==0;
+(0, inf);
+timeoutAck=0;
+</transition>
+
+<transition label="65" preset="wait_ack" postset="timeoutReceiveInternal2">
+counter<3 && timeoutReq==1;
+(0, inf);
+timeoutAck=1;counter=counter+1;
+</transition>
+
+<transition label="66" preset="timeoutReceiveInternal2" postset="send">
+timeoutReq==0;
+(0, inf);
+timeoutAck=0;
+</transition>
+
+<transition label="67" preset="success" postset="next_frame">
+i<n;
+(0, inf);
+i=i+1;
+</transition>
+
+<transition label="68" preset="success" postset="SoutSendInternal1">
+i==n && SoutAck==0;
+(0, inf);
+result=1;SoutReq=1;
+</transition>
+
+<transition label="69" preset="SoutSendInternal1" postset="ret">
+SoutAck==1;
+(0, inf);
+SoutReq=0;
+</transition>
+
+<transition label="70" preset="q_error" postset="SoutSendInternal2">
+i<n && SoutAck==0;
+(0, inf);
+result=2;SoutReq=1;
+</transition>
+
+<transition label="71" preset="SoutSendInternal2" postset="ret">
+SoutAck==1;
+(0, inf);
+SoutReq=0;
+</transition>
+
+<transition label="72" preset="q_error" postset="SoutSendInternal3">
+i==n && SoutAck==0;
+(0, inf);
+result=3;SoutReq=1;
+</transition>
+
+<transition label="73" preset="SoutSendInternal3" postset="ret">
+SoutAck==1;
+(0, inf);
+SoutReq=0;
+</transition>
+
+<transition label="74" preset="ret" postset="shakeSendInternal">
+shakeAck==0;
+(0, inf);
+shakeReq=1;
+</transition>
+
+<transition label="75" preset="shakeSendInternal" postset="idle">
+shakeAck==1;
+(0, inf);
+shakeReq=0;
+</transition>
+
+
+</mod>

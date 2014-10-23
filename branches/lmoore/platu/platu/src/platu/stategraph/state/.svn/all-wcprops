@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/stategraph/state
+END
+StateTran.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/stategraph/state/StateTran.java
+END
+TimedState.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/stategraph/state/TimedState.java
+END
+StateVector.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/stategraph/state/StateVector.java
+END
+State.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/stategraph/state/State.java
+END

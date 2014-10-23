@@ -1,0 +1,1020 @@
+package platu.stategraph;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import platu.common.*;
+import platu.lpn.LPN;
+import platu.lpn.LPNTran;
+import platu.lpn.LpnTranList;
+import platu.lpn.VarSet;
+import platu.main.Main;
+import platu.main.Options;
+import platu.main.Options.SearchTypeDef;
+import platu.util.Pair;
+import platu.BinaryTree.*;
+
+
+public class StateGraph {
+	
+	/* LPN this SG corresponds to  */
+	protected LPN lpn;
+	
+	/* initial state of this SG */
+    protected State init = null;
+    
+    /* Local states with unique consecutive indices starting from 0 */
+    protected IndexObjMap<State> localStateTable;
+    
+    /* Module States that are unique. */
+    protected HashMap<ProcState, ProcState> ModuleStateTable;
+
+    /* Cache: local states with unique consecutive indices starting from 0 */
+    protected IndexObjMap<State> localStateCache;
+    
+    /* Mapping: module state --> local state */
+    protected HashMap<State, State> state2LocalMap;
+    
+    /* Mapping: module state --> enabled transitions */
+    protected HashMap<State, LpnTranList> enabledSetTbl;
+    protected HashMap<Integer, LpnTranList> Place2TranTbl;
+
+    /* Mapping: Current local State x Local transition firing --> next local State */
+    protected HashMap<State, HashMap<LPNTran, State>> nextStateMap;
+    
+    /* Mapping: (current local state, external local state) x external transition firing --> next local state */
+    protected HashMap<Pair<State,State>, HashMap<LPNTran, State>> externalNextStateMap;
+    
+    /* Mapping: module state --> list of incoming states */
+    protected HashMap<State, List<State>> incomingStateMap = new HashMap<State, List<State>>();
+    
+    /* Holds the set of state transitions for CRA.  Allows for non-deterministic state transitions. */
+    protected HashMap<StateTran, StateTran> stateTranMap = new HashMap<StateTran, StateTran>();
+    //protected HashMap<State, HashMap<LPNTran, StateTran> stateTranMap = new HashMap<StateTran, StateTran>();
+
+    /* The number of state transitions including all local and external state transitions. */
+    protected int stateTranCount;
+    
+    /*
+     * Used for CRA local search
+     */
+    public HashMap<State, List<StateTran>> externalStateTranMap = new HashMap<State, List<StateTran>>();
+    
+    /*
+	 * State Graph Error States
+	 */
+	public final State disablingErrorState = new State();
+	public final State deadLockErrorState = new State();
+	public final State liveLockErrorState = new State();
+	public final State assertionErrorState = new State();
+	public final State expressionErrorState = new State();
+    
+	public StateGraph() {
+        this.localStateTable = new IndexObjMap<State>();
+        this.ModuleStateTable = new HashMap<ProcState, ProcState>();
+        
+        this.localStateCache = new IndexObjMap<State>();
+        this.state2LocalMap = new HashMap<State, State>();
+        this.enabledSetTbl = new HashMap<State, LpnTranList>();
+        this.nextStateMap = new HashMap<State, HashMap<LPNTran, State>>();
+        this.externalNextStateMap = new HashMap<Pair<State, State>, HashMap<LPNTran, State>>();
+        
+        disablingErrorState.setErrorCode(StateError.DISABLING);
+    	deadLockErrorState.setErrorCode(StateError.DEADLOCK);
+    	liveLockErrorState.setErrorCode(StateError.LIVELOCK);
+    	assertionErrorState.setErrorCode(StateError.ASSERTION);
+    	expressionErrorState.setErrorCode(StateError.EXPRESSION);
+	}
+	
+    public StateGraph(LPN lpn) {
+    	this.lpn = lpn;
+        this.localStateTable = new IndexObjMap<State>();
+        this.ModuleStateTable = new HashMap<ProcState, ProcState>();
+        
+        this.localStateCache = new IndexObjMap<State>();
+        this.state2LocalMap = new HashMap<State, State>();
+        this.enabledSetTbl = new HashMap<State, LpnTranList>();
+        this.nextStateMap = new HashMap<State, HashMap<LPNTran, State>>();
+        this.externalNextStateMap = new HashMap<Pair<State, State>, HashMap<LPNTran, State>>();
+        
+        disablingErrorState.setErrorCode(StateError.DISABLING);
+    	deadLockErrorState.setErrorCode(StateError.DEADLOCK);
+    	liveLockErrorState.setErrorCode(StateError.LIVELOCK);
+    	assertionErrorState.setErrorCode(StateError.ASSERTION);
+    	expressionErrorState.setErrorCode(StateError.EXPRESSION);
+    }
+    
+    public void initialize() {
+    	this.Place2TranTbl = new HashMap<Integer, LpnTranList>();
+    	LpnTranList tranList = this.lpn.getTransitions();
+    	for(LPNTran tran : tranList) {
+    		int[] Preset = tran.getPreSet();
+    		if (Preset != null && Preset.length > 0) {
+    			for(int place : Preset) {
+        			LpnTranList PlacePostset = this.Place2TranTbl.get(place);
+        			if(PlacePostset==null)
+        				PlacePostset = new LpnTranList();
+    				PlacePostset.addLast(tran);
+    				this.Place2TranTbl.put(place, PlacePostset);
+    			}
+    		}
+    	}
+    }
+    
+    public LPN getLpn(){
+    	return this.lpn;
+    }
+    
+    public String getLabel() {
+    	return this.lpn.getLabel();
+    }
+    
+   public int stateCount() {
+	   return this.localStateTable.size();
+   }
+    public void printStatus() {
+    	System.out.println(this.localStateTable.size() + " " + this.localStateCache.size());
+    }
+   
+ 
+    public void printStates(){
+    	int trans = 0;
+    	{/*if(Options.getSearchType() == SearchTypeDef.CRA 
+    			|| Options.getSearchType() == SearchTypeDef.CRA_ORIG
+    			|| Options.getSearchType() == SearchTypeDef.CRA_LOCAL
+    			|| Options.getSearchType() == SearchTypeDef.CRA_GLOBAL){
+    			*/
+    		trans = this.stateTranMap.size();
+    	}
+    			/*
+    	else{
+	    	for(Entry<State, HashMap<LPNTran, State>> tranEntry : this.nextStateMap.entrySet()){
+	    		trans += tranEntry.getValue().size();
+	    	}
+    	}
+    	*/
+    	
+    	System.out.println(String.format("%-8s  %-20s  %8s", this.lpn.getLabel(), "|States| = " + localStateTable.size(), "  |Transitions| = " + trans));
+    }
+
+    public Set<LPNTran> getTranList(State currentState){
+    	return this.nextStateMap.get(currentState).keySet();
+    }
+    
+    public void setInitialState(State init){
+    	this.init = init;
+    }
+    
+    public State getInitialState(){
+    	return this.init;
+    }
+    
+    /**
+     * Outputs a DOT file for this state graph.  
+     * The dot file is output to the directory specified by the DOT_PATH option, 
+     * otherwise to the current working directory.
+     * @return true if successfully completed, otherwise false
+     */
+    public boolean draw(){
+    	String dotFile = Options.getDotPath();
+		if(!dotFile.endsWith("/") && !dotFile.endsWith("\\")){
+			String dirSlash = "/";
+			if(Main.isWindows) dirSlash = "\\";
+			
+			dotFile = dotFile += dirSlash;
+		}
+		
+		// full dot file path
+		dotFile += this.lpn.getLabel() + ".dot";
+		
+		
+    	PrintStream graph = null;
+    	
+		try {
+			graph = new PrintStream(new FileOutputStream(dotFile));
+		} catch (FileNotFoundException e1) {
+			return false;
+		}
+    	
+    	graph.println("digraph SG{");
+
+    	for(int stateIdx = 0; stateIdx < this.reachSize(); stateIdx++) {
+    		State state = this.getState(stateIdx);
+    		String dotLabel = "" + state.getIndex();
+
+    		String attributes = "";
+    		if(state == this.init){ 
+    			attributes += " peripheries=2";
+    		}
+    		
+    		if(state.getErrorCode() != StateError.NONE){
+    			attributes += " style=filled fillcolor=\"red\"";
+    		}
+    		
+    		graph.println(state.getIndex() + " [shape=ellipse width=.3 height=.3 " +
+					"label=\"" + dotLabel + "\"" + attributes + "]");
+    		
+    		/*
+    		 * Draw the internal state transitions for monolithic search
+    		 */
+    		if(Options.getSearchType() != SearchTypeDef.CRA && Options.getSearchType() != SearchTypeDef.CRA_ORIG
+    				&& Options.getSearchType() != SearchTypeDef.CRA_LOCAL && Options.getSearchType() != SearchTypeDef.CRA_GLOBAL){
+	    		HashMap<LPNTran, State> stateTranSet = this.nextStateMap.get(state);
+	    		if(stateTranSet != null){
+		    		for(Entry<LPNTran, State> stateTran : stateTranSet.entrySet()){
+		    			State tailState = state;
+		    			State headState = stateTran.getValue();
+		    			LPNTran lpnTran = stateTran.getKey();
+		    			
+		    			String edgeLabel = lpnTran.getFullLabel();
+		        		graph.println("  " + tailState.getIndex() + " -> " + headState.getIndex() + "[label=\"" + edgeLabel + "\"]");
+		    		}
+	    		}
+    		}
+    	}
+    	
+    	if(Options.getSearchType() == SearchTypeDef.CRA || Options.getSearchType() == SearchTypeDef.CRA_ORIG
+    			|| Options.getSearchType() == SearchTypeDef.CRA_LOCAL || Options.getSearchType() == SearchTypeDef.CRA_GLOBAL){
+    		/*
+    		 * Draw the state transitions for compositional search
+    		 */
+    		for(StateTran stTran : this.stateTranMap.values()){
+    			State tailState = stTran.getCurrentState();
+    			State headState = stTran.getNextState();
+    			LPNTran lpnTran = stTran.getLpnTran();
+    			
+    			String edgeLabel = lpnTran.getFullLabel();
+        		graph.println("  " + tailState.getIndex() + " -> " + headState.getIndex() + "[label=\"" + edgeLabel + "\"]");
+    		}
+    	}
+    	else{
+    		/*
+    		 * Draw the external state transitions for monolithic search
+    		 */
+	    	HashSet<StateTran> tranSet = new HashSet<StateTran>();
+	    	for(Entry<Pair<State, State>, HashMap<LPNTran, State>> e : this.externalNextStateMap.entrySet()){
+	    		State tailState = e.getKey().getRight();
+	    		HashMap<LPNTran, State> m = e.getValue();
+	    		
+	    		for(Entry<LPNTran, State> e2 : m.entrySet()){
+	    			State headState = e2.getValue();
+	    			LPNTran lpnTran = e2.getKey();
+	    			
+	    			if(tranSet.add(new StateTran(tailState, lpnTran, headState))){
+	    				String edgeLabel = lpnTran.getFullLabel();
+	            		graph.println("  " + tailState.getIndex() + " -> " + headState.getIndex() + "[label=\"" + edgeLabel + "\"]");
+	    			}
+	    		}
+	    	}
+    	}
+    	
+    	graph.println("}");
+	    graph.close();
+	    
+	    return true;
+    }
+    
+    /**
+     * Outputs a DOT file for this state graph with greater detail.
+     * State transitions are labeled with the fired LPN transition, 
+     * and states are labeled with state vector values.
+     * The dot file is output to the directory specified by the DOT_PATH option, 
+     * otherwise to the current working directory.
+     * @return true if successfully completed, otherwise false
+     */
+    public boolean drawDetailed(){
+    	String dotFile = Options.getDotPath();
+		if(!dotFile.endsWith("/") && !dotFile.endsWith("\\")){
+			String dirSlash = "/";
+			if(Main.isWindows) dirSlash = "\\";
+			
+			dotFile = dotFile += dirSlash;
+		}
+		
+		// full dot file path
+		dotFile += this.lpn.getLabel() + ".dot";
+		
+		
+    	PrintStream graph = null;
+    	
+		try {
+			graph = new PrintStream(new FileOutputStream(dotFile));
+		} catch (FileNotFoundException e1) {
+			return false;
+		}
+    	
+    	graph.println("digraph SG{");
+    	
+    	/*
+    	 * Get the variables used by this LPN
+    	 */
+    	int size = this.lpn.getVarIndexMap().size();
+    	String[] variables = new String[size];
+    	
+    	DualHashMap<String, Integer> varIndexMap = this.lpn.getVarIndexMap();
+    	for(int i = 0; i < size; i++){
+    		variables[i] = varIndexMap.getKey(i);
+    	}
+
+    	for(int stateIdx = 0; stateIdx < this.reachSize(); stateIdx++) {
+    		State state = this.getState(stateIdx);
+    		String dotLabel = state.getIndex() + ": ";
+    		int[] vector = state.getVector();
+
+    		for(int i = 0; i < size; i++){
+    			dotLabel += variables[i];
+
+        		if(vector[i] == 0){
+        			dotLabel += "'";
+        		}
+        		
+        		if(i < size-1){
+        			dotLabel += " ";
+        		}
+    		}
+    		
+    		dotLabel += "\\n";
+    		
+    		int[] mark = state.getMarking();
+    		for(int i = 0; i < mark.length; i++){
+    			if(i == 0) dotLabel += "[";
+    			
+    			dotLabel += mark[i];
+    			
+    			if(i < mark.length - 1){
+    				dotLabel += ", ";
+    			}
+    			else{
+    				dotLabel += "]";
+    			}
+    		}
+
+    		String attributes = "";
+    		if(state == this.init){
+    			attributes += " peripheries=2";
+    		}
+    		
+    		if(state.getErrorCode() != StateError.NONE){
+    			attributes += " style=filled fillcolor=\"red\"";
+    		}
+
+    		graph.println("  " + state.getIndex() + "[shape=ellipse width=.3 height=.3 " +
+					"label=\"" + dotLabel + "\"" + attributes + "]");
+    		
+    		/*
+    		 * Draw internal state transitions for monolithic search
+    		 */
+    		if(Options.getSearchType() != SearchTypeDef.CRA && Options.getSearchType() != SearchTypeDef.CRA_ORIG
+    				&& Options.getSearchType() != SearchTypeDef.CRA_LOCAL && Options.getSearchType() != SearchTypeDef.CRA_GLOBAL){
+	    		HashMap<LPNTran, State> stateTranSet = this.nextStateMap.get(state);
+	    		if(stateTranSet != null){
+		    		for(Entry<LPNTran, State> stateTran : stateTranSet.entrySet()){
+		    			State tailState = state;
+		    			State headState = stateTran.getValue();
+		    			LPNTran lpnTran = stateTran.getKey();
+		    			
+		    			String edgeLabel = lpnTran.getFullLabel();
+		        		graph.println("  " + tailState.getIndex() + " -> " + headState.getIndex() + "[label=\"" + edgeLabel + "\"]");
+		    		}
+	    		}
+    		}
+    	}
+    	
+    	if(Options.getSearchType() == SearchTypeDef.CRA || Options.getSearchType() == SearchTypeDef.CRA_ORIG
+    			|| Options.getSearchType() == SearchTypeDef.CRA_LOCAL || Options.getSearchType() == SearchTypeDef.CRA_GLOBAL){
+    		/*
+    		 * Draw the state transitions for compositional search
+    		 */
+    		for(StateTran stTran : this.stateTranMap.values()){
+    			State tailState = stTran.getCurrentState();
+    			State headState = stTran.getNextState();
+    			LPNTran lpnTran = stTran.getLpnTran();
+    			
+    			String edgeLabel = lpnTran.getFullLabel() + ": ";
+        		int[] headVector = headState.getVector();
+        		int[] tailVector = tailState.getVector();
+        		
+        		for(int i = 0; i < size; i++){
+            		if(headVector[i] != tailVector[i]){
+            			if(headVector[i] == 0){
+            				edgeLabel += variables[i];
+            				edgeLabel += "-";
+            			}
+            			else{
+            				edgeLabel += variables[i];
+            				edgeLabel += "+";
+            			}
+            		}
+        		}
+        		
+        		graph.println("  " + tailState.getIndex() + " -> " + headState.getIndex() + "[label=\"" + edgeLabel + "\"]");
+    		}
+    	}
+    	else{
+    		/*
+    		 * Draw the external state transitions for monolithic search
+    		 */
+	    	HashSet<StateTran> tranSet = new HashSet<StateTran>();
+	    	for(Entry<Pair<State, State>, HashMap<LPNTran, State>> e : this.externalNextStateMap.entrySet()){
+	    		State tailState = e.getKey().getRight();
+	    		HashMap<LPNTran, State> m = e.getValue();
+	    		
+	    		for(Entry<LPNTran, State> e2 : m.entrySet()){
+	    			State headState = e2.getValue();
+	    			LPNTran lpnTran = e2.getKey();
+	    			
+	    			if(tranSet.add(new StateTran(tailState, lpnTran, headState))){
+	        			String edgeLabel = lpnTran.getFullLabel() + ": ";
+	            		int[] headVector = headState.getVector();
+	            		int[] tailVector = tailState.getVector();
+	            		
+	            		for(int i = 0; i < size; i++){
+	                		if(headVector[i] != tailVector[i]){
+	                			if(headVector[i] == 0){
+	                				edgeLabel += variables[i];
+	                				edgeLabel += "-";
+	                			}
+	                			else{
+	                				edgeLabel += variables[i];
+	                				edgeLabel += "+";
+	                			}
+	                		}
+	            		}
+	            		
+	            		graph.println("  " + tailState.getIndex() + " -> " + headState.getIndex() + "[label=\"" + edgeLabel + "\"]");
+	    			}
+	    		}
+	    	}
+    	}
+    	
+    	graph.println("}");
+	    graph.close();
+	    
+	    return true;
+    }
+    
+    /**
+     * Returns the enabled transitions in the state with index 'stateIdx'.
+     */
+    public LpnTranList getEnabled(int stateIdx) {
+    	State curState = this.getState(stateIdx);
+        return this.getEnabled(curState, true);
+    }
+
+    /**
+     * Returns the set of all LPN transitions that are enabled in 'state'.
+     */
+    public LpnTranList getEnabled(State curState, boolean useCache) {
+    	if (curState == null) {
+            throw new NullPointerException();
+        }
+    	
+    	if(useCache && enabledSetTbl.containsKey(curState) == true){
+            return (LpnTranList)enabledSetTbl.get(curState).clone();
+        }
+    	
+        LpnTranList curEnabled = new LpnTranList();
+        for (LPNTran tran : this.lpn.getTransitions()) {
+        	if (tran.isEnabled(curState)) {
+        		if(tran.local()==true)
+        			curEnabled.addLast(tran);
+                else
+                	curEnabled.addFirst(tran);
+             } 
+        }
+        
+        if(useCache){
+        	this.enabledSetTbl.put(curState, curEnabled);
+        }
+        
+        return curEnabled;
+    }
+    
+    public LpnTranList getEnabled(State curState, boolean useCache, HashMap<String,Integer> PrjVecMap) {
+    	if (curState == null) {
+            throw new NullPointerException();
+        }
+    	
+    	int[] marking = curState.getMarking();
+    	int[] vector = curState.getVector();
+    	
+        int[] curVecCopy = Arrays.copyOf(vector, vector.length);
+        DualHashMap<String,Integer> VarIdxMap = this.lpn.getVarIndexMap();
+//        VarSet inputs = this.lpn.getInputs();
+//        VarSet outputs = this.lpn.getOutputs();        
+        VarSet globals = this.lpn.getGlobals();
+	
+//        for(String var : inputs) {
+//        	int idx = VarIdxMap.getValue(var);
+//        	curVecCopy[idx] = PrjVecMap.get(var);
+//        }
+//        for(String var : outputs) {
+//        	int idx = VarIdxMap.getValue(var);
+//        	curVecCopy[idx] = PrjVecMap.get(var);
+//        }
+        for(String var : globals) {
+        	int idx = VarIdxMap.getValue(var);
+        	curVecCopy[idx] = PrjVecMap.get(var);
+        }
+
+//        for(int i = 0; i < VarIdxMap.size(); i++) 
+//        	System.out.println(VarIdxMap.getKey(i) + "=" + curVecCopy[i]+", ");
+//        System.out.println("\n");
+
+        State curStateCopy = new State(this.lpn, marking, curVecCopy);
+    	
+//      System.out.println("--> Check enabled trans of '" + this.lpn.getLabel() + "' in state");
+//      System.out.println(curStateCopy);
+
+        LpnTranList curEnabled = new LpnTranList();
+        for (LPNTran tran : this.lpn.getTransitions()) {
+        	boolean marked = false;
+        	if (tran.isEnabled(curStateCopy, marked) == true) {
+        		if(tran.local()==true)
+        			curEnabled.addLast(tran);
+                else
+                	curEnabled.addFirst(tran);
+        		//System.out.println("--> " + tran.getFullLabel() + " enabled");
+             }
+        }
+
+        return curEnabled;
+    }
+    
+    private static LinkedList<Pair<LPNTran, ProcState>> emptyNextStateSet = new LinkedList<Pair<LPNTran, ProcState>>();
+	public LinkedList<Pair<LPNTran, ProcState>> getEnabled(int gVecIdx, State curState, BinaryTree gVecTable, DualHashMap<String, Integer> VarIndexMap) {
+		if (curState == null) {
+			throw new NullPointerException();
+		}
+		
+		/* First, check if current ModState exists. If yes, return the previously found 
+		 * enabled transitions and next states.
+		 */
+		ProcState tmpPair = new ProcState(gVecIdx, curState);
+		ProcState curModSt = this.ModuleStateTable.get(tmpPair);
+		if(curModSt == null) {
+			curModSt = tmpPair;
+			this.ModuleStateTable.put(curModSt, curModSt);
+		}
+		
+		LinkedList<Pair<LPNTran, ProcState>> nextStateList = curModSt.getNextStateSet();
+		if(nextStateList != null) {
+			return nextStateList;
+//			LpnTranList curEnabled = new LpnTranList();
+//			for(Pair<LPNTran, ModuleState> tran2next : nextStateList)
+//				curEnabled.addLast(tran2next.getLeft());
+//			return curEnabled;
+		}
+		
+		/* Otherwise, find the enabled transitions and the next states for the new ModState. 
+		 * */
+		int[] marking = curState.getMarking();
+		int[] vector = curState.getVector();
+
+		int[] curVecCopy = Arrays.copyOf(vector, vector.length);
+		DualHashMap<String, Integer> VarIdxMap = this.lpn.getVarIndexMap();
+		// VarSet inputs = this.lpn.getInputs();
+		// VarSet outputs = this.lpn.getOutputs();
+		VarSet globals = this.lpn.getGlobals();
+
+		// for(String var : inputs) {
+		// int idx = VarIdxMap.getValue(var);
+		// curVecCopy[idx] = PrjVec[VarIndexMap.getValue(var)];
+		// }
+		// for(String var : outputs) {
+		// int idx = VarIdxMap.getValue(var);
+		// curVecCopy[idx] = PrjVec[VarIndexMap.getValue(var)];
+		// }
+
+		int[] gVec = gVecTable.toIntArray(gVecIdx);
+
+		for (String var : globals) {
+			int idx = VarIdxMap.getValue(var);
+			curVecCopy[idx] = gVec[VarIndexMap.getValue(var)];
+		}
+
+		State curStateCopy = new State(this.lpn, marking, curVecCopy);
+
+		// System.out.println("--> Check enabled trans of '" +
+		// this.lpn.getLabel() + "' in state");
+		// System.out.println(curStateCopy);
+
+		LpnTranList PlacePostset = new LpnTranList();
+		for (int place : marking) {
+			LpnTranList tmp = this.Place2TranTbl.get(place);
+			if (tmp == null)
+				continue;
+
+			for (LPNTran tran : tmp)
+				PlacePostset.addLast(tran);
+		}
+
+		LpnTranList curEnabled = new LpnTranList();
+		for (LPNTran tran : PlacePostset) {
+			boolean enabled = true;
+			int[] preset = tran.getPreSet();
+			for (int prep : preset) {
+				boolean marked = false;
+				for (int m : marking) {
+					if (prep == m) {
+						marked = true;
+						break;
+					}
+				}
+				if (marked == false) {
+					enabled = false;
+					break;
+				}
+			}
+
+			if (enabled == false)
+				continue;
+
+			if (tran.checkGuard(curStateCopy) == true) {
+				if (tran.local() == true)
+					curEnabled.addLast(tran);
+				else
+					curEnabled.addFirst(tran);
+			}
+		}
+
+		/* Add the state transition due to firedTran into the corresponding SG. */		
+		//LinkedList<Pair<LPNTran, ModuleState>> 
+		nextStateList = new LinkedList<Pair<LPNTran, ProcState>>();
+		for(LPNTran tran : curEnabled) {
+			ProcState tmp = tran.fire(gVec, curState, this, gVecTable, VarIndexMap);
+			ProcState nextModSt = this.ModuleStateTable.get(tmp);
+			if(nextModSt == null) {
+				nextModSt = tmp;
+				this.ModuleStateTable.put(nextModSt, nextModSt);
+			}
+			if (tran.local() == true)
+				nextStateList.addLast(new Pair<LPNTran, ProcState>(tran, nextModSt));
+			else
+				nextStateList.addFirst(new Pair<LPNTran, ProcState>(tran, nextModSt));
+		}
+		if(nextStateList.size() > 0)
+			curModSt.setNextStateSet(nextStateList);
+		else
+			curModSt.setNextStateSet(StateGraph.emptyNextStateSet);
+		
+		return nextStateList;
+	}
+    
+	
+	public LpnTranList getEnabled(State curState, int[] PrjVec, DualHashMap<String, Integer> VarIndexMap, int gVecIdx) {
+		if (curState == null) {
+			throw new NullPointerException();
+		}
+
+		int[] marking = curState.getMarking();
+		int[] vector = curState.getVector();
+
+		int[] curVecCopy = Arrays.copyOf(vector, vector.length);
+		DualHashMap<String, Integer> VarIdxMap = this.lpn.getVarIndexMap();
+		// VarSet inputs = this.lpn.getInputs();
+		// VarSet outputs = this.lpn.getOutputs();
+		VarSet globals = this.lpn.getGlobals();
+
+		// for(String var : inputs) {
+		// int idx = VarIdxMap.getValue(var);
+		// curVecCopy[idx] = PrjVec[VarIndexMap.getValue(var)];
+		// }
+		// for(String var : outputs) {
+		// int idx = VarIdxMap.getValue(var);
+		// curVecCopy[idx] = PrjVec[VarIndexMap.getValue(var)];
+		// }
+
+		for (String var : globals) {
+			int idx = VarIdxMap.getValue(var);
+			curVecCopy[idx] = PrjVec[VarIndexMap.getValue(var)];
+		}
+
+		State curStateCopy = new State(this.lpn, marking, curVecCopy);
+
+		// System.out.println("--> Check enabled trans of '" +
+		// this.lpn.getLabel() + "' in state");
+		// System.out.println(curStateCopy);
+
+		LpnTranList PlacePostset = new LpnTranList();
+		for (int place : marking) {
+			LpnTranList tmp = this.Place2TranTbl.get(place);
+			if (tmp == null)
+				continue;
+
+			for (LPNTran tran : tmp)
+				PlacePostset.addLast(tran);
+		}
+
+		LpnTranList curEnabled = new LpnTranList();
+		for (LPNTran tran : PlacePostset) {
+			boolean enabled = true;
+			int[] preset = tran.getPreSet();
+			for (int prep : preset) {
+				boolean marked = false;
+				for (int m : marking) {
+					if (prep == m) {
+						marked = true;
+						break;
+					}
+				}
+				if (marked == false) {
+					enabled = false;
+					break;
+				}
+			}
+
+			if (enabled == false)
+				continue;
+
+			if (tran.checkGuard(curStateCopy) == true) {
+				if (tran.local() == true)
+					curEnabled.addLast(tran);
+				else
+					curEnabled.addFirst(tran);
+			}
+		}
+
+		return curEnabled;
+	}
+    
+
+    public int reachSize() {    	
+		return this.localStateTable.size();
+    }
+
+    /**
+     * Add the module state mState into the local cache, and also add its local portion into
+     * the local portion cache, and build the mapping between the mState and lState for fast lookup
+     * in the future.
+     * @param mState - Module state to add to the state graph
+     * @param useLocalCache - Flag for the use of local cache state2LocalMap
+     * @return mState if the state is new, otherwise it returns the existing equivalent state.
+     */
+    public State addState(State mState) {
+    	State cachedState = this.localStateTable.add(mState);
+//    	
+//    	if(useLocalCache){
+//	    	State lState = this.state2LocalMap.get(cachedState);
+//	    	if(lState == null) {
+//	    		lState = cachedState.getLocalState();
+//	    		lState = this.localStateCache.add(lState);
+//	    		this.state2LocalMap.put(cachedState, lState);
+//	    	}
+//    	}
+    	
+    	return cachedState;
+    }
+
+    /**
+     * Get the local portion of mState from the cache.
+     */
+    public State getLocalState(State mState) {
+    	return this.state2LocalMap.get(mState);
+    }
+
+    /**
+     * Returns the state in the state graph with the specified index.
+     * @param stateIdx - State index
+     * @return The state associated with the specified index, otherwise NULL.
+     */
+    public State getState(int stateIdx) {
+    	return this.localStateTable.get(stateIdx);
+    }
+    
+    /**
+     * Returns the hash map containing the state graph's state transitions.
+     */
+    public final HashMap<StateTran, StateTran> getStateTranMap(){
+    	return this.stateTranMap;
+    }
+    
+    public int getStateTranCount() {
+    	return this.stateTranCount;
+    }
+    
+    public int getModStateCount() {
+    	return this.ModuleStateTable.size();
+    }
+    
+	public boolean addExtTran(State curLclState, int curGVecId, LPNTran firedTran, int nextGVecId) {
+		ProcState tmp = new ProcState(curGVecId, curLclState);
+		ProcState curModSt = this.ModuleStateTable.get(tmp);
+		if(curModSt == null)
+			curModSt = tmp;
+		
+		boolean newModState = false;
+		tmp = new ProcState(nextGVecId, curLclState);
+		ProcState nextModSt = this.ModuleStateTable.get(tmp);
+		if(nextModSt == null) {
+			nextModSt = tmp;
+			newModState = true;
+		}
+		boolean newExtTran = false ;;//curModSt.addExtTran(firedTran, nextModSt);
+		if(newExtTran==true)
+			this.stateTranCount++;
+		
+		return newExtTran;
+	}
+
+    /**
+     * Adds a state transition to the state graph.  
+     * Also, if POR is turned on, the start state is added to the next state's incoming state set.
+     * This function uses HashMap<StateTran, StateTran> stateTranMap.
+     * @param curSt - Start state
+     * @param firedTran - Fired LPN transition
+     * @param nextSt - Next state
+     * @return New state transition added, otherwise null
+     */
+    public StateTran addStateTranCompositional(State curSt, LPNTran firedTran, State nextSt){
+		StateTran stTran = new StateTran(curSt, firedTran, nextSt);
+		
+		if(this.stateTranMap.containsKey(stTran)){
+			return null;
+		}
+		
+		this.stateTranMap.put(stTran, stTran);
+		
+		if(!Options.getPOR().equals("off")){
+			addIncoming(curSt, nextSt);	
+		}
+		
+		if(Options.getSearchType().equals(SearchTypeDef.CRA_LOCAL)){
+			if(firedTran.getLpn() != this.getLpn()){
+				List<StateTran> extList = this.externalStateTranMap.get(curSt);
+				if(extList == null){
+					extList = new LinkedList<StateTran>();
+					extList.add(stTran);
+					this.externalStateTranMap.put(curSt, extList);
+				}
+				else{
+					extList.add(stTran);
+				}
+			}
+		}
+		
+		return stTran;
+    }
+    
+    /**
+     * Removes the specified state transition from this state graph
+     * @param stTran - State transition to remove
+     * @return Returns the removed state transitions, otherwise null
+     */
+    public StateTran removeStateTran(StateTran stTran){
+    	return this.stateTranMap.remove(stTran);
+    }
+    
+    /*
+     * 
+     */
+    public void addStateTran(State curSt, State externalSt, LPNTran firedTran, State nextSt) {
+    	Pair<State, State> lclExtPair = new Pair<State, State>(curSt, externalSt);
+    	HashMap<LPNTran, State> nextMap = this.externalNextStateMap.get(lclExtPair);
+
+    	if(nextMap == null)  {
+    		nextMap = new HashMap<LPNTran,State>();
+    		nextMap.put(firedTran, nextSt);    		
+    		this.externalNextStateMap.put(lclExtPair, nextMap);
+    	}
+    	else{
+    		nextMap.put(firedTran, nextSt);
+    	}
+    }
+    
+    /**
+     * Adds the start state of a state transition to the next state's incoming set.
+     * For a state transition s1 -> s2, s1 is added to s2's incoming state set.
+     * @param currentState - Start state
+     * @param nextState - Next state
+     */
+    private void addIncoming(State currentState, State nextState){
+    	List<State> incomingStateList = incomingStateMap.get(nextState);
+    	if(incomingStateList == null){
+    		incomingStateList = new LinkedList<State>();
+    		incomingStateList.add(currentState);
+    		this.incomingStateMap.put(nextState, incomingStateList);
+    	}
+    	else
+    		incomingStateList.add(currentState);
+    }
+    
+    public HashMap<State, List<State>> getIncomingStateMap(){
+    	return this.incomingStateMap;
+    }
+    
+    /**
+     * Returns the next state of a state transition, given the starting state and fired LPN transition.
+     * @param curSt - Start state
+     * @param firedTran - Fired LPN transition
+     * @return Next state
+     */
+    public State getNextState(State curSt, LPNTran firedTran) {
+    	HashMap<LPNTran, State> nextMap = this.nextStateMap.get(curSt);
+    	if(nextMap == null)
+    		return null;
+    	
+    	return nextMap.get(firedTran);
+    }
+    
+    public State getNextState(State curSt, State extSt, LPNTran firedTran) {
+    	HashMap<LPNTran, State> nextMap = this.externalNextStateMap.get(new Pair<State, State>(curSt, extSt));
+    	if(nextMap == null)
+    		return null;
+    	
+    	return nextMap.get(firedTran);
+    }
+    
+    public ProcState getNextState(Integer gVecIdx, State curSt, LPNTran firedTran) { 
+    	ProcState tmpPair = new ProcState(gVecIdx, curSt);
+    	ProcState curModSt = this.ModuleStateTable.get(tmpPair);
+		
+		if(curModSt == null)
+			return null;
+
+
+    	//HashMap<LPNTran, ModuleState> nextStateSet = this.stateTranTable.get(curModSt);
+		LinkedList<Pair<LPNTran, ProcState>> nextStateSet = curModSt.getNextStateSet();
+		
+    	if(nextStateSet != null) {
+//    		tmpPair = nextStateSet.get(firedTran);
+//        	System.out.println("get satteTran " + gVecIdx + " " + curSt.getIndex() + " " + firedTran.getFullLabel() + " = " + (tmpPair==null ? "null" : "(" + tmpPair.getLeft() + ", " + tmpPair.getRight().getIndex()+")"));
+//        	System.out.println("---> " + this.stateTranTable.size() + " " + nextStateSet.size());
+    		//return nextStateSet.get(firedTran);
+    		for(Pair<LPNTran, ProcState> tran2nextSt : nextStateSet)
+    			if(tran2nextSt.getLeft()==firedTran)
+    				return tran2nextSt.getRight();
+    	}
+    	
+    	return null;
+    }
+    
+    private static Set<Entry<LPNTran, State>> emptySet = new HashSet<Entry<LPNTran, State>>(0);
+    public Set<Entry<LPNTran, State>> getOutgoingTrans(State currentState){
+    	HashMap<LPNTran, State> tranMap = this.nextStateMap.get(currentState);
+    	if(tranMap == null){
+    		return emptySet;
+    	}
+    	    	
+    	return tranMap.entrySet();
+    }
+    
+    /**
+     * Calculates and returns the number of state transitions currently in this state graph.
+     * @return Number of state transitions
+     */
+    public int numTransitions(){
+    	if(Options.getSearchType() == SearchTypeDef.CRA || Options.getSearchType() == SearchTypeDef.CRA_ORIG
+    			|| Options.getSearchType() == SearchTypeDef.CRA_LOCAL || Options.getSearchType() == SearchTypeDef.CRA_GLOBAL){
+    		return this.stateTranMap.size();
+    	}
+    	
+    	int trans = 0;	
+    	for(Entry<State, HashMap<LPNTran, State>> tranEntry : this.nextStateMap.entrySet()){
+    		trans += tranEntry.getValue().size();
+    	}
+    	
+    	return trans;
+    }
+    
+    /**
+     * Checks if the state specified is contained in the state graph.
+     * @param s - State to check
+     * @return TRUE if the state is contained, otherwise FALSE
+     */
+    public boolean containsState(State s){
+    	return this.localStateTable.get(s) != null;
+    }
+    
+    /**
+     * Checks if the specified state is contained in the state graph.
+     * @param s - State to check
+     * @return equivalent state contained in the state graph, otherwise NULL
+     */
+    public State getState(State s){
+    	return this.localStateTable.get(s);
+    }
+    
+    /**
+     * Clears the set of state transitions used for CRA.
+     */
+    public void clearTrans(){
+    	this.stateTranMap.clear();
+    }
+    
+    /*
+     * For each ModuleState in this SG, remove any outgoing state transitions by local LPN transition firings. 
+     */
+    void removeLocalStateTran() {
+    	for(ProcState modSt : this.ModuleStateTable.keySet())
+    		modSt.removeLocalStateTran();
+    }
+}

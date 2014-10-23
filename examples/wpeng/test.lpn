@@ -1,0 +1,26 @@
+<main>
+	A_0 A0(1);
+</main>
+
+<class name="A_0" arg="initM">
+	<var> x=1; </var>	
+	<m> initM </m>
+	<tr label="1to2" preset="1" postset="2">
+		x=2;
+	</tr>
+	<tr label="2to3" preset="2" postset="3">
+		x=3;
+	</tr>
+	<tr label="3to4" preset="3" postset="4">
+		x=4;
+	</tr>
+	<tr label="4to5" preset="4" postset="5">
+		x=5;
+	</tr>
+	<tr label="5to6" preset="5" postset="6">
+		x=2;
+	</tr>
+	<tr label="6to1" preset="6" postset="1">
+		x=1;
+	</tr>
+</class>

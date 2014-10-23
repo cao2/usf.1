@@ -1,0 +1,71 @@
+<main> 
+
+  buffer m1(m3.o);
+  buffer m2(m3.o);
+  cele m3(m1.o, m2.o);
+
+</main>
+
+
+<class name="buffer" arg="i">    
+    <var>
+        u = 1;
+        o = 0;
+    </var>
+
+    <m> 1,2 </m>
+
+    <tr label="1" preset="1" postset="1"  >
+        guard(i && u);
+        delay(0, inf);
+        u = 0;
+    </tr>
+    <tr label="2" preset="1" postset="1"  >
+        guard(!i && !u);
+        delay(0, inf);
+        u = 1;
+    </tr>
+    <tr label="3" preset="2" postset="2"  >
+        guard (u && o);
+        delay(0, inf);
+        o = 0;
+    </tr>
+    <tr label="4" preset="2" postset="2"  >
+        guard(!u && o);
+        delay(0, inf);
+        o = 1;
+    </tr>
+</class>
+
+
+<class name="cele" arg="i1, i2">
+	<const> f = 1; </const>
+
+    <var>
+      w = 0;
+      o = 0;
+    </var>
+
+    <m> f,2 </m>
+
+    <tr label="1" preset="f" postset="1"  >
+      guard (i1 && i2 && !w);
+      delay(0, inf);
+      w = 1;
+    </tr>
+    <tr label="2" preset="1" postset="1"  >
+      guard(!i1 && !i2 && w);
+      delay(0, inf);
+      w = 0;
+    </tr>
+    <tr label="3" preset="2" postset="2"  >
+      guard (w && o);
+      delay(0, inf);
+      o = 0;
+    </tr>
+    <tr label="4" preset="2" postset="2"  >
+      guard(!w && !o);
+      delay(0, inf);
+      o = 1;
+    </tr>
+</class>

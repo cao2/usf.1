@@ -1,0 +1,72 @@
+<mod name="MSLo.lpn">
+
+<input> 
+bo, b3i, rai, rao, mdlo
+</input>
+
+<output> 
+msli, mslo 
+</output>
+
+<var> 
+w1_c2, w2_c2 
+</var>
+
+   <marking>
+   13,   15,   17, 18
+   </marking>
+
+   <statevector>
+   b3i = 0;
+   bo = 0;
+   mdlo = 0;
+   msli = 0;
+   mslo = 0;
+   rai = 0;
+   rao = 0;
+   w1_c2 = 0;
+   w2_c2 = 0;
+   </statevector>
+
+
+   <transition label="49" preset="13" postset="13">
+     rai && b3i && !msli && rao && bo && !w1_c2;
+     (0, inf);
+     w1_c2 = 1;
+   </transition>
+   <transition label="50" preset="13" postset="13">
+     (!rai || !b3i || msli || !rao || !bo) && w1_c2;
+     (0, inf);
+     w1_c2 = 0;
+   </transition>
+   <transition label="52" preset="15" postset="15">
+     mdlo && mslo&& !w2_c2;
+     (0, inf);
+     w2_c2 = 1;
+   </transition>
+   <transition label="53" preset="15" postset="15">
+      !mdlo && w2_c2 || mdlo && !mslo && w2_c2;
+     (0, inf);
+     w2_c2 = 0;
+   </transition>
+   <transition label="55" preset="17" postset="17">
+      !mslo && w1_c2 && !w2_c2;
+     (0, inf);
+     mslo = 1;
+   </transition>
+   <transition label="56" preset="17" postset="17">
+     mslo && !w1_c2 && w2_c2;
+     (0, inf);
+     mslo = 0;
+   </transition>
+   <transition label="57" preset="18" postset="18">
+     !msli && mslo;
+     (0, inf);
+     msli = 1;
+   </transition>
+   <transition label="58" preset="18" postset="18">
+     msli && !mslo;
+     (0, inf);
+     msli = 0;
+   </transition>
+</mod>

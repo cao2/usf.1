@@ -1,0 +1,57 @@
+<mod name="f2">
+
+	<var>
+       b1 = 0;
+       t2 = 0;
+       ce_fifo2 = 0;
+       nor_fifo2 = 1;
+   </var>
+
+   <marking>
+    8,   10,   12,   14
+   </marking>
+
+   <transition label="24" preset="8" postset="9">
+     t1 && nor_fifo2;
+     (0, inf);
+     b1 = 1;
+   </transition>
+   <transition label="25" preset="9" postset="8">
+      !t1&& !nor_fifo2;
+     (0, inf);
+     b1 = 0;
+   </transition>
+   
+   <transition label="26" preset="12" postset="13">
+      !b2 && ce_fifo2 || b2;
+     (0, inf);
+     nor_fifo2 = 0;
+   </transition>
+   <transition label="27" preset="13" postset="12">
+      !b2&& !ce_fifo2;
+     (0, inf);
+     nor_fifo2 = 1;
+   </transition>
+   
+   <transition label="28" preset="14" postset="15">
+     b1&& !b2;
+     (0, inf);
+     ce_fifo2 = 1;
+   </transition>
+   <transition label="29" preset="15" postset="14">
+      !b1 && b2;
+     (0, inf);
+     ce_fifo2 = 0;
+   </transition>
+   
+   <transition label="30" preset="10" postset="11">
+      !b1 && ce_fifo2;
+     (0, inf);
+     t2 = 1;
+   </transition>
+   <transition label="31" preset="11" postset="10">
+      !b1&& !ce_fifo2 || b1;
+     (0, inf);
+     t2 = 0;
+   </transition>
+</mod>

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeBDDSet
+END
+NativeBDDWrapper.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeBDDSet/NativeBDDWrapper.h
+END
+NatArraySetEncodingByBdd.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeBDDSet/NatArraySetEncodingByBdd.hpp
+END
+cudd-2.4.2.tar.gz
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/platu/!svn/ver/604/trunk/nativeCode/NativeBDDSet/cudd-2.4.2.tar.gz
+END
+makefile
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeBDDSet/makefile
+END
+Makefile-64bit.inc
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeBDDSet/Makefile-64bit.inc
+END
+NativeBDDWrapper.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/platu/!svn/ver/622/trunk/nativeCode/NativeBDDSet/NativeBDDWrapper.cpp
+END

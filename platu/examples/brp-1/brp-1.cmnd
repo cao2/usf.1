@@ -1,0 +1,8 @@
+readlpn examples/brp-1/producer.lpn
+readlpn examples/brp-1/consumer.lpn
+readlpn examples/brp-1/sender.lpn
+readlpn examples/brp-1/receiver.lpn
+readlpn examples/brp-1/processK.lpn
+readlpn examples/brp-1/processL.lpn
+findsg
+quit

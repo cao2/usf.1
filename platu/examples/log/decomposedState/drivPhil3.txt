@@ -1,0 +1,55 @@
+--> Number of modules: 4
+--> Length of global vecvtor: 20
+--> globalVarList
+[(request[2], 0), (entryRound, 1), (acquiring[0], 0), (acquiring[1], 0), (resources[0], 0), (resources[1], 0), (fire, 0), (res1[1], 0), (request[1], 0), (res0[0], 0), (request[0], 0), (starvers[2], 0), (res1[0], 0), (starvers[0], 0), (starvers[1], 0), (res1[2], 0), (res0[1], 0), (res0[2], 0), (acquiring[2], 0), (phase, 0)]
+--> gVarIndexMap
+(request[2] 0), (entryRound 1), (acquiring[0] 2), (acquiring[1] 3), (resources[0] 4), (resources[1] 5), (fire 6), (res1[1] 7), (request[1] 8), (res0[0] 9), (request[0] 10), (starvers[2] 11), (res1[0] 12), (starvers[0] 13), (starvers[1] 14), (res1[2] 15), (res0[1] 16), (res0[2] 17), (acquiring[2] 18), (phase 19), 
+LPN: r
+-->Internals: 		(r.i 0 INTERNAL), 
+-->Globals: 		(request[2] 1 GLOBAL), (entryRound 2 GLOBAL), (acquiring[0] 3 GLOBAL), (acquiring[1] 4 GLOBAL), (resources[0] 5 GLOBAL), (resources[1] 6 GLOBAL), (fire 7 GLOBAL), (res1[1] 8 GLOBAL), (request[1] 9 GLOBAL), (res0[0] 10 GLOBAL), (request[0] 11 GLOBAL), (starvers[2] 12 GLOBAL), (res1[0] 13 GLOBAL), (starvers[0] 14 GLOBAL), (starvers[1] 15 GLOBAL), (res1[2] 16 GLOBAL), (res0[1] 17 GLOBAL), (res0[2] 18 GLOBAL), (acquiring[2] 19 GLOBAL), (phase 20 GLOBAL), 
+--> VarIndexMap: 	(r.i 0),  (request[2] 1),  (entryRound 2),  (acquiring[0] 3),  (acquiring[1] 4),  (resources[0] 5),  (resources[1] 6),  (fire 7),  (res1[1] 8),  (request[1] 9),  (res0[0] 10),  (request[0] 11),  (starvers[2] 12),  (res1[0] 13),  (starvers[0] 14),  (starvers[1] 15),  (res1[2] 16),  (res0[1] 17),  (res0[2] 18),  (acquiring[2] 19),  (phase 20),  
+
+LPN: p0
+-->Internals: 		(p0.myValue 0 INTERNAL), (p0.i 1 INTERNAL), 
+-->Globals: 		(request[2] 2 GLOBAL), (entryRound 3 GLOBAL), (acquiring[0] 4 GLOBAL), (acquiring[1] 5 GLOBAL), (resources[0] 6 GLOBAL), (resources[1] 7 GLOBAL), (fire 8 GLOBAL), (res1[1] 9 GLOBAL), (request[1] 10 GLOBAL), (res0[0] 11 GLOBAL), (request[0] 12 GLOBAL), (res1[0] 13 GLOBAL), (res1[2] 14 GLOBAL), (res0[1] 15 GLOBAL), (res0[2] 16 GLOBAL), (acquiring[2] 17 GLOBAL), (phase 18 GLOBAL), 
+--> VarIndexMap: 	(p0.myValue 0),  (p0.i 1),  (request[2] 2),  (entryRound 3),  (acquiring[0] 4),  (acquiring[1] 5),  (resources[0] 6),  (resources[1] 7),  (fire 8),  (res1[1] 9),  (request[1] 10),  (res0[0] 11),  (request[0] 12),  (res1[0] 13),  (res1[2] 14),  (res0[1] 15),  (res0[2] 16),  (acquiring[2] 17),  (phase 18),  
+
+LPN: p1
+-->Internals: 		(p1.i 0 INTERNAL), (p1.myValue 1 INTERNAL), 
+-->Globals: 		(request[2] 2 GLOBAL), (entryRound 3 GLOBAL), (acquiring[0] 4 GLOBAL), (acquiring[1] 5 GLOBAL), (resources[0] 6 GLOBAL), (resources[1] 7 GLOBAL), (fire 8 GLOBAL), (res1[1] 9 GLOBAL), (request[1] 10 GLOBAL), (res0[0] 11 GLOBAL), (request[0] 12 GLOBAL), (res1[0] 13 GLOBAL), (res1[2] 14 GLOBAL), (res0[1] 15 GLOBAL), (res0[2] 16 GLOBAL), (acquiring[2] 17 GLOBAL), (phase 18 GLOBAL), 
+--> VarIndexMap: 	(p1.i 0),  (p1.myValue 1),  (request[2] 2),  (entryRound 3),  (acquiring[0] 4),  (acquiring[1] 5),  (resources[0] 6),  (resources[1] 7),  (fire 8),  (res1[1] 9),  (request[1] 10),  (res0[0] 11),  (request[0] 12),  (res1[0] 13),  (res1[2] 14),  (res0[1] 15),  (res0[2] 16),  (acquiring[2] 17),  (phase 18),  
+
+LPN: p2
+-->Internals: 		(p2.i 0 INTERNAL), (p2.myValue 1 INTERNAL), 
+-->Globals: 		(request[2] 2 GLOBAL), (entryRound 3 GLOBAL), (acquiring[0] 4 GLOBAL), (acquiring[1] 5 GLOBAL), (resources[0] 6 GLOBAL), (resources[1] 7 GLOBAL), (fire 8 GLOBAL), (res1[1] 9 GLOBAL), (request[1] 10 GLOBAL), (res0[0] 11 GLOBAL), (request[0] 12 GLOBAL), (res1[0] 13 GLOBAL), (res1[2] 14 GLOBAL), (res0[1] 15 GLOBAL), (res0[2] 16 GLOBAL), (acquiring[2] 17 GLOBAL), (phase 18 GLOBAL), 
+--> VarIndexMap: 	(p2.i 0),  (p2.myValue 1),  (request[2] 2),  (entryRound 3),  (acquiring[0] 4),  (acquiring[1] 5),  (resources[0] 6),  (resources[1] 7),  (fire 8),  (res1[1] 9),  (request[1] 10),  (res0[0] 11),  (request[0] 12),  (res1[0] 13),  (res1[2] 14),  (res0[1] 15),  (res0[2] 16),  (acquiring[2] 17),  (phase 18),  
+
+---> start search_dfs ...
+*** Verification failed: deadlock.
+*** Deadlock state layout:
+Marking: [8,]
+Vector: [r.i=>0, request[2]=>0, entryRound=>1, acquiring[0]=>0, acquiring[1]=>0, resources[0]=>0, resources[1]=>0, fire=>0, res1[1]=>0, request[1]=>0, res0[0]=>0, request[0]=>0, starvers[2]=>0, res1[0]=>0, starvers[0]=>0, starvers[1]=>0, res1[2]=>0, res0[1]=>0, res0[2]=>0, acquiring[2]=>0, phase=>0, ]
+Marking: [0,]
+Vector: [p0.myValue=>0, p0.i=>0, request[2]=>0, entryRound=>1, acquiring[0]=>0, acquiring[1]=>0, resources[0]=>0, resources[1]=>0, fire=>0, res1[1]=>0, request[1]=>0, res0[0]=>0, request[0]=>0, res1[0]=>0, res1[2]=>0, res0[1]=>0, res0[2]=>0, acquiring[2]=>0, phase=>0, ]
+Marking: [0,]
+Vector: [p1.i=>0, p1.myValue=>1, request[2]=>0, entryRound=>1, acquiring[0]=>0, acquiring[1]=>0, resources[0]=>0, resources[1]=>0, fire=>0, res1[1]=>0, request[1]=>0, res0[0]=>0, request[0]=>0, res1[0]=>0, res1[2]=>0, res0[1]=>0, res0[2]=>0, acquiring[2]=>0, phase=>0, ]
+Marking: [2,]
+Vector: [p2.i=>3, p2.myValue=>2, request[2]=>0, entryRound=>1, acquiring[0]=>0, acquiring[1]=>0, resources[0]=>0, resources[1]=>0, fire=>0, res1[1]=>0, request[1]=>0, res0[0]=>0, request[0]=>0, res1[0]=>0, res1[2]=>0, res0[1]=>0, res0[2]=>0, acquiring[2]=>0, phase=>0, ]
+[(request[2],13), (entryRound,15), (acquiring[0],-1), (acquiring[1],-1), (resources[0],0), (resources[1],0), (fire,3), (res1[1],-1), (request[1],14), (res0[0],0), (request[0],15), (starvers[2],0), (res1[0],-1), (starvers[0],0), (starvers[1],0), (res1[2],-1), (res0[1],-1), (res0[2],0), (acquiring[2],-1), (phase,2), ]
+
+---> Search stats:
+	LPN transition firing count: 437
+	State count: 437
+	Global state vector count: 658
+	Local state pair counts:
+		Table 0 : 393
+		Table 1 : 389
+		Table 2 : 377
+		Table 3 : 214
+		Table 4 : 202
+		Table 5 : 198
+	max_stack_depth: 436
+	peak total memory: 152 MB
+	peak used memory: 68 MB
+	Total elapsed time = 0.0 sec
+

@@ -1,0 +1,82 @@
+<mod name="wine_circuit_req_wine">
+	<var>
+		req_wine = 0;
+	</var>
+	<marking> 1 </marking>
+
+	<transition label="1" preset="1" postset="1">
+	!req_wine && !ack_wine;
+	(2, 3);
+	req_wine = 1;	
+	</transition>
+	<transition label="2" preset="1" postset="1">
+	req_wine && ack_wine;
+	(2, 3);
+	req_wine = 0;	
+	</transition>
+</mod>
+
+<mod name="wine_circuit_ack_patron">
+	<var>
+		ack_patron = 0;
+	</var>
+
+	<marking> 1 </marking>
+
+
+	<transition label="1" preset="1" postset="1">
+	!ack_patron && req_patron;
+	(5, inf);
+	ack_patron = 1;	
+	</transition>
+	<transition label="2" preset="1" postset="1">
+	ack_patron && !req_patron;
+	(2, 3);
+	ack_patron = 0;	
+	</transition>
+</mod>
+
+<mod name="wine_circuit_shop">
+
+	<var>
+		ack_wine = 0;
+		req_patron = 0;
+		csc = 0;
+	</var>
+	<marking> 3 </marking>
+
+	<transition label="1" preset="3" postset="4">
+	req_wine;
+	(0, 1);
+	ack_wine = 1;	
+	</transition>
+	<transition label="2" preset="4" postset="5">
+	true;
+	(0, 1);
+	csc = 1;	
+	</transition>
+	<transition label="3" preset="5" postset="6">
+	!req_wine;
+	(0, 1);
+	ack_wine = 0;	
+	</transition>
+	<transition label="4" preset="6" postset="7">
+	true;
+	(0, 1);
+	req_patron = 1;	
+	</transition>
+	<transition label="5" preset="7" postset="8">
+	true;
+	(0, 1);
+	csc = 0;	
+	</transition>
+	<transition label="6" preset="8" postset="9">
+	ack_patron;
+	(0, 1);
+	req_patron = 0;	
+	</transition>
+	<transition label="7" preset="9" postset="3">
+	!ack_patron;
+	(0, 1);	
+	</transition>
+</mod>

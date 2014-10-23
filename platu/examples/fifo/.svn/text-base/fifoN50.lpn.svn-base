@@ -1,0 +1,243 @@
+<main>
+	left left(c1.lo);
+	cell c1(left.ro, c2.lo);
+	cell c2(c1.ro, c3.lo);
+	cell c3(c2.ro, c4.lo);
+	cell c4(c3.ro, c5.lo);
+	cell c5(c4.ro, c6.lo);
+	cell c6(c5.ro, c7.lo);
+	cell c7(c6.ro, c8.lo);
+	cell c8(c7.ro, c9.lo);
+	cell c9(c8.ro, c10.lo);
+	cell c10(c9.ro, c11.lo);
+	cell c11(c10.ro, c12.lo);
+	cell c12(c11.ro, c13.lo);
+	cell c13(c12.ro, c14.lo);
+	cell c14(c13.ro, c15.lo);
+	cell c15(c14.ro, c16.lo);
+	cell c16(c15.ro, c17.lo);
+	cell c17(c16.ro, c18.lo);
+	cell c18(c17.ro, c19.lo);	
+	cell c19(c18.ro, c20.lo);	
+	cell c20(c19.ro, c21.lo);
+	cell c21(c20.ro, c22.lo);
+	cell c22(c21.ro, c23.lo);
+	cell c23(c22.ro, c24.lo);
+	cell c24(c23.ro, c25.lo);
+	cell c25(c24.ro, c26.lo);
+	cell c26(c25.ro, c27.lo);
+	cell c27(c26.ro, c28.lo);
+	cell c28(c27.ro, c29.lo);
+	cell c29(c28.ro, c30.lo);
+	cell c30(c29.ro, c31.lo);
+	cell c31(c30.ro, c32.lo);
+	cell c32(c31.ro, c33.lo);
+	cell c33(c32.ro, c34.lo);
+	cell c34(c33.ro, c35.lo);
+	cell c35(c34.ro, c36.lo);
+	cell c36(c35.ro, c37.lo);
+	cell c37(c36.ro, c38.lo);
+	cell c38(c37.ro, c39.lo);
+	cell c39(c38.ro, c40.lo);
+	cell c40(c39.ro, c41.lo);
+	cell c41(c40.ro, c42.lo);
+	cell c42(c41.ro, c43.lo);
+	cell c43(c42.ro, c44.lo);
+	cell c44(c43.ro, c45.lo);
+	cell c45(c44.ro, c46.lo);
+	cell c46(c45.ro, c47.lo);
+	cell c47(c46.ro, c48.lo);
+	cell c48(c47.ro, right.lo);
+	right right(c48.ro);
+</main>
+
+
+<class name="left" arg="ri">
+   <var>
+   ce = 0;
+   li = 0;
+   lo = 0;
+   nor = 1;
+   ro = 0;
+   </var>
+
+   <m>
+      0,   2,   4,   6,   26
+   </m>
+
+   <tr label="8" preset="0" postset="1">
+     guard(li && nor);
+     delay(0, inf);
+     lo = 1;
+   </tr>
+   <tr label="9" preset="1" postset="0">
+      guard(!li && !nor);
+     delay(0, inf);
+     lo = 0;
+   </tr>
+   <tr label="10" preset="2" postset="3">
+      guard(!ri && ce || ri);
+     delay(0, inf);
+     nor = 0;
+   </tr>
+   <tr label="11" preset="3" postset="2">
+      guard(!ri && !ce);
+     delay(0, inf);
+     nor = 1;
+   </tr>
+   <tr label="12" preset="4" postset="5">
+     guard(lo&& !ri);
+     delay(0, inf);
+     ce = 1;
+   </tr>
+   <tr label="13" preset="5" postset="4">
+      guard(!lo && ri);
+     delay(0, inf);
+     ce = 0;
+   </tr>
+   <tr label="14" preset="6" postset="7">
+      guard(!lo && ce);
+     delay(0, inf);
+     ro = 1;
+   </tr>
+   <tr label="15" preset="7" postset="6">
+      guard(!lo&& !ce || lo);
+     delay(0, inf);
+     ro = 0;
+   </tr>
+   <tr label="48" preset="26" postset="25">
+      guard(!lo);
+     delay(0, inf);
+     li = 1;
+   </tr>
+   <tr label="50" preset="25" postset="26">
+     guard(lo);
+     delay(0, inf);
+     li = 0;
+   </tr>
+</class>
+
+
+<class name="cell" arg="li, ri">
+
+   <var>
+   lo = 0;
+   ce = 0;
+   nor = 1;
+   ro = 0;
+   </var>
+
+   <m>
+   8,   10,   12,   14
+   </m>
+
+   <tr label="24" preset="8" postset="9">
+     guard(li && nor);
+     delay(0, inf);
+     lo = 1;
+   </tr>
+   <tr label="25" preset="9" postset="8">
+      guard(!li && !nor);
+     delay(0, inf);
+     lo = 0;
+   </tr>
+   <tr label="26" preset="12" postset="13">
+      guard(!ri && ce || ri);
+     delay(0, inf);
+     nor = 0;
+   </tr>
+   <tr label="27" preset="13" postset="12">
+      guard(!ri && !ce);
+     delay(0, inf);
+     nor = 1;
+   </tr>
+   <tr label="28" preset="14" postset="15">
+     guard(lo && !ri);
+     delay(0, inf);
+     ce = 1;
+   </tr>
+   <tr label="29" preset="15" postset="14">
+      guard(!lo && ri);
+     delay(0, inf);
+     ce = 0;
+   </tr>
+   <tr label="30" preset="10" postset="11">
+      guard(!lo && ce);
+     delay(0, inf);
+     ro = 1;
+   </tr>
+   <tr label="31" preset="11" postset="10">
+      guard(!lo && !ce || lo);
+     delay(0, inf);
+     ro = 0;
+   </tr>
+</class>
+
+
+<class name="right" arg="li">
+
+   <var>
+   lo = 0;
+   ce = 0;
+   nor = 1;
+   ri = 0;
+   ro = 0;
+   </var>
+
+   <m>
+   16,   18,   20,   22,   28
+   </m>
+
+
+   <tr label="40" preset="16" postset="17">
+     guard(li && nor);
+     delay(0, inf);
+     lo = 1;
+   </tr>
+   <tr label="41" preset="17" postset="16">
+      guard(!li && !nor);
+     delay(0, inf);
+     lo = 0;
+   </tr>
+   <tr label="42" preset="18" postset="19">
+      guard(!ri && ce || ri);
+     delay(0, inf);
+     nor = 0;
+   </tr>
+   <tr label="43" preset="19" postset="18">
+      guard(!ri && !ce);
+     delay(0, inf);
+     nor = 1;
+   </tr>
+   <tr label="44" preset="20" postset="21">
+      guard(!ri && lo);
+     delay(0, inf);
+     ce = 1;
+   </tr>
+   <tr label="45" preset="21" postset="20">
+     guard(ri && !lo);
+     delay(0, inf);
+     ce = 0;
+   </tr>
+   <tr label="46" preset="22" postset="23">
+      guard(!lo && ce);
+     delay(0, inf);
+     ro = 1;
+   </tr>
+   <tr label="47" preset="23" postset="22">
+      guard(!lo && !ce || lo);
+     delay(0, inf);
+     ro = 0;
+   </tr>
+   <tr label="52" preset="28" postset="27">
+     guard(ro);
+     delay(0, inf);
+     ri = 1;
+   </tr>
+   <tr label="54" preset="27" postset="28">
+      guard(!ro);
+     delay(0, inf);
+     ri = 0;
+   </tr>
+</class>
+

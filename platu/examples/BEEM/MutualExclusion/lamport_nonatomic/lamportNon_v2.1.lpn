@@ -1,0 +1,477 @@
+<main>
+	//9 Channels:
+	//	read_0, write_0, done_0
+	//	read_1, write_1, done_1
+	//	read_1, write_1, done_1
+	
+	<var>
+		//Active channel
+		activeChan = 0;
+	
+		//Variables for read_0
+		read_0Req = 0;
+		read_0Ack = 0;
+		read_0Val = 0;
+		read_0ChanIndex = 1;
+		read_0ReqReady = 0;
+		read_0AckReady = 0;
+		//Variables for write_0
+		write_0Req = 0;
+		write_0Ack = 0;
+		write_0Val = 0;
+		write_0ChanIndex = 2;
+		write_0ReqReady = 0;
+		write_0AckReady = 0;
+		//Variables for done_0
+		done_0Req = 0;
+		done_0Ack = 0;
+		done_0ChanIndex = 3;
+		done_0ReqReady = 0;
+		done_0AckReady = 0;
+		
+		//Variables for read_1
+		read_1Req = 0;
+		read_1Ack = 0;
+		read_1Val = 0;
+		read_1ChanIndex = 4;
+		read_1ReqReady = 0;
+		read_1AckReady = 0;
+		//Variables for write_1
+		write_1Req = 0;
+		write_1Ack = 0;
+		write_1Val = 0;
+		write_1ChanIndex = 4;
+		write_1ReqReady = 0;
+		write_1AckReady = 0;
+		//Variables for done_1
+		done_1Req = 0;
+		done_1Ack = 0;
+		done_1ChanIndex = 5;
+		done_1ReqReady = 0;
+		done_1AckReady = 0;
+		
+
+		//Variables for read_2
+		read_2Req = 0;
+		read_2Ack = 0;
+		read_2Val = 0;
+		read_2ChanIndex = 6;
+		read_2ReqReady = 0;
+		read_2AckReady = 0;
+		//Variables for write_2
+		write_2Req = 0;
+		write_2Ack = 0;
+		write_2Val = 0;
+		write_2ChanIndex = 6;
+		write_2ReqReady = 0;
+		write_2AckReady = 0;
+		//Variables for done_2
+		done_2Req = 0;
+		done_2Ack = 0;
+		done_2ChanIndex = 7;
+		done_2ReqReady = 0;
+		done_2AckReady = 0;
+	</var>
+	
+	NonatomicVar v1(read_0Req, read_0Ack, read_0Val, read_0ReqReady, read_0AckReady, read_0ChanIndex, write_0Req, write_0Ack, write_0Val, write_0ReqReady, write_0AckReady, write_0ChanIndex, done_0Req, done_0Ack, done_0ReqReady, done_0AckReady, done_0ChanIndex, activeChan);
+	NonatomicVar v2(read_1Req, read_1Ack, read_1Val, read_1ReqReady, read_1AckReady, read_1ChanIndex, write_1Req, write_1Ack, write_1Val, write_1ReqReady, write_1AckReady, write_1ChanIndex, done_1Req, done_1Ack, done_1ReqReady, done_1AckReady, done_1ChanIndex, activeChan);
+	NonatomicVar v3(read_2Req, read_2Ack, read_2Val, read_2ReqReady, read_2AckReady, read_2ChanIndex, write_2Req, write_2Ack, write_2Val, write_2ReqReady, write_2AckReady, write_2ChanIndex, done_2Req, done_2Ack, done_2ReqReady, done_2AckReady, done_2ChanIndex, activeChan);
+	Process p1(0, read_0Req, read_0Ack, read_0Val, read_0ReqReady, read_0AckReady, read_0ChanIndex, read_1Req, read_1Ack, read_1Val, read_1ReqReady, read_1AckReady, read_1ChanIndex, read_2Req, read_2Ack, read_2Val, read_2ReqReady, read_2AckReady, read_2ChanIndex, write_0Req, write_0Ack, write_0Val, write_0ReqReady, write_0AckReady, write_0ChanIndex, done_0Req, done_0Ack, done_0ReqReady, done_0AckReady, done_0ChanIndex, activeChan);
+	Process p2(1, read_0Req, read_0Ack, read_0Val, read_0ReqReady, read_0AckReady, read_0ChanIndex, read_1Req, read_1Ack, read_1Val, read_1ReqReady, read_1AckReady, read_1ChanIndex, read_2Req, read_2Ack, read_2Val, read_2ReqReady, read_2AckReady, read_2ChanIndex, write_1Req, write_1Ack, write_1Val, write_1ReqReady, write_1AckReady, write_1ChanIndex, done_1Req, done_1Ack, done_1ReqReady, done_1AckReady, done_1ChanIndex, activeChan);
+	Process p3(1, read_0Req, read_0Ack, read_0Val, read_0ReqReady, read_0AckReady, read_0ChanIndex, read_1Req, read_1Ack, read_1Val, read_1ReqReady, read_1AckReady, read_1ChanIndex, read_2Req, read_2Ack, read_2Val, read_2ReqReady, read_2AckReady, read_2ChanIndex, write_2Req, write_2Ack, write_2Val, write_2ReqReady, write_2AckReady, write_2ChanIndex, done_2Req, done_2Ack, done_2ReqReady, done_2AckReady, done_2ChanIndex, activeChan);
+</main>
+
+<class name="NonatomicVar" arg="readReq, readAck, readVal, readReqReady, readAckReady, readChanIndex, writeReq, writeAck, writeVal, writeReqReady, writeAckReady, writeChanIndex, doneReq, doneAck, doneReqReady, doneAckReady, doneChanIndex, activeChan">
+	<const>
+		q = 0;
+		r = 1;
+		qReadReq = 2;
+		qWriteAck = 3;
+		rDoneReq = 4;
+		rReadReq = 5;
+	</const>
+	
+	<var>
+		x = 0;
+		v = 0;
+	</var>
+	
+	<m>
+		q
+	</m>
+	
+	//Should be a ReadReqReady++ on all states into q
+	<tr label="0" preset="q" postset="qReadReq">
+		guard(readReq == 0 && readAck == 0);
+		delay(0, inf);
+		readReq = 1;
+		readVal = x;
+	</tr>
+	
+	<tr label="1" preset="qReadReq" postset="q">
+		guard(readReq == 1 && readAck == 1);
+		delay(0, inf);
+		readReq = 0;
+	</tr>
+	
+	//A writeAckReady++
+	<tr label="2" preset="q" postset="qWriteAck">
+		guard(writeReq == 1);
+		delay(0, inf);
+		writeAck = 1;
+	</tr>
+	
+	<tr label="3" preset="qWriteAck" postset="r">
+		guard(writeReq == 0 && writeAck == 1);
+		delay(0, inf);
+		writeAck = 0;
+		v = writeVal;
+	</tr>
+	
+	<tr label="4" preset="r" postset="rDoneReq">
+		guard(doneReq == 0 && doneAck == 0);
+		delay(0, inf);
+		doneReq = 1;
+		x = v;
+	</tr>
+	
+	<tr label="5" preset="rDoneReq" postset="q">
+		guard(doneReq == 1 && doneAck == 1);
+		delay(0, inf);
+		doneReq = 0;
+	</tr>
+	
+	<tr label="6" preset="r" postset="rReadReq">
+		guard(readReq == 0 && readAck == 0);
+		delay(0, inf);
+		readReq = 1;
+		readVal = 0;
+	</tr>
+	
+	<tr label="7" preset="r" postset="rReadReq">
+		guard(readReq == 0 && readAck == 0);
+		delay(0, inf);
+		readReq = 1;
+		readVal = 1;
+	</tr>
+	
+	<tr label="8" preset="rReadReq" postset="r">
+		guard(readReq == 1 && readAck == 1);
+		delay(0, inf);
+		readReq = 0;
+	</tr>
+</class>
+
+<class name="Process" arg="myVal, read_0Req, read_0Ack, read_0Val, read_0ReqReady, read_0AckReady, read_0ChanIndex, read_1Req, read_1Ack, read_1Val, read_1ReqReady, read_1AckReady, read_1ChanIndex, read_2Req, read_2Ack, read_2Val, read_2ReqReady, read_2AckReady, read_2ChanIndex, writeReq, writeAck, writeVal, writeReqReady, writeAckReady, writeChanIndex, doneReq, doneAck, doneReqReady, doneAckReady, doneChanIndex, activeChan">
+	<const>
+		NCS = 0;
+		w1 = 1;
+		p3 = 2;
+		p8 = 3;
+		p4 = 4;
+		p5 = 5;
+		p6 = 6;
+		p61 = 7;
+		w2 = 8;
+		p9 = 9;
+		CS = 10;
+		w3 = 11;
+		NCSWriteReq = 12;
+		w1DoneAck = 13;
+		p3Ack0 = 14;
+		p3Ack1 = 15;
+		p3Ack2 = 16;
+		p5WriteReq = 17;
+		w2DoneAck = 18;
+		p61Ack0 = 19;
+		p61Ack1 = 20;
+		p61Ack2 = 21;
+		p8Ack0 = 22;
+		p8Ack1 = 23;
+		p8Ack2 = 24;
+		p9Ack0 = 25;
+		p9Ack1 = 26;
+		p9Ack2 = 27;
+		CSWriteReq = 28;
+		w3DoneAck = 29;
+	</const>
+	
+	<var>
+		i = 0;
+		v = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="NCSWriteReq">
+		guard(writeReq == 0 && writeAck == 0);
+		delay(0, inf);
+		writeReq = 1;
+		writeVal = 1;
+	</tr>
+	
+	<tr label="1" preset="NCSWriteReq" postset="w1">
+		guard(writeReq == 1 && writeAck == 1);
+		delay(0, inf);
+		writeReq = 0;
+	</tr>
+	
+	<tr label="2" preset="w1" postset="w1DoneAck">
+		guard(doneReq == 1);
+		delay(0, inf);
+		doneAck = 1;
+	</tr>
+	
+	<tr label="3" preset="w1DoneAck" postset="p3">
+		guard(doneReq == 0 && doneAck == 1);
+		delay(0, inf);
+		doneAck = 0;
+		i = 0;
+	</tr>
+	
+	<tr label="4" preset="p3" postset="p8">
+		guard(i ==0);
+		delay(0, inf);
+		i = myVal + 1;
+	</tr>
+	
+	<tr label="5" preset="p3" postset="p3Ack0">
+		guard(i == 0 && read_0Req == 1);
+		delay(0, inf);
+		read_0Ack = 1;
+	</tr>
+	
+	<tr label="6" preset="p3Ack0" postset="p4">
+		guard(i == 0 && read_0Req == 0 && read_0Ack == 1);
+		delay(0, inf);
+		v = read_0Val;
+		read_0Ack = 0;
+	</tr>
+	
+	<tr label="7" preset="p3" postset="p3Ack1">
+		guard(i == 1 && read_1Req == 1);
+		delay(0, inf);
+		read_1Ack = 1;
+	</tr>
+	
+	<tr label="8" preset="p3Ack1" postset="p4">
+		guard(i == 1 && read_1Req == 0 && read_1Ack == 1);
+		delay(0, inf);
+		v = read_1Val;
+		read_1Ack = 0;
+	</tr>
+	
+	<tr label="9" preset="p3" postset="p3Ack2">
+		guard(i == 2 && read_2Req == 1);
+		delay(0, inf);
+		read_2Ack = 1;
+	</tr>
+	
+	<tr label="99" preset="p3Ack2" postset="p4">
+		guard(i == 2 && read_2Req == 0 && read_2Ack == 1);
+		delay(0, inf);
+		v = read_2Val;
+		read_2Ack = 0;
+	</tr>
+	
+	<tr label="10" preset="p4" postset="p3">
+		guard(v == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="11" preset="p4" postset="p5">
+		guard(v == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="12" preset="p5" postset="p6">
+		guard(v == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="13" preset="p5" postset="NCS">
+		guard(v == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="14" preset="p5" postset="p5WriteReq">
+		guard(writeReq == 0 && writeAck == 0);
+		delay(0, inf);
+		writeReq = 0;
+		writeVal = 0;
+	</tr>
+	
+	<tr label="15" preset="p5WriteReq" postset="w2">
+		guard(writeReq == 1 && writeAck == 1);
+		delay(0, inf);
+		writeReq = 0;
+	</tr>
+	
+	<tr label="16" preset="w2" postset="w2DoneAck">
+		guard(doneReq == 1);
+		delay(0, inf);
+		doneAck = 1;
+	</tr>
+	
+	<tr label="17" preset="w2DoneAck" postset="p61">
+		guard(doneReq == 0 && doneAck == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="18" preset="p61" postset="p61Ack0">
+		guard(i == 0 && read_0Req == 1);
+		delay(0, inf);
+		read_0Ack = 1;
+	</tr>
+	
+	<tr label="19" preset="p61Ack0" postset="p5">
+		guard(i == 0 && read_0Req == 0 && read_0Ack == 1);
+		delay(0, inf);
+		v = read_0Val;
+		read_0Ack = 0;
+	</tr>
+	
+	<tr label="20" preset="p61" postset="p61Ack1">
+		guard(i == 1 && read_1Req == 1);
+		delay(0, inf);
+		read_1Ack = 1;
+	</tr>
+	
+	<tr label="21" preset="p61Ack1" postset="p5">
+		guard(i == 1 && read_1Req == 0 && read_1Ack == 1);
+		delay(0, inf);
+		v = read_1Val;
+		read_1Ack = 0;
+	</tr>
+	
+	<tr label="22" preset="p61" postset="p61Ack2">
+		guard(i == 2 && read_2Req == 1);
+		delay(0, inf);
+		read_2Ack = 1;
+	</tr>
+	
+	<tr label="23" preset="p61Ack2" postset="p5">
+		guard(i == 2 && read_2Req == 0 && read_2Ack == 1);
+		delay(0, inf);
+		v = read_2Val;
+		read_2Ack = 0;
+	</tr>
+	
+	<tr label="24" preset="p8" postset="p8Ack0">
+		guard(i == 0 && read_0Req == 1);
+		delay(0, inf);
+		read_0Ack = 1;
+	</tr>
+	
+	<tr label="25" preset="p8Ack0" postset="p9">
+		guard(i == 0 && read_0Req == 0 && read_0Ack == 1);
+		delay(0, inf);
+		v = read_0Val;
+		read_0Ack = 0;
+	</tr>
+	
+	<tr label="26" preset="p8" postset="p8Ack1">
+		guard(i == 1 && read_1Req == 1);
+		delay(0, inf);
+		read_1Ack = 1;
+	</tr>
+	
+	<tr label="27" preset="p8Ack1" postset="p9">
+		guard(i == 1 && read_1Req == 0 && read_1Ack == 1);
+		delay(0, inf);
+		v = read_1Val;
+		read_1Ack = 0;
+	</tr>
+	
+	<tr label="28" preset="p8" postset="p8Ack2">
+		guard(i == 2 && read_2Req == 1);
+		delay(0, inf);
+		read_2Ack = 1;
+	</tr>
+	
+	<tr label="29" preset="p8Ack2" postset="p9">
+		guard(i == 2 && read_2Req == 0 && read_2Ack == 1);
+		delay(0, inf);
+		v = read_2Val;
+		read_2Ack = 0;
+	</tr>
+	
+	<tr label="30" preset="p9" postset="p9Ack0">
+		guard(v == 1 && i == 0 && read_0Req == 1);
+		delay(0, inf);
+		read_0Ack = 1;
+	</tr>
+	
+	<tr label="31" preset="p9Ack0" postset="p9">
+		guard(v == 1 && i == 0 && read_0Req == 0 && read_0Ack == 1);
+		delay(0, inf);
+		v = read_0Val;
+		read_0Ack = 0;
+	</tr>
+	
+	<tr label="32" preset="p9" postset="p9Ack1">
+		guard(v == 1 && i == 1 && read_1Req == 1);
+		delay(0, inf);
+		read_1Ack = 1;
+	</tr>
+	
+	<tr label="33" preset="p9Ack1" postset="p9">
+		guard(v == 1 && i == 1 && read_1Req == 0 && read_1Ack == 1);
+		delay(0, inf);
+		v = read_1Val;
+		read_1Ack = 0;
+	</tr>
+	
+	<tr label="34" preset="p9" postset="p9Ack2">
+		guard(v == 1 && i == 2 && read_2Req == 1);
+		delay(0, inf);
+		read_2Ack = 1;
+	</tr>
+	
+	<tr label="35" preset="p9Ack2" postset="p9">
+		guard(v == 1 && i == 2 && read_2Req == 0 && read_2Ack == 1);
+		delay(0, inf);
+		v = read_2Val;
+		read_2Ack = 0;
+	</tr>
+	
+	<tr label="36" preset="p9" postset="p8">
+		guard(v == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="37" preset="p8" postset="CS">
+		guard(i == 3);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="38" preset="CS" postset="CSWriteReq">
+		guard(writeReq == 0 && writeAck == 0);
+		delay(0, inf);
+		writeReq = 1;
+		writeVal = 0;
+	</tr>
+	
+	<tr label="39" preset="CSWriteReq" postset="w3">
+		guard(writeReq == 1 && writeAck == 1);
+		delay(0, inf);
+		writeReq = 0;
+	</tr>
+	
+	<tr label="40" preset="w3" postset="w3DoneAck">
+		guard(doneReq == 1);
+		delay(0, inf);
+		doneAck = 1;
+	</tr>
+	
+	<tr label="41" preset="w3DoneAck" postset="NCS">
+		guard(doneReq == 0 && doneAck == 1);
+		delay(0, inf);
+	</tr>
+	
+</class>
+	

@@ -1,0 +1,468 @@
+<main>
+	<const>
+		sinChannelIndex = 0;
+		soutChannelIndex = 1;
+		toKChannelIndex = 2;
+		fromKChannelIndex = 3;
+		toLChannelIndex = 4;
+		fromLChannelIndex = 5;
+		timeoutChannelIndex = 6;
+		routChannelIndex = 7;
+		shakeChannelIndex = 8;
+		shakePCChannelIndex = 9;
+	</const>
+
+	<var>
+		activeChan = 0;
+		prod_n = 0;
+	</var>
+	
+	Producer p(activeChan, soutChannelIndex, sinChannelIndex, s.n, s.SinAckReady, shakePCChannelIndex, c.ShakePCAckReady, prod_n);
+	Consumer c(activeChan, routChannelIndex, shakePCChannelIndex, prod_n);
+	Sender s(activeChan, sinChannelIndex, toKChannelIndex, KChan.value, KChan.toKAckReady, fromLChannelIndex, soutChannelIndex, p.result, p.SoutAckReady, shakeChannelIndex, re.shakeAckReady, timeoutChannelIndex);
+	
+	Receiver re(activeChan, fromKChannelIndex, shakeChannelIndex, routChannelIndex, c.mVar, c.RoutAckReady, toLChannelIndex, LChan.toLAckReady);
+	
+	K KChan(activeChan, toKChannelIndex, timeoutChannelIndex, s.timeoutAckReady, fromKChannelIndex, re.fromKAckReady, re.value);
+	L LChan(activeChan, toLChannelIndex, fromLChannelIndex, s.fromLAckReady, timeoutChannelIndex, s.timeoutAckReady);
+</main>
+
+<class name="Producer" arg="activeChan, SoutChannelIndex, SinChannelIndex, SinVar, SinAckReady, ShakePCChannelIndex, ShakePCAckReady, prod_n">
+	<const>
+		ready = 0;
+		start_send = 1;
+		wait_result = 2;
+		check = 3;
+	</const>
+
+	<var>
+		result = 0;
+		n = 0;
+		
+		SoutAckReady = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+
+	<tr label="0" preset="ready" postset="start_send">
+		guard(activeChan == 0);
+		delay(0, inf);
+		prod_n = 1;
+	</tr>
+
+	<tr label="1" preset="ready" postset="start_send">
+		guard(activeChan == 0);
+		delay(0, inf);
+		prod_n = 2;
+	</tr>
+
+	<tr label="2" preset="ready" postset="start_send">
+		guard(activeChan == 0);
+		delay(0, inf);
+		prod_n = 3;
+	</tr>
+
+	<tr label="5" preset="start_send" postset="wait_result">
+		guard(activeChan == 0 && SinAckReady > 0);
+		delay(0, inf);
+		activeChan = SinChannelIndex;
+		SinVar = prod_n;
+		SoutAckReady = SoutAckReady + 1;
+	</tr>
+
+	<tr label="6" preset="wait_result" postset="check">
+		guard(activeChan == SoutChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		SoutAckReady = SoutAckReady - 1;
+	</tr>
+	
+	<tr label="7" preset="check" postset="ready">
+		guard(result == 1 && activeChan == 0 && ShakePCAckReady > 0);
+		delay(0, inf);
+		activeChan = ShakePCChannelIndex;
+	</tr>
+	
+	<tr label="8" preset="check" postset="start_send">
+		guard(activeChan == 0 &&(result == 2 || result == 3));
+		delay(0, inf);
+	</tr>
+</class>
+
+<class name="Consumer" arg="activeChan, RoutChannelIndex, ShakePCChannelIndex, prod_n">
+	<const>
+		ready = 0;
+		get_msg = 1;
+		check = 2;
+		st_error = 3;
+	</const>
+	
+	<var>
+		mVar = 0;
+		n = 0;
+	
+		RoutAckReady = 1;
+		ShakePCAckReady = 0;
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="get_msg">
+		guard(activeChan == RoutChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		RoutAckReady = RoutAckReady - 1;
+		n = n + 1;
+		
+	</tr>
+	
+	<tr label="1" preset="get_msg" postset="ready">
+		guard((mVar == 4 || mVar == 5) && activeChan == 0);
+		delay(0, inf);
+		RoutAckReady = RoutAckReady + 1;
+	</tr>
+	
+	<tr label="2" preset="get_msg" postset="ready">
+		guard(mVar == 2 && activeChan == 0);
+		delay(0, inf);
+		RoutAckReady = RoutAckReady + 1;
+		n = 0;
+	</tr>
+	
+	<tr label="3" preset="get_msg" postset="check">
+		guard(mVar == 1 && activeChan == 0);
+		delay(0, inf);
+		ShakePCAckReady = ShakePCAckReady + 1;
+	</tr>
+	
+	<tr label="4" preset="check" postset="ready">
+		guard(n == prod_n && activeChan == ShakePCChannelIndex);
+		delay(0, inf);
+		RoutAckReady = RoutAckReady + 1;
+		activeChan = 0;
+		ShakePCAckReady = ShakePCAckReady - 1;
+	</tr>
+	
+	<tr label="5" preset="check" postset="st_error">
+		guard(n != prod_n && activeChan == 0);
+		delay(0, inf);
+	</tr>
+</class>
+
+<class name="Sender" arg="activeChan, SinChannelIndex, toKChannelIndex, toKVar, toKAckReady, FromLChannelIndex, SoutChannelIndex, SoutVar, SoutAckReady, ShakeChannelIndex, ShakeAckReady, timeoutChannelIndex">
+	<const>
+		idle = 0;
+		next_frame = 1;
+		wait_ack = 2;
+		send = 3;
+		success = 4;
+		q_error = 5;
+		ret = 6;
+	</const>
+	
+	<var>
+		ab = 0;
+		n = 0;
+		i = 0;
+		counter = 0;
+
+		SinAckReady = 1;
+		fromLAckReady = 0;
+		timeoutAckReady = 0;
+	</var>
+	
+	<m>
+		idle
+	</m>
+	
+	<tr label="0" preset="idle" postset="next_frame">
+		guard(activeChan == SinChannelIndex);
+		delay(0, inf);
+		i = 1;
+		SinAckReady = SinAckReady - 1;
+	</tr>
+	
+	<tr label="1" preset="next_frame" postset="send">
+		guard(activeChan == 0);
+		delay(0, inf);
+		counter = 0;
+	</tr>
+	
+	<tr label="2" preset="send" postset="wait_ack">
+		guard(activeChan == 0 && i == 1 && i == n && toKAckReady > 0);
+		delay(0, inf);
+		toKVar = 4 + 2 + ab;
+		fromLAckReady = fromLAckReady + 1;
+		timeoutAckReady = timeoutAckReady + 1;
+		activeChan = toKChannelIndex;
+	</tr>
+
+	<tr label="3" preset="send" postset="wait_ack">
+		guard(activeChan == 0 && i > 1 && i == n && toKAckReady > 0);
+		delay(0, inf);
+		toKVar = 2 + ab;
+		fromLAckReady = fromLAckReady + 1;
+		timeoutAckReady = timeoutAckReady + 1;
+		activeChan = toKChannelIndex;
+	</tr>
+
+	<tr label="4" preset="send" postset="wait_ack">
+		guard(activeChan == 0 && i == 1 && i < n && toKAckReady > 0);
+		delay(0, inf);
+		toKVar = 4 + ab;
+		fromLAckReady = fromLAckReady + 1;
+		timeoutAckReady = timeoutAckReady + 1;
+		activeChan = toKChannelIndex;
+	</tr>
+
+	<tr label="5" preset="send" postset="wait_ack">
+		guard(activeChan == 0 && i > 1 && i < n && toKAckReady > 0);
+		delay(0, inf);
+		toKVar = ab;
+		fromLAckReady = fromLAckReady + 1;
+		timeoutAckReady = timeoutAckReady + 1;
+		activeChan = toKChannelIndex;
+	</tr>
+	
+	<tr label="6" preset="wait_ack" postset="success">
+		guard(activeChan == FromLChannelIndex);
+		delay(0, inf);
+		ab = 1 - ab;
+		activeChan = 0;
+		fromLAckReady = fromLAckReady - 1;
+		timeoutAckReady = timeoutAckReady - 1;
+	</tr>
+	
+	<tr label="7" preset="wait_ack" postset="q_error">
+		guard(activeChan == timeoutChannelIndex && counter == 5);
+		delay(0, inf);
+		activeChan = 0;
+		fromLAckReady = fromLAckReady - 1;
+		timeoutAckReady = timeoutAckReady - 1;
+	</tr>
+	
+	<tr label="8" preset="wait_ack" postset="send">
+		guard(counter < 5 && activeChan == timeoutChannelIndex);
+		delay(0, inf);
+		counter = counter+1;
+		activeChan = 0;
+		fromLAckReady = fromLAckReady - 1;
+		timeoutAckReady = timeoutAckReady - 1;
+	</tr>
+	
+	<tr label="9" preset="success" postset="next_frame">
+		guard( i < n && activeChan == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="10" preset="success" postset="ret">
+		guard( i == n && activeChan == 0 && SoutAckReady > 0);
+		delay(0, inf);
+		activeChan = SoutChannelIndex;
+		SoutVar = 1;
+	</tr>
+	
+	<tr label="11" preset="q_error" postset="ret">
+		guard(i < n && activeChan == 0 && SoutAckReady > 0);
+		delay(0, inf);
+		activeChan = SoutChannelIndex;
+		SoutVar = 2;
+	</tr>
+	
+	<tr label="12" preset="q_error" postset="ret">
+		guard( i == n && activeChan == 0 && SoutAckReady > 0);
+		delay(0, inf);
+		activeChan = SoutChannelIndex;
+		SoutVar = 3;
+	</tr>
+	
+	<tr label="13" preset="ret" postset="idle">
+		guard(activeChan == 0 && ShakeAckReady > 0);
+		delay(0, inf);
+		activeChan = ShakeChannelIndex;
+		SinAckReady = SinAckReady + 1;
+	</tr>
+</class>
+
+<class name="Receiver" arg="activeChan, fromKChannelIndex, shakeChannelIndex, routChannelIndex, routVar, routAckReady, toLChannelIndex, toLAckReady">
+	<const>
+		idle = 0;
+		new_file = 1;
+		frame_received = 2;
+		frame_reported = 3;
+		first_safe = 4;
+		ret = 5;
+	</const>
+	
+	<var>
+		value = 0;
+		exp_ab = 0;
+
+		fromKAckReady = 1;
+		shakeAckReady = 0;
+	</var>
+	
+	<m>
+		new_file
+	</m>
+	
+	<tr label="0" preset="new_file" postset="first_safe">
+		guard(activeChan == fromKChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		fromKAckReady = fromKAckReady - 1;
+	</tr>
+	
+	<tr label="1" preset="first_safe" postset="frame_received">
+		guard(activeChan == 0);
+		delay(0, inf);
+		exp_ab = (value & 1);
+	</tr>
+	
+	<tr label="2" preset="frame_received" postset="frame_reported">
+		guard( (value & 1) == exp_ab && (value & 2) == 2 && activeChan == 0 && routAckReady > 0);
+		delay(0, inf);
+		activeChan = routChannelIndex;
+		routVar = 1;
+	</tr>
+	
+	<tr label="3" preset="frame_received" postset="frame_reported">
+		guard((value & 1) == exp_ab && ((value & 2) == 0) && ((value&4) == 0) && activeChan == 0&& routAckReady > 0);
+		delay(0, inf);
+		activeChan = routChannelIndex;
+		routVar = 5;
+	</tr>
+	
+	<tr label="4" preset="frame_received" postset="frame_reported">
+		guard((value & 1) == exp_ab && ((value & 2) == 0) && ((value&4) == 4) && activeChan == 0 && routAckReady > 0);
+		delay(0, inf);
+		activeChan = routChannelIndex;
+		routVar = 4;
+	</tr>
+	
+	<tr label="5" preset="frame_received" postset="idle">
+		guard(exp_ab != (value & 1) && activeChan == 0 && toLAckReady > 0);
+		delay(0, inf);
+		activeChan =toLChannelIndex;
+		fromKAckReady = fromKAckReady + 1;
+	</tr>
+	
+	<tr label="6" preset="frame_reported" postset="idle">
+		guard(activeChan == 0 && toLAckReady > 0);
+		delay(0, inf);
+		activeChan = toLChannelIndex;
+		exp_ab = 1 - exp_ab;
+	</tr>
+	
+	<tr label="7" preset="idle" postset="frame_received">
+		guard(activeChan == fromKChannelIndex);
+		delay(0, inf);
+		fromKAckReady = fromKAckReady - 1;
+	</tr>
+	
+	<tr label="8" preset="idle" postset="ret">
+		guard((value & 2) == 2);
+		delay(0, inf);
+		shakeAckReady = shakeAckReady + 1;
+	</tr>
+	
+	<tr label="9" preset="idle" postset="ret">
+		guard(activeChan == 0 &&  routAckReady > 0);
+		delay(0, inf);
+		activeChan = routChannelIndex;
+		routVar = 2;
+		shakeAckReady = shakeAckReady + 1;
+	</tr>
+	
+	<tr label="10" preset="ret" postset="new_file">
+		guard(activeChan == shakeChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		fromKAckReady = fromKAckReady + 1;
+	</tr>
+	
+	<tr label="11" preset="new_file" postset="new_file">
+		guard(activeChan == shakeChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		shakeAckReady = shakeAckReady - 1;
+	</tr>
+</class>
+
+<class name="K" arg="activeChan, toKChannelIndex, timeoutChannelIndex, timeoutAckReady, fromKChannelIndex, fromKAckReady, fromKVar">
+	<const>
+		ready = 0;
+		got_msg = 1;
+	</const>
+
+	<var>
+		value = 0;
+		toKAckReady = 1;
+	</var>
+	
+	<m>
+		ready
+	</m>
+	
+	<tr label="0" preset="ready" postset="got_msg">
+		guard(activeChan == toKChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		toKAckReady = toKAckReady - 1;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="ready">
+		guard(activeChan == 0);
+		activeChan = timeoutChannelIndex;
+		toKAckReady = toKAckReady + 1;
+	</tr>
+	
+	<tr label="2" preset="got_msg" postset="ready">
+		guard(activeChan == 0);
+		delay(0, inf);
+		activeChan = fromKChannelIndex;
+		fromKVar = value;
+		toKAckReady = toKAckReady - 1;
+	</tr>
+</class>
+
+<class name="L" arg="activeChan, toLChannelIndex, fromLChannelIndex, fromLAckReady, timeoutChannelIndex, timeoutAckReady">
+	<const>
+		ready = 0;
+		got_msg = 1;
+	</const>
+	
+	<var>
+		toLAckReady = 1;
+	</var>
+
+	<m>
+		ready
+	</m>	
+	
+	<tr label="0" preset="ready" postset="got_msg">
+		guard(activeChan == toLChannelIndex);
+		delay(0, inf);
+		activeChan = 0;
+		toLAckReady = toLAckReady - 1;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="ready">
+		guard(activeChan == 0);
+		delay(0, inf);
+		activeChan = fromLChannelIndex;
+		toLAckReady = toLAckReady + 1;
+	</tr>
+	
+	<tr label="2" preset="got_msg" postset="ready">
+		guard(activeChan == 0);
+		delay(0, inf);
+		activeChan = timeoutChannelIndex;
+		toLAckReady = toLAckReady + 1;
+	</tr>
+</class>

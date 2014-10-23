@@ -1,0 +1,101 @@
+<main>
+	<var>
+		next[3] = { 255, 255, 255};
+		locked[3];
+`		tail = 255;
+	</var>
+
+	Proc p0(0, next, locked, tail);
+	Proc p1(1, next, locked, tail);
+	Proc p2(2, next, locked, tail);
+</main>
+
+<class name="Proc" arg="myValue, next[3], locked[3], tail">
+	<const>
+		NCS = 0;
+		p2 = 1;
+		p3 = 2;
+		p4 = 3;
+		p5 = 4;
+		p6 = 5;
+		CS = 6;
+		p9 = 7;
+		p13 = 8;
+		p10 = 9;
+	</const>
+
+	<var>
+		pred = 0;
+	</var>
+
+	<m>
+		NCS	
+	</m>
+
+	<tr label="0" preset="NCS" postset="p2">
+		delay(0, inf);
+		next[myValue] = 255;
+	</tr>
+
+	<tr label="1" preset="p2" postset="p3">
+		delay(0, inf);
+		pred = tail;
+		tail = myValue;
+	</tr>
+
+	<tr label="2" preset="p3" postset="CS">
+		guard(pred == 255);
+		delay(0, inf);
+	</tr>
+
+	<tr label="3" preset="p3" postset="p4">
+		guard(pred != 255);
+		delay(0, inf);
+	</tr>
+
+	<tr label="4" preset="p4" postset="p5">
+		delay(0, inf);
+		locked[myValue] = 1;
+	</tr>
+
+	<tr label="5" preset="p5" postset="p6">
+		delay(0, inf);		
+		next[pred] = myValue;
+	</tr>
+	
+	<tr label="6" preset="p6" postset="CS">
+		guard(locked[myValue] = 0);
+		delay(0, inf);
+	</tr>
+
+	<tr label="7" preset="CS" postset="p9">
+		guard(next[myValue] == 255);
+		delay(0, inf);
+	</tr>
+
+	<tr label="8" preset="CS" postset="p13">
+		guard(next[myValue] != 255);
+		delay(0, inf);
+	</tr>
+
+	<tr label="9" preset="p9" postset="NCS">
+		guard(tail == myValue);
+		delay(0, inf);
+		tail = 255;
+	</tr>
+
+	<tr label="10" preset="p9" postset="p10">
+		guard(tail != myValue);
+		delay(0, inf);
+	</tr>
+
+	<tr label="11" preset="p10" postset="p13">
+		guard(next[myValue] != 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="12" preset="p13" postset="NCS">
+		delay(0, inf);
+		locked[myValue] = 0;
+	</tr>
+</class>

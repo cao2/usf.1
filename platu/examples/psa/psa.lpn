@@ -1,0 +1,93 @@
+// Process scheduling algorithm from paper "The Model Checker SPIN"
+
+<mod name="client">
+	<input>  r_lock, state </input>
+	<output> lk, r_lock, state </output>
+
+	<const> sleep = 0; progess = 3; </const>
+
+        <marking> sleep </marking>
+        <statevector>
+          lk = 0;
+          r_lock = 0;
+	  state = running;
+        </statevector>
+
+        <transition label="1" preset=sleep postset="1">
+          true;
+          (0, inf);
+          lk = lk==0 ? 1 : lk;
+        </transition>
+        <transition label="2" preset="1" postset="2">
+          r_lock == 1;
+          (0, inf);
+	  r_want = 1;
+	  state = wakeme;
+	  lk = 0;
+        </transition>
+	<transition label="3" preset="2" postset="1">
+          state==running;
+          (0, inf);
+        </transition>
+        <transition label="4" preset="1" postset=progess>
+          r_lock == 0;
+          (0, inf);
+        </transition>
+        <transition label="5" preset=progress postset=sleep>
+          true;
+          (0, inf);
+	  assert(r_lock==0);
+	  r_lock = 1;
+	  lk = 0;
+        </transition>
+</mod>
+
+<mod name="server">
+	<input> lk, r_want, state </input>
+	<output> r_want, state </output>
+	<var> sleep_q </var>
+
+	<const> wakeup = 0; </const>
+
+        <marking> wakeup </marking>
+        <statevector>
+          lk = 0;
+          r_want = 0;
+          state = running;
+	  sleep_q = 0;
+        </statevector>
+
+        <transition label="1" preset=wakeup postset="1">
+          true;
+          (0, inf);
+          r_lock = 0;
+        </transition>
+        <transition label="2" preset="1" postset="2">
+	  lk==0;
+	  (0, inf);
+	</transition>
+        <transition label="3" preset="2" postset="3">
+          r_want != 0;
+          (0, inf);
+          sleep_q = (sleep_q==0) ? 1 : sleep_q;
+	  r_want = 0;
+        </transition>
+	<transition label="4" preset="2" postset=wakeup>
+          r_want == 0;
+          (0, inf);
+        </transition>
+        <transition label="5" preset="3" postset="4">
+          state==wakeme;
+          (0, inf);
+          state = running;
+        </transition>
+        <transition label="6" preset="3" postset="4">
+          state!=wakeme;
+          (0, inf);
+        </transition>
+	<transition label="7" preset="4" postset=wakeip>
+          true;
+          (0, inf);
+	  sleep_q = 0;
+        </transition>
+</mod>

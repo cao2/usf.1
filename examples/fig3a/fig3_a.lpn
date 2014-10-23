@@ -1,0 +1,35 @@
+<mod name="m1">    
+	<input> z </input>
+	<output> y </output>
+	<var> u </var>
+
+        <marking> 1, 2</marking>
+        <statevector>
+            u = 1;
+            y = 0;
+        </statevector>
+
+        <transition label="1" preset="1" postset="1"  >
+            z && u;
+            (0, inf);
+            u = 0;
+        </transition>
+
+        <transition label="2" preset="1" postset="1"  >
+            !z && !u;
+            (0, inf);
+            u = 1;
+        </transition>
+
+        <transition label="3" preset="2" postset="2"  >
+            u && y;
+            (0, inf);
+            y = 0;
+        </transition>
+
+        <transition label="4" preset="2" postset="2"  >
+            !u && !y;
+            (0, inf);
+            y = 1;
+        </transition>
+</mod>

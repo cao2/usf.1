@@ -1,0 +1,294 @@
+10
+
+dir
+0
+http://kiwi.csee.usf.edu/svn/platu/examples
+http://kiwi.csee.usf.edu/svn/platu
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+f34a7c0a-5553-4d5f-a8db-4a00ba0c3344
+
+DinningPhil
+dir
+
+
+
+add
+
+DinningPhil.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+GermanABS
+dir
+
+
+
+add
+
+NoC
+dir
+
+
+
+add
+
+arb1
+dir
+
+
+
+add
+
+arbN3
+dir
+
+
+
+add
+
+arbN3.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+bakery
+dir
+
+
+
+add
+
+bakery.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+brp-1
+dir
+
+
+
+add
+
+dinningPhil_shared
+dir
+
+
+
+add
+
+dme
+dir
+
+
+
+add
+
+dme2
+dir
+
+
+
+add
+
+dme3
+dir
+
+
+
+add
+
+dme4
+dir
+
+
+
+add
+
+dmeN3
+dir
+
+
+
+add
+
+dmeN4
+dir
+
+
+
+add
+
+fifoN3
+dir
+
+
+
+add
+
+fig3a
+dir
+
+
+
+add
+
+fig3a.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+mmu
+dir
+
+
+
+add
+
+mmu.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+myersbook-fig7-21
+dir
+
+
+
+add
+
+myersbook-fig7-34
+dir
+
+
+
+add
+
+pipectrl
+dir
+
+
+
+add
+
+psa
+dir
+
+
+
+add
+
+senderReceiver
+dir
+
+
+
+add
+
+stari
+dir
+
+
+
+add
+
+sunfifo
+dir
+
+
+
+add
+
+tagunit
+dir
+
+
+
+add
+
+tagunit.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+wine
+dir
+
+
+
+add
+

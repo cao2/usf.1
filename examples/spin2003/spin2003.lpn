@@ -1,0 +1,45 @@
+<main>
+	<var>
+		mutex	= 0;
+		x	= 1;
+	</var>
+
+	thread t1(1, mutex, x);
+	thread t2(2, mutex, x);
+</main>
+
+<class name="thread" arg="tid, mutex, x">
+	<const>
+		q0 = 0;
+		q1 = 1;
+		q2 = 2;	
+		q3 = 3;
+		q4 = 4;
+	</const>
+
+	<m>
+		q0
+	</m>
+
+	<tr label="0" preset="q0" postset="q1">
+		guard (mutex == 0);
+		mutex 	= tid;
+	</tr>
+
+	<tr label="1" preset="q1" postset="q2">
+		x	= 0;
+	</tr>
+	<tr label="2" preset="q2" postset="q3">
+		x	= x + 1;
+	</tr>
+
+	<tr label="3" preset="q3" postset="q4">
+		assert (x >= 1);
+	</tr>
+	<tr label="4" preset="q4" postset="q0">
+		mutex	= 0;
+	</tr>
+</class>
+
+
+

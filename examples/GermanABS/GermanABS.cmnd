@@ -1,0 +1,3 @@
+readlpn examples/GermanABS/GermanABS.lpn
+findsg GermanABS
+quit

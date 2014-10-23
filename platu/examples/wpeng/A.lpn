@@ -1,0 +1,3797 @@
+<main>
+	A_0 A0(A2.xr2, A1.xr1);
+	A_1 A1(A0.xr2, A2.xr1);
+	A_2 A2(A1.xr2, A0.xr1);
+</main>
+<class name="A_0" arg="ir1, ir2">
+	<var> xr1=5; xr2=3; </var>
+	<m> 53 </m>
+	<tr label="325122" preset="32" postset="22">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325222" preset="32" postset="22">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325322" preset="32" postset="22">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325422" preset="32" postset="22">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325522" preset="32" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326122" preset="32" postset="22">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326222" preset="32" postset="22">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326322" preset="32" postset="22">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326422" preset="32" postset="22">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326522" preset="32" postset="22">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="321132" preset="32" postset="32">
+		guard(ir1==1 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321232" preset="32" postset="32">
+		guard(ir1==1 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321332" preset="32" postset="32">
+		guard(ir1==1 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321432" preset="32" postset="32">
+		guard(ir1==1 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321532" preset="32" postset="32">
+		guard(ir1==1 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322132" preset="32" postset="32">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322232" preset="32" postset="32">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322332" preset="32" postset="32">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322432" preset="32" postset="32">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322532" preset="32" postset="32">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323132" preset="32" postset="32">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323232" preset="32" postset="32">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323332" preset="32" postset="32">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323432" preset="32" postset="32">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323532" preset="32" postset="32">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324132" preset="32" postset="32">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324232" preset="32" postset="32">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324332" preset="32" postset="32">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324432" preset="32" postset="32">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324532" preset="32" postset="32">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321631" preset="32" postset="31">
+		guard(ir1==1 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="322631" preset="32" postset="31">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="323631" preset="32" postset="31">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="324631" preset="32" postset="31">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="325621" preset="32" postset="21">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="326621" preset="32" postset="21">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211121" preset="21" postset="21">
+		guard(ir1==1 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211221" preset="21" postset="21">
+		guard(ir1==1 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211321" preset="21" postset="21">
+		guard(ir1==1 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211421" preset="21" postset="21">
+		guard(ir1==1 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211521" preset="21" postset="21">
+		guard(ir1==1 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211621" preset="21" postset="21">
+		guard(ir1==1 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212121" preset="21" postset="21">
+		guard(ir1==2 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212221" preset="21" postset="21">
+		guard(ir1==2 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212321" preset="21" postset="21">
+		guard(ir1==2 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212421" preset="21" postset="21">
+		guard(ir1==2 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212521" preset="21" postset="21">
+		guard(ir1==2 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212621" preset="21" postset="21">
+		guard(ir1==2 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213121" preset="21" postset="21">
+		guard(ir1==3 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213221" preset="21" postset="21">
+		guard(ir1==3 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213321" preset="21" postset="21">
+		guard(ir1==3 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213421" preset="21" postset="21">
+		guard(ir1==3 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213521" preset="21" postset="21">
+		guard(ir1==3 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213621" preset="21" postset="21">
+		guard(ir1==3 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214121" preset="21" postset="21">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214221" preset="21" postset="21">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214321" preset="21" postset="21">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214421" preset="21" postset="21">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214521" preset="21" postset="21">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214621" preset="21" postset="21">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215121" preset="21" postset="21">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215221" preset="21" postset="21">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215321" preset="21" postset="21">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215421" preset="21" postset="21">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215521" preset="21" postset="21">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215621" preset="21" postset="21">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216121" preset="21" postset="21">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216221" preset="21" postset="21">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216321" preset="21" postset="21">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216421" preset="21" postset="21">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216521" preset="21" postset="21">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216621" preset="21" postset="21">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="535232" preset="53" postset="32">
+		guard(ir1==5 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="535332" preset="53" postset="32">
+		guard(ir1==5 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="535432" preset="53" postset="32">
+		guard(ir1==5 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="535532" preset="53" postset="32">
+		guard(ir1==5 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="535632" preset="53" postset="32">
+		guard(ir1==5 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="536232" preset="53" postset="32">
+		guard(ir1==6 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="536332" preset="53" postset="32">
+		guard(ir1==6 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="536432" preset="53" postset="32">
+		guard(ir1==6 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="536532" preset="53" postset="32">
+		guard(ir1==6 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="536632" preset="53" postset="32">
+		guard(ir1==6 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="531242" preset="53" postset="42">
+		guard(ir1==1 && ir2==2);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="531342" preset="53" postset="42">
+		guard(ir1==1 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="531442" preset="53" postset="42">
+		guard(ir1==1 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="531542" preset="53" postset="42">
+		guard(ir1==1 && ir2==5);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="531642" preset="53" postset="42">
+		guard(ir1==1 && ir2==6);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="532242" preset="53" postset="42">
+		guard(ir1==2 && ir2==2);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="532342" preset="53" postset="42">
+		guard(ir1==2 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="532442" preset="53" postset="42">
+		guard(ir1==2 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="532542" preset="53" postset="42">
+		guard(ir1==2 && ir2==5);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="532642" preset="53" postset="42">
+		guard(ir1==2 && ir2==6);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="533242" preset="53" postset="42">
+		guard(ir1==3 && ir2==2);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="533342" preset="53" postset="42">
+		guard(ir1==3 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="533442" preset="53" postset="42">
+		guard(ir1==3 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="533542" preset="53" postset="42">
+		guard(ir1==3 && ir2==5);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="533642" preset="53" postset="42">
+		guard(ir1==3 && ir2==6);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="534242" preset="53" postset="42">
+		guard(ir1==4 && ir2==2);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="534342" preset="53" postset="42">
+		guard(ir1==4 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="534442" preset="53" postset="42">
+		guard(ir1==4 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="534542" preset="53" postset="42">
+		guard(ir1==4 && ir2==5);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="534642" preset="53" postset="42">
+		guard(ir1==4 && ir2==6);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="531143" preset="53" postset="43">
+		guard(ir1==1 && ir2==1);
+		xr1=4;
+		xr2=3;
+	</tr>
+	<tr label="532143" preset="53" postset="43">
+		guard(ir1==2 && ir2==1);
+		xr1=4;
+		xr2=3;
+	</tr>
+	<tr label="533143" preset="53" postset="43">
+		guard(ir1==3 && ir2==1);
+		xr1=4;
+		xr2=3;
+	</tr>
+	<tr label="534143" preset="53" postset="43">
+		guard(ir1==4 && ir2==1);
+		xr1=4;
+		xr2=3;
+	</tr>
+	<tr label="535133" preset="53" postset="33">
+		guard(ir1==5 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="536133" preset="53" postset="33">
+		guard(ir1==6 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="411141" preset="41" postset="41">
+		guard(ir1==1 && ir2==1);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="411241" preset="41" postset="41">
+		guard(ir1==1 && ir2==2);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="411341" preset="41" postset="41">
+		guard(ir1==1 && ir2==3);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="411441" preset="41" postset="41">
+		guard(ir1==1 && ir2==4);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="411541" preset="41" postset="41">
+		guard(ir1==1 && ir2==5);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="411641" preset="41" postset="41">
+		guard(ir1==1 && ir2==6);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="412141" preset="41" postset="41">
+		guard(ir1==2 && ir2==1);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="412241" preset="41" postset="41">
+		guard(ir1==2 && ir2==2);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="412341" preset="41" postset="41">
+		guard(ir1==2 && ir2==3);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="412441" preset="41" postset="41">
+		guard(ir1==2 && ir2==4);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="412541" preset="41" postset="41">
+		guard(ir1==2 && ir2==5);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="412641" preset="41" postset="41">
+		guard(ir1==2 && ir2==6);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="413141" preset="41" postset="41">
+		guard(ir1==3 && ir2==1);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="413241" preset="41" postset="41">
+		guard(ir1==3 && ir2==2);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="413341" preset="41" postset="41">
+		guard(ir1==3 && ir2==3);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="413441" preset="41" postset="41">
+		guard(ir1==3 && ir2==4);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="413541" preset="41" postset="41">
+		guard(ir1==3 && ir2==5);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="413641" preset="41" postset="41">
+		guard(ir1==3 && ir2==6);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="414131" preset="41" postset="31">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="414231" preset="41" postset="31">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="414331" preset="41" postset="31">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="414431" preset="41" postset="31">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="414531" preset="41" postset="31">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="414631" preset="41" postset="31">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="415131" preset="41" postset="31">
+		guard(ir1==5 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="415231" preset="41" postset="31">
+		guard(ir1==5 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="415331" preset="41" postset="31">
+		guard(ir1==5 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="415431" preset="41" postset="31">
+		guard(ir1==5 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="415531" preset="41" postset="31">
+		guard(ir1==5 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="415631" preset="41" postset="31">
+		guard(ir1==5 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="416131" preset="41" postset="31">
+		guard(ir1==6 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="416231" preset="41" postset="31">
+		guard(ir1==6 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="416331" preset="41" postset="31">
+		guard(ir1==6 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="416431" preset="41" postset="31">
+		guard(ir1==6 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="416531" preset="41" postset="31">
+		guard(ir1==6 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="416631" preset="41" postset="31">
+		guard(ir1==6 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311131" preset="31" postset="31">
+		guard(ir1==1 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311231" preset="31" postset="31">
+		guard(ir1==1 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311331" preset="31" postset="31">
+		guard(ir1==1 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311431" preset="31" postset="31">
+		guard(ir1==1 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311531" preset="31" postset="31">
+		guard(ir1==1 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311631" preset="31" postset="31">
+		guard(ir1==1 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312131" preset="31" postset="31">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312231" preset="31" postset="31">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312331" preset="31" postset="31">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312431" preset="31" postset="31">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312531" preset="31" postset="31">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312631" preset="31" postset="31">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313131" preset="31" postset="31">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313231" preset="31" postset="31">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313331" preset="31" postset="31">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313431" preset="31" postset="31">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313531" preset="31" postset="31">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313631" preset="31" postset="31">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314131" preset="31" postset="31">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314231" preset="31" postset="31">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314331" preset="31" postset="31">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314431" preset="31" postset="31">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314531" preset="31" postset="31">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314631" preset="31" postset="31">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315131" preset="31" postset="31">
+		guard(ir1==5 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315231" preset="31" postset="31">
+		guard(ir1==5 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315331" preset="31" postset="31">
+		guard(ir1==5 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315431" preset="31" postset="31">
+		guard(ir1==5 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315531" preset="31" postset="31">
+		guard(ir1==5 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315631" preset="31" postset="31">
+		guard(ir1==5 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316131" preset="31" postset="31">
+		guard(ir1==6 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316231" preset="31" postset="31">
+		guard(ir1==6 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316331" preset="31" postset="31">
+		guard(ir1==6 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316431" preset="31" postset="31">
+		guard(ir1==6 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316531" preset="31" postset="31">
+		guard(ir1==6 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316631" preset="31" postset="31">
+		guard(ir1==6 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="221122" preset="22" postset="22">
+		guard(ir1==1 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221222" preset="22" postset="22">
+		guard(ir1==1 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221322" preset="22" postset="22">
+		guard(ir1==1 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221422" preset="22" postset="22">
+		guard(ir1==1 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221522" preset="22" postset="22">
+		guard(ir1==1 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221622" preset="22" postset="22">
+		guard(ir1==1 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222122" preset="22" postset="22">
+		guard(ir1==2 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222222" preset="22" postset="22">
+		guard(ir1==2 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222322" preset="22" postset="22">
+		guard(ir1==2 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222422" preset="22" postset="22">
+		guard(ir1==2 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222522" preset="22" postset="22">
+		guard(ir1==2 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222622" preset="22" postset="22">
+		guard(ir1==2 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223122" preset="22" postset="22">
+		guard(ir1==3 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223222" preset="22" postset="22">
+		guard(ir1==3 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223322" preset="22" postset="22">
+		guard(ir1==3 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223422" preset="22" postset="22">
+		guard(ir1==3 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223522" preset="22" postset="22">
+		guard(ir1==3 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223622" preset="22" postset="22">
+		guard(ir1==3 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224122" preset="22" postset="22">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224222" preset="22" postset="22">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224322" preset="22" postset="22">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224422" preset="22" postset="22">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224522" preset="22" postset="22">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224622" preset="22" postset="22">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225122" preset="22" postset="22">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225222" preset="22" postset="22">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225322" preset="22" postset="22">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225422" preset="22" postset="22">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225522" preset="22" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225622" preset="22" postset="22">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226122" preset="22" postset="22">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226222" preset="22" postset="22">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226322" preset="22" postset="22">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226422" preset="22" postset="22">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226522" preset="22" postset="22">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226622" preset="22" postset="22">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="423132" preset="42" postset="32">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="423232" preset="42" postset="32">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="423332" preset="42" postset="32">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="423432" preset="42" postset="32">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="424132" preset="42" postset="32">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="424232" preset="42" postset="32">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="424332" preset="42" postset="32">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="424432" preset="42" postset="32">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="425132" preset="42" postset="32">
+		guard(ir1==5 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="425232" preset="42" postset="32">
+		guard(ir1==5 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="425332" preset="42" postset="32">
+		guard(ir1==5 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="425432" preset="42" postset="32">
+		guard(ir1==5 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="426132" preset="42" postset="32">
+		guard(ir1==6 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="426232" preset="42" postset="32">
+		guard(ir1==6 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="426332" preset="42" postset="32">
+		guard(ir1==6 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="426432" preset="42" postset="32">
+		guard(ir1==6 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="421142" preset="42" postset="42">
+		guard(ir1==1 && ir2==1);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="421242" preset="42" postset="42">
+		guard(ir1==1 && ir2==2);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="421342" preset="42" postset="42">
+		guard(ir1==1 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="421442" preset="42" postset="42">
+		guard(ir1==1 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="422142" preset="42" postset="42">
+		guard(ir1==2 && ir2==1);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="422242" preset="42" postset="42">
+		guard(ir1==2 && ir2==2);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="422342" preset="42" postset="42">
+		guard(ir1==2 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="422442" preset="42" postset="42">
+		guard(ir1==2 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="421541" preset="42" postset="41">
+		guard(ir1==1 && ir2==5);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="421641" preset="42" postset="41">
+		guard(ir1==1 && ir2==6);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="422541" preset="42" postset="41">
+		guard(ir1==2 && ir2==5);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="422641" preset="42" postset="41">
+		guard(ir1==2 && ir2==6);
+		xr1=4;
+		xr2=1;
+	</tr>
+	<tr label="423531" preset="42" postset="31">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="423631" preset="42" postset="31">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="424531" preset="42" postset="31">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="424631" preset="42" postset="31">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="425531" preset="42" postset="31">
+		guard(ir1==5 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="425631" preset="42" postset="31">
+		guard(ir1==5 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="426531" preset="42" postset="31">
+		guard(ir1==6 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="426631" preset="42" postset="31">
+		guard(ir1==6 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="236512" preset="23" postset="12">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="236612" preset="23" postset="12">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="231522" preset="23" postset="22">
+		guard(ir1==1 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="231622" preset="23" postset="22">
+		guard(ir1==1 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="232522" preset="23" postset="22">
+		guard(ir1==2 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="232622" preset="23" postset="22">
+		guard(ir1==2 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="233522" preset="23" postset="22">
+		guard(ir1==3 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="233622" preset="23" postset="22">
+		guard(ir1==3 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="234522" preset="23" postset="22">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="234622" preset="23" postset="22">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="235522" preset="23" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="235622" preset="23" postset="22">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="231123" preset="23" postset="23">
+		guard(ir1==1 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="231223" preset="23" postset="23">
+		guard(ir1==1 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="231323" preset="23" postset="23">
+		guard(ir1==1 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="231423" preset="23" postset="23">
+		guard(ir1==1 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232123" preset="23" postset="23">
+		guard(ir1==2 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232223" preset="23" postset="23">
+		guard(ir1==2 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232323" preset="23" postset="23">
+		guard(ir1==2 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232423" preset="23" postset="23">
+		guard(ir1==2 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233123" preset="23" postset="23">
+		guard(ir1==3 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233223" preset="23" postset="23">
+		guard(ir1==3 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233323" preset="23" postset="23">
+		guard(ir1==3 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233423" preset="23" postset="23">
+		guard(ir1==3 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234123" preset="23" postset="23">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234223" preset="23" postset="23">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234323" preset="23" postset="23">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234423" preset="23" postset="23">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235123" preset="23" postset="23">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235223" preset="23" postset="23">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235323" preset="23" postset="23">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235423" preset="23" postset="23">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="236113" preset="23" postset="13">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="236213" preset="23" postset="13">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="236313" preset="23" postset="13">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="236413" preset="23" postset="13">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131113" preset="13" postset="13">
+		guard(ir1==1 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131213" preset="13" postset="13">
+		guard(ir1==1 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131313" preset="13" postset="13">
+		guard(ir1==1 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131413" preset="13" postset="13">
+		guard(ir1==1 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131513" preset="13" postset="13">
+		guard(ir1==1 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131613" preset="13" postset="13">
+		guard(ir1==1 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132113" preset="13" postset="13">
+		guard(ir1==2 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132213" preset="13" postset="13">
+		guard(ir1==2 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132313" preset="13" postset="13">
+		guard(ir1==2 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132413" preset="13" postset="13">
+		guard(ir1==2 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132513" preset="13" postset="13">
+		guard(ir1==2 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132613" preset="13" postset="13">
+		guard(ir1==2 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133113" preset="13" postset="13">
+		guard(ir1==3 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133213" preset="13" postset="13">
+		guard(ir1==3 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133313" preset="13" postset="13">
+		guard(ir1==3 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133413" preset="13" postset="13">
+		guard(ir1==3 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133513" preset="13" postset="13">
+		guard(ir1==3 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133613" preset="13" postset="13">
+		guard(ir1==3 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134113" preset="13" postset="13">
+		guard(ir1==4 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134213" preset="13" postset="13">
+		guard(ir1==4 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134313" preset="13" postset="13">
+		guard(ir1==4 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134413" preset="13" postset="13">
+		guard(ir1==4 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134513" preset="13" postset="13">
+		guard(ir1==4 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134613" preset="13" postset="13">
+		guard(ir1==4 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135113" preset="13" postset="13">
+		guard(ir1==5 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135213" preset="13" postset="13">
+		guard(ir1==5 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135313" preset="13" postset="13">
+		guard(ir1==5 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135413" preset="13" postset="13">
+		guard(ir1==5 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135513" preset="13" postset="13">
+		guard(ir1==5 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135613" preset="13" postset="13">
+		guard(ir1==5 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136113" preset="13" postset="13">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136213" preset="13" postset="13">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136313" preset="13" postset="13">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136413" preset="13" postset="13">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136513" preset="13" postset="13">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136613" preset="13" postset="13">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="334422" preset="33" postset="22">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="334522" preset="33" postset="22">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="334622" preset="33" postset="22">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="335422" preset="33" postset="22">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="335522" preset="33" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="335622" preset="33" postset="22">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="336422" preset="33" postset="22">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="336522" preset="33" postset="22">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="336622" preset="33" postset="22">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="331432" preset="33" postset="32">
+		guard(ir1==1 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="331532" preset="33" postset="32">
+		guard(ir1==1 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="331632" preset="33" postset="32">
+		guard(ir1==1 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="332432" preset="33" postset="32">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="332532" preset="33" postset="32">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="332632" preset="33" postset="32">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="333432" preset="33" postset="32">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="333532" preset="33" postset="32">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="333632" preset="33" postset="32">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="334123" preset="33" postset="23">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="334223" preset="33" postset="23">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="334323" preset="33" postset="23">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="335123" preset="33" postset="23">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="335223" preset="33" postset="23">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="335323" preset="33" postset="23">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="336123" preset="33" postset="23">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="336223" preset="33" postset="23">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="336323" preset="33" postset="23">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="331133" preset="33" postset="33">
+		guard(ir1==1 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="331233" preset="33" postset="33">
+		guard(ir1==1 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="331333" preset="33" postset="33">
+		guard(ir1==1 && ir2==3);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="332133" preset="33" postset="33">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="332233" preset="33" postset="33">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="332333" preset="33" postset="33">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="333133" preset="33" postset="33">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="333233" preset="33" postset="33">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="333333" preset="33" postset="33">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="121112" preset="12" postset="12">
+		guard(ir1==1 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121212" preset="12" postset="12">
+		guard(ir1==1 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121312" preset="12" postset="12">
+		guard(ir1==1 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121412" preset="12" postset="12">
+		guard(ir1==1 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121512" preset="12" postset="12">
+		guard(ir1==1 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121612" preset="12" postset="12">
+		guard(ir1==1 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122112" preset="12" postset="12">
+		guard(ir1==2 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122212" preset="12" postset="12">
+		guard(ir1==2 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122312" preset="12" postset="12">
+		guard(ir1==2 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122412" preset="12" postset="12">
+		guard(ir1==2 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122512" preset="12" postset="12">
+		guard(ir1==2 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122612" preset="12" postset="12">
+		guard(ir1==2 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123112" preset="12" postset="12">
+		guard(ir1==3 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123212" preset="12" postset="12">
+		guard(ir1==3 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123312" preset="12" postset="12">
+		guard(ir1==3 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123412" preset="12" postset="12">
+		guard(ir1==3 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123512" preset="12" postset="12">
+		guard(ir1==3 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123612" preset="12" postset="12">
+		guard(ir1==3 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124112" preset="12" postset="12">
+		guard(ir1==4 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124212" preset="12" postset="12">
+		guard(ir1==4 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124312" preset="12" postset="12">
+		guard(ir1==4 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124412" preset="12" postset="12">
+		guard(ir1==4 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124512" preset="12" postset="12">
+		guard(ir1==4 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124612" preset="12" postset="12">
+		guard(ir1==4 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125112" preset="12" postset="12">
+		guard(ir1==5 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125212" preset="12" postset="12">
+		guard(ir1==5 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125312" preset="12" postset="12">
+		guard(ir1==5 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125412" preset="12" postset="12">
+		guard(ir1==5 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125512" preset="12" postset="12">
+		guard(ir1==5 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125612" preset="12" postset="12">
+		guard(ir1==5 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126112" preset="12" postset="12">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126212" preset="12" postset="12">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126312" preset="12" postset="12">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126412" preset="12" postset="12">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126512" preset="12" postset="12">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126612" preset="12" postset="12">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="432332" preset="43" postset="32">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="432432" preset="43" postset="32">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="432532" preset="43" postset="32">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="432632" preset="43" postset="32">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="433332" preset="43" postset="32">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="433432" preset="43" postset="32">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="433532" preset="43" postset="32">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="433632" preset="43" postset="32">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="434332" preset="43" postset="32">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="434432" preset="43" postset="32">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="434532" preset="43" postset="32">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="434632" preset="43" postset="32">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="435332" preset="43" postset="32">
+		guard(ir1==5 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="435432" preset="43" postset="32">
+		guard(ir1==5 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="435532" preset="43" postset="32">
+		guard(ir1==5 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="435632" preset="43" postset="32">
+		guard(ir1==5 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="436332" preset="43" postset="32">
+		guard(ir1==6 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="436432" preset="43" postset="32">
+		guard(ir1==6 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="436532" preset="43" postset="32">
+		guard(ir1==6 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="436632" preset="43" postset="32">
+		guard(ir1==6 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="431342" preset="43" postset="42">
+		guard(ir1==1 && ir2==3);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="431442" preset="43" postset="42">
+		guard(ir1==1 && ir2==4);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="431542" preset="43" postset="42">
+		guard(ir1==1 && ir2==5);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="431642" preset="43" postset="42">
+		guard(ir1==1 && ir2==6);
+		xr1=4;
+		xr2=2;
+	</tr>
+	<tr label="431143" preset="43" postset="43">
+		guard(ir1==1 && ir2==1);
+		xr1=4;
+		xr2=3;
+	</tr>
+	<tr label="431243" preset="43" postset="43">
+		guard(ir1==1 && ir2==2);
+		xr1=4;
+		xr2=3;
+	</tr>
+	<tr label="432133" preset="43" postset="33">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="432233" preset="43" postset="33">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="433133" preset="43" postset="33">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="433233" preset="43" postset="33">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="434133" preset="43" postset="33">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="434233" preset="43" postset="33">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="435133" preset="43" postset="33">
+		guard(ir1==5 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="435233" preset="43" postset="33">
+		guard(ir1==5 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="436133" preset="43" postset="33">
+		guard(ir1==6 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="436233" preset="43" postset="33">
+		guard(ir1==6 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+</class>
+<class name="A_1" arg="ir1, ir2">
+	<var> xr1=3; xr2=3; </var>
+	<m> 33 </m>
+	<tr label="325122" preset="32" postset="22">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325222" preset="32" postset="22">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325322" preset="32" postset="22">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325422" preset="32" postset="22">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="325522" preset="32" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326122" preset="32" postset="22">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326222" preset="32" postset="22">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326322" preset="32" postset="22">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326422" preset="32" postset="22">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="326522" preset="32" postset="22">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="321132" preset="32" postset="32">
+		guard(ir1==1 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321232" preset="32" postset="32">
+		guard(ir1==1 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321332" preset="32" postset="32">
+		guard(ir1==1 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321432" preset="32" postset="32">
+		guard(ir1==1 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321532" preset="32" postset="32">
+		guard(ir1==1 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322132" preset="32" postset="32">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322232" preset="32" postset="32">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322332" preset="32" postset="32">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322432" preset="32" postset="32">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="322532" preset="32" postset="32">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323132" preset="32" postset="32">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323232" preset="32" postset="32">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323332" preset="32" postset="32">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323432" preset="32" postset="32">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="323532" preset="32" postset="32">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324132" preset="32" postset="32">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324232" preset="32" postset="32">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324332" preset="32" postset="32">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324432" preset="32" postset="32">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="324532" preset="32" postset="32">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="321631" preset="32" postset="31">
+		guard(ir1==1 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="322631" preset="32" postset="31">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="323631" preset="32" postset="31">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="324631" preset="32" postset="31">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="325621" preset="32" postset="21">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="326621" preset="32" postset="21">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211121" preset="21" postset="21">
+		guard(ir1==1 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211221" preset="21" postset="21">
+		guard(ir1==1 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211321" preset="21" postset="21">
+		guard(ir1==1 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211421" preset="21" postset="21">
+		guard(ir1==1 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211521" preset="21" postset="21">
+		guard(ir1==1 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="211621" preset="21" postset="21">
+		guard(ir1==1 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212121" preset="21" postset="21">
+		guard(ir1==2 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212221" preset="21" postset="21">
+		guard(ir1==2 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212321" preset="21" postset="21">
+		guard(ir1==2 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212421" preset="21" postset="21">
+		guard(ir1==2 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212521" preset="21" postset="21">
+		guard(ir1==2 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="212621" preset="21" postset="21">
+		guard(ir1==2 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213121" preset="21" postset="21">
+		guard(ir1==3 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213221" preset="21" postset="21">
+		guard(ir1==3 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213321" preset="21" postset="21">
+		guard(ir1==3 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213421" preset="21" postset="21">
+		guard(ir1==3 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213521" preset="21" postset="21">
+		guard(ir1==3 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="213621" preset="21" postset="21">
+		guard(ir1==3 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214121" preset="21" postset="21">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214221" preset="21" postset="21">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214321" preset="21" postset="21">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214421" preset="21" postset="21">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214521" preset="21" postset="21">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="214621" preset="21" postset="21">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215121" preset="21" postset="21">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215221" preset="21" postset="21">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215321" preset="21" postset="21">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215421" preset="21" postset="21">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215521" preset="21" postset="21">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="215621" preset="21" postset="21">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216121" preset="21" postset="21">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216221" preset="21" postset="21">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216321" preset="21" postset="21">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216421" preset="21" postset="21">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216521" preset="21" postset="21">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="216621" preset="21" postset="21">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=1;
+	</tr>
+	<tr label="311131" preset="31" postset="31">
+		guard(ir1==1 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311231" preset="31" postset="31">
+		guard(ir1==1 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311331" preset="31" postset="31">
+		guard(ir1==1 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311431" preset="31" postset="31">
+		guard(ir1==1 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311531" preset="31" postset="31">
+		guard(ir1==1 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="311631" preset="31" postset="31">
+		guard(ir1==1 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312131" preset="31" postset="31">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312231" preset="31" postset="31">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312331" preset="31" postset="31">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312431" preset="31" postset="31">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312531" preset="31" postset="31">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="312631" preset="31" postset="31">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313131" preset="31" postset="31">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313231" preset="31" postset="31">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313331" preset="31" postset="31">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313431" preset="31" postset="31">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313531" preset="31" postset="31">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="313631" preset="31" postset="31">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314131" preset="31" postset="31">
+		guard(ir1==4 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314231" preset="31" postset="31">
+		guard(ir1==4 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314331" preset="31" postset="31">
+		guard(ir1==4 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314431" preset="31" postset="31">
+		guard(ir1==4 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314531" preset="31" postset="31">
+		guard(ir1==4 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="314631" preset="31" postset="31">
+		guard(ir1==4 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315131" preset="31" postset="31">
+		guard(ir1==5 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315231" preset="31" postset="31">
+		guard(ir1==5 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315331" preset="31" postset="31">
+		guard(ir1==5 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315431" preset="31" postset="31">
+		guard(ir1==5 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315531" preset="31" postset="31">
+		guard(ir1==5 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="315631" preset="31" postset="31">
+		guard(ir1==5 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316131" preset="31" postset="31">
+		guard(ir1==6 && ir2==1);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316231" preset="31" postset="31">
+		guard(ir1==6 && ir2==2);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316331" preset="31" postset="31">
+		guard(ir1==6 && ir2==3);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316431" preset="31" postset="31">
+		guard(ir1==6 && ir2==4);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316531" preset="31" postset="31">
+		guard(ir1==6 && ir2==5);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="316631" preset="31" postset="31">
+		guard(ir1==6 && ir2==6);
+		xr1=3;
+		xr2=1;
+	</tr>
+	<tr label="221122" preset="22" postset="22">
+		guard(ir1==1 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221222" preset="22" postset="22">
+		guard(ir1==1 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221322" preset="22" postset="22">
+		guard(ir1==1 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221422" preset="22" postset="22">
+		guard(ir1==1 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221522" preset="22" postset="22">
+		guard(ir1==1 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="221622" preset="22" postset="22">
+		guard(ir1==1 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222122" preset="22" postset="22">
+		guard(ir1==2 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222222" preset="22" postset="22">
+		guard(ir1==2 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222322" preset="22" postset="22">
+		guard(ir1==2 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222422" preset="22" postset="22">
+		guard(ir1==2 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222522" preset="22" postset="22">
+		guard(ir1==2 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="222622" preset="22" postset="22">
+		guard(ir1==2 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223122" preset="22" postset="22">
+		guard(ir1==3 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223222" preset="22" postset="22">
+		guard(ir1==3 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223322" preset="22" postset="22">
+		guard(ir1==3 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223422" preset="22" postset="22">
+		guard(ir1==3 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223522" preset="22" postset="22">
+		guard(ir1==3 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="223622" preset="22" postset="22">
+		guard(ir1==3 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224122" preset="22" postset="22">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224222" preset="22" postset="22">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224322" preset="22" postset="22">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224422" preset="22" postset="22">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224522" preset="22" postset="22">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="224622" preset="22" postset="22">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225122" preset="22" postset="22">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225222" preset="22" postset="22">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225322" preset="22" postset="22">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225422" preset="22" postset="22">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225522" preset="22" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="225622" preset="22" postset="22">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226122" preset="22" postset="22">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226222" preset="22" postset="22">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226322" preset="22" postset="22">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226422" preset="22" postset="22">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226522" preset="22" postset="22">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="226622" preset="22" postset="22">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="236512" preset="23" postset="12">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="236612" preset="23" postset="12">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="231522" preset="23" postset="22">
+		guard(ir1==1 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="231622" preset="23" postset="22">
+		guard(ir1==1 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="232522" preset="23" postset="22">
+		guard(ir1==2 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="232622" preset="23" postset="22">
+		guard(ir1==2 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="233522" preset="23" postset="22">
+		guard(ir1==3 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="233622" preset="23" postset="22">
+		guard(ir1==3 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="234522" preset="23" postset="22">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="234622" preset="23" postset="22">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="235522" preset="23" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="235622" preset="23" postset="22">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="231123" preset="23" postset="23">
+		guard(ir1==1 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="231223" preset="23" postset="23">
+		guard(ir1==1 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="231323" preset="23" postset="23">
+		guard(ir1==1 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="231423" preset="23" postset="23">
+		guard(ir1==1 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232123" preset="23" postset="23">
+		guard(ir1==2 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232223" preset="23" postset="23">
+		guard(ir1==2 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232323" preset="23" postset="23">
+		guard(ir1==2 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="232423" preset="23" postset="23">
+		guard(ir1==2 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233123" preset="23" postset="23">
+		guard(ir1==3 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233223" preset="23" postset="23">
+		guard(ir1==3 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233323" preset="23" postset="23">
+		guard(ir1==3 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="233423" preset="23" postset="23">
+		guard(ir1==3 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234123" preset="23" postset="23">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234223" preset="23" postset="23">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234323" preset="23" postset="23">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="234423" preset="23" postset="23">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235123" preset="23" postset="23">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235223" preset="23" postset="23">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235323" preset="23" postset="23">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="235423" preset="23" postset="23">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="236113" preset="23" postset="13">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="236213" preset="23" postset="13">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="236313" preset="23" postset="13">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="236413" preset="23" postset="13">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131113" preset="13" postset="13">
+		guard(ir1==1 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131213" preset="13" postset="13">
+		guard(ir1==1 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131313" preset="13" postset="13">
+		guard(ir1==1 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131413" preset="13" postset="13">
+		guard(ir1==1 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131513" preset="13" postset="13">
+		guard(ir1==1 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131613" preset="13" postset="13">
+		guard(ir1==1 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132113" preset="13" postset="13">
+		guard(ir1==2 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132213" preset="13" postset="13">
+		guard(ir1==2 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132313" preset="13" postset="13">
+		guard(ir1==2 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132413" preset="13" postset="13">
+		guard(ir1==2 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132513" preset="13" postset="13">
+		guard(ir1==2 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132613" preset="13" postset="13">
+		guard(ir1==2 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133113" preset="13" postset="13">
+		guard(ir1==3 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133213" preset="13" postset="13">
+		guard(ir1==3 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133313" preset="13" postset="13">
+		guard(ir1==3 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133413" preset="13" postset="13">
+		guard(ir1==3 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133513" preset="13" postset="13">
+		guard(ir1==3 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133613" preset="13" postset="13">
+		guard(ir1==3 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134113" preset="13" postset="13">
+		guard(ir1==4 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134213" preset="13" postset="13">
+		guard(ir1==4 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134313" preset="13" postset="13">
+		guard(ir1==4 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134413" preset="13" postset="13">
+		guard(ir1==4 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134513" preset="13" postset="13">
+		guard(ir1==4 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134613" preset="13" postset="13">
+		guard(ir1==4 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135113" preset="13" postset="13">
+		guard(ir1==5 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135213" preset="13" postset="13">
+		guard(ir1==5 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135313" preset="13" postset="13">
+		guard(ir1==5 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135413" preset="13" postset="13">
+		guard(ir1==5 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135513" preset="13" postset="13">
+		guard(ir1==5 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135613" preset="13" postset="13">
+		guard(ir1==5 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136113" preset="13" postset="13">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136213" preset="13" postset="13">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136313" preset="13" postset="13">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136413" preset="13" postset="13">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136513" preset="13" postset="13">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136613" preset="13" postset="13">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="334422" preset="33" postset="22">
+		guard(ir1==4 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="334522" preset="33" postset="22">
+		guard(ir1==4 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="334622" preset="33" postset="22">
+		guard(ir1==4 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="335422" preset="33" postset="22">
+		guard(ir1==5 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="335522" preset="33" postset="22">
+		guard(ir1==5 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="335622" preset="33" postset="22">
+		guard(ir1==5 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="336422" preset="33" postset="22">
+		guard(ir1==6 && ir2==4);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="336522" preset="33" postset="22">
+		guard(ir1==6 && ir2==5);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="336622" preset="33" postset="22">
+		guard(ir1==6 && ir2==6);
+		xr1=2;
+		xr2=2;
+	</tr>
+	<tr label="331432" preset="33" postset="32">
+		guard(ir1==1 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="331532" preset="33" postset="32">
+		guard(ir1==1 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="331632" preset="33" postset="32">
+		guard(ir1==1 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="332432" preset="33" postset="32">
+		guard(ir1==2 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="332532" preset="33" postset="32">
+		guard(ir1==2 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="332632" preset="33" postset="32">
+		guard(ir1==2 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="333432" preset="33" postset="32">
+		guard(ir1==3 && ir2==4);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="333532" preset="33" postset="32">
+		guard(ir1==3 && ir2==5);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="333632" preset="33" postset="32">
+		guard(ir1==3 && ir2==6);
+		xr1=3;
+		xr2=2;
+	</tr>
+	<tr label="334123" preset="33" postset="23">
+		guard(ir1==4 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="334223" preset="33" postset="23">
+		guard(ir1==4 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="334323" preset="33" postset="23">
+		guard(ir1==4 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="335123" preset="33" postset="23">
+		guard(ir1==5 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="335223" preset="33" postset="23">
+		guard(ir1==5 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="335323" preset="33" postset="23">
+		guard(ir1==5 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="336123" preset="33" postset="23">
+		guard(ir1==6 && ir2==1);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="336223" preset="33" postset="23">
+		guard(ir1==6 && ir2==2);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="336323" preset="33" postset="23">
+		guard(ir1==6 && ir2==3);
+		xr1=2;
+		xr2=3;
+	</tr>
+	<tr label="331133" preset="33" postset="33">
+		guard(ir1==1 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="331233" preset="33" postset="33">
+		guard(ir1==1 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="331333" preset="33" postset="33">
+		guard(ir1==1 && ir2==3);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="332133" preset="33" postset="33">
+		guard(ir1==2 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="332233" preset="33" postset="33">
+		guard(ir1==2 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="332333" preset="33" postset="33">
+		guard(ir1==2 && ir2==3);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="333133" preset="33" postset="33">
+		guard(ir1==3 && ir2==1);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="333233" preset="33" postset="33">
+		guard(ir1==3 && ir2==2);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="333333" preset="33" postset="33">
+		guard(ir1==3 && ir2==3);
+		xr1=3;
+		xr2=3;
+	</tr>
+	<tr label="121112" preset="12" postset="12">
+		guard(ir1==1 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121212" preset="12" postset="12">
+		guard(ir1==1 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121312" preset="12" postset="12">
+		guard(ir1==1 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121412" preset="12" postset="12">
+		guard(ir1==1 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121512" preset="12" postset="12">
+		guard(ir1==1 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="121612" preset="12" postset="12">
+		guard(ir1==1 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122112" preset="12" postset="12">
+		guard(ir1==2 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122212" preset="12" postset="12">
+		guard(ir1==2 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122312" preset="12" postset="12">
+		guard(ir1==2 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122412" preset="12" postset="12">
+		guard(ir1==2 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122512" preset="12" postset="12">
+		guard(ir1==2 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="122612" preset="12" postset="12">
+		guard(ir1==2 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123112" preset="12" postset="12">
+		guard(ir1==3 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123212" preset="12" postset="12">
+		guard(ir1==3 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123312" preset="12" postset="12">
+		guard(ir1==3 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123412" preset="12" postset="12">
+		guard(ir1==3 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123512" preset="12" postset="12">
+		guard(ir1==3 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="123612" preset="12" postset="12">
+		guard(ir1==3 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124112" preset="12" postset="12">
+		guard(ir1==4 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124212" preset="12" postset="12">
+		guard(ir1==4 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124312" preset="12" postset="12">
+		guard(ir1==4 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124412" preset="12" postset="12">
+		guard(ir1==4 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124512" preset="12" postset="12">
+		guard(ir1==4 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="124612" preset="12" postset="12">
+		guard(ir1==4 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125112" preset="12" postset="12">
+		guard(ir1==5 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125212" preset="12" postset="12">
+		guard(ir1==5 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125312" preset="12" postset="12">
+		guard(ir1==5 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125412" preset="12" postset="12">
+		guard(ir1==5 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125512" preset="12" postset="12">
+		guard(ir1==5 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="125612" preset="12" postset="12">
+		guard(ir1==5 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126112" preset="12" postset="12">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126212" preset="12" postset="12">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126312" preset="12" postset="12">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126412" preset="12" postset="12">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126512" preset="12" postset="12">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=2;
+	</tr>
+	<tr label="126612" preset="12" postset="12">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=2;
+	</tr>
+</class>
+<class name="A_2" arg="ir1, ir2">
+	<var> xr1=1; xr2=3; </var>
+	<m> 13 </m>
+	<tr label="131113" preset="13" postset="13">
+		guard(ir1==1 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131213" preset="13" postset="13">
+		guard(ir1==1 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131313" preset="13" postset="13">
+		guard(ir1==1 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131413" preset="13" postset="13">
+		guard(ir1==1 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131513" preset="13" postset="13">
+		guard(ir1==1 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="131613" preset="13" postset="13">
+		guard(ir1==1 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132113" preset="13" postset="13">
+		guard(ir1==2 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132213" preset="13" postset="13">
+		guard(ir1==2 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132313" preset="13" postset="13">
+		guard(ir1==2 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132413" preset="13" postset="13">
+		guard(ir1==2 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132513" preset="13" postset="13">
+		guard(ir1==2 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="132613" preset="13" postset="13">
+		guard(ir1==2 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133113" preset="13" postset="13">
+		guard(ir1==3 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133213" preset="13" postset="13">
+		guard(ir1==3 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133313" preset="13" postset="13">
+		guard(ir1==3 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133413" preset="13" postset="13">
+		guard(ir1==3 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133513" preset="13" postset="13">
+		guard(ir1==3 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="133613" preset="13" postset="13">
+		guard(ir1==3 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134113" preset="13" postset="13">
+		guard(ir1==4 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134213" preset="13" postset="13">
+		guard(ir1==4 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134313" preset="13" postset="13">
+		guard(ir1==4 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134413" preset="13" postset="13">
+		guard(ir1==4 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134513" preset="13" postset="13">
+		guard(ir1==4 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="134613" preset="13" postset="13">
+		guard(ir1==4 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135113" preset="13" postset="13">
+		guard(ir1==5 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135213" preset="13" postset="13">
+		guard(ir1==5 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135313" preset="13" postset="13">
+		guard(ir1==5 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135413" preset="13" postset="13">
+		guard(ir1==5 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135513" preset="13" postset="13">
+		guard(ir1==5 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="135613" preset="13" postset="13">
+		guard(ir1==5 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136113" preset="13" postset="13">
+		guard(ir1==6 && ir2==1);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136213" preset="13" postset="13">
+		guard(ir1==6 && ir2==2);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136313" preset="13" postset="13">
+		guard(ir1==6 && ir2==3);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136413" preset="13" postset="13">
+		guard(ir1==6 && ir2==4);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136513" preset="13" postset="13">
+		guard(ir1==6 && ir2==5);
+		xr1=1;
+		xr2=3;
+	</tr>
+	<tr label="136613" preset="13" postset="13">
+		guard(ir1==6 && ir2==6);
+		xr1=1;
+		xr2=3;
+	</tr>
+</class>

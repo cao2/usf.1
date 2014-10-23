@@ -1,0 +1,76 @@
+//Should find deadlock
+//Has NOT been updated
+
+<main>
+	<var>
+		choosing[4];
+		number[4];
+	</var>
+	
+	Process p0(0, choosing, number);
+	Process p1(1, choosing, number);
+	Process p2(2, choosing, number);
+	Process p3(3, choosing, number);
+</main>
+
+<class name="Process" arg="id, choosing[4], number[4]">
+	
+	<const>
+	NCS = 0;
+	choose = 1;
+	for_loop = 2;
+	wait = 3;
+	CS = 4;
+	</const>
+
+
+	<var>
+		j = 0;
+		max = 0;
+	</var>
+
+	<m>
+	NCS
+	</m>
+
+	<tr label="1" preset="NCS" postset="choose">
+		choosing[id] = 1;
+		j = 0;
+		max = 0;
+	</tr>
+	
+	<tr label="2" preset="choose" postset="choose">
+		guard(j < 4 && number[j] > max);
+		max = number[j];
+		j = j + 1;
+	</tr>
+
+	<tr label="3" preset="choose" postset="choose">
+		guard(j < 4 && number[j] <= max);
+		j = j + 1;
+	</tr>
+
+	<tr label="4" preset="choose" postset="for_loop">
+		guard(j == 4 && max < 5);
+		number[id] = max +1;
+		j = 0;
+		choosing[id] = 0;
+	</tr>
+
+	<tr label="5" preset="for_loop" postset="wait">
+		guard(j < 4 && choosing [j] == 0);
+	</tr>
+
+	<tr label="6" preset="wait" postset="for_loop">
+		guard(number[j] == 0 || (number[j] < number[id]) || ((number[j] == number[id]) && id <= j));
+		j = j + 1;
+	</tr>
+
+	<tr label="7" preset="for_loop" postset="CS">
+		guard(j == 4);
+	</tr>
+
+	<tr label="8" preset="CS" postset="NCS">
+		number[id] = 0;
+	</tr>
+</class>

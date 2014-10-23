@@ -1,0 +1,109 @@
+--> Number of modules: 8
+--> Length of global vecvtor: 8
+--> globalVarList
+[(p1.timer, 255), (p2.timer, 255), (p4.timer, 255), (p0.timer, 255), (p6.timer, 255), (p3.timer, 255), (p5.timer, 255), (id, 0)]
+--> gVarIndexMap
+(p1.timer 0), (p2.timer 1), (p4.timer 2), (p0.timer 3), (p6.timer 4), (p3.timer 5), (p5.timer 6), (id 7), 
+LPN: t
+-->Internals: 		
+-->Globals: 		(p1.timer 0 INPUT), (p2.timer 1 INPUT), (p4.timer 2 INPUT), (p0.timer 3 INPUT), (p6.timer 4 INPUT), (p3.timer 5 INPUT), (p5.timer 6 INPUT), 
+--> VarIndexMap: 	(p1.timer 0),  (p2.timer 1),  (p4.timer 2),  (p0.timer 3),  (p6.timer 4),  (p3.timer 5),  (p5.timer 6),  
+
+LPN: p0
+-->Internals: 		(p0.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p0.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p0.myValue 0),  (id 1),  (p0.timer 2),  
+
+LPN: p1
+-->Internals: 		(p1.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p1.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p1.myValue 0),  (id 1),  (p1.timer 2),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p2.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p2.myValue 0),  (id 1),  (p2.timer 2),  
+
+LPN: p3
+-->Internals: 		(p3.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p3.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p3.myValue 0),  (id 1),  (p3.timer 2),  
+
+LPN: p4
+-->Internals: 		(p4.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p4.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p4.myValue 0),  (id 1),  (p4.timer 2),  
+
+LPN: p5
+-->Internals: 		(p5.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p5.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p5.myValue 0),  (id 1),  (p5.timer 2),  
+
+LPN: p6
+-->Internals: 		(p6.myValue 0 INTERNAL), 
+-->Globals: 		(id 1 GLOBAL), (p6.timer 2 OUTPUT), 
+--> VarIndexMap: 	(p6.myValue 0),  (id 1),  (p6.timer 2),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 749307, # of prjStates found: 268267, stack_depth: 17574, used memory: 268 MB, free memory: 71 MB, elapsed time: 9.019 seconds.
+--->  # of global vectors: 39760
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 1488167, # of prjStates found: 536841, stack_depth: 25008, used memory: 478 MB, free memory: 63 MB, elapsed time: 19.042 seconds.
+--->  # of global vectors: 76386
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 2236780, # of prjStates found: 794628, stack_depth: 31408, used memory: 726 MB, free memory: 174 MB, elapsed time: 29.08 seconds.
+--->  # of global vectors: 121862
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 2967634, # of prjStates found: 1067055, stack_depth: 34689, used memory: 955 MB, free memory: 546 MB, elapsed time: 39.091 seconds.
+--->  # of global vectors: 180560
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 3688877, # of prjStates found: 1349758, stack_depth: 38635, used memory: 1295 MB, free memory: 184 MB, elapsed time: 50.126 seconds.
+--->  # of global vectors: 245287
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 4395413, # of prjStates found: 1645924, stack_depth: 41337, used memory: 1567 MB, free memory: 854 MB, elapsed time: 62.147 seconds.
+--->  # of global vectors: 319263
+---> state table stats: States in state table: 0
+---> # LPN transition firings: 5085566, # of prjStates found: 1956109, stack_depth: 41675, used memory: 1901 MB, free memory: 509 MB, elapsed time: 75.211 seconds.
+--->  # of global vectors: 395462
+---> state table stats: States in state table: 0
+*** Memory out
+	Used memory: 2014 exceeds the limit 2000.
+	Search terminated!
+---> Search stats:
+	LPN transition firing count: 5366542
+	State count: 2067569
+	Global state vector count: 408587
+	Local state pair counts:
+		Table 0 : 548207
+		Table 1 : 546854
+		Table 2 : 544026
+		Table 3 : 529629
+		Table 4 : 541911
+		Table 5 : 558214
+		Table 6 : 572025
+		Table 7 : 723983
+		Table 8 : 718048
+		Table 9 : 700786
+		Table 10 : 717056
+		Table 11 : 732308
+		Table 12 : 758375
+		Table 13 : 718196
+		Table 14 : 699869
+		Table 15 : 715238
+		Table 16 : 731731
+		Table 17 : 751079
+		Table 18 : 695855
+		Table 19 : 711226
+		Table 20 : 727424
+		Table 21 : 748285
+		Table 22 : 695172
+		Table 23 : 713378
+		Table 24 : 733597
+		Table 25 : 730381
+		Table 26 : 752659
+		Table 27 : 772742
+	max_stack_depth: 42120
+	peak total memory: 2433 MB
+	peak used memory: 2013 MB
+	Total elapsed time = 81.237 sec
+

@@ -1,0 +1,75 @@
+<mod name="LSRo.lpn">
+
+<input>
+bo, b1i, rai, rao, mdlo
+</input>
+<output>
+lsri, lsro
+</output>
+<var>
+w1_c8, w2_c8
+</var>
+
+   <marking>
+   56,   58,   60, 62
+   </marking>
+
+   <statevector>
+   b1i = 0;
+   bo = 0;
+   lsri = 0;
+   lsro = 0;
+   mdlo = 0;
+   rai = 0;
+   rao = 0;
+   w1_c8 = 0;
+   w2_c8 = 0;
+   </statevector>
+
+
+   <transition label="179" preset="56" postset="56">
+      !lsri && b1i && rai && bo && rao && !w1_c8;
+     (0, inf);
+     w1_c8 = 1;
+   </transition>
+   <transition label="180" preset="56" postset="56">
+      (lsri || !b1i || !rai || !bo || !rao) && w1_c8;
+     (0, inf);
+     w1_c8 = 0;
+   </transition>
+   <transition label="182" preset="58" postset="58">
+     mdlo && lsro&& !w2_c8;
+     (0, inf);
+     w2_c8 = 1;
+   </transition>
+   <transition label="183" preset="58" postset="58">
+      !mdlo && w2_c8 || mdlo && !lsro && w2_c8;
+     (0, inf);
+     w2_c8 = 0;
+   </transition>
+   <transition label="185" preset="60" postset="61">
+      !lsro && w1_c8&& !w2_c8;
+     (0, inf);
+     lsro = 1;
+   </transition>
+   <transition label="186" preset="60" postset="61">
+     lsro&& !w1_c8 && w2_c8;
+     (0, inf);
+     lsro = 0;
+   </transition>
+   <transition label="187" preset="61" postset="60">
+     true;
+     (0, inf);
+   </transition>
+   <transition label="188" preset="62" postset="62">
+     !lsri && lsro;
+     (0, inf);
+     lsri = 1;
+   </transition>
+   <transition label="189" preset="62" postset="62">
+     lsri && !lsro;
+     (0, inf);
+     lsri = 0;
+   </transition>
+
+</mod>

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher
+END
+notes.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher/notes.txt
+END
+script.cmnd
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher/script.cmnd
+END
+philsTest.lpn
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher/philsTest.lpn
+END
+mode.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher/mode.cfg
+END
+philsTestOriginal.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher/philsTestOriginal.txt
+END
+PhilsTestArraySingleDef
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/platu/!svn/ver/514/Examples/MutualExclusion/philosopher/PhilsTestArraySingleDef
+END

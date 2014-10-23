@@ -1,0 +1,1202 @@
+package platu.project;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.antlr.runtime.ANTLRFileStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.TokenStream;
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.alg.CycleDetector;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleDirectedGraph;
+import platu.TimingAnalysis.TimingAnalysis;
+import platu.common.DualHashMap;
+import platu.expression.ArrayNode;
+import platu.expression.Expression;
+import platu.expression.VarNode;
+import platu.logicAnalysis.Analysis;
+import platu.logicAnalysis.CompositionalAnalysis;
+import platu.lpn.LPN;
+import platu.lpn.LPNTran;
+import platu.lpn.VarExpr;
+import platu.lpn.VarSet;
+import platu.lpn.VarType;
+import platu.lpn.io.Instance;
+import platu.lpn.io.PlatuGrammarLexer;
+import platu.lpn.io.PlatuGrammarParser;
+import platu.lpn.io.PlatuInstLexer;
+import platu.lpn.io.PlatuInstParser;
+import platu.main.Options;
+import platu.stategraph.State;
+import platu.stategraph.StateGraph;
+import platu.util.Pair;
+
+public class Project {
+
+	protected String label;
+	
+	/* 1. Each design unit has a unique label index.
+	 * 2. The indices of all design units are sequential starting from 0. 
+	 * */
+	protected List<StateGraph> designUnitSet = null;
+	
+	/*	
+	 * Key = LPN module label, value = set of variable names
+	 *  Mapping between each LPN and the set of variables read in it. 
+	 */
+    protected HashMap<String, Set<String>> moduleReadMap = null;
+    
+	/*	
+	 * Key = LPN module label, value = set of variable names
+	 * Mapping between each LPN and the set of variables modified in it. 
+	 */
+    protected HashMap<String, Set<String>> moduleWriteMap = null;
+    
+    /*
+     * List of global variable names.  
+     * For array variables, only the array element names are stored.
+     */
+    protected List<Pair<String, Integer>> globalVariableList = null;
+    
+    
+	public Project() {
+		this.label = "";
+		this.designUnitSet = new ArrayList<StateGraph>(1);
+		this.moduleReadMap = new HashMap<String, Set<String>>();
+		this.moduleWriteMap = new HashMap<String, Set<String>>();
+		this.globalVariableList = new ArrayList<Pair<String, Integer>>(1);
+	}
+
+	public Set<String> getModuleReadSet(String moduleName){
+		return this.moduleReadMap.get(moduleName);
+	}
+	
+	public Set<String> getModuleWriteSet(String moduleName){
+		return this.moduleWriteMap.get(moduleName);
+	}
+	
+	/**
+	 * Find the SG for the entire project where each project state is a tuple of
+	 * local states
+	 * 
+	 */
+	public void search() {			
+		/* Prepare search by placing LPNs in an array in the order of their indices.*/
+		int lpnCnt = designUnitSet.size();
+        StateGraph[] sgArray = new StateGraph[lpnCnt];
+        int idx = 0;
+		for (StateGraph du : designUnitSet) {
+			LPN lpn = du.getLpn();
+			lpn.setIndex(idx++);
+			sgArray[lpn.getIndex()] = du;
+			
+			if(Options.getVerbosity() >= 20) {
+				lpn.printHeader();
+			}
+		}
+		
+		long start = System.currentTimeMillis(); 
+
+		// Initialize the project state
+		//HashMap<String, Integer> varValMap = new HashMap<String, Integer>();
+		State[] initStateArray = new State[lpnCnt];
+		
+		for (int index = 0; index < lpnCnt; index++) {
+			LPN curLpn = sgArray[index].getLpn();
+			initStateArray[index] = curLpn.getInitState();
+			//System.out.println(initStateArray[index]);
+//			int[] curStateVector = initStateArray[index].getVector();
+//			HashSet<String> outVars = curLpn.getOutputs();
+//			DualHashMap<String, Integer> VarIndexMap = curLpn.getVarIndexMap();
+//			for(String var : outVars) {
+//				varValMap.put(var, curStateVector[VarIndexMap.getValue(var)]);
+//			}
+		}
+		
+		/**
+		 * CRA adds initial states on its own.
+		 */
+		if(Options.getSearchType() == Options.SearchTypeDef.CRA 
+				|| Options.getSearchType() == Options.SearchTypeDef.CRA_ORIG
+				|| Options.getSearchType() == Options.SearchTypeDef.CRA_LOCAL
+				|| Options.getSearchType() == Options.SearchTypeDef.CRA_GLOBAL){
+			if(sgArray.length > 1) {
+				CompositionalAnalysis.setGlobalVarList(this.globalVariableList);
+				CompositionalAnalysis.findReducedSG(sgArray);
+				return;
+			}
+			else {
+				System.out.println("--> The model has only one module. Switch to monolithic search!");
+			}
+		}
+		
+		// Adjust the value of the input variables in LPN in the initial state.
+		// Add the initial states into their respective LPN.
+		for (int index = 0; index < lpnCnt; index++) {
+			StateGraph curLpn = sgArray[index];
+			//initStateArray[index].update(varValMap, curLpn.getLpn().getVarIndexMap());
+			initStateArray[index] = curLpn.addState(initStateArray[index]);
+		}		
+		
+		/*
+		 * Entrance to search functions, timed or untimed.
+		 */
+		if (Options.getTimingAnalysisType() != Options.timingAnalysisDef.OFF) {
+			new TimingAnalysis(sgArray); 
+		}
+		else {
+			Analysis tmp = new Analysis(this, sgArray, initStateArray, globalVariableList);
+		}
+		
+		long elapsedTimeMillis = System.currentTimeMillis() - start; 
+		float elapsedTimeSec = elapsedTimeMillis/1000F;
+	}
+
+	/**
+	 * Adjusts the indices of an LPN module's variable set so they are sequential.
+	 * @param lpn - Instantiated LPN module
+	 */
+	private void adjustIndices(LPN lpn){
+		int index = 0;
+		DualHashMap<String, Integer> varIndexMap = lpn.getVarIndexMap();
+		
+		// Internals
+		for(String internalVar : lpn.getInternals()){
+			VarNode internalNode = lpn.getVarNode(internalVar);
+			
+			// if it is an array assign new indices to the array's elements
+			if(ArrayNode.class.isAssignableFrom(internalNode.getClass())){
+				ArrayNode arrayNode = (ArrayNode) internalNode;
+				for(VarNode elementNode : arrayNode.getElementList()){
+					elementNode.setIndex(index);
+					varIndexMap.insert(elementNode.getName(), index);
+					index++;
+				}
+			}
+			else{
+				internalNode.setIndex(index);
+				varIndexMap.insert(internalVar, index);
+				index++;
+			}
+		}
+		
+		// Globals
+		for(String globalVar : lpn.getGlobals()){
+			VarNode globalNode = lpn.getVarNode(globalVar);
+
+			// if it is an array assign new indices to the array's elements
+			if(ArrayNode.class.isAssignableFrom(globalNode.getClass())){
+				ArrayNode arrayNode = (ArrayNode) globalNode;
+				for(VarNode elementNode : arrayNode.getElementList()){
+					elementNode.setIndex(index);
+					varIndexMap.insert(elementNode.getName(), index);
+					index++;
+				}
+			}
+			else{
+				globalNode.setIndex(index);
+				varIndexMap.insert(globalVar, index);
+				index++;
+			}
+		}
+	}
+	
+	/**
+	 * Parses a LPN file and adds each module to the design unit set.
+	 * Used by the old parser.
+	 * @param src_file - File name of the LPN
+	 * @return Set of parsed LPN modules
+	 */
+	public Set<LPN> readLpn(final String src_file) {
+		this.label = src_file;
+		
+		Set<LPN> lpnSet = null;
+
+		try {
+			if (!src_file.endsWith(".lpn")) {
+				System.err.println("Invalid file extention");
+				System.exit(1);
+			}
+
+			ANTLRFileStream input = new ANTLRFileStream(src_file);
+			PlatuGrammarLexer lexer = new PlatuGrammarLexer(input);
+			TokenStream tokenStream = new CommonTokenStream(lexer);
+			PlatuGrammarParser parser = new PlatuGrammarParser(tokenStream);
+			lpnSet = parser.lpn(this);
+			
+		} catch (Exception ex) {
+			Logger.getLogger(Project.class.getName()).log(Level.SEVERE, null,
+					ex);
+		}
+
+		return lpnSet;
+	}
+	
+	/**
+	 * Returns true if the input string is a numerical value.
+	 * @param str - String to test
+	 * @return TRUE if it is a number, otherwise FALSE
+	 */
+	public static boolean isNumeric(String str)
+	{
+	  return str.matches("-?\\d+(.\\d+)?");
+	}
+	
+	
+	/**
+	 * Goes through each instantiated LPN's variables and sets the initial values of 
+	 * those that depend on another variable.
+	 * A global variable dependency graph is constructed to find any cycle dependency 
+	 * and the initial value of each variable.
+	 */
+	private void setDependentInitialValues(Map<String, LPN> instModuleMap, PlatuInstParser parser){
+		// Directed graph used to keep track of module variable dependency for initial values
+		DirectedGraph<String, DefaultEdge> varDependencyGraph =
+	        new SimpleDirectedGraph<String, DefaultEdge>(DefaultEdge.class);
+		
+		// list of atomic nodes (those that are directly assigned an initial value)
+		Set<String> atomicNodes = new HashSet<String>();
+
+		// build the variable dependency graph
+		for(Instance inst : parser.InstanceList){
+			LPN dstLpn = instModuleMap.get(inst.getModuleName());
+			if(dstLpn == null){
+				System.err.println("error: instance " + inst.getModuleName() + " does not exist");
+				System.exit(1);
+			}
+			
+			// list of input variables
+			List<String> argumentList = dstLpn.getArgumentList();
+			
+			// list of output variables used to instantiate
+			List<String> varList = inst.getVariableList();
+			
+			// LPN module's label where the outputs are from
+			List<String> moduleList = inst.getVarModuleList();
+
+			// make sure the number of arguments are correct
+			if(argumentList.size() != varList.size()){
+				System.err.println("error: incompatible number of arguments for instance " + inst.getModuleName());
+				System.exit(1);
+			}
+			
+			// go through each input argument
+			for(int i = 0; i < argumentList.size(); i++){
+				LPN srcLpn = instModuleMap.get(moduleList.get(i));
+				String outputVar = varList.get(i);
+				String inputVar = argumentList.get(i);
+				
+				// add input variable to dependency graph
+				String fullInputName = dstLpn.getLabel() + "." + inputVar;
+				varDependencyGraph.addVertex(fullInputName);
+				
+				// add dependency of internal/output variables on input variable
+				List<String> initList = parser.ClassInputInitMap.get(dstLpn.getClassName()).get(inputVar);
+				if(initList != null){
+					for(String initVar : initList){
+						String fullName = dstLpn.getLabel() + "." + initVar;
+						varDependencyGraph.addVertex(fullName);
+						varDependencyGraph.addEdge(fullName, fullInputName);
+					}
+				}
+				
+				// check if variable is a constant, global array, global variable, or another LPN's output
+				if(srcLpn == null && isNumeric(outputVar)){
+					// add input to atomic nodes since is was assigned a constant value
+					atomicNodes.add(fullInputName);
+					
+					// set initial value
+					dstLpn.getInitVector().put(inputVar, Integer.parseInt(outputVar));
+				}
+				else if(srcLpn == null && parser.GlobalVarNodeMap.containsKey(outputVar)){					
+					// add input's dependency on global variable
+					varDependencyGraph.addVertex(outputVar);
+					varDependencyGraph.addEdge(fullInputName, outputVar);
+					
+					// add global variable to atomicNodes since it must be initialized with a constant value
+					atomicNodes.add(outputVar);
+				}
+				else if(srcLpn == null && parser.GlobalVarHashMap.containsKey(outputVar)){
+					// add input's dependency on global variable
+					varDependencyGraph.addVertex(outputVar);
+					varDependencyGraph.addEdge(fullInputName, outputVar);
+					
+					// add global variable to atomicNodes since it must be initialized with a constant value
+					atomicNodes.add(outputVar);
+				}
+				else if(srcLpn != null){
+					// add input dependency on output
+					varDependencyGraph.addVertex(outputVar);
+					varDependencyGraph.addEdge(fullInputName, outputVar);
+					
+					// check if the output variable is atomic or it is initialized by an input variable
+					VarNode outputVarNode = srcLpn.getVarNode(outputVar);
+					if(outputVarNode.isAtomic())
+						atomicNodes.add(outputVar);
+				}
+				else{
+					System.err.println("error: global variable " + outputVar + " does not exist");
+					System.exit(1);
+				}
+			}
+		}
+		
+		// Check for cycles in variable dependency graph
+		CycleDetector<String, DefaultEdge> cd = new CycleDetector<String, DefaultEdge>(varDependencyGraph);
+		for(LPN lpn : instModuleMap.values()){
+			for(String arg : lpn.getArgumentList()){
+				String inputName = lpn.getLabel() + "." + arg;
+				boolean cycle = cd.detectCyclesContainingVertex(inputName);
+				if(cycle){
+					System.err.println("error: detected cycle containing input variable " + inputName);
+					System.exit(1);
+				}
+			}
+		}
+		
+		// for each atomic variable find all the variables that depend on it and set their initial value
+		for(String atomicVar : atomicNodes){
+			String[] splitString = atomicVar.split("[.]");
+			
+			LPN atomicLpn = null;
+			if(splitString.length == 2)
+				atomicLpn = instModuleMap.get(splitString[0]);
+			
+			boolean isArray = false;
+			int[] atomicElementValues = null;
+			
+			// get the atomic variable's initial value
+			Integer atomicValue = null;
+			HashMap<String, Integer> atomicVector = null;
+			
+			if(splitString.length == 1){ // global variable
+				atomicValue = parser.GlobalVarHashMap.get(atomicVar);
+				if(atomicValue == null){
+					isArray = true;
+					
+					ArrayNode atomicArray = (ArrayNode)parser.GlobalVarNodeMap.get(atomicVar);
+					atomicElementValues = new int[atomicArray.size()];
+					List<VarNode> elementList = atomicArray.getElementList();
+					for(int i = 0; i < atomicArray.size(); i++){
+						VarNode elementNode = elementList.get(i);
+						atomicElementValues[i] = parser.GlobalVarHashMap.get(elementNode.getName());
+					}
+				}
+			}
+			else{
+				atomicVector = atomicLpn.getInitVector();
+				
+				if(atomicVector.containsKey(atomicVar)){ // internal/output variable
+					atomicValue = atomicVector.get(atomicVar);
+				}
+				else if (atomicVector.containsKey(splitString[1])){ // input variable
+					atomicValue = atomicVector.get(splitString[1]);
+				}
+				else{// array variable
+					ArrayNode atomicArray = (ArrayNode)atomicLpn.getVarNode(atomicVar);
+					if(atomicArray == null){
+						atomicArray = (ArrayNode)atomicLpn.getVarNode(splitString[1]);
+					}
+					
+					isArray = true;
+					
+					atomicElementValues = new int[atomicArray.size()];
+					List<VarNode> elementList = atomicArray.getElementList();
+					for(int i = 0; i < atomicArray.size(); i++){
+						VarNode elementNode = elementList.get(i);
+						atomicElementValues[i] = atomicVector.get(elementNode.getName());
+					}
+				}
+			}
+			
+			// stack to back track from the atomic node
+			// in order to find all dependent variables
+			Stack<DefaultEdge> edgeStack = new Stack<DefaultEdge>();
+			edgeStack.addAll(varDependencyGraph.incomingEdgesOf(atomicVar));
+			
+			// back track incoming edges
+			while(!edgeStack.empty()){
+				DefaultEdge currentEdge = edgeStack.pop();
+				String dependentVar = varDependencyGraph.getEdgeSource(currentEdge);
+				String[] splitVar = dependentVar.split("[.]");
+				LPN dependentLpn = instModuleMap.get(splitVar[0]);
+				
+				// set the dependent variable's initial value
+				HashMap<String, Integer> dependentVector = dependentLpn.getInitVector();
+				if(isArray){
+					ArrayNode dependentArray = (ArrayNode)dependentLpn.getVarNode(dependentVar);
+					if(dependentArray == null){
+						dependentArray = (ArrayNode)dependentLpn.getVarNode(splitVar[1]);
+					}
+					
+					List<VarNode> dependentElements = dependentArray.getElementList();
+					for(int i = 0; i < dependentArray.size(); i++){
+						VarNode dependentElement = dependentElements.get(i);
+						dependentVector.put(dependentElement.getName(), atomicElementValues[i]);
+					}
+				}
+				else if(dependentVector.containsKey(dependentVar)){
+					dependentVector.put(dependentVar, atomicValue);
+				}
+				else{
+					dependentVector.put(splitVar[1], atomicValue);
+				}
+				
+				edgeStack.addAll(varDependencyGraph.incomingEdgesOf(dependentVar));
+			}
+		}
+	}
+	
+	/**
+	 * Builds the read and write sets for each instantiated module.
+	 * @param lpnMap - Map of instantiated modules
+	 * @param parser - Parser used to parse the main and class modules
+	 */
+	private void buildReadWriteMaps(Map<String, LPN> lpnMap, PlatuInstParser parser){
+		for(Instance inst : parser.InstanceList){
+			// list of variables used to instantiate
+			List<String> instVarList = inst.getVariableList();
+			
+			// list of modules the above variables came from
+			List<String> instModuleList = inst.getVarModuleList();
+			
+			// instantiate LPN module
+			String moduleName = inst.getModuleName();
+			LPN module = lpnMap.get(moduleName);
+			if(module == null){
+				System.err.println("error: invalid module name " + moduleName);
+				System.exit(1);
+			}
+			
+			// list of LPN input argument
+			List<String> moduleArgList = module.getArgumentList();
+			
+			// class's read and write sets
+			String className = inst.getClassName();
+			Set<String> classReadSet = parser.ClassReadMap.get(className);
+			Set<String> classWriteSet = parser.ClassWriteMap.get(className);
+			if(classReadSet == null || classWriteSet == null){
+				System.err.println("error: invalid class name " + className);
+				System.exit(1);
+			}
+			
+			// module's read and write sets
+			Set<String> moduleReadSet = new HashSet<String>();
+			Set<String> moduleWriteSet = new HashSet<String>();
+			
+			// go through each input argument and add the new name 
+			// to the module's read and write set if applicable
+			for(int i = 0; i < moduleArgList.size(); i++){
+				String inputName = "";
+				String argModName = instModuleList.get(i);
+				String argVarName = instVarList.get(i);
+				String argumentName = moduleArgList.get(i);
+				
+				// find the new input variable name
+				if(argModName == null){
+					if(isNumeric(argVarName)){ // constant
+						inputName = argumentName;
+						
+						if(classReadSet.contains(argumentName)){
+							moduleReadSet.add(moduleName + "." + inputName);
+						}
+						
+						if(classWriteSet.contains(argumentName)){
+							moduleWriteSet.add(moduleName + "." + inputName);
+						}
+						
+						continue;
+					}
+					else{ // global variable
+						inputName = argVarName;
+					}
+				}
+				else{ // output variable
+					inputName = argVarName;
+				}
+				
+				if(classReadSet.contains(argumentName)){
+					moduleReadSet.add(inputName);
+				}
+				
+				if(classWriteSet.contains(argumentName)){
+					moduleWriteSet.add(inputName);
+				}
+			}
+			
+			// add internal variables to the read and write sets if applicable
+			for(String internalVar : module.getInternals()){
+				String internal = internalVar.split("[.]")[1];
+				
+				if(classReadSet.contains(internal)){
+					moduleReadSet.add(internalVar);
+				}
+				
+				if(classWriteSet.contains(internal)){
+					moduleWriteSet.add(internalVar);
+				}
+			}
+			
+			this.moduleReadMap.put(moduleName, moduleReadSet);
+			this.moduleWriteMap.put(moduleName, moduleWriteSet);
+		}
+	}
+	
+	/**
+	 * Adjusts variables to the correct LPN variable set.  
+	 * Moves constant inputs to the internal set, and moves outputs to the output set.
+	 * @param lpnMap - Map of instantiated LPN modules
+	 * @param parser - Parser used to parse the main and class modules
+	 */
+	private void adjustVariableTypes(Map<String, LPN> lpnMap, PlatuInstParser parser){
+		/*
+		 * Loop through each instantiation statement
+		 */
+		for(Instance inst : parser.InstanceList){
+			// list of variables used to instantiate
+			List<String> instVarList = inst.getVariableList();
+			
+			// list of modules the above variables came from
+			List<String> instModuleList = inst.getVarModuleList();
+			
+			// instantiate LPN module
+			String moduleName = inst.getModuleName();
+			LPN module = lpnMap.get(moduleName);
+			if(module == null){
+				System.err.println("error: invalid module name " + moduleName);
+				System.exit(1);
+			}
+			
+			// list of LPN input argument
+			List<String> moduleArgList = module.getArgumentList();
+			
+			// module's input and internal variable sets
+			VarSet moduleGlobals = module.getGlobals();
+			VarSet moduleInternals = module.getInternals();
+			
+			/*
+			 * Go through each argument used for instantiation
+			 */
+			for(int i = 0; i < moduleArgList.size(); i++){
+				String argModName = instModuleList.get(i); // argument variable's LPN name
+				String argVarName = instVarList.get(i); // variable passed as argument
+				String argumentName = moduleArgList.get(i); // input argument name
+				
+				if(argModName == null){
+					/*
+					 * If the argument passed is a constant integer, remove variable as input 
+					 * and add as internal
+					 */
+					if(isNumeric(argVarName)){ // constant
+						moduleGlobals.remove(argumentName);
+						moduleInternals.add(moduleName + "." + argumentName);
+					}
+				}
+				else{
+					/*
+					 * If the argument passed is a variable from another module, 
+					 * remove from the internal set and add to the global set
+					 */
+					LPN argModule = lpnMap.get(argModName);
+					if(argModule == null){
+						System.err.println("error: invalid module name " + argModName);
+						System.exit(1);
+					}
+					
+					argModule.getInternals().remove(argVarName);
+					argModule.getGlobals().add(argVarName);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Removes internal variables that are not read or modified.
+	 * @param lpn - Instantiated LPN module
+	 * @return TRUE if a variable is removed, otherwise FALSE
+	 */
+	private boolean removeUnusedVariables(LPN lpn){
+		boolean modified = false;
+		Set<String> readSet = this.getModuleReadSet(lpn.getLabel());
+		Set<String> writeSet = this.getModuleWriteSet(lpn.getLabel());
+		if(readSet == null || writeSet == null){
+			System.err.println("error: invalid module name " + lpn.getLabel());
+			System.exit(1);
+		}
+		
+		VarSet internalSet = lpn.getInternals();
+		HashMap<String, Integer> initialVector = lpn.getInitVector();
+		HashMap<String, VarNode> varNodeMap = lpn.getVarNodeMap();
+		DualHashMap<String, Integer> varIndexMap = lpn.getVarIndexMap();
+		
+		for(String internal : lpn.getInternals().toArray(new String[lpn.getInternals().size()])){
+			if(!readSet.contains(internal) && !writeSet.contains(internal)){
+				System.err.println("Warning: internal variable " + internal + " is not read or modified, and as a result will be removed");
+				
+				VarNode node = lpn.getVarNode(internal);
+
+				// remove from internal set
+				internalSet.remove(internal);
+				
+				// remove from varNodeMap
+				varNodeMap.remove(internal);
+				
+				// if it is an array remove element nodes
+				if(ArrayNode.class.isAssignableFrom(internal.getClass())){
+					ArrayNode array = (ArrayNode) node;
+					for(VarNode element : array.getElementList()){
+						String elementName = element.getName();
+						
+						// remove from varNodeMap
+						varNodeMap.remove(elementName);
+						
+						// remove from varIndexMap
+						varIndexMap.delete(elementName);
+						
+						// remove from the initial vector
+						initialVector.remove(elementName);
+					}
+				}
+				else{
+					// remove from varIndexMap
+					varIndexMap.delete(internal);
+					
+					// remove from the initial vector
+					initialVector.remove(internal);
+				}
+				
+				modified = true;
+			}
+		}
+		
+		return modified;
+	}
+	
+	/**
+	 * Validates instantiated modules and the argument variables used for instantiation.
+	 * Input variables cannot be used for instantiation, 
+	 * nor may a module's variable be used as an argument to itself.
+	 * Each instantiated module must contain a unique name.
+	 * @param lpnMap - Map of instantiated LPN modules
+	 * @param parser - Parser used to parse the main and class modules
+	 */
+	private void validateInstances(Map<String, LPN> lpnMap, PlatuInstParser parser){
+		Set<String> instanceSet = new HashSet<String>();
+		
+		/*
+		 * Go through each instantiation statement
+		 */
+		for(Instance inst : parser.InstanceList){
+			// list of variables used to instantiate
+			List<String> instVarList = inst.getVariableList();
+			
+			// list of modules the above variables came from
+			List<String> instModuleList = inst.getVarModuleList();
+			
+			// LPN module to instantiate
+			String moduleName = inst.getModuleName();
+			if(instanceSet.add(moduleName) == false){
+				System.err.println("Error on line " + inst.getLineNumber() + ": duplicate module name " + moduleName);
+				System.exit(1);
+			}
+
+			// LPN for the module to instantiate
+			LPN module = lpnMap.get(moduleName);
+			if(module == null){
+				System.err.println("Error on line " + inst.getLineNumber() + ": invalid module name " + moduleName);
+				System.exit(1);
+			}
+			
+			/*
+			 * Loop through the output variables used for instantiation
+			 */
+			for(int i = 0; i < instVarList.size(); i++){
+				String argVariable = instVarList.get(i);
+				String argModule = instModuleList.get(i);
+				
+				/*
+				 * If argModule is not null then it is a module's output variable, otherwise it
+				 * could be a global variable or a constant integer value.
+				 */
+				if(argModule != null){
+					// Make sure the output variable is not from the module to be instantiated
+					if(argModule.equals(moduleName)){
+						System.err.println("Error on line " + inst.getLineNumber() + ": module " + argModule + " has an input to itself");
+						System.exit(1);
+					}
+					
+					// Check if the argument module exists
+					LPN argLpn = lpnMap.get(argModule);
+					if(argLpn == null){
+						System.err.println("Error on line " + inst.getLineNumber() + ": invalid input argument " + argVariable);
+						System.exit(1);
+					}
+					
+					// Check if the argument variable exists in the argument module
+					if(argLpn.getVarNode(argVariable) == null){
+						System.err.println("Error on line " + inst.getLineNumber() + ": invalid input argument " + argVariable);
+						System.exit(1);
+					}
+				}
+				else if(!isNumeric(argVariable)){
+					if(!parser.GlobalVarHashMap.containsKey(argVariable)){
+						System.err.println("Error on line " + inst.getLineNumber() + ": invalid global variable " + argVariable);
+						System.exit(1);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Parses the supplied list of LPN files and instantiates the modules defined in the main class.
+	 * Each instantiated module's state graph is added to the design unit set.
+	 * @param fileList - list of LPN files to be read
+	 */
+	public void readLpn(List<String> fileList) {
+		PlatuInstLexer lexer = new PlatuInstLexer();
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		PlatuInstParser parser = new PlatuInstParser(tokenStream);
+		
+		// parse the supplied list of LPN files
+		for(String srcFile : fileList){
+			if (!srcFile.endsWith(".lpn")) {
+				System.err.println("Error: invalid file extention");
+				System.exit(1);
+			}
+
+			ANTLRFileStream input = null;
+			try {
+				input = new ANTLRFileStream(srcFile);
+			} 
+			catch (IOException e) {
+				System.err.println("Error: error reading " + srcFile);
+				System.exit(1);
+			}
+			
+			lexer.setCharStream(input);
+			tokenStream = new CommonTokenStream(lexer);
+			parser.setTokenStream(tokenStream);
+			
+			try {
+				parser.parseLpnFile(this);
+			} 
+			catch (RecognitionException e) {
+				System.err.println("Error: error parsing " + srcFile);
+				System.exit(1);
+			}
+		}
+
+		// parse the LPN files defined in the include tags
+		parser.IncludeSet.removeAll(fileList);
+		for(String srcFile : parser.IncludeSet){
+			if (!srcFile.endsWith(".lpn")) {
+				System.err.println("Error: invalid file extention");
+				System.exit(1);
+			}
+
+			ANTLRFileStream input = null;
+			try {
+				input = new ANTLRFileStream(srcFile);
+			} 
+			catch (IOException e) {
+				System.err.println("Error: error reading " + srcFile);
+				System.exit(1);
+			}
+			
+			lexer.setCharStream(input);
+			tokenStream = new CommonTokenStream(lexer);
+			parser.setTokenStream(tokenStream);
+			
+			try {
+				parser.parseLpnFile(this);
+			} 
+			catch (RecognitionException e) {
+				System.err.println("Error: error parsing " + srcFile);
+				System.exit(1);
+			}
+		}
+		
+		// re-initialize lpn's ID attribute
+		//platu.lpn.LPN.nextID = 1;
+		
+		// hash map of instantiated module
+		HashMap<String, LPN> instModuleMap = new HashMap<String, LPN>();
+		
+		// process the list instantiation declarations from the main
+		// add the instantiated modules to the hash map and their state graph to the design unit set
+		for(Instance inst : parser.InstanceList){
+			LPN lpn = parser.LpnMap.get(inst.getClassName());
+			if(lpn == null){
+				System.err.println("Error: class " + inst.getClassName() + " does not exist");
+				System.exit(1);
+			}
+			
+			LPN instLpn = lpn.instantiate(inst.getModuleName());
+			
+			// make sure the number of arguments are correct
+			if(instLpn.getArgumentList().size() != inst.getVariableList().size()){
+				System.err.println("Error: incompatible number of arguments for instance " + inst.getModuleName());
+				System.exit(1);
+			}
+			
+			instModuleMap.put(instLpn.getLabel(), instLpn);
+			this.designUnitSet.add(instLpn.getStateGraph());
+		}
+		
+		// validate instance modules and argument variables to make sure they exist and they are not inputs
+		validateInstances(instModuleMap, parser);
+		
+		// set the initial value of the variables that depend on another variable
+		setDependentInitialValues(instModuleMap, parser);
+		
+		// build the read and write sets for each module
+		buildReadWriteMaps(instModuleMap, parser);
+		
+		// adjust the type of variables used as output and constant inputs
+		adjustVariableTypes(instModuleMap, parser);
+		
+		
+		// maps each output variable to the LPN modules where they are inputs
+		HashMap<String, List<LPN>> instVarDst = new HashMap<String, List<LPN>>();
+		
+		// maps each global variable to the LPN modules where they are inputs
+		HashMap<String, List<LPN>> globalVarDst = new HashMap<String, List<LPN>>();
+
+		// configure the inputs and outputs to each instantiated module
+		for(Instance inst : parser.InstanceList){
+			LPN dstLpn = instModuleMap.get(inst.getModuleName());
+			if(dstLpn == null){
+				System.err.println("Error: instance " + inst.getModuleName() + " does not exist");
+				System.exit(1);
+			}
+			
+			// list of input variables
+			List<String> argumentList = dstLpn.getArgumentList();
+			
+			// list of output variables used to instantiate
+			List<String> varList = inst.getVariableList();
+			
+			// LPN module's label where the outputs are from
+			List<String> moduleList = inst.getVarModuleList();
+
+			// process each input argument
+			for(int i = 0; i < argumentList.size(); i++){
+				LPN srcLpn = instModuleMap.get(moduleList.get(i));
+				String outputVar = varList.get(i);
+				String inputVar = argumentList.get(i);
+				
+				// check if variable is a constant, global array, global variable, or another LPN's output
+				if(srcLpn != null){
+					// connect the output variable to the input variable
+					srcLpn.connect(outputVar, dstLpn, inputVar);
+					
+					// map dstLpn as a destination LPN for the output variable outputVar
+					List<LPN> dstList = instVarDst.get(outputVar);
+					if(dstList == null){
+						dstList = new LinkedList<LPN>();
+						instVarDst.put(outputVar, dstList);
+					}
+					
+					dstList.add(dstLpn);
+				}
+				else if(isNumeric(outputVar)){ // constant
+					dstLpn.setConstantInput(inputVar, Integer.parseInt(outputVar));
+				}
+				else if(parser.GlobalVarNodeMap.containsKey(outputVar)){ // global array
+					ArrayNode globalArrayNode = (ArrayNode) parser.GlobalVarNodeMap.get(outputVar);
+					
+					dstLpn.setGlobalArray(globalArrayNode, inputVar);
+					
+					// map dstLpn as a destination LPN for the global variable outputVar
+					List<LPN> dstList = globalVarDst.get(outputVar);
+					if(dstList == null){
+						dstList = new LinkedList<LPN>();
+						globalVarDst.put(outputVar, dstList);
+					}
+					
+					dstList.add(dstLpn);
+				}
+				else if(parser.GlobalVarHashMap.containsKey(outputVar)){ // global variable
+					int initialValue = parser.GlobalVarHashMap.get(outputVar);
+					dstLpn.setGlobalVariable(outputVar, inputVar, initialValue);
+					
+					// map dstLpn as a destination LPN for the global variable outputVar
+					List<LPN> dstList = globalVarDst.get(outputVar);
+					if(dstList == null){
+						dstList = new LinkedList<LPN>();
+						globalVarDst.put(outputVar, dstList);
+					}
+					
+					dstList.add(dstLpn);
+				}
+			}
+		}
+		
+		// connect shared variables
+		for(Entry<String, List<LPN>> e : instVarDst.entrySet()){
+			// output variable
+			String varName = e.getKey();
+			
+			String[] splitString = varName.split("[.]");
+			if(splitString.length != 2){
+				System.err.println("Error: variable " + e.getKey() + " is not correctly named");
+				System.exit(1);
+			}
+			
+			// LPN the output variable is from
+			LPN srcLpn = instModuleMap.get(splitString[0]);
+			
+			// output variable's VarNode
+			VarNode outputNode = srcLpn.getVarNode(varName);
+			if(outputNode == null){
+				System.err.println("Error: output variable " + splitString[1] + " not found");
+				System.exit(1);
+			}
+			else if(!outputNode.isShared()){
+				// if the variable is not a shared variable skip
+				continue;
+			}
+			
+			// list of LPN's where the output variable is used
+			List<LPN> dstList = e.getValue();
+			
+			// list of input variable nodes and associated LPN where the output variable is connected
+			List<Pair<VarNode, LPN>> inputNodeList = new LinkedList<Pair<VarNode, LPN>>();
+			
+			// go through output variable's destination list, and get connected input variable
+			for(LPN dstLpn : dstList){
+				VarNode inputNode = dstLpn.getVarNode(outputNode.getName());
+				if(inputNode == null){
+					System.err.println("Error: input variable " + splitString[1] + " not found");
+					System.exit(1);
+				}
+				
+				inputNodeList.add(new Pair<VarNode, LPN>(inputNode, dstLpn));
+			}
+			
+			// if the input variable is a shared variable (it is modified)
+			// set the connection back to the output variable
+			// and to all other input variables where the output variable is connected
+			for(Pair<VarNode, LPN> p : inputNodeList){
+				VarNode inputVar = p.getLeft();
+				LPN dstLpn = p.getRight();
+
+				if(inputVar.isShared()){
+					// connect this variable with all other associated input variables
+					for(Pair<VarNode, LPN> p2 : inputNodeList){
+						if(p == p2)
+							continue;
+						
+						dstLpn.share(inputVar, p2.getRight(), p2.getLeft());
+					}
+					
+					// share with outputVar
+					dstLpn.share(inputVar, srcLpn, outputNode);
+				}
+			}
+		}
+		
+		// connect LPNs that modify a global variable to all other LPN's using that global variable
+		for(Entry<String, List<LPN>> e : globalVarDst.entrySet()){
+			String globalVar = e.getKey();
+			
+			// list of LPNs where this global variable is used
+			List<LPN> dstLpnList = e.getValue();
+			
+			// if the input variable is shared (modifies the global variable) 
+			// connect to each LPN where the global variable is used
+			for(LPN dstLpn : dstLpnList){
+				// input variable connected to the global variable
+				VarNode inputVarNode = dstLpn.getVarNode(globalVar);
+				
+				if(inputVarNode.isShared()){ // check if input variable is modified
+					// connect this variable with all other instances of this global variable
+					for(LPN lpn : dstLpnList){
+						if(lpn == dstLpn)
+							continue;
+						
+						VarNode otherVarNode = lpn.getVarNode(globalVar);
+						dstLpn.share(inputVarNode, lpn, otherVarNode);
+					}
+				}
+			}
+		}
+		
+		// remove unused variables and adjust indices
+		for(LPN lpn : instModuleMap.values()){
+			this.removeUnusedVariables(lpn);
+			
+			// adjust indices
+			this.adjustIndices(lpn);
+		}
+		
+		// re-initialize each LPN's transitions
+		for(LPN lpn : instModuleMap.values()){
+			for(LPNTran lpnTran : lpn.getTransitions()){
+				lpnTran.initialize(lpn);
+			}
+		}
+		
+		// add global variables to project's globalVariableList	
+		for(StateGraph sg : this.designUnitSet){
+			LPN lpn = sg.getLpn();
+			DualHashMap<String, Integer> varIndexMap = lpn.getVarIndexMap();
+			HashMap<String, Integer> initMap = lpn.getInitVector();
+			
+			for(int i = 0; i < varIndexMap.size(); i++){
+				VarNode varNode = lpn.getVarNode(varIndexMap.getKey(i));
+				String varName = varNode.getName();
+				
+				if(varNode.getType() != VarType.INTERNAL){
+					Pair<String, Integer> p = new Pair<String, Integer>(varName, initMap.get(varName));
+					if(!this.globalVariableList.contains(p)){
+						this.globalVariableList.add(p);
+					}
+				}
+			}
+		}
+	}
+	
+	public void outputLpn(String fileName){
+		FileWriter fstream;
+		
+		try {
+			// Create file
+			fstream = new FileWriter(fileName);
+			BufferedWriter out = new BufferedWriter(fstream);
+			
+			for(StateGraph sg : this.designUnitSet){
+				LPN lpn = sg.getLpn();
+				
+				/*
+				 * Module header
+				 */
+				out.write("<mod name=\"" + lpn.getLabel() + "\">\n");
+				
+				/*
+				 * Variables
+				 */
+				out.write("  <var>\n");
+				for(Entry<String, Integer> e : lpn.getInitVector().entrySet()){
+					out.write("    " + e.getKey() + " = " + e.getValue() + ";\n");
+				}
+				out.write("  </var>\n\n");
+				
+				/*
+				 * Marking
+				 */
+				out.write("  <marking> ");
+				
+				int[] initMark = lpn.getInitMark();
+				for(int i = 0; i < initMark.length-1; i++){
+					out.write("" + initMark[i] + ", ");
+				}
+				out.write("" + initMark[initMark.length-1]);
+				
+				out.write(" </marking>\n\n");
+				
+				/*
+				 * Transitions
+				 */
+				for(LPNTran lpnTran : lpn.getTransitions()){
+					/*
+					 * Transition header
+					 */
+					out.write("  <transition label=\"" + lpnTran.getLabel() + "\"");
+					
+					// Preset
+					out.write(" preset=\"");
+					
+					int[] preset = lpnTran.getPreSet();
+					for(int i=0; i < preset.length-1; i++){
+						out.write("" + preset[i] + ", ");
+					}
+					
+					out.write("" + preset[preset.length-1]);
+					out.write("\"");
+					
+					// Postset
+					out.write(" postset=\"");
+					
+					Integer[] postset = lpnTran.getPostSet().toArray(new Integer[lpnTran.getPostSet().size()]);
+					for(int i=0; i < postset.length-1; i++){
+						out.write("" + postset[i] + ", ");
+					}
+					
+					out.write("" + postset[postset.length-1]);
+					
+					out.write("\">\n");
+					
+					/*
+					 * Guard
+					 */
+					out.write("    " + lpnTran.getEnablingGuard() + ";\n");
+					
+					/*
+					 * Delay
+					 */
+					String ub = "" + lpnTran.getDelayUB();
+					if(lpnTran.getDelayUB() == Integer.MAX_VALUE)
+						ub = "inf";
+					
+					out.write("    (" + lpnTran.getDelayLB() + ", " + ub + ");\n");
+					
+					/*
+					 * Assignments
+					 */
+					for(VarExpr ve : lpnTran.getAssignments()){
+						out.write("    " + ve.getVar() + " = " + ve.getExpr() + ";\n");
+					}
+					
+					/*
+					 * Assertions
+					 */
+					for(Expression e : lpnTran.getAssertions()){
+						out.write("    assert(" + e + ");" );
+					}
+					
+					out.write("  </transition>\n\n");
+				}
+				
+				out.write("</mod>\n\n");
+			}
+			
+			
+			// Close the output stream
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String setLabel(String prjName) 
+	{
+		return this.label = prjName;
+	}
+	
+	public String getLabel() {
+		return label;
+	}
+	/**
+	 * Returns the set of state graphs in this project.
+	 * @return List of state graphs
+	 */
+	public List<StateGraph> getDesignUnitSet() {
+		return designUnitSet;
+	}
+}

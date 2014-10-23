@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/platu/!svn/ver/634/trunk/src/platu/common
+END
+HashTable.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/platu/!svn/ver/586/trunk/src/platu/common/HashTable.java
+END
+BtreeTable.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/platu/!svn/ver/634/trunk/src/platu/common/BtreeTable.java
+END
+IntArrayObj.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/platu/!svn/ver/577/trunk/src/platu/common/IntArrayObj.java
+END
+SetIntTuple.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/platu/!svn/ver/586/trunk/src/platu/common/SetIntTuple.java
+END
+Common.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/platu/!svn/ver/483/trunk/src/platu/common/Common.java
+END
+IndexObjMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/platu/!svn/ver/620/trunk/src/platu/common/IndexObjMap.java
+END
+HashTableNative.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/platu/!svn/ver/624/trunk/src/platu/common/HashTableNative.java
+END
+DualHashMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/platu/!svn/ver/606/trunk/src/platu/common/DualHashMap.java
+END
+PlatuObj.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/platu/!svn/ver/453/trunk/src/platu/common/PlatuObj.java
+END
+MddTable.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/platu/!svn/ver/600/trunk/src/platu/common/MddTable.java
+END

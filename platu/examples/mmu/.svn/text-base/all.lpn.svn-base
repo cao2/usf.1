@@ -1,0 +1,756 @@
+<mod name="MDLo.lpn">
+
+<var>
+mdsi = 0;
+mdlo = 0;
+mdli = 0; 
+w4_c1 = 0;
+w1_c1 = 0;
+mdl = 0; 
+w3_c1 = 0;
+w5_c1 = 1;
+w2_c1 = 0; 
+</var>
+
+
+   <marking>
+   0,   2,   5,   6,   8,   10,   94
+   </marking>
+
+   <transition label="20" preset="0" postset="0">
+     lsri && !bo && !rao && lsro && !w1_c1;
+     (0, inf);
+     w1_c1 = 1;
+   </transition>
+   <transition label="21" preset="0" postset="0">
+     (!lsri || bo || rao || !lsri) && w1_c1;
+     (0, inf);
+     w1_c1 = 0;
+   </transition>
+   <transition label="23" preset="2" postset="2">
+     lswi && !bo && !rao && lswo && !w2_c1;
+     (0, inf);
+     w2_c1 = 1;
+   </transition>
+   <transition label="24" preset="2" postset="2">
+     (!lswi || bo || rao || !lswo) && w2_c1;
+     (0, inf);
+     w2_c1 = 0;
+   </transition>
+   <transition label="26" preset="6" postset="6">
+     msli && !bo && !rao && mslo && !w3_c1;
+     (0, inf);
+     w3_c1 = 1;
+   </transition>
+   <transition label="27" preset="6" postset="6">
+      (!msli || bo || rao || !mslo) && w3_c1;
+     (0, inf);
+     w3_c1 = 0;
+   </transition>
+   <transition label="28" preset="5" postset="5">
+     !w1_c1 && !w2_c1 && !w3_c1 && w4_c1;
+     (0, inf);
+     w4_c1 = 0;
+   </transition>
+   <transition label="31" preset="5" postset="5">
+     (w1_c1 || w2_c1 || w3_c1) && !w4_c1;
+     (0, inf);
+     w4_c1 = 1;
+   </transition>
+   <transition label="32" preset="8" postset="8">
+     !mdli && !lsro && !lswo && !mslo && !w5_c1;
+     (0, inf);
+     w5_c1 = 1;
+   </transition>
+   <transition label="34" preset="8" postset="8">
+     (mdli || lsro || lswo || mslo) && w5_c1;
+     (0, inf);
+     w5_c1 = 0;
+   </transition>
+   <transition label="33" preset="10" postset="10">
+      !mdlo && w4_c1 && !w5_c1;
+     (0, inf);
+     mdlo = 1;
+   </transition>
+   <transition label="35" preset="10" postset="10">
+     mdlo && !w4_c1 && w5_c1;
+     (0, inf);
+     mdlo = 0;
+   </transition>
+   <transition label="268" preset="94" postset="90">
+     !mdlo && !mdso;
+     (0, inf);
+     mdli = 1;
+   </transition>
+   <transition label="269" preset="90" postset="94">
+     mdli && mdlo;
+     (0, inf);
+     mdli = 0;
+   </transition>
+   <transition label="270" preset="94" postset="92">
+     !mdlo && !mdso;
+     (0, inf);
+     mdsi = 1;
+   </transition>
+   <transition label="271" preset="92" postset="94">
+     mdsi && mdso;
+     (0, inf);
+     mdsi = 0;
+   </transition>
+</mod>
+
+
+
+<mod name="MDSo.lpn">
+
+<var>
+mdso = 0;
+w4_c5 = 0;
+w1_c5 = 0; 
+w3_c5 = 0; 
+w5_c5 = 1; 
+w2_c5 = 0;
+</var>
+
+   <marking>
+   31,   33,   35,   37,   40,   42,   43
+   </marking>
+
+   <transition label="114" preset="31" postset="31">
+     ssri && !wao && !bo && ssro && !w1_c5;
+     (0, inf);
+     w1_c5 = 1;
+   </transition>
+   <transition label="115" preset="31" postset="31">
+     (!ssri || wao || bo || !ssro) && w1_c5;
+     (0, inf);
+     w1_c5 = 0;
+   </transition> 
+   <transition label="117" preset="37" postset="37">
+     sswi && !wao && !bo && sswo && !w2_c5;
+     (0, inf);
+     w2_c5 = 1;
+   </transition>
+   <transition label="118" preset="37" postset="37">
+     (!sswi || wao || bo || !sswo) && w2_c5;
+     (0, inf);
+     w2_c5 = 0;
+   </transition> 
+   <transition label="120" preset="33" postset="33">
+     mssi && !wao && !bo && msso && !w3_c5;
+     (0, inf);
+     w3_c5 = 1;
+   </transition>
+   <transition label="121" preset="33" postset="33">
+     (!mssi || wao || bo || !msso) && w3_c5;
+     (0, inf);
+     w3_c5 = 0;
+   </transition>
+   <transition label="122" preset="35" postset="35">
+     !w1_c5 && !w2_c5 && !w3_c5 && w4_c5;
+     (0, inf);
+     w4_c5 = 0;
+   </transition>
+   <transition label="125" preset="35" postset="35">
+     (w1_c5 || w2_c5 || w3_c5) && !w4_c5;
+     (0, inf);
+     w4_c5 = 1;
+   </transition>
+   <transition label="126" preset="40" postset="40">
+     !mdsi && !ssro && !sswo && !msso && !w5_c5;
+     (0, inf);
+     w5_c5 = 1;
+   </transition>
+   <transition label="128" preset="40" postset="40">
+     (mdsi || ssro || sswo || msso) && w5_c5;
+     (0, inf);
+     w5_c5 = 0;
+   </transition>
+   <transition label="127" preset="42" postset="42">
+     !mdso && w4_c5 && !w5_c5;
+     (0, inf);
+     mdso = 1;
+   </transition>
+   <transition label="129" preset="42" postset="42">
+     mdso && !w4_c5 && w5_c5;
+     (0, inf);
+     mdso = 0;
+   </transition>
+</mod>
+
+
+
+<mod name="MSLo.lpn">
+
+<var> 
+msli = 0;
+mslo = 0; 
+w1_c2 = 0;
+w2_c2 = 0; 
+</var>
+
+   <marking>
+   13,   15,   17, 18
+   </marking>
+
+   <transition label="49" preset="13" postset="13">
+     rai && b3i && !msli && rao && bo && !w1_c2;
+     (0, inf);
+     w1_c2 = 1;
+   </transition>
+   <transition label="50" preset="13" postset="13">
+     (!rai || !b3i || msli || !rao || !bo) && w1_c2;
+     (0, inf);
+     w1_c2 = 0;
+   </transition>
+   <transition label="52" preset="15" postset="15">
+     mdlo && mslo&& !w2_c2;
+     (0, inf);
+     w2_c2 = 1;
+   </transition>
+   <transition label="53" preset="15" postset="15">
+      !mdlo && w2_c2 || mdlo && !mslo && w2_c2;
+     (0, inf);
+     w2_c2 = 0;
+   </transition>
+   <transition label="55" preset="17" postset="17">
+      !mslo && w1_c2 && !w2_c2;
+     (0, inf);
+     mslo = 1;
+   </transition>
+   <transition label="56" preset="17" postset="17">
+     mslo && !w1_c2 && w2_c2;
+     (0, inf);
+     mslo = 0;
+   </transition>
+   <transition label="57" preset="18" postset="18">
+     !msli && mslo;
+     (0, inf);
+     msli = 1;
+   </transition>
+   <transition label="58" preset="18" postset="18">
+     msli && !mslo;
+     (0, inf);
+     msli = 0;
+   </transition>
+</mod>
+
+
+
+
+<mod name="MSSo.lpn">
+
+<var>
+mssi = 0;
+msso = 0;
+w1_c9 = 0;
+w2_c9 = 0;
+</var>
+
+   <marking>
+   62,   64,   66, 67
+   </marking>
+
+   <transition label="197" preset="62" postset="62">
+     wai && b3i && !mssi && wao && bo && !w1_c9;
+     (0, inf);
+     w1_c9 = 1;
+   </transition>
+   <transition label="198" preset="62" postset="62">
+     (!wai || !b3i || mssi || !wao || !bo) && w1_c9;
+     (0, inf);
+     w1_c9 = 0;
+   </transition>
+   <transition label="200" preset="64" postset="64">
+     mdso && msso && !w2_c9;
+     (0, inf);
+     w2_c9 = 1;
+   </transition>
+   <transition label="201" preset="64" postset="64">
+     (!mdso || !msso) && w2_c9;
+     (0, inf);
+     w2_c9 = 0;
+   </transition>
+   <transition label="203" preset="66" postset="66">
+      !msso && w1_c9&& !w2_c9;
+     (0, inf);
+     msso = 1;
+   </transition>
+   <transition label="204" preset="66" postset="66">
+     msso&& !w1_c9 && w2_c9;
+     (0, inf);
+     msso = 0;
+   </transition>
+   <transition label="205" preset="67" postset="67">
+     !mssi && msso;
+     (0, inf);
+     mssi = 1;
+   </transition>
+   <transition label="206" preset="67" postset="67">
+     mssi && !msso;
+     (0, inf);
+     mssi = 0;
+   </transition>
+</mod>
+
+
+
+<mod name="RAo.lpn">
+
+<var>	
+rao = 0;
+rai = 0;
+w1_c6 = 0; 
+w2_c6 = 0;
+</var>
+
+   <marking>
+   44,   46,   48, 50
+   </marking>
+
+   <transition label="143" preset="44" postset="44">
+     mdli && !rai && !mdlo && !lsro && !lswo && !mslo && !w1_c6;
+     (0, inf);
+     w1_c6 = 1;
+   </transition>
+   <transition label="144" preset="44" postset="44">
+     (!mdli || rai || mdlo || lsro || lswo || mslo) && w1_c6; 
+     (0, inf);
+     w1_c6 = 0;
+   </transition>
+   <transition label="146" preset="48" postset="48">
+     (lsro || lswo || mslo ) && !w2_c6; 
+     (0, inf);
+     w2_c6 = 1;
+   </transition>
+   <transition label="147" preset="48" postset="48">
+      !lsro && !lswo && !mslo && w2_c6;
+     (0, inf);
+     w2_c6 = 0;
+   </transition>
+   <transition label="149" preset="46" postset="46">
+      !rao && w1_c6 && !w2_c6;
+     (0, inf);
+     rao = 1;
+   </transition>
+   <transition label="150" preset="46" postset="46">
+     rao&& !w1_c6 && w2_c6;
+     (0, inf);
+     rao = 0;
+   </transition>
+   <transition label="152" preset="50" postset="50">
+     !rai && rao;
+     (0, inf);
+     rai = 1;
+   </transition>
+   <transition label="153" preset="50" postset="50">
+     rai && !rao;
+     (0, inf);
+     rai = 0;
+   </transition>
+</mod>
+
+
+
+<mod name="SSRo.lpn">
+
+<var>
+ssri = 0;
+ssro = 0;
+w1_c10 = 0; 
+w2_c10 = 0;
+</var>
+
+   <marking>
+   69,   70,   72, 73
+   </marking>
+
+   <transition label="215" preset="70" postset="70">
+     wai && b1i && !ssri && wao && bo && !w1_c10;
+     (0, inf);
+     w1_c10 = 1;
+   </transition>
+   <transition label="216" preset="70" postset="70">
+     (!wai || !b1i || ssri || !wao || !bo) && w1_c10;
+     (0, inf);
+     w1_c10 = 0;
+   </transition>
+   <transition label="218" preset="69" postset="69">
+     mdso && ssro && !w2_c10;
+     (0, inf);
+     w2_c10 = 1;
+   </transition>
+   <transition label="219" preset="69" postset="69">
+     (!mdso || !ssro) && w2_c10;
+     (0, inf);
+     w2_c10 = 0;
+   </transition>
+   <transition label="221" preset="72" postset="72">
+      !ssro && w1_c10&& !w2_c10;
+     (0, inf);
+     ssro = 1;
+   </transition>
+   <transition label="222" preset="72" postset="72">
+     ssro&& !w1_c10 && w2_c10;
+     (0, inf);
+     ssro = 0;
+   </transition>
+   <transition label="223" preset="73" postset="73">
+     !ssri && ssro;
+     (0, inf);
+     ssri = 1;
+   </transition>
+   <transition label="224" preset="73" postset="73">
+     ssri && !ssro;
+     (0, inf);
+     ssri = 0;
+   </transition>
+</mod>
+
+
+
+
+<mod name="SSWo.lpn">
+
+<var>
+sswi = 0; 
+sswo = 0;
+w1_c7 = 0; 
+w2_c7 = 0;
+</var>
+
+   <marking>
+   50,   52,   54, 55
+   </marking>
+
+
+   <transition label="161" preset="50" postset="50">
+     wai && b2i && !sswi && wao && bo && !w1_c7;
+     (0, inf);
+     w1_c7 = 1;
+   </transition>
+   <transition label="162" preset="50" postset="50">
+     (!wai || !b2i || sswi || !wao || !bo) && w1_c7;
+     (0, inf);
+     w1_c7 = 0;
+   </transition>
+   <transition label="164" preset="52" postset="52">
+     mdso && sswo && !w2_c7;
+     (0, inf);
+     w2_c7 = 1;
+   </transition>
+   <transition label="165" preset="52" postset="52">
+     (!mdso || !sswo) && w2_c7;
+     (0, inf);
+     w2_c7 = 0;
+   </transition>
+   <transition label="167" preset="54" postset="54">
+      !sswo && w1_c7&& !w2_c7;
+     (0, inf);
+     sswo = 1;
+   </transition>
+   <transition label="168" preset="54" postset="54">
+     sswo&& !w1_c7 && w2_c7;
+     (0, inf);
+     sswo = 0;
+   </transition>
+   <transition label="169" preset="55" postset="55">
+     !sswi && sswo;
+     (0, inf);
+     sswi = 1;
+   </transition>
+   <transition label="170" preset="55" postset="55">
+     sswi && !sswo;
+     (0, inf);
+     sswi = 0;
+   </transition>
+</mod>
+
+
+
+<mod name="WAo.lpn">
+
+<var>
+wai = 0; 
+wao = 0;
+w1_c3 = 0; 
+w2_c3 = 0;
+</var>
+
+   <marking>
+   19,   21,   23, 24
+   </marking>
+
+   <transition label="67" preset="21" postset="21">
+     mdsi && !wai && !mdso && !ssro && !sswo && !msso && !w1_c3;
+     (0, inf);
+     w1_c3 = 1;
+   </transition>
+   <transition label="68" preset="21" postset="21">
+     (!mdsi || wai || mdso || ssro || sswo || msso) && w1_c3;
+     (0, inf);
+     w1_c3 = 0;
+   </transition>
+   <transition label="70" preset="19" postset="20">
+     (ssro || sswo || msso) && !w2_c3;
+     (0, inf);
+     w2_c3 = 1;
+   </transition>
+   <transition label="71" preset="19" postset="20">
+     !ssro && !sswo && !msso && w2_c3;
+     (0, inf);
+     w2_c3 = 0;
+   </transition>
+   <transition label="72" preset="20" postset="19">
+     true;
+     (0, inf);
+   </transition>
+   <transition label="73" preset="23" postset="23">
+      !wao && w1_c3&& !w2_c3;
+     (0, inf);
+     wao = 1;
+   </transition>
+   <transition label="74" preset="23" postset="23">
+     wao&& !w1_c3 && w2_c3;
+     (0, inf);
+     wao = 0;
+   </transition>
+   <transition label="75" preset="24" postset="24">
+     !wai && wao;
+     (0, inf);
+     wai = 1;
+   </transition>
+   <transition label="76" preset="24" postset="24">
+     wai && !wao;
+     (0, inf);
+     wai = 0;
+   </transition>
+</mod>
+
+
+
+
+<mod name="Bo.lpn">
+
+<var>
+bo = 0; 
+b1i = 0;
+b2i = 0;
+b3i = 0;
+w4_c11 = 0; 
+w1_c11 = 0; 
+w2_c11 = 0;
+w3_c11 = 0;
+</var>
+
+   <marking>
+   74,   76,   78,   80,   84,   86
+   </marking>
+
+   <transition label="246" preset="76" postset="76">
+     mdli && !b1i && !b2i && !b3i && !mdlo && !lsro && !lswo && !mslo && !w1_c11;
+     (0, inf);
+     w1_c11 = 1;
+   </transition>
+   <transition label="247" preset="76" postset="76">
+     (!mdli || b1i || b2i || b3i || mdlo || lsro || lswo || mslo) && w1_c11;
+     (0, inf);
+     w1_c11 = 0;
+   </transition>
+   <transition label="249" preset="74" postset="74">
+     mdsi && !b1i&& !b2i&& !b3i && !mdso && !ssro && !sswo && !msso && !w2_c11;
+     (0, inf);
+     w2_c11 = 1;
+   </transition>
+   <transition label="250" preset="74" postset="74">
+     (!mdsi || b1i || b2i || b3i || mdso || ssro || sswo || msso) && w2_c11;
+     (0, inf);
+     w2_c11 = 0;
+   </transition>
+   <transition label="252" preset="78" postset="78">
+     (w2_c11 || w1_c11) && !w3_c11;
+     (0, inf);
+     w3_c11 = 1;
+   </transition>
+   <transition label="253" preset="78" postset="78">
+     !w1_c11 && !w2_c11 && w3_c11;
+     (0, inf);
+     w3_c11 = 0;
+   </transition>
+   <transition label="254" preset="80" postset="80">
+     !lsro && !lswo && !mslo && !ssro && !sswo && !msso && w4_c11;
+     (0, inf);
+     w4_c11 = 0;
+   </transition>
+   <transition label="257" preset="80" postset="80">
+     (lsro || lswo || mslo || ssro || sswo || msso) && !w4_c11;
+     (0, inf);
+     w4_c11 = 1;
+   </transition>
+   <transition label="258" preset="84" postset="84">
+     !bo && w3_c11 && !w4_c11;
+     (0, inf);
+     bo = 1;
+   </transition>
+   <transition label="261" preset="84" postset="84">
+     bo && !w3_c11 && w4_c11;
+     (0, inf);
+     bo = 0;
+   </transition>
+   <transition label="259" preset="86" postset="83">
+     bo;
+     (0, inf);
+     b1i = 1;
+   </transition>
+   <transition label="262" preset="83" postset="86">
+     !bo;
+     (0, inf);
+     b1i = 0;
+   </transition>
+   <transition label="264" preset="86" postset="87">
+     bo;
+     (0, inf);
+     b2i = 1;
+   </transition>
+   <transition label="266" preset="87" postset="86">
+     !bo;
+     (0, inf);
+     b2i = 0;
+   </transition>
+   <transition label="267" preset="86" postset="88">
+     bo;
+     (0, inf);
+     b3i = 1;
+   </transition>
+   <transition label="265" preset="88" postset="86">
+     !bo;
+     (0, inf);
+     b3i = 0;
+   </transition>
+</mod>
+
+
+
+
+<mod name="LSRo.lpn">
+
+<var>
+lsri = 0;
+lsro = 0;
+w1_c8 = 0;
+w2_c8 = 0;
+</var>
+
+   <marking>
+   56,   58,   60, 62
+   </marking>
+
+   <transition label="179" preset="56" postset="56">
+      !lsri && b1i && rai && bo && rao && !w1_c8;
+     (0, inf);
+     w1_c8 = 1;
+   </transition>
+   <transition label="180" preset="56" postset="56">
+      (lsri || !b1i || !rai || !bo || !rao) && w1_c8;
+     (0, inf);
+     w1_c8 = 0;
+   </transition>
+   <transition label="182" preset="58" postset="58">
+     mdlo && lsro&& !w2_c8;
+     (0, inf);
+     w2_c8 = 1;
+   </transition>
+   <transition label="183" preset="58" postset="58">
+      !mdlo && w2_c8 || mdlo && !lsro && w2_c8;
+     (0, inf);
+     w2_c8 = 0;
+   </transition>
+   <transition label="185" preset="60" postset="61">
+      !lsro && w1_c8&& !w2_c8;
+     (0, inf);
+     lsro = 1;
+   </transition>
+   <transition label="186" preset="60" postset="61">
+     lsro&& !w1_c8 && w2_c8;
+     (0, inf);
+     lsro = 0;
+   </transition>
+   <transition label="187" preset="61" postset="60">
+     true;
+     (0, inf);
+   </transition>
+   <transition label="188" preset="62" postset="62">
+     !lsri && lsro;
+     (0, inf);
+     lsri = 1;
+   </transition>
+   <transition label="189" preset="62" postset="62">
+     lsri && !lsro;
+     (0, inf);
+     lsri = 0;
+   </transition>
+
+</mod>
+
+
+
+
+
+<mod name="LSWo.lpn">
+
+<var>
+w1_c4 = 0;
+w2_c4 = 0;
+lswi = 0;
+lswo = 0;
+</var>
+
+   <marking>
+   26,   27,   29, 30
+   </marking>
+
+   <transition label="85" preset="27" postset="28">
+     rai && b2i && !lswi && rao && bo && !w1_c4;
+     (0, inf);
+     w1_c4 = 1;
+   </transition>
+   <transition label="86" preset="27" postset="28">
+     (!rai || !b2i || lswi || !rao || !bo) && w1_c4;
+     (0, inf);
+     w1_c4 = 0;
+   </transition>
+   <transition label="87" preset="28" postset="27">
+     true;
+     (0, inf);
+   </transition>
+   <transition label="88" preset="26" postset="26">
+     mdlo && lswo && !w2_c4;
+     (0, inf);
+     w2_c4 = 1;
+   </transition>
+   <transition label="89" preset="26" postset="26">
+     (!mdlo || !lswo) && w2_c4;
+     (0, inf);
+     w2_c4 = 0;
+   </transition>
+   <transition label="91" preset="29" postset="29">
+     !lswo && w1_c4 && !w2_c4;
+     (0, inf);
+     lswo = 1;
+   </transition>
+   <transition label="92" preset="29" postset="29">
+     lswo && !w1_c4 && w2_c4;
+     (0, inf);
+     lswo = 0;
+   </transition>
+   <transition label="93" preset="30" postset="30">
+     !lswi && lswo;
+     (0, inf);
+     lswi = 1;
+   </transition>
+   <transition label="94" preset="30" postset="30">
+     lswi && !lswo;
+     (0, inf);
+     lswi = 0;
+   </transition>
+</mod>

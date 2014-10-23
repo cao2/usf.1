@@ -1,0 +1,71 @@
+<main>
+	<var>
+		Slot[8] = {1, 0 ,0 ,0 ,0 ,0 ,0 ,0  };
+		next = 0;
+		CSGuard = 0;
+	</var>
+	
+	Proc p0(Slot, next, CSGuard);
+	Proc p1(Slot, next, CSGuard);
+	Proc p2(Slot, next, CSGuard);
+	Proc p3(Slot, next, CSGuard);
+	Proc p4(Slot, next, CSGuard);
+	Proc p5(Slot, next, CSGuard);
+	Proc p6(Slot, next, CSGuard);
+</main>
+
+<class name="Proc" arg="Slot[8], next, CSGuard">
+	<const>
+		NCS = 0;
+		p1 = 1;
+		p2 = 2;
+		p3 = 3;
+		CS = 4;
+	</const>
+	
+	<var>
+		myPlace = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="p1">
+		//guard(CSGuard == 0);
+		delay(0, inf);
+		myPlace = next;
+		next = next+1;
+		//CSGuard = 1;
+	</tr>
+	
+	<tr label="1" preset="p1" postset="p2">
+		guard(myPlace == 6);
+		delay(0, inf);
+		next = next - 7;
+	</tr>
+	
+	<tr label="2" preset="p1" postset="p2">
+		guard(myPlace != 6);
+		delay(0, inf);
+		myPlace = myPlace%7;
+	</tr>
+	
+	<tr label="3" preset="p2" postset="p3">
+		guard(Slot[myPlace] == 1);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="4" preset="p3" postset="CS">
+		//guard(CSGuard == 0);		
+		delay(0, inf);
+		Slot[myPlace] = 0;
+		//CSGuard = 1;
+	</tr>
+	
+	<tr label="5" preset="CS" postset="NCS">
+		delay(0, inf);
+		Slot[(myPlace+1)%7] = 1;
+		//CSGuard = 0;
+	</tr>
+</class>

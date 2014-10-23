@@ -1,0 +1,83 @@
+//<!-- Process scheduling algorithm from paper "The Model Checker SPIN"-->
+
+<mod name="left">
+	<input>  seout1 </input>
+	<output> fout0 </output>
+	<var> fin, seout0, eoutb0, eout0, foutb0 </var>
+
+        <marking> 0, 1, 2, 3, 4, 5 </marking>
+        <statevector>
+          fout0 = 0;
+          fin = 0;
+	  seout0 = 1;
+	  eoutb0 = 0;
+	  eout0 = 1;
+	  foutb0 = 1;
+        </statevector>
+
+	<transition label="1" preset="0" postset="0">
+	   fin && eout0 && seout0;
+           (90, 110);
+	   seout0 = 0;
+	</transition>
+	<transition label="2" preset="0" postset="0">
+	   (!fin || !eout0) && !seout0;
+           (90, 110);
+	   seout0 = 1;
+	</transition>
+
+	<transition label="3" preset="1" postset="1">
+           seout0 && foutb0 && eoutb0;
+	   (90, 110);
+           eoutb0 = 0;
+	</transition>
+	<transition label="4" preset="1" postset="1">
+           (!seout0 || !foutb0) && !eoutb0;
+	   (90, 110);
+           eoutb0 = 1;
+	</transition>
+
+	<transition label="5" preset="2" postset="2">
+           eoutb0 && eout0;
+	   (90, 110);
+           eout0 = 0;
+	</transition>
+	<transition label="6" preset="2" postset="2">
+           !eoutb0 && !eout0;
+	   (90, 110);
+           eout0 = 1;
+	</transition>
+
+	<transition label="7" preset="3" postset="3">
+           eoutb0 && seout1 && foutb0;
+           (90, 110);
+           foutb0 = 0;
+	</transition>
+	<transition label="8" preset="3" postset="3">
+           (!eoutb0 || !seout1) && !foutb0;
+           (90, 110);
+           foutb0 = 1;
+	</transition>
+
+	<transition label="9" preset="4" postset="4">
+           foutb0 && fout0;
+	   (90, 110);
+           fout0 = 0;
+	</transition>
+	<transition label="10" preset="4" postset="4">
+           !foutb0 && !fout0;
+	   (90, 110);
+           fout0 = 1;
+	</transition>
+
+	<transition label="11" preset="5" postset="5">
+           seout0 && !fin;
+	   (180, inf);
+           fin = 1;
+	</transition>
+	<transition label="12" preset="5" postset="5">
+           !seout0 && fin;
+	   (180, 260);
+           fin = 0;
+	</transition>
+</mod>

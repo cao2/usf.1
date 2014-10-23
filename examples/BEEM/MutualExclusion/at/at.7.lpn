@@ -1,0 +1,140 @@
+<main>	
+	<var>
+		x = 255;
+		y = 255;
+		z = 0;
+		t[6] = {255, 255, 255, 255, 255, 255};
+	</var>
+	
+	Proc p0(t, x, y, z, 0);
+	Proc p1(t, x, y, z, 1);
+	Proc p2(t, x, y, z, 2);
+	Proc p3(t, x, y, z, 3);
+	Proc p4(t, x, y, z, 4);
+	Proc p5(t, x, y, z, 5);
+	
+	Timer t1(t, x, y, z);
+</main>
+
+<class name="Timer" arg="t[6], x, y, z">
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="0" preset="q" postset="q">
+		guard(t[0] != 0 && t[1] != 0 && t[2] != 0 && t[3] != 0 && t[4] != 0 && t[5] != 0);
+		delay(0, inf);
+		t[0] = (t[0] - 1) | ((t[0] == 255) * 255);
+		t[1] = (t[1] - 1) | ((t[1] == 255) * 255);
+		t[2] = (t[2] - 1) | ((t[2] == 255) * 255);
+		t[3] = (t[3] - 1) | ((t[3] == 255) * 255);
+		t[4] = (t[4] - 1) | ((t[4] == 255) * 255);
+		t[5] = (t[5] - 1) | ((t[5] == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc" arg="t[6], x, y, z, myValue">
+	<const>
+		NCS = 0;
+		p2 = 1;
+		p3 = 2;
+		p4 = 3;
+		p5 = 4;
+		p6 = 5;
+		p7 = 6;
+		p8 = 7;
+		p9 = 8;
+		CS = 9;
+		p12 = 10;
+		p13 = 11;
+	</const>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="p3">
+		//guard(CSGuard == 0);
+		delay(0, inf);
+		x = myValue;
+		t[myValue] = 255;
+	</tr>
+	
+	<tr label="1" preset="p3" postset="p4">
+		guard(y == 255);
+		delay(0, inf);
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="2" preset="p4" postset="p5">
+		delay(0, inf);
+		y = 0;
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="3" preset="p5" postset="p9">
+		guard(x == myValue);
+		delay(0, inf);
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="4" preset="p9" postset="CS">
+		delay(0, inf);
+		z = 1;
+		t[myValue] = 255;
+	</tr>
+	
+	<tr label="5" preset="p5" postset="p6">
+		guard(x != myValue);
+		delay(0, inf);
+		t[myValue] = 5;
+	</tr>
+	
+	<tr label="6" preset="p6" postset="p7">
+		guard(t[myValue] == 0);
+		delay(0, inf);
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="7" preset="p7" postset="NCS">
+		guard(y != myValue);
+		delay(0, inf);
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="8" preset="p7" postset="p8">
+		guard(y == myValue);
+		t[myValue] = 255;
+	</tr>
+	
+	<tr label="9" preset="p8" postset="CS">
+		guard(z == myValue);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="10" preset="CS" postset="p12">
+		z = 0;
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="11" preset="p12" postset="NCS">
+		guard(y != myValue);
+		delay(0, inf);
+		t[myValue] = 255;
+	</tr>
+	
+	<tr label="12" preset="p12" postset="p13">
+		guard(y == myValue);
+		delay(0, inf);
+		t[myValue] = 2;
+	</tr>
+	
+	<tr label="13" preset="p13" postset="NCS">
+		delay(0, inf);
+		t[myValue] = 255;
+	</tr>	
+</class>

@@ -1,0 +1,106 @@
+//Should find deadlock
+
+<main>
+	<var>
+		next[5] = {255, 255, 255, 255, 255};
+		locked[5];
+		tail = 255;
+	</var>
+
+	Proc p0(0, next, locked, tail);
+	Proc p1(1, next, locked, tail);
+	Proc p2(2, next, locked, tail);
+	Proc p3(3, next, locked, tail);
+	Proc p4(4, next, locked, tail);
+</main>
+
+<class name="Proc" arg="myNum, next[5], locked[5], tail">
+	
+	<const>
+		NCS = 1;
+		p2 = 2;
+		p3 = 3;
+		p4 = 4;
+		p5 = 5;
+		p6 = 6;
+		CS = 7;
+		p9 = 8;
+		p13 = 9;
+		p10 = 10;
+	</const>
+	
+	<var>
+		pred = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="p2">
+		delay(0, inf);
+		next[myNum] = 255;
+	</tr>
+	
+	<tr label="1" preset="p2" postset="p3">
+		delay(0, inf);
+		pred = tail;
+		tail = myNum;
+	</tr>
+	
+	<tr label="2" preset="p3" postset="CS">
+		guard(pred == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="3" preset="p3" postset="p5">
+		guard(pred != 255);
+		locked[myNum] = 1;
+	</tr>
+	/*
+	<tr label="4" preset="p4" postset="p5">
+		delay(0, inf);
+		locked[myNum] = 1;
+	</tr>
+	*/
+	<tr label="5" preset="p5" postset="p6">
+		delay(0, inf);
+		next[pred] = myNum;
+	</tr>
+	
+	<tr label="6" preset="p6" postset="CS">
+		guard(locked[myNum] == 0);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="7" preset="CS" postset="p9">
+		guard(next[myNum] == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="8" preset="CS" postset="NCS">
+		guard(next[myNum] != 255);
+		locked[next[myNum]] = 0;
+	</tr>
+	
+	<tr label="9" preset="p9" postset="NCS">
+		guard(tail == myNum);
+		delay(0, inf);
+		tail = 255;
+	</tr>
+	
+	<tr label="10" preset="p9" postset="p10">
+		guard(tail != myNum);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="11" preset="p10" postset="NCS">
+		guard(next[myNum] != 255);
+		locked[next[myNum]] = 0;
+	</tr>
+	/*
+	<tr label="12" preset="p13" postset="NCS">
+		delay(0, inf);
+	</tr>
+	*/
+</class>

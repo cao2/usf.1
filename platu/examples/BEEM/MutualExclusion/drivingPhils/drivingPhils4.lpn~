@@ -1,0 +1,255 @@
+<main>
+	<var>
+		request[6];
+		starvers[6];
+		resources[4];
+		res0[3];
+		res1[3];
+		acquiring[3];
+		entryRound = 1;
+		phase = 0;
+		fire = 0;
+	</var>
+	
+	RoundAbout r(phase, resources, res0, res1, acquiring, entryRound, fire, starvers, request);
+	Proc p0(0, phase, res0, res1, resources, fire, entryRound, request, acquiring);
+	Proc p1(1, phase, res0, res1, resources, fire, entryRound, request, acquiring);
+	Proc p2(2, phase, res0, res1, resources, fire, entryRound, request, acquiring);
+</main>
+
+<class name="RoundAbout" arg="phase, resources[4], res0[3], res1[3], acquiring[3], entryRound, fire, starvers[6], request[6]">
+
+	<const>
+		reset = 0;
+		begin0 = 1;
+		begin1 = 2;
+		begin2 = 3;
+		begin3 = 4;
+		action = 5;
+		end0 = 6;
+		end1 = 7;
+		end2 = 8;
+	</const>
+
+	<var>
+		i = 0;
+	</var>
+	
+
+	
+	<m>
+		reset
+	</m>
+
+	
+	<tr label="0" preset="reset" postset="reset">
+		guard(i < 3);
+		delay(0, inf);
+		res0[i] = -1;
+		res1[i] = -1;
+		acquiring[i] = -1;
+		i = i + 1;
+	</tr>
+	
+	<tr label="1" preset="reset" postset="begin0">
+		guard(i == 3);
+		delay(0, inf);
+		i = 0;
+		phase = 0;
+	</tr>
+	
+	<tr label="2" preset="begin0" postset="begin0">
+		guard(i < 4);
+		delay(0, inf);
+		resources[i] = 0;
+		i = i + 1;
+	</tr>
+	
+	<tr label="3" preset="begin0" postset="begin1">
+		guard(i == 4);
+		delay(0, inf);
+		i = 0;
+	</tr>
+	
+	<tr label="4" preset="begin1" postset="begin1">
+		guard(i < 3 && res0[i]!= -1);
+		delay(0, inf);
+		resources[res0[i] * 2] = entryRound;
+		resources[res0[i]*2 + 1] = i;
+		i = i +1;
+	</tr>
+	
+	<tr label="5" preset="begin1" postset="begin1">
+		guard(i < 3 && res0[i] == -1);
+		delay(0, inf);
+		i = i+1;
+	</tr>
+	
+	<tr label="6" preset="begin1" postset="begin2">
+		guard(i == 3);
+		delay(0, inf);
+		i = 0;
+	</tr>
+	
+	<tr label="7" preset="begin2" postset="begin2">
+		guard(i < 3 & res1[i] != -1);
+		delay(0, inf);
+		resources[res1[i]*2] = entryRound;
+		resources[res1[i]*2+1] = i;
+		i = i+1;
+	</tr>
+	
+	<tr label="8" preset="begin2" postset="begin2">
+		guard(i < 3&& res1[i] == -1);
+		delay(0, inf);
+		i = i+1;
+	</tr>
+	
+	<tr label="9" preset="begin2" postset="action">
+		guard(i == 3);
+		delay(0, inf);
+		i = 0;
+		phase = 1;
+		fire = 0;
+	</tr>
+	
+	<tr label="10" preset="action" postset="end0">
+		guard(fire == 3);
+		delay(0, inf);
+		fire = 0;
+		phase = 2;
+	</tr>
+	
+	<tr label="11" preset="end0" postset="end0">
+		guard(i < 2 && resources[2*i] !=0);
+		delay(0, inf);
+		request[1 * resources[2*i + 1] + i] = 0;
+		starvers[1 * resources[2*i + 1] + i] = 0;
+		i = i + 1;
+	</tr>
+	
+	<tr label="12" preset="end0" postset="end0">
+		guard(i < 2 && resources[2*i] == 0);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="13" preset="end0" postset="end1">
+		guard(i == 2);
+		delay(0, inf);
+		i = 0;
+	</tr>
+	
+	<tr label="15" preset="end1" postset="end1">
+		guard(i < 6);
+		delay(0, inf);
+		i = i+1;
+	</tr>
+	
+	<tr label="16" preset="end1" postset="begin0">
+		guard(i == 6 && fire == 3);
+		delay(0, inf);
+		phase = 0;
+		i = 0;
+	</tr>
+</class>
+
+<class name="Proc" arg="myValue, phase, res0[3], res1[3], resources[4], fire, entryRound, request[6], acquiring[3]">
+
+	<const>
+		action = 0;
+		end = 1;
+		mutex = 2;
+	</const>
+
+	<var>
+		i = 0;
+	</var>
+	
+
+	
+	<m>
+		action
+	</m>
+
+	<tr label="0" preset="action" postset="end">
+		guard(phase == 1 && res0[myValue] != -1);
+		delay(0, inf);
+		resources[res0[myValue]] = 0;
+		resources[res0[myValue]+1] = 0;
+		res0[myValue] = res1[myValue];
+		res1[myValue] = -1;
+		fire = fire + 1;
+	</tr>
+	
+	<tr label="1" preset="action" postset="end">
+		guard(phase == 1 && res1[myValue] == -1 && acquiring[myValue] == -1);
+		delay(0, inf);
+		acquiring[myValue] = 0;
+		fire = fire + fire;
+		request[myValue*2 +0] = entryRound;
+	</tr>
+	
+	<tr label="999" preset="action" postset="end">
+		guard(phase == 1 && res1[myValue] == -1 && acquiring[myValue] == -1);
+		delay(0, inf);
+		acquiring[myValue] = 1;
+		fire = fire + 1;
+		request[myValue*2+1] = entryRound;
+	</tr>
+
+	<tr label="998" preset="action" postset="end">
+		guard(phase == 1);
+		delay(0, inf);
+		fire = fire + 1;
+	</tr>
+	
+	<tr label="2" preset="end" postset="action">
+		guard(phase == 2 && acquiring[myValue] == -1);
+		delay(0, inf);
+		fire = fire + 1;
+	</tr>
+	
+	<tr label="3" preset="end" postset="mutex">
+		guard(phase == 2 && acquiring[myValue] != -1 && fire == myValue);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="4" preset="mutex" postset="mutex">
+		guard(i < 3 && res0[i] != acquiring[myValue] && res1[i] != acquiring[myValue]);
+		delay(0, inf);
+		i = i + 1;
+	</tr>
+	
+	<tr label="5" preset="mutex" postset="action">
+		guard(i < 3 && (res0[i] == acquiring[myValue] || res1[i] == acquiring[myValue]));
+		delay(0, inf);
+		fire = fire + 1;
+		i = i + 1;
+	</tr>
+	
+	<tr label="6" preset="mutex" postset="action">
+		guard(i == 3 && res0[myValue] == -1);
+		delay(0, inf);
+		res0[myValue] = acquiring[myValue];
+		acquiring[myValue] = -1;
+		fire = fire + 1;
+		i = 0;
+	</tr>
+	
+	<tr label="7" preset="mutex" postset="action">
+		guard(i == 3 && res0[myValue] != -1);
+		delay(0, inf);
+		res1[myValue] = acquiring[myValue];
+		acquiring[myValue] = -1;
+		fire = fire + 1;
+		i = 0;
+	</tr>
+	
+	<tr label="8" preset="end" postset="action">
+		guard(phase == 2 && acquiring[myValue] != -1);
+		delay(0, inf);
+		fire = fire + 1;
+	</tr>
+</class>

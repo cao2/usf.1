@@ -1,0 +1,3 @@
+readlpn examples/MutualExclusion/philosopher/philosopher.1.lpn
+findsg
+quit

@@ -1,0 +1,72 @@
+<mod name="SSWo.lpn">
+
+<input>
+mdso, bo, wai, wao, b2i
+</input>
+
+<output>
+sswi, sswo
+</output>
+
+<var>
+w1_c7, w2_c7
+</var>
+
+   <marking>
+   50,   52,   54, 55
+   </marking>
+
+   <statevector>
+   b2i = 0;
+   bo = 0;
+   mdso = 0;
+   sswi = 0;
+   sswo = 0;
+   w1_c7 = 0;
+   w2_c7 = 0;
+   wai = 0;
+   wao = 0;
+   </statevector>
+
+
+   <transition label="161" preset="50" postset="50">
+     wai && b2i && !sswi && wao && bo && !w1_c7;
+     (0, inf);
+     w1_c7 = 1;
+   </transition>
+   <transition label="162" preset="50" postset="50">
+     (!wai || !b2i || sswi || !wao || !bo) && w1_c7;
+     (0, inf);
+     w1_c7 = 0;
+   </transition>
+   <transition label="164" preset="52" postset="52">
+     mdso && sswo && !w2_c7;
+     (0, inf);
+     w2_c7 = 1;
+   </transition>
+   <transition label="165" preset="52" postset="52">
+     (!mdso || !sswo) && w2_c7;
+     (0, inf);
+     w2_c7 = 0;
+   </transition>
+   <transition label="167" preset="54" postset="54">
+      !sswo && w1_c7&& !w2_c7;
+     (0, inf);
+     sswo = 1;
+   </transition>
+   <transition label="168" preset="54" postset="54">
+     sswo&& !w1_c7 && w2_c7;
+     (0, inf);
+     sswo = 0;
+   </transition>
+   <transition label="169" preset="55" postset="55">
+     !sswi && sswo;
+     (0, inf);
+     sswi = 1;
+   </transition>
+   <transition label="170" preset="55" postset="55">
+     sswi && !sswo;
+     (0, inf);
+     sswi = 0;
+   </transition>
+</mod>

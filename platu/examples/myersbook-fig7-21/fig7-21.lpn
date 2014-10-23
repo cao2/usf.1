@@ -1,0 +1,22 @@
+<mod name="fig7_21">
+	<var></var>
+
+	<marking> 1, 2, 3, 4 </marking>
+
+	<transition label="1" preset="1" postset="1">
+	true;
+	(1, 3);	
+	</transition>
+	<transition label="2" preset="2" postset="2">
+	true;
+	(1, 3); 
+	</transition>
+	<transition label="3" preset="3" postset="3">
+	true;	
+	(1, 3);
+	</transition>
+	<transition label="4" preset="4" postset="4">
+	true;
+	(1, 3); 
+	</transition>
+</mod>

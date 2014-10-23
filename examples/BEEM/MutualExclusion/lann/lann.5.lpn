@@ -1,0 +1,558 @@
+<const>
+	idle 		= 0;
+	link0In 	= 1;
+	link0Out	= 2;
+	link1In		= 3;
+	link1Out 	= 4;	
+	link2In		= 5;
+	link2Out	= 6;
+	link3In		= 7;
+	link3Out	= 8;	
+	link4In		= 9;
+	link4Out	= 10;
+	link5In		= 11;
+	link5Out	= 12;	
+</const>
+
+<main>
+	<var>
+		chanIdx = idle;
+		chanVal	= 0;
+		
+		link0In_ready 	= 0;
+		link0Out_ready	= 0;
+		link1In_ready	= 0;
+		link1Out_ready 	= 0;	
+		link2In_ready	= 0;
+		link2Out_ready	= 0;	
+		link3In_ready	= 0;
+		link3Out_ready	= 0;	
+		link4In_ready	= 0;
+		link4Out_ready	= 0;	
+		link5In_ready	= 0;
+		link5Out_ready	= 0;		
+	</var>
+	
+	Link l0 (chanIdx, chanVal, link0In, link0Out, link0In_ready, link0Out_ready);
+	Link l1 (chanIdx, chanVal, link1In, link1Out, link1In_ready, link1Out_ready);
+	Link l2 (chanIdx, chanVal, link2In, link2Out, link2In_ready, link2Out_ready);
+	Link l3 (chanIdx, chanVal, link3In, link3Out, link3In_ready, link3Out_ready);
+	Link l4 (chanIdx, chanVal, link4In, link4Out, link4In_ready, link4Out_ready);
+	Link l5 (chanIdx, chanVal, link5In, link5Out, link5In_ready, link5Out_ready);
+	
+	Proc0 p0 (chanIdx, chanVal, link0Out_ready, link1In_ready);	
+	Proc1 p1 (chanIdx, chanVal, link1Out_ready, link2In_ready);
+	Proc2 p2 (chanIdx, chanVal, link2Out_ready,  link3In_ready);
+	Proc3 p3 (chanIdx, chanVal, link3Out_ready, link4In_ready);
+	Proc3 p4 (chanIdx, chanVal, link4Out_ready,  link5In_ready);
+	Proc3 p5 (chanIdx, chanVal, link5Out_ready,  link0In_ready);
+	
+</main>
+
+
+<class name="Proc0" arg="chanIdx, chanVal, link0Out_ready, link1In_ready">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		wait1 = 3;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+		sended = 0;
+	</var>
+	
+	<m> CS </m>
+
+	<tr label="00" preset="wait" postset="wait1">
+		link0Out_ready = 1;
+	</tr>
+
+	<tr label="0" preset="wait1" postset="got_msg">
+		guard(chanIdx == link0Out);
+		chanIdx = idle;
+		v = chanVal;
+		link0Out_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255);
+	</tr>
+			
+	<tr label="2" preset="CS" postset="wait">
+		guard(chanIdx == idle && link1In_ready == 1);
+		chanIdx = link1In;
+		chanVal = 255;
+		status = 0;
+	</tr>
+	
+	<tr label="4" preset="wait1" postset="wait">
+		guard(status == 0 && sended == 0 && chanIdx == idle && link1In_ready == 1);
+		chanIdx = link1In;
+		chanVal = 24;
+		status = 1;
+		sended = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(v != 255 && v > 24);
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 1 && v < 24 && chanIdx == idle && link1In_ready == 1);
+		chanIdx = link1In;
+		chanVal = v;
+		status = 2;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 0 && v < 24 && chanIdx == idle && link1In_ready == 1);
+		chanIdx = link1In;
+		chanVal = v;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && status != 1 && v == 24);
+		status = 0;
+		sended = 0;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == 24 && status == 1);
+		sended = 0;
+	</tr>
+</class>
+
+
+<class name="Proc1" arg="chanIdx, chanVal, link1Out_ready, link2In_ready">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		wait1 = 3;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+		sended = 0;
+	</var>
+	
+	<m>
+		wait
+	</m>
+
+	<tr label="00" preset="wait" postset="wait1">
+		link1Out_ready = 1;
+	</tr>
+
+	<tr label="0" preset="wait1" postset="got_msg">
+		guard(chanIdx == link1Out);
+		chanIdx = idle
+		v = chanVal;
+		link1Out_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(chanIdx == idle && link2In_ready == 1);
+		chanIdx = link2In;
+		chanVal = 255;
+		status = 0;
+	</tr>
+	
+	<tr label="4" preset="wait1" postset="wait">
+		guard(status == 0 && sended == 0 && chanIdx == idle && link2In_ready == 1);
+		chanIdx = link2In;
+		chanVal = 14;
+		status = 1;
+		sended = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(v != 255 && v > 14);
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 1 && v < 14 && chanIdx == idle && link2In_ready == 1);
+		chanIdx = link2In;
+		chanVal = v;
+		status = 2;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 0 && v < 14 && chanIdx == idle && link2In_ready == 1);
+		chanIdx = link2In;
+		chanVal = v;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == 14 && status != 1);
+		status = 0;
+		sended = 0;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == 14 && status == 1);
+		sended = 0;
+	</tr>
+</class>
+
+
+<class name="Proc2" arg="chanIdx, chanVal, link2Out_ready, link3In_ready">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		wait1 = 3;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+		sended = 0;
+	</var>
+	
+	<m>
+		wait
+	</m>
+
+	<tr label="00" preset="wait" postset="wait1">
+		link2Out_ready = 1;
+	</tr>
+
+	<tr label="0" preset="wait1" postset="got_msg">
+		guard(chanIdx == link2Out);
+		chanIdx = idle
+		v = chanVal;
+		link2Out_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(chanIdx == idle && link3In_ready == 1);
+		chanIdx = link3In;
+		chanVal = 255;
+		status = 0;
+	</tr>
+	
+	<tr label="4" preset="wait1" postset="wait">
+		guard(status == 0 && sended == 0 && chanIdx == idle && link3In_ready == 1);
+		chanIdx = link3In;
+		chanVal = 6;
+		status = 1;
+		sended = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(v != 255 && v > 6);
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 1 && v < 6 && chanIdx == idle && link3In_ready == 1);
+		chanIdx = link3In;
+		chanVal = v;
+		status = 2;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 0 && v < 6 && chanIdx == idle && link3In_ready == 1);
+		chanIdx = link3In;
+		chanVal = v;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == 6 && status != 1);
+		status = 0;
+		sended = 0;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == 6 && status == 1);
+		sended = 0;
+	</tr>
+</class>
+
+
+<class name="Proc3" arg="chanIdx, chanVal, link3Out_ready, link4In_ready">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		wait1 = 3;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+		sended = 0;
+	</var>
+	
+	<m>
+		wait
+	</m>
+
+	<tr label="00" preset="wait" postset="wait1">
+		link3Out_ready = 1;
+	</tr>
+
+	<tr label="0" preset="wait1" postset="got_msg">
+		guard(chanIdx == link3Out);
+		chanIdx = idle
+		v = chanVal;
+		link3Out_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(chanIdx == idle && link4In_ready == 1);
+		chanIdx = link4In;
+		chanVal = 255;
+		status = 0;
+	</tr>
+	
+	<tr label="4" preset="wait1" postset="wait">
+		guard(status == 0 && sended == 0 && chanIdx == idle && link4In_ready == 1);
+		chanIdx = link4In;
+		chanVal = 0;
+		status = 1;
+		sended = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(v != 255 && v > 0);
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 1 && v == 0 && chanIdx == idle && link4In_ready == 1);
+		chanIdx = link4In;
+		chanVal = v;
+		status = 2;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 0 && v == 0 && chanIdx == idle && link4In_ready == 1);
+		chanIdx = link4In;
+		chanVal = v;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == 0 && status != 1);
+		status = 0;
+		sended = 0;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == 0 && status == 1);
+		sended = 0;
+	</tr>
+</class>
+
+
+<class name="Proc4" arg="chanIdx, chanVal, link4Out_ready, link5In_ready">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		wait1 = 3;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+		sended = 0;
+	</var>
+	
+	<m>
+		wait
+	</m>
+
+	<tr label="00" preset="wait" postset="wait1">
+		link4Out_ready = 1;
+	</tr>
+
+	<tr label="0" preset="wait1" postset="got_msg">
+		guard(chanIdx == link4Out);
+		chanIdx = idle
+		v = chanVal;
+		link4Out_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(chanIdx == idle && link5In_ready == 1);
+		chanIdx = link5In;
+		chanVal = 255;
+		status = 0;
+	</tr>
+	
+	<tr label="4" preset="wait1" postset="wait">
+		guard(status == 0 && sended == 0 && chanIdx == idle && link5In_ready == 1);
+		chanIdx = link5In;
+		chanVal = 23;
+		status = 1;
+		sended = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(v != 255 && v > 23);
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 1 && v < 23 && chanIdx == idle && link5In_ready == 1);
+		chanIdx = link5In;
+		chanVal = v;
+		status = 2;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 0 && v < 23 && chanIdx == idle && link5In_ready == 1);
+		chanIdx = link5In;
+		chanVal = v;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == 23 && status != 1);
+		status = 0;
+		sended = 0;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == 23 && status == 1);
+		sended = 0;
+	</tr>
+</class>
+
+
+<class name="Proc5" arg="chanIdx, chanVal, link5Out_ready, link0In_ready">
+	<const>
+		wait = 0;
+		CS = 1;
+		got_msg = 2;
+		wait1 = 3;
+	</const>
+	
+	<var> 
+		v = 0;
+		status = 0;
+		sended = 0;
+	</var>
+	
+	<m>
+		wait
+	</m>
+
+	<tr label="00" preset="wait" postset="wait1">
+		link5Out_ready = 1;
+	</tr>
+
+	<tr label="0" preset="wait1" postset="got_msg">
+		guard(chanIdx == link5Out);
+		chanIdx = idle
+		v = chanVal;
+		link5Out_ready = 0;
+	</tr>
+	
+	<tr label="1" preset="got_msg" postset="CS">
+		guard(v == 255);
+	</tr>
+	
+	<tr label="2" preset="CS" postset="wait">
+		guard(chanIdx == idle && link0In_ready == 1);
+		chanIdx = link0In;
+		chanVal = 255;
+		status = 0;
+	</tr>
+	
+	<tr label="4" preset="wait1" postset="wait">
+		guard(status == 0 && sended == 0 && chanIdx == idle && link0In_ready == 1);
+		chanIdx = link0In;
+		chanVal = 21;
+		status = 1;
+		sended = 1;
+	</tr>
+	
+	<tr label="8" preset="got_msg" postset="wait">
+		guard(v != 255 && v > 21);
+	</tr>
+	
+	<tr label="9" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 1 && v < 21 && chanIdx == idle && link0In_ready == 1);
+		chanIdx = link0In;
+		chanVal = v;
+		status = 2;
+	</tr>
+	
+	<tr label="10" preset="got_msg" postset="wait">
+		guard(v != 255 && status == 0 && v < 21 && chanIdx == idle && link0In_ready == 1);
+		chanIdx = link0In;
+		chanVal = v;
+	</tr>
+	
+	
+	<tr label="6" preset="got_msg" postset="wait">
+		guard(v != 255 && v == 21 && status != 1);
+		status = 0;
+		sended = 0;
+	</tr>
+	
+	<tr label="7" preset="got_msg" postset="CS">
+		guard(v != 255 && v == 21 && status == 1);
+		sended = 0;
+	</tr>
+</class>
+
+
+
+<class name="Link" arg="chanIdx, chanVal, linkIn, linkOut, in_ready, out_ready">
+	
+	<const>
+		init	= 0;
+		ready = 1;
+		trans = 2;
+	</const>
+	
+	<var>
+		v = 0;
+	</var>
+	
+	<m> init </m>
+	
+	<tr label="00" preset="init" postset="ready">
+		in_ready = 1;
+	</tr>
+
+	<tr label="0" preset="ready" postset="trans">
+		guard(chanIdx == linkIn);
+		chanIdx	= idle;
+		v	= chanVal;
+		in_ready	= 0;
+	</tr>
+
+	<tr label="1" preset="trans" postset="ready">
+		guard(chanIdx == idle && out_ready == 1);
+		chanIdx	= linkOut;
+		chanVal	= v;
+		in_ready	= 1;
+	</tr>
+</class>
+

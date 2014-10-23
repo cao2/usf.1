@@ -1,0 +1,3 @@
+readlpn examples/MutualExclusion/peterson/peterson.lpn
+findallsg
+quit

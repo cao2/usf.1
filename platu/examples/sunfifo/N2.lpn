@@ -1,0 +1,159 @@
+<mod name="left">
+
+        <var>
+          fout0 = 0;
+          fin = 0;
+	  seout0 = 1;
+	  eoutb0 = 0;
+	  eout0 = 1;
+	  foutb0 = 1;
+        </var>
+
+        <marking> 0, 1, 2, 3, 4, 5 </marking>
+
+	<transition label="1" preset="0" postset="0">
+	   fin && eout0 && seout0;
+           (90, 110);
+	   seout0 = 0;
+	</transition>
+	<transition label="2" preset="0" postset="0">
+	   (!fin || !eout0) && !seout0;
+           (90, 110);
+	   seout0 = 1;
+	</transition>
+
+	<transition label="3" preset="1" postset="1">
+           seout0 && foutb0 && eoutb0;
+	   (90, 110);
+           eoutb0 = 0;
+	</transition>
+	<transition label="4" preset="1" postset="1">
+           (!seout0 || !foutb0) && !eoutb0;
+	   (90, 110);
+           eoutb0 = 1;
+	</transition>
+
+	<transition label="5" preset="2" postset="2">
+           eoutb0 && eout0;
+	   (90, 110);
+           eout0 = 0;
+	</transition>
+	<transition label="6" preset="2" postset="2">
+           !eoutb0 && !eout0;
+	   (90, 110);
+           eout0 = 1;
+	</transition>
+
+	<transition label="7" preset="3" postset="3">
+           eoutb0 && seout1 && foutb0;
+           (90, 110);
+           foutb0 = 0;
+	</transition>
+	<transition label="8" preset="3" postset="3">
+           (!eoutb0 || !seout1) && !foutb0;
+           (90, 110);
+           foutb0 = 1;
+	</transition>
+
+	<transition label="9" preset="4" postset="4">
+           foutb0 && fout0;
+	   (90, 110);
+           fout0 = 0;
+	</transition>
+	<transition label="10" preset="4" postset="4">
+           !foutb0 && !fout0;
+	   (90, 110);
+           fout0 = 1;
+	</transition>
+
+	<transition label="11" preset="5" postset="5">
+           seout0 && !fin;
+	   (180, inf);
+           fin = 1;
+	</transition>
+	<transition label="12" preset="5" postset="5">
+           !seout0 && fin;
+	   (180, 260);
+           fin = 0;
+	</transition>
+</mod>
+
+<mod name="right">
+        <var>
+	  seout1 = 1;
+	  eoutb1 = 0;
+	  eout1 = 1;
+	  foutb1 = 1;
+	  fout1 = 0;
+	  sein = 1;
+        </var>
+
+        <marking> 0, 1, 2, 3, 4, 5 </marking>
+
+
+	<transition label="1" preset="0" postset="0">
+	   fout0 && eout1 && seout1;
+           (90, 110);
+	   seout1 = 0;
+	</transition>
+	<transition label="2" preset="0" postset="0">
+	   (!fout0 || !eout1) && !seout1;
+           (90, 110);
+	   seout1 = 1;
+	</transition>
+
+	<transition label="3" preset="1" postset="1">
+           seout1 && foutb1 && eoutb1;
+	   (90, 110);
+           eoutb1 = 0;
+	</transition>
+	<transition label="4" preset="1" postset="1">
+           (!seout1 || !foutb1) && !eoutb1;
+	   (90, 110);
+           eoutb1 = 1;
+	</transition>
+
+	<transition label="5" preset="2" postset="2">
+           eoutb1 && eout1;
+	   (90, 110);
+           eout1 = 0;
+	</transition>
+	<transition label="6" preset="2" postset="2">
+           !eoutb1 && !eout1;
+	   (90, 110);
+           eout1 = 1;
+	</transition>
+
+	<transition label="7" preset="3" postset="3">
+           eoutb1 && sein && foutb1;
+           (90, 110);
+           foutb1 = 0;
+	</transition>
+	<transition label="8" preset="3" postset="3">
+           (!eoutb1 || !sein) && !foutb1;
+           (90, 110);
+           foutb1 = 1;
+	</transition>
+
+	<transition label="9" preset="4" postset="4">
+           foutb1 && fout1;
+	   (90, 110);
+           fout1 = 0;
+	</transition>
+	<transition label="10" preset="4" postset="4">
+           !foutb1 && !fout1;
+	   (90, 110);
+           fout1 = 1;
+	</transition>
+
+	<transition label="11" preset="5" postset="5">
+           fout1 && sein;
+	   (90, inf);
+           sein = 0;
+	</transition>
+	<transition label="12" preset="5" postset="5">
+           !fout1 && !sein;
+	   (90, 110);
+           sein = 1;
+	</transition>
+</mod>

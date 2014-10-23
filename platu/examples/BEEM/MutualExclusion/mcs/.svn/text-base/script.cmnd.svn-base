@@ -1,0 +1,3 @@
+readlpn examples/MutualExclusion/mcs/mcs.lpn
+findallsg
+quit

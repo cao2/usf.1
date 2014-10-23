@@ -1,0 +1,57 @@
+<main>
+	<var>
+		Slot[3] = {1, 0 ,0};
+		next = 0;
+		//sCSGuard = 0;
+	</var>
+	
+	Proc p0(Slot, next);
+	Proc p1(Slot, next);
+	Proc p2(Slot, next);
+</main>
+
+<class name="Proc" arg="Slot[3], next">
+	<const>
+		NCS = 0;
+		p1 = 1;
+		p2 = 2;
+		p3 = 3;
+		CS = 4;
+	</const>
+	
+	<var>
+		myPlace = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="p1">
+		myPlace = next;
+		next = (next+1) % 256;
+	</tr>
+	
+	<tr label="1" preset="p1" postset="p2">
+		guard(myPlace == 2);
+		next = next >= 3 ? next - 3 : 0;
+	</tr>
+	
+	<tr label="2" preset="p1" postset="p2">
+		guard(myPlace != 2);
+		myPlace = myPlace % 3;
+	</tr>
+	
+	<tr label="3" preset="p2" postset="p3">
+		guard(Slot[myPlace] == 1);
+		assert(Slot[myPlace] < 2);
+	</tr>
+	
+	<tr label="4" preset="p3" postset="CS">
+		Slot[(myPlace+2)%3] = 0;
+	</tr>
+	
+	<tr label="5" preset="CS" postset="NCS">
+		Slot[(myPlace+1)%3] = 1;
+	</tr>
+</class>

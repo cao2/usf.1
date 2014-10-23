@@ -1,0 +1,72 @@
+<mod name="SSRo.lpn">
+
+<input>
+mdso, bo, wai, wao, b1i
+</input>
+
+<output>
+ssri, ssro
+</output>
+
+<var>
+w1_c10, w2_c10
+</var>
+
+   <marking>
+   69,   70,   72, 73
+   </marking>
+
+   <statevector>
+   b1i = 0;
+   bo = 0;
+   mdso = 0;
+   ssri = 0;
+   ssro = 0;
+   w1_c10 = 0;
+   w2_c10 = 0;
+   wai = 0;
+   wao = 0;
+   </statevector>
+
+
+   <transition label="215" preset="70" postset="70">
+     wai && b1i && !ssri && wao && bo && !w1_c10;
+     (0, inf);
+     w1_c10 = 1;
+   </transition>
+   <transition label="216" preset="70" postset="70">
+     (!wai || !b1i || ssri || !wao || !bo) && w1_c10;
+     (0, inf);
+     w1_c10 = 0;
+   </transition>
+   <transition label="218" preset="69" postset="69">
+     mdso && ssro && !w2_c10;
+     (0, inf);
+     w2_c10 = 1;
+   </transition>
+   <transition label="219" preset="69" postset="69">
+     (!mdso || !ssro) && w2_c10;
+     (0, inf);
+     w2_c10 = 0;
+   </transition>
+   <transition label="221" preset="72" postset="72">
+      !ssro && w1_c10&& !w2_c10;
+     (0, inf);
+     ssro = 1;
+   </transition>
+   <transition label="222" preset="72" postset="72">
+     ssro&& !w1_c10 && w2_c10;
+     (0, inf);
+     ssro = 0;
+   </transition>
+   <transition label="223" preset="73" postset="73">
+     !ssri && ssro;
+     (0, inf);
+     ssri = 1;
+   </transition>
+   <transition label="224" preset="73" postset="73">
+     ssri && !ssro;
+     (0, inf);
+     ssri = 0;
+   </transition>
+</mod>

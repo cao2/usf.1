@@ -1,0 +1,68 @@
+<mod name="f3">
+	<var>
+	   b2 = 0;
+	   ce_fifo3 = 0;
+	   nor_fifo3 = 1;
+	   ri = 0;
+	   ro = 0;
+   </var>
+
+   <marking>
+   16,   18,   20,   22,   28
+   </marking>
+
+   <transition label="40" preset="16" postset="17">
+     t2 && nor_fifo3;
+     (0, inf);
+     b2 = 1;
+   </transition>
+   <transition label="41" preset="17" postset="16">
+      !t2&& !nor_fifo3;
+     (0, inf);
+     b2 = 0;
+   </transition>
+   
+   <transition label="42" preset="18" postset="19">
+      !ri && ce_fifo3 || ri;
+     (0, inf);
+     nor_fifo3 = 0;
+   </transition>
+   <transition label="43" preset="19" postset="18">
+      !ri&& !ce_fifo3;
+     (0, inf);
+     nor_fifo3 = 1;
+   </transition>
+   
+   <transition label="44" preset="20" postset="21">
+      !ri && b2;
+     (0, inf);
+     ce_fifo3 = 1;
+   </transition>
+   <transition label="45" preset="21" postset="20">
+     ri&& !b2;
+     (0, inf);
+     ce_fifo3 = 0;
+   </transition>
+   
+   <transition label="46" preset="22" postset="23">
+      !b2 && ce_fifo3;
+     (0, inf);
+     ro = 1;
+   </transition>
+   <transition label="47" preset="23" postset="22">
+      !b2&& !ce_fifo3 || b2;
+     (0, inf);
+     ro = 0;
+   </transition>
+   
+   <transition label="52" preset="28" postset="27">
+     ro;
+     (0, inf);
+     ri = 1;
+   </transition>
+   <transition label="54" preset="27" postset="28">
+      !ro;
+     (0, inf);
+     ri = 0;
+   </transition>
+</mod>

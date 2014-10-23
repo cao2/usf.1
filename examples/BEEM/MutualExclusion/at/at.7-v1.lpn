@@ -1,0 +1,145 @@
+<main>	
+	<var>
+		x = 255;
+		y = 255;
+		z = 0;
+		timer0 = 255;
+		timer1 = 255;
+		timer2 = 255;
+		timer3 = 255;
+		timer4 = 255;
+		timer5 = 255;
+	</var>
+	
+	Proc p0(timer0, x, y, z, 0);
+	Proc p1(timer1, x, y, z, 1);
+	Proc p2(timer2, x, y, z, 2);
+	Proc p3(timer3, x, y, z, 3);
+	Proc p4(timer4, x, y, z, 4);
+	Proc p5(timer5, x, y, z, 5);
+	
+	Timer t1(timer0, timer1, timer2, timer3, timer4, timer5, x, y, z);
+</main>
+
+<class name="Timer" arg="timer0, timer1, timer2, timer3, timer4, timer5, x, y, z">
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="0" preset="q" postset="q">
+		guard(timer0 != 0 && timer1 != 0 && timer2 != 0 && timer3 != 0 && timer4 != 0 && timer5 != 0);
+		delay(0, inf);
+		timer0 = (timer0 - 1) | ((timer0 == 255) * 255);
+		timer1 = (timer1 - 1) | ((timer1 == 255) * 255);
+		timer2 = (timer2 - 1) | ((timer2 == 255) * 255);
+		timer3 = (timer3 - 1) | ((timer3 == 255) * 255);
+		timer4 = (timer4 - 1) | ((timer4 == 255) * 255);
+		timer5 = (timer5 - 1) | ((timer5 == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc" arg="timer, x, y, z, myValue">
+	<const>
+		NCS = 0;
+		p2 = 1;
+		p3 = 2;
+		p4 = 3;
+		p5 = 4;
+		p6 = 5;
+		p7 = 6;
+		p8 = 7;
+		p9 = 8;
+		CS = 9;
+		p12 = 10;
+		p13 = 11;
+	</const>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="p3">
+		//guard(CSGuard == 0);
+		delay(0, inf);
+		x = myValue;
+		timer = 255;
+	</tr>
+	
+	<tr label="1" preset="p3" postset="p4">
+		guard(y == 255);
+		delay(0, inf);
+		timer = 2;
+	</tr>
+	
+	<tr label="2" preset="p4" postset="p5">
+		delay(0, inf);
+		y = 0;
+		timer = 2;
+	</tr>
+	
+	<tr label="3" preset="p5" postset="p9">
+		guard(x == myValue);
+		delay(0, inf);
+		timer = 2;
+	</tr>
+	
+	<tr label="4" preset="p9" postset="CS">
+		delay(0, inf);
+		z = 1;
+		timer = 255;
+	</tr>
+	
+	<tr label="5" preset="p5" postset="p6">
+		guard(x != myValue);
+		delay(0, inf);
+		timer = 5;
+	</tr>
+	
+	<tr label="6" preset="p6" postset="p7">
+		guard(timer == 0);
+		delay(0, inf);
+		timer = 2;
+	</tr>
+	
+	<tr label="7" preset="p7" postset="NCS">
+		guard(y != myValue);
+		delay(0, inf);
+		timer = 2;
+	</tr>
+	
+	<tr label="8" preset="p7" postset="p8">
+		guard(y == myValue);
+		timer = 255;
+	</tr>
+	
+	<tr label="9" preset="p8" postset="CS">
+		guard(z == myValue);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="10" preset="CS" postset="p12">
+		z = 0;
+		timer = 2;
+	</tr>
+	
+	<tr label="11" preset="p12" postset="NCS">
+		guard(y != myValue);
+		delay(0, inf);
+		timer = 255;
+	</tr>
+	
+	<tr label="12" preset="p12" postset="p13">
+		guard(y == myValue);
+		delay(0, inf);
+		timer = 2;
+	</tr>
+	
+	<tr label="13" preset="p13" postset="NCS">
+		delay(0, inf);
+		timer = 255;
+	</tr>	
+</class>

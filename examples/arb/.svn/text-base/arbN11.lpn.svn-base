@@ -1,0 +1,319 @@
+<main>
+   top top(c3.sreq, c4.sreq);
+   cell c1(bot1.sreq, bot2.sreq, c3.uack1);
+   cell c2(bot3.sreq, bot4.sreq, c3.uack2);
+   cell c3(c1.sreq, c2.sreq, top.ack1);
+   cell c4(bot5.sreq, bot6.sreq, top.ack2);
+   bottom bot1(c1.uack1);
+   bottom bot2(c1.uack2);
+   bottom bot3(c2.uack1);
+   bottom bot4(c2.uack2);
+   bottom bot5(c4.uack1);
+   bottom bot6(c4.uack2);
+</main>
+
+<class name="cell" arg="ureq1, ureq2, sack">
+
+   <var>
+   uack1 = 0;
+   uack2= 0;
+   sreq = 0;
+
+   g1 = 0;
+   g2 = 0;
+   sa = 0;
+   sr = 0;
+   x1 = 0;
+   x2 = 0;
+   </var>
+
+   <m>
+   0,   2,   4,   6,   8,   10
+   </m>
+
+
+   <tr label="14" preset="0" postset="1">
+     guard(sack && x1);
+     delay(0, inf);
+     uack1 = 1;
+   </tr>
+   <tr label="15" preset="1" postset="0">
+      guard(!sack && !x1);
+     delay(0, inf);
+     uack1 = 0;
+   </tr>
+   <tr label="16" preset="4" postset="5">
+     guard(sack && x2);
+     delay(0, inf);
+     uack2 = 1;
+   </tr>
+   <tr label="17" preset="5" postset="4">
+     guard(!sack && !x2);
+     delay(0, inf);
+     uack2 = 0;
+   </tr>
+   <tr label="18" preset="10" postset="11">
+      guard(!x1 && x2 || x1);
+     delay(0, inf);
+     sreq = 1;
+   </tr>
+   <tr label="19" preset="11" postset="10">
+      guard(!x1 && !x2);
+     delay(0, inf);
+     sreq = 0;
+   </tr>
+   <tr label="20" preset="2" postset="3">
+     guard(!uack2 && g1);
+     delay(0, inf);
+     x1 = 1;
+   </tr>
+   <tr label="21" preset="3" postset="2">
+     guard(!uack2 && !g1 || uack2);
+     delay(0, inf);
+     x1 = 0;
+   </tr>
+   <tr label="22" preset="6" postset="7">
+     guard(ureq1);
+     delay(0, inf);
+     g1 = 1;
+   </tr>
+   <tr label="23" preset="8" postset="9">
+     guard(!uack1 && g2);
+     delay(0, inf);
+     x2 = 1;
+   </tr>
+   <tr label="24" preset="7" postset="6">
+     guard(!ureq1);
+     delay(0, inf);
+     g1 = 0;
+   </tr>
+   <tr label="25" preset="9" postset="8">
+     guard(!uack1 && !g2 || uack1);
+     delay(0, inf);
+     x2 = 0;
+   </tr>
+   <tr label="26" preset="6" postset="12">
+     guard(ureq2);
+     delay(0, inf);
+     g2 = 1;
+   </tr>
+   <tr label="27" preset="12" postset="6">
+     guard(!ureq2);
+     delay(0, inf);
+     g2 = 0;
+   </tr>
+</class>
+
+
+<class name="top" arg="req1, req2">
+
+   <var>
+   ack1 = 0;
+   ack2= 0;
+
+   g1 = 0;
+   g2 = 0;
+   sa = 0;
+   sr = 0;
+   x1 = 0;
+   x2 = 0;
+   </var>
+
+   <m>
+   0,   2,   4,   6,   8,   10,   49
+   </m>
+
+
+   <tr label="14" preset="0" postset="1">
+     guard(sa && x1);
+     delay(0, inf);
+     ack1 = 1;
+   </tr>
+   <tr label="15" preset="1" postset="0">
+      guard(!sa && !x1);
+     delay(0, inf);
+     ack1 = 0;
+   </tr>
+   <tr label="16" preset="4" postset="5">
+     guard(sa && x2);
+     delay(0, inf);
+     ack2 = 1;
+   </tr>
+   <tr label="17" preset="5" postset="4">
+     guard(!sa && !x2);
+     delay(0, inf);
+     ack2 = 0;
+   </tr>
+   <tr label="18" preset="10" postset="11">
+      guard(!x1 && x2 || x1);
+     delay(0, inf);
+     sr = 1;
+   </tr>
+   <tr label="19" preset="11" postset="10">
+      guard(!x1&& !x2);
+     delay(0, inf);
+     sr = 0;
+   </tr>
+   <tr label="20" preset="2" postset="3">
+      guard(!ack2 && g1);
+     delay(0, inf);
+     x1 = 1;
+   </tr>
+   <tr label="21" preset="3" postset="2">
+      guard(!ack2 && !g1 || ack2);
+     delay(0, inf);
+     x1 = 0;
+   </tr>
+   <tr label="22" preset="6" postset="7">
+     guard(req1);
+     delay(0, inf);
+     g1 = 1;
+   </tr>
+   <tr label="23" preset="8" postset="9">
+      guard(!ack1 && g2);
+     delay(0, inf);
+     x2 = 1;
+   </tr>
+   <tr label="24" preset="7" postset="6">
+      guard(!req1);
+     delay(0, inf);
+     g1 = 0;
+   </tr>
+   <tr label="25" preset="9" postset="8">
+      guard(!ack1 && !g2 || ack1);
+     delay(0, inf);
+     x2 = 0;
+   </tr>
+   <tr label="26" preset="6" postset="12">
+     guard(req2);
+     delay(0, inf);
+     g2 = 1;
+   </tr>
+   <tr label="27" preset="12" postset="6">
+      guard(!req2);
+     delay(0, inf);
+     g2 = 0;
+   </tr>
+   <tr label="100" preset="49" postset="48">
+     guard(sr);
+     delay(0, inf);
+     sa = 1;
+   </tr>
+   <tr label="102" preset="48" postset="49">
+      guard(!sr);
+     delay(0, inf);
+     sa = 0;
+   </tr>
+</class>
+
+
+<class name="bottom" arg="sack">
+   <var>
+   sreq = 0;
+   g1 = 0;
+   g2 = 0;
+   ua1 = 0;
+   ua2 = 0;
+   ur1 = 0;
+   ur2 = 0;
+   x1 = 0;
+   x2 = 0;
+   </var>
+
+   <m>
+   13,   15,   17,   19,   21,   23,   41,   43
+   </m>
+
+
+   <tr label="42" preset="13" postset="14">
+     guard(sack && x1);
+     delay(0, inf);
+     ua1 = 1;
+   </tr>
+   <tr label="43" preset="14" postset="13">
+      guard(!sack && !x1);
+     delay(0, inf);
+     ua1 = 0;
+   </tr>
+   <tr label="44" preset="15" postset="15">
+     guard(!ua2 && sack && x2);
+     delay(0, inf);
+     ua2 = 1;
+   </tr>
+   <tr label="45" preset="15" postset="15">
+     guard(ua2 && !sack&& !x2);
+     delay(0, inf);
+     ua2 = 0;
+   </tr>
+   <tr label="46" preset="21" postset="22">
+     guard(!sreq && (x2 || x1));
+     delay(0, inf);
+     sreq = 1;
+   </tr>
+   <tr label="47" preset="22" postset="21">
+     guard(sreq && !x1 && !x2);
+     delay(0, inf);
+     sreq = 0;
+   </tr>
+   <tr label="48" preset="23" postset="24">
+      guard(!ua2 && g1);
+     delay(0, inf);
+     x1 = 1;
+   </tr>
+   <tr label="49" preset="24" postset="23">
+      guard(!ua2&& !g1 || ua2);
+     delay(0, inf);
+     x1 = 0;
+   </tr>
+   <tr label="50" preset="17" postset="18">
+     guard(ur1);
+     delay(0, inf);
+     g1 = 1;
+   </tr>
+   <tr label="51" preset="19" postset="20">
+      guard(!ua1 && g2);
+     delay(0, inf);
+     x2 = 1;
+   </tr>
+   <tr label="52" preset="18" postset="17">
+      guard(!ur1);
+     delay(0, inf);
+     g1 = 0;
+   </tr>
+   <tr label="53" preset="20" postset="19">
+      guard(!ua1&& !g2 || ua1);
+     delay(0, inf);
+     x2 = 0;
+   </tr>
+   <tr label="54" preset="17" postset="25">
+     guard(ur2);
+     delay(0, inf);
+     g2 = 1;
+   </tr>
+   <tr label="55" preset="25" postset="17">
+      guard(!ur2);
+     delay(0, inf);
+     g2 = 0;
+   </tr>
+   <tr label="84" preset="41" postset="40">
+     guard(!ur1 && !ua1);
+     delay(0, inf);
+     ur1 = 1;
+   </tr>
+   <tr label="85" preset="40" postset="41">
+     guard(ur1 && ua1);
+     delay(0, inf);
+     ur1 = 0;
+   </tr>
+   <tr label="88" preset="43" postset="42">
+     guard(!ur2 &&  !ua2);
+     delay(0, inf);
+     ur2 = 1;
+   </tr>
+   <tr label="89" preset="42" postset="43">
+     guard(ur2 && ua2);
+     delay(0, inf);
+     ur2 = 0;
+   </tr>
+</class>
+

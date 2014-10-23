@@ -1,0 +1,3 @@
+readlpn examples/MutualExclusion/lamport/lamport8.lpn
+findsg
+quit

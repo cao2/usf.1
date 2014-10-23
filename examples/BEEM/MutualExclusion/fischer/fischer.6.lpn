@@ -1,0 +1,97 @@
+<main>
+	<const>
+		value0 = 0;
+		value1 = 1;
+		value2 = 2;
+		value3 = 3;
+		value4 = 4;
+		value5 = 5;
+		value6 = 6;
+		value7 = 7;
+	</const>
+	
+	<var>
+		id;
+	</var>
+	
+	Timer t(p0.timer, p1.timer, p2.timer, p3.timer, p4.timer, p5.timer, p6.timer, p7.timer);
+	Proc p0(id, value0);
+	Proc p1(id, value1);
+	Proc p2(id, value2);
+	Proc p3(id, value3);
+	Proc p4(id, value4);
+	Proc p5(id, value5);
+	Proc p6(id, value6);
+	Proc p7(id, value7);	
+</main>
+
+<class name="Timer" arg="t0, t1, t2, t3, t4, t5, t6, t7">
+	
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="0" preset="q" postset="q">
+		guard(t0 != 0 && t1 != 0 && t2 != 0 && t3 != 0 && t4 != 0 && t5 != 0 && t6 != 0 && t7 != 0);
+		delay(0, inf);
+		t0 = (t0 - 1) | ((t0 == 255) * 255);
+		t1 = (t1 - 1) | ((t1 == 255) * 255);
+		t2 = (t2 - 1) | ((t2 == 255) * 255);
+		t3 = (t3 - 1) | ((t3 == 255) * 255);
+		t4 = (t4 - 1) | ((t4 == 255) * 255);
+		t5 = (t5 - 1) | ((t5 == 255) * 255);
+		t6 = (t6 - 1) | ((t6 == 255) * 255);
+		t7 = (t7 - 1) | ((t7 == 255) * 255);
+	</tr>
+	
+</class>
+
+<class name="Proc" arg="id, myValue">
+	
+	<const>
+		NCS = 0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>	
+		timer = 255;	
+	</var>
+
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="try">
+		guard(id == 0);
+		timer = 2;
+	</tr>
+	
+	<tr label="1" preset="try" postset="wait">
+		timer = 3;
+		id = (myValue + 1) % 256;
+	</tr>
+	
+	<tr label="2" preset="wait" postset="wait">
+		guard(timer == 0);
+		timer = 255;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="CS">
+		guard(timer == 255 && id == (myValue+1));
+	</tr>
+	
+	<tr label="4" preset="wait" postset="NCS">
+		guard(id != (myValue+1) && timer == 255);
+	</tr>
+	
+	<tr label="5" preset="CS" postset="NCS">
+		id = 0;
+	</tr>
+	
+</class>

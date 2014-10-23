@@ -1,0 +1,534 @@
+<main>
+
+<var>
+  ti0;
+  tia0;
+  to0;
+  toa0;
+  ti[8];
+  tia[8];
+  to[8];
+  toa[8];
+  go0;
+  go1;
+  go2;
+  go3;
+  c4o;
+  irdy;
+  irdyack;
+  bufreq;
+  bufack;
+  len[8];
+</var>
+
+  Cele cele(go0, go1, go2, go3, c4o);
+
+  PA PA2(irdy, irdyack, go0, c4o);
+
+  irdyEnv irdy_env(irdy, irdyack);
+
+  PB PB1(bufreq, bufack, go2, c4o);
+
+  bufreqEnv bufreq_env(bufreq, bufack);
+
+  PA PA1(ti0, tia0, go1, c4o);
+
+  PB PB2(to0, toa0, go3, c4o);
+
+  TagIn tagin(ti, tia, ti0, tia0);
+
+  tiEnv ti_env(ti, tia); 
+
+  TagOut tagout(len, to, toa, to0, toa0);
+
+  lenEnv len_env(len, to);
+
+  toaEnv toa_env(to, toa);
+
+</main>
+
+
+/* Class declarations */
+
+<class name="TagIn" arg="ti[8], tia[8], ti0, tia0">
+
+  <m> 1, 2, 3, 4, 5, 6, 7, 8 </m>
+
+  <tr label="1" preset="1" postset="1">
+    guard(ti[1]==1 && tia0==1 && tia[1]==0);
+    tia[1]=1;
+  </tr>
+  <tr label="11" preset="1" postset="1">
+    guard(ti[1]==0 && tia0==0 && tia[1]==1);
+    tia[1]=0;
+  </tr>
+
+ <tr label="2" preset="2" postset="2">
+    guard(ti[2]==1 && tia0==1 && tia[2]==0);
+    tia[2]=1;
+  </tr>
+  <tr label="22" preset="2" postset="2">
+    guard(ti[2]==0 && tia0==0 && tia[2]==1);
+    tia[2]=0;
+  </tr>
+
+ <tr label="3" preset="3" postset="3">
+    guard(ti[3]==1 && tia0==1 && tia[3]==0);
+    tia[3]=1;
+  </tr>
+  <tr label="33" preset="3" postset="3">
+    guard(ti[3]==0 && tia0==0 && tia[3]==1);
+    tia[3]=0;
+  </tr>
+
+ <tr label="4" preset="4" postset="4">
+    guard(ti[4]==1 && tia0==1 && tia[4]==0);
+    tia[4]=1;
+  </tr>
+  <tr label="44" preset="4" postset="4">
+    guard(ti[4]==0 && tia0==0 && tia[4]==1);
+    tia[4]=0;
+  </tr>
+
+ <tr label="5" preset="5" postset="5">
+    guard(ti[5]==1 && tia0==1 && tia[5]==0);
+    tia[5]=1;
+  </tr>
+  <tr label="55" preset="5" postset="5">
+    guard(ti[5]==0 && tia0==0 && tia[5]==1);
+    tia[5]=0;
+  </tr>
+
+ <tr label="6" preset="6" postset="6">
+    guard(ti[6]==1 && tia0==1 && tia[6]==0);
+    tia[1]=1;
+  </tr>
+  <tr label="66" preset="6" postset="6">
+    guard(ti[6]==0 && tia0==0 && tia[6]==1);
+    tia[6]=0;
+  </tr>
+
+ <tr label="7" preset="7" postset="7">
+    guard(ti[7]==1 && tia0==1 && tia[7]==0);
+    tia[7]=1;
+  </tr>
+  <tr label="77" preset="7" postset="7">
+    guard(ti[7]==0 && tia0==0 && tia[7]==1);
+    tia[7]=0;
+  </tr>
+
+
+  <tr label="8" preset="8" postset="8">
+    guard((ti[1]==1 || ti[2]==1 || ti[3]==1 || ti[4]==1 || ti[5]==1 || ti[6]==1 || ti[7]==1) && ti0==0);
+    ti0 = 1;
+  </tr>
+  <tr label="88" preset="8" postset="8">
+    guard(ti[1]==0 && ti[2]==0 && ti[3]==0 && ti[4]==0 && ti[5]==0 && ti[6]==0 && ti[7]==0 && ti0==1);
+    ti0 = 0;
+  </tr>
+</class>
+
+
+
+<class name="TagOut" arg="len[8], to[8], toa[8], to0, toa0">
+
+  <m> 1, 2, 3, 4, 5, 6, 7, 8 </m>
+
+  <tr label="1" preset="1" postset="1">
+    guard(len[1]==1 && to0==1 && to[1]==0);
+    to[1]=1;
+  </tr>
+  <tr label="11" preset="1" postset="1">
+    guard(len[1]==0 && to0==0 && to[1]==1);
+    to[1]=0;
+  </tr>
+
+  <tr label="2" preset="2" postset="2">
+    guard(len[2]==1 && to0==1 && to[2]==0);
+    to[2]=1;
+  </tr>
+  <tr label="22" preset="2" postset="2">
+    guard(len[2]==0 && to0==0 && to[2]==1);
+    to[2]=0;
+  </tr>
+
+  <tr label="3" preset="3" postset="3">
+    guard(len[3]==1 && to0==1 && to[3]==0);
+    to[3]=1;
+  </tr>
+  <tr label="33" preset="3" postset="3">
+    guard(len[3]==0 && to0==0 && to[3]==1);
+    to[3]=0;
+  </tr>
+
+  <tr label="4" preset="4" postset="4">
+    guard(len[4]==1 && to0==1 && to[4]==0);
+    to[4]=1;
+  </tr>
+  <tr label="44" preset="4" postset="4">
+    guard(len[4]==0 && to0==0 && to[4]==1);
+    to[4]=0;
+  </tr>
+
+  <tr label="5" preset="5" postset="5">
+    guard(len[5]==1 && to0==1 && to[5]==0);
+    to[5]=1;
+  </tr>
+  <tr label="55" preset="5" postset="5">
+    guard(len[5]==0 && to0==0 && to[5]==1);
+    to[5]=0;
+  </tr>
+
+  <tr label="6" preset="6" postset="6">
+    guard(len[6]==1 && to0==1 && to[6]==0);
+    to[6]=1;
+  </tr>
+  <tr label="66" preset="6" postset="6">
+    guard(len[6]==0 && to0==0 && to[6]==1);
+    to[6]=0;
+  </tr>
+
+  <tr label="7" preset="7" postset="7">
+    guard(len[7]==1 && to0==1 && to[7]==0);
+    to[7]=1;
+  </tr>
+  <tr label="77" preset="7" postset="7">
+    guard(len[7]==0 && to0==0 && to[7]==1);
+    to[7]=0;
+  </tr>
+
+
+  <tr label="8" preset="8" postset="8">
+    guard((toa[1]==1 || toa[2]==1 || toa[3]==1 || toa[4]==1 || toa[5]==1 || toa[6]==1 || toa[7]==1) && toa0==0);
+    toa0=1;
+  </tr>
+  <tr label="88" preset="8" postset="8">
+    guard(toa[1]==0 && toa[2]==0 && toa[3]==0 && toa[4]==0 && toa[5]==0 && toa[6]==0 && toa[7]==0 && toa0==1);
+    toa0 = 0;
+  </tr>
+</class>
+
+
+
+<class name="PA" arg="r, a, sr, sa">
+
+  //<var> a;  sr; </var>
+
+  <m> 0 </m>
+
+  <tr label="0" preset="0" postset="1">
+    guard(r==1);
+    sr=1;
+  </tr>
+
+  <tr label="4" preset="1" postset="2, 3">
+    guard(sa==1);
+  </tr>
+
+  <tr label="1" preset="2" postset="4">
+    sr=0;
+  </tr>
+
+  <tr label="2" preset="3" postset="5">
+    a=1;
+  </tr>
+
+  <tr label="3" preset="4, 5" postset="6">
+    guard(sa==0 && r==0);
+  </tr>
+
+  <tr label="5" preset="6" postset="0">
+    a=0;
+  </tr>
+</class>
+
+
+<class name="PB" arg="r, a, sr, sa">
+
+  <m> 0 </m>
+
+  <tr label="0" preset="0" postset="1">
+    sr=1;
+  </tr>
+
+  <tr label="1" preset="1" postset="2,3">
+    guard(sa==1);
+  </tr>
+
+  <tr label="2" preset="2" postset="4">
+    sr=0;
+  </tr>
+
+  <tr label="3" preset="3" postset="5">
+    r=1;
+  </tr>
+
+  <tr label="4" preset="4, 5" postset="6">
+    guard(sa==0);
+  </tr>
+
+  <tr label="5" preset="6" postset="7">
+    guard(a==1);
+  </tr>
+
+  <tr label="6" preset="7" postset="8">
+    r = 0;
+  </tr>
+
+  <tr label="7" preset="8" postset="0">
+    guard(a==0);
+  </tr>
+</class>
+
+
+
+<class name="Cele" arg="go0, go1, go2, go3, c4o">
+  <m> 0 </m>
+
+  <tr label="1" preset="0" postset="0">
+    guard(go0==1 && go1==1 && go2==1 && go3==1 && c4o==0);
+    c4o=1;
+  </tr>
+
+  <tr label="2" preset="0" postset="0">
+    guard(go0==0 && go1==0 && go2==0 && go3==0 && c4o==1);
+    c4o=0;
+  </tr>
+</class>
+
+
+<class name="tiEnv" arg="ti[8], tia[8]">
+  <m> 0 </m>
+
+  <tr label="11" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[1]=1;
+  </tr>
+  <tr label="12" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[2]=1;
+  </tr>
+  <tr label="13" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[3]=1;
+  </tr>
+  <tr label="14" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[4]=1;
+  </tr>
+  <tr label="15" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[5]=1;
+  </tr>
+  <tr label="16" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[6]=1;
+  </tr>
+  <tr label="17" preset="0" postset="1">
+    guard(tia[1]==0 && tia[2]==0 && tia[3]==0 && tia[4]==0 && tia[5]==0 && tia[6]==0 && tia[7]==0);
+    ti[7]=1;
+  </tr>
+
+  <tr label="21" preset="1" postset="0">
+    guard(tia[1]==1 && ti[1]==1);
+    ti[1]=0;
+  </tr>
+  <tr label="22" preset="1" postset="0">
+    guard(tia[2]==1 && ti[2]==1);
+    ti[2]=0;
+  </tr>
+  <tr label="23" preset="1" postset="0">
+    guard(tia[3]==1 && ti[3]==1);
+    ti[3]=0;
+  </tr>
+  <tr label="24" preset="1" postset="0">
+    guard(tia[4]==1 && ti[4]==1);
+    ti[4]=0;
+  </tr>
+  <tr label="25" preset="1" postset="0">
+    guard(tia[5]==1 && ti[5]==1);
+    ti[5]=0;
+  </tr>
+  <tr label="26" preset="1" postset="0">
+    guard(tia[6]==1 && ti[6]==1);
+    ti[6]=0;
+  </tr>
+  <tr label="27" preset="1" postset="0">
+    guard(tia[7]==1 && ti[7]==1);
+    ti[7]=0;
+  </tr>
+</class>
+
+
+<class name="irdyEnv" arg="irdy, irdyack">
+  <m> 0 </m>
+
+  <tr label="1" preset="0" postset="1">
+    guard(irdyack==0);
+    irdy = 1;
+  </tr>
+  <tr label="11" preset="1" postset="0">
+    guard(irdyack==1);
+    irdy = 0; 
+  </tr>
+</class>
+
+
+<class name="bufreqEnv" arg="bufreq, bufack">
+  <m> 0 </m>
+
+  <tr label="1" preset="0" postset="1">
+    guard(bufreq==1);
+    bufack = 1;
+  </tr>
+  <tr label="2" preset="1" postset="0">
+    guard(bufreq==0);
+    bufack = 0; 
+  </tr>
+</class>
+
+<class name="lenEnv" arg="len[8], to[8]">
+  <m> 
+    0
+  </m>
+
+  <tr label="1" preset="0" postset="1">
+    guard(!to[1]);
+    len[1] = 1;
+  </tr>
+  <tr label="11" preset="1" postset="0">
+    guard(to[1]);
+    len[1] = 0; 
+  </tr>
+
+
+  <tr label="2" preset="0" postset="2">
+    guard(!to[2]);
+    len[2] = 1;
+  </tr>
+  <tr label="22" preset="2" postset="0">
+    guard(to[2]);
+    len[2] = 0; 
+  </tr>
+
+
+  <tr label="3" preset="0" postset="3">
+    guard(!to[3]);
+    len[3] = 1;
+  </tr>
+  <tr label="33" preset="3" postset="0">
+    guard(to[3]);
+    len[3] = 0; 
+  </tr>
+
+
+  <tr label="4" preset="0" postset="4">
+    guard(!to[4]);
+    len[4] = 1;
+  </tr>
+  <tr label="44" preset="4" postset="0">
+    guard(to[4]);
+    len[4] = 0; 
+  </tr>
+
+
+  <tr label="5" preset="0" postset="5">
+    guard(!to[5]);
+    len[5] = 1;
+  </tr>
+  <tr label="55" preset="5" postset="0">
+    guard(to[5]);
+    len[5] = 0; 
+  </tr>
+
+
+  <tr label="6" preset="0" postset="6">
+    guard(!to[6]);
+    len[6] = 1;
+  </tr>
+  <tr label="66" preset="6" postset="0">
+    guard(to[6]);
+    len[6] = 0; 
+  </tr>
+
+
+  <tr label="7" preset="0" postset="7">
+    guard(!to[7]);
+    len[7] = 1;
+  </tr>
+  <tr label="77" preset="7" postset="0">
+    guard(to[7]);
+    len[7] = 0; 
+  </tr>
+</class>
+
+
+<class name="toaEnv" arg="to[8], toa[8]">
+  <m>
+    0
+  </m>
+
+  <tr label="1" preset="0" postset="1">
+    guard(to[1] && !toa[1]);
+    toa[1] = 1;
+  </tr>
+  <tr label="11" preset="1" postset="0">
+    guard(!to[1]);
+    toa[1] = 0; 
+  </tr>
+
+  <tr label="2" preset="0" postset="2">
+    guard(to[2] && !toa[2]);
+    toa[2] = 1;
+  </tr>
+  <tr label="22" preset="2" postset="0">
+    guard(!to[2]);
+    toa[2] = 0; 
+  </tr>
+
+  <tr label="3" preset="0" postset="3">
+    guard(to[3] && !toa[3]);
+    toa[3] = 1;
+  </tr>
+  <tr label="33" preset="3" postset="0">
+    guard(!to[3]);
+    toa[3] = 0; 
+  </tr>
+
+  <tr label="4" preset="0" postset="4">
+    guard(to[4]==1 && toa[4]==0);
+    toa[4] = 1;
+  </tr>
+  <tr label="44" preset="4" postset="0">
+    guard(to[4]==0);
+    toa[4] = 0; 
+  </tr>
+
+  <tr label="5" preset="0" postset="5">
+    guard(to[5]==1 && toa[5]==0);
+    toa[5] = 1;
+  </tr>
+  <tr label="55" preset="5" postset="0">
+    guard(!to[5]);
+    toa[5] = 0; 
+  </tr>
+
+  <tr label="6" preset="0" postset="6">
+    guard(to[6] && !toa[6]);
+    toa[6] = 1;
+  </tr>
+  <tr label="66" preset="6" postset="0">
+    guard(!to[6]);
+    toa[6] = 0; 
+  </tr>
+
+  <tr label="7" preset="0" postset="7">
+    guard(to[7] && !toa[7]);
+    toa[7] = 1;
+  </tr>
+  <tr label="77" preset="7" postset="0">
+    guard(!to[7]);
+    toa[7] = 0; 
+  </tr>
+</class>
+

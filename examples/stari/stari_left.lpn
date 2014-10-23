@@ -1,0 +1,41 @@
+<mod name="stari_left.lpn">
+
+<input>  clk  </input>
+<output>    x0t, x0f      </output>
+<var>             </var>
+<marking>   1      </marking>
+
+   <statevector>
+   x0t = 0;
+   x0f = 0;
+   </statevector>
+
+   
+   //left
+   <transition label="601" preset="1" postset="2">
+     clk==1;
+     (0, inf);
+   </transition>
+   <transition label="602" preset="2" postset="3">
+     true;
+     (0, inf);
+     x0t = 1;
+   </transition>
+   <transition label="603" preset="2" postset="4">
+     true;
+     (0, inf);
+     x0f = 1;
+   </transition>
+   <transition label="604" preset="3" postset="1">
+     clk==0;
+     (0, inf);
+	 x0t = 0;
+   </transition>
+   <transition label="605" preset="4" postset="1">
+     clk==0;
+     (0, inf);
+     x0f = 0;
+   </transition>
+   
+   
+</mod>

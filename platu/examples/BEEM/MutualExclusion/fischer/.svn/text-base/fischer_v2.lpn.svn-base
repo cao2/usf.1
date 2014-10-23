@@ -1,0 +1,183 @@
+<var>
+	id = 0;
+</var>
+
+//rewritten with 3 separate process classes
+
+<main>
+	Timer t(p0.myT, p1.myT, p2.myT);
+	Proc0 p0();
+	Proc1 p1();
+	Proc2 p2();
+</main>
+
+<class name="Timer" arg="T0, T1, T2">
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="1" preset="q" postset="q">
+		guard(T0 != 0 && T1 != 0 && T2 != 0);
+		delay(0, inf);
+		T0 = (T0 - 1) | ((T0 == 255) * 255);
+		T1 = (T1 - 1) | ((T1 == 255) * 255);
+		T2 = (T2 - 1) | ((T2 == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc0" arg="">
+	<const>
+		NCS =0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>
+		myT = 255;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="try">
+		guard(id == 0);
+		delay(0, inf);
+		myT = 2;
+	</tr>
+	
+	<tr label="2" preset="try" postset="wait">
+		delay(0, inf);
+		myT = 3;
+		id = 0 + 1;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="wait">
+		guard(myT == 0);
+		delay(0, inf);
+		myT = 255;
+	</tr>
+
+	<tr label="4" preset="wait" postset="CS">
+		guard(myT == 255 && id == (0 + 1));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="wait" postset="NCS">
+		guard(id != (0 + 1) && myT == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		delay(0, inf);
+		id = 0;
+	</tr>
+	
+</class>
+
+<class name="Proc1" arg="">
+	<const>
+		NCS =0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>
+		myT = 255;
+	</var>
+
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="try">
+		guard(id == 0);
+		delay(0, inf);
+		myT = 2;
+	</tr>
+	
+	<tr label="2" preset="try" postset="wait">
+		delay(0, inf);
+		myT = 3;
+		id = 1 + 1;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="wait">
+		guard(myT == 0);
+		delay(0, inf);
+		myT = 255;
+	</tr>
+
+	<tr label="4" preset="wait" postset="CS">
+		guard(myT == 255 && id == (1 + 1));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="wait" postset="NCS">
+		guard(id != (1 + 1) && myT == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		delay(0, inf);
+		id = 0;
+	</tr>
+	
+</class>
+
+<class name="Proc2" arg="">
+	<const>
+		NCS =0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>
+		myT = 255;
+	</var>
+
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="try">
+		guard(id == 0);
+		delay(0, inf);
+		myT = 2;
+	</tr>
+	
+	<tr label="2" preset="try" postset="wait">
+		delay(0, inf);
+		myT = 3;
+		id = 2 + 1;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="wait">
+		guard(myT == 0);
+		delay(0, inf);
+		myT = 255;
+	</tr>
+
+	<tr label="4" preset="wait" postset="CS">
+		guard(myT == 255 && id == (2 + 1));
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="wait" postset="NCS">
+		guard(id != (2 + 1) && myT == 255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		delay(0, inf);
+		id = 0;
+	</tr>
+	
+</class>

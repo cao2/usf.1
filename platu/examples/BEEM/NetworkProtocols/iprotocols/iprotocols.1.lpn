@@ -1,0 +1,458 @@
+// protocols.1
+// if parameter B is defined then the channel can loose at most B messages in a row
+
+	<const>
+		idle 	= 0;
+		Get	= 1; 
+		Put	= 2;
+		SAck	= 3;
+		SNak	= 4;
+		SData	= 5;
+		RAck	= 6;
+		RNak	= 7;
+		RData	= 8;
+		RCorrData	= 9;
+		Timeout	= 10;
+	</const>
+
+<main>
+
+	<var>
+		chanIdx	= idle;
+		chanVal	= 0;
+		Get_ready	= 0; 
+		Put_ready	= 0;
+		SAck_ready	= 0;
+		SNak_ready	= 0;
+		SData_ready	= 0;
+		RAck_ready	= 0;
+		RNak_ready	= 0;
+		RData_ready	= 0;
+		RCorrData_ready	= 0;
+		Timeout_ready	= 0;
+	</var>
+
+	Timer		timer (chanIdx, Timeout_ready);
+
+	Producer 	prod (chanIdx, chanVal, Get_ready);
+
+	Consumer	csum (chanIdx, chanVal, Put_ready);
+
+	Medium		medium (chanIdx, chanVal, SData_ready, RData_ready, RCorrData_ready, RAck_ready, SAck_ready, RNak_ready, SNak_ready);
+
+	Sender		send (chanIdx, chanVal, SAck_ready, SNak_ready, Timeout_ready, Get_ready, SData_ready);
+
+	Receiver	recv (chanIdx, chanVal, RData_ready, RCorrData_ready, Timeout_ready, Put_ready, RNak_ready, RAck_ready);
+</main>
+
+
+<class name="Timer" arg="chanIdx, Timeout_ready">
+	<const>
+		tick	= 0;
+	</const>
+
+	<m> tick </m>
+
+	
+	<tr label="00" preset="tick" postset="tick"> 
+		guard(chanIdx == idle && Timeout_ready == 1);
+		chanIdx = Timeout;
+	</tr>
+</class>
+
+
+<class name="Producer" arg="chanIdx, chanVal, Get_ready">
+
+	<const>
+		wait	= 0;
+		produce	= 1;
+	</const>
+
+	<var>
+		message = 0;
+	</var>
+
+	<m> wait </m>
+
+	<tr label="0" preset="wait" postset="produce">
+	</tr>
+
+ 	<tr label="1" preset="produce" postset="wait"> 
+		guard (chanIdx == idle && Get_ready == 1);
+		chanIdx = Get;
+		chanVal = message;
+		message = (message + 1) % 3;
+	</tr>
+
+</class>
+
+
+<class name="Consumer" arg="chanIdx, chanVal, Put_ready">
+	<const>
+		wait	= 0;
+		consume	= 1;
+	</const>
+
+	<var>
+		message	= 0;
+	</var>
+
+	<m> wait </m>
+
+	<tr label="0" preset="wait" postset="consume">  
+		guard (chanIdx == Put);
+		message = chanVal;
+		chanIdx	= idle; 
+		Put_ready = 0;
+	</tr>
+
+	<tr label="1" preset="consume" postset="wait"> 
+	</tr>
+</class>
+
+
+<class name="Medium" arg="chanIdx, chanVal, SData_ready, RData_ready, RCorrData_ready, RAck_ready, SAck_ready, RNak_ready, SNak_ready">
+	<const>
+		wait	= 7;
+		wait1	= 0;
+		data	= 1;
+		ack	= 2;
+		nak	= 3;
+		dataOK	= 4;
+		ackOK	= 5;
+		nakOK	= 6;
+	</const>
+
+	<var>
+		value	= 0;
+	</var>
+
+	<m> wait </m>
+
+	<tr label="0_0" preset="wait" postset="wait1"> 
+		SData_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="wait" postset="wait1"> 
+		RAck_ready = 1;
+	</tr>
+
+	<tr label="0_2" preset="wait" postset="wait1"> 
+		RNak_ready = 1;
+	</tr>
+
+
+	<tr label="1_0" preset="wait1" postset="data"> 
+		guard (chanIdx == SData);
+		value = chanVal;
+		chanIdx	= idle; 
+		SData_ready = 0;
+	</tr>
+
+	<tr label="1_1" preset="wait1" postset="ack"> 
+		guard (chanIdx == RAck);
+		value = chanVal;
+		chanIdx	= idle; 
+		RAck_ready = 0;
+	</tr>
+
+	<tr label="1_2" preset="wait1" postset="nak"> 
+		guard (chanIdx == RNak);
+		value = chanVal;
+		chanIdx	= idle; 
+		RNak_ready = 0;
+	</tr>
+
+	<tr label="2_0" preset="data" postset="dataOK"> 
+		guard (chanIdx == idle && RData_ready == 1);
+		chanIdx	= RData;
+		chanVal = value; 
+	</tr>
+
+	<tr label="2_1" preset="data" postset="wait"> 
+		guard (chanIdx == idle && RCorrData_ready == 1);
+		chanIdx	= RCorrData;
+		chanVal = value; 
+	</tr>
+
+	<tr label="2_2" preset="data" postset="wait"> 
+	</tr>
+
+	<tr label="3_0" preset="ack" postset="ackOK"> 
+		guard (chanIdx == idle && SAck_ready == 1);
+		chanIdx	= SAck;
+		chanVal = value; 
+	</tr>
+
+	<tr label="3_1" preset="ack" postset="wait"> 
+	</tr>
+
+	
+	<tr label="4_0" preset="nak" postset="nakOK"> 
+		guard (chanIdx == idle && SNak_ready == 1);
+		chanIdx	= SNak;
+		chanVal = value; 
+	</tr>
+
+	<tr label="4_1" preset="nak" postset="wait"> 
+	</tr>
+
+	<tr label="5" preset="dataOK" postset="wait"> 
+	</tr>
+
+	<tr label="6" preset="ackOK" postset="wait"> 
+	</tr>
+
+	<tr label="7" preset="nakOK" postset="wait"> 
+	</tr>
+</class>
+
+
+<class name="Sender" arg="chanIdx, chanVal, SAck_ready, SNak_ready, Timeout_ready, Get_ready, SData_ready">
+	<const>
+		wait 	= 0;
+		wait1	= 1;
+		ack	= 2;
+		nak	= 3;
+		timeout = 4;
+		data	= 5;
+	</const>
+
+	<var>
+		sendseq	= 1;
+		rack	= 0;
+		value	= 0;
+	</var>
+
+	<m> wait </m>
+
+	<tr label="0_0" preset="wait" postset="wait1">
+		SAck_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="wait" postset="wait1">
+		SNak_ready = 1;
+	</tr>
+
+	<tr label="0_2" preset="wait" postset="wait1">
+		Timeout_ready = 1;
+	</tr>
+
+	<tr label="0_3" preset="wait" postset="wait1">
+		Get_ready = 1;
+	</tr>
+
+
+	<tr label="1_0" preset="wait1" postset="ack"> 
+		guard (chanIdx == SAck);
+		value	= chanVal;
+		chanIdx	= idle;
+		SAck_ready = 0;
+	</tr>
+
+	<tr label="1_1" preset="wait1" postset="nak"> 
+		guard (chanIdx == SNak);
+		value	= chanVal;
+		chanIdx	= idle;
+		SNak_ready = 0;
+	</tr>
+
+	<tr label="1_2" preset="wait1" postset="timeout"> 
+		guard (chanIdx == Timeout);
+		chanIdx	= idle;
+		Timeout_ready = 0;
+	</tr>
+
+	<tr label="1_3" preset="wait1" postset="data"> 
+		guard ((rack + 2) % 3 > sendseq && chanIdx == Get);
+		chanIdx	= idle;
+		value	= chanVal;
+		Get_ready = 0;
+	</tr>
+
+	<tr label="2_0" preset="ack" postset="wait"> 
+		guard ((rack<sendseq && rack < value && value < sendseq) ||
+                              (rack>sendseq && sendseq < value && value < rack));
+                rack = value;
+	</tr>
+
+	<tr label="2_1" preset="ack" postset="wait"> 
+		guard ((rack>=sendseq || rack >= value || value >= sendseq) &&
+                              (rack<=sendseq || sendseq >= value || value >= rack));	
+	</tr>
+
+	<tr label="3_0" preset="nak" postset="wait"> 
+		guard (((rack<sendseq && rack < value && value < sendseq) ||
+                        (rack>sendseq && sendseq < value && value < rack)) &&
+		       (chanIdx == idle && SData_ready == 1));
+                chanIdx = SData;
+		chanVal	= value;
+	</tr>
+
+	<tr label="3_1" preset="nak" postset="wait">  
+		guard ((rack>=sendseq || rack >= value || value >= sendseq) &&
+                       (rack<=sendseq || sendseq >= value || value >= rack));
+	</tr>
+
+	<tr label="4" preset="timeout" postset="wait">
+		guard (((rack+1)%3 != sendseq) && chanIdx == idle && SData_ready == 1);
+                chanIdx	= SData;
+		chanVal	= (rack+1)%3;
+	</tr>
+
+    	<tr label="5" preset="timeout" postset="wait">
+		guard ((rack+1)%3 == sendseq);
+	</tr>
+
+    	<tr label="6" preset="data" postset="wait">
+	    	guard(chanIdx == idle && SData_ready == 1);
+		chanIdx = SData;
+		chanVal	= sendseq;
+                sendseq = (sendseq+1)%3;
+	</tr>
+
+</class>
+
+<class name="Receiver" arg="chanIdx, chanVal, RData_ready, RCorrData_ready, Timeout_ready, Put_ready, RNak_ready, RAck_ready">
+	<const>
+		wait	= 0;
+		wait1	= 1;
+		data	= 7;
+		put_data	= 2;
+		send_naks	= 3;
+		corr_data	= 4;
+		on_timeout	= 5;
+		timeout_ack	= 6;
+	</const>
+
+	<var>
+		i	= 0;
+		value	= 0;
+		sent	= 0;
+		recseq	= 0;
+		lack	= 0;
+		recbuf[3];
+		nakd[3];
+	</var>
+
+	<m> wait </m>
+
+	<tr label="0_0" preset="wait" postset="wait1">
+		RData_ready = 1;
+	</tr>
+
+	<tr label="0_1" preset="wait" postset="wait1">
+		RCorrData_ready = 1;
+	</tr>
+
+	<tr label="0_2" preset="wait" postset="wait1">
+		Timeout_ready = 1;
+	</tr>
+
+
+	<tr label="1_0" preset="wait1" postset="data">
+		guard (chanIdx == RData);
+		value = chanVal;
+		chanIdx = idle;
+		RData_ready = 0; 
+	</tr>
+
+	<tr label="1_1" preset="wait1" postset="corr_data">
+		guard (chanIdx == RCorrData);
+	   	value	= chanVal;
+		chanIdx	= idle;
+		RCorrData_ready	= 0; 
+	</tr>
+
+	<tr label="1_2" preset="wait1" postset="on_timeout">  
+		guard (chanIdx == Timeout);
+		chanIdx = idle;
+		Timeout_ready = 0;
+                i	= 0;
+	</tr>
+    
+
+	<tr label="2_0" preset="data" postset="send_naks">
+		guard (value != (recseq+1)%3);
+	        recbuf[value] = 1;
+		i = (recseq+1) % 3;
+	</tr>
+
+	<tr label="2_1" preset="data" postset="put_data">
+		guard (value == (recseq+1)%3 && chanIdx == idle && Put_ready == 1);
+                chanIdx = Put;
+		chanVal	= value;
+                recseq	= (recseq+1)%3; 
+		sent	= (sent+1)%3;
+	</tr>
+   
+
+	<tr label="3_0" preset="send_naks" postset="send_naks">
+	   	guard (i != value && nakd[i]==1);
+                i = (i+1)%3;
+	</tr>
+
+	<tr label="3_1" preset="send_naks" postset="send_naks">
+	   	guard (i != value && nakd[i]==0 && chanIdx == idle && RNak_ready == 1);
+                chanIdx = RNak;
+		chanVal	= i;
+                nakd[i]	= 1;
+		i 	= (i+1)%3;
+	</tr>
+
+	<tr label="3_2" preset="send_naks" postset="wait">
+	    	guard (i==value);
+    	</tr>
+	
+	<tr label="4_0" preset="put_data" postset="put_data">
+    		guard (sent== 1 && chanIdx == idle && RAck_ready==1);
+                chanIdx = RAck;
+		chanVal	= recseq;
+                lack	= recseq;
+		sent	= 0;
+	</tr>
+
+	<tr label="4_1" preset="put_data" postset="put_data">
+		guard (sent != 1 && recbuf[(recseq+1)%3]==1 && chanIdx == idle && Put_ready==1);
+                chanIdx = Put;
+		chanVal	= (recseq+1)%3;
+                recseq 	= (recseq+1)%3;
+		recbuf[recseq]	= 0;
+	</tr>
+
+	<tr label="4_2" preset="put_data" postset="wait">
+	        guard (sent != 1 && recbuf[(recseq+1)%3]==0);
+	</tr>
+
+    
+	<tr label="5_0"	preset="corr_data" postset="wait">
+	        guard (nakd[value]==0 && chanIdx == idle && RNak_ready==1);
+                chanIdx = RNak;
+		chanVal	= value;
+	</tr>
+
+    	<tr label="5_1" preset="corr_data" postset="wait">
+	        guard (nakd[value]==1);
+	</tr>
+    
+
+	<tr label="6_0" preset="on_timeout" postset="on_timeout">
+	  	guard (i<3);        
+                nakd[i]	= 0;
+		i	= i+1;
+	</tr>
+
+	<tr label="6_1" preset="on_timeout" postset="timeout_ack">
+		guard (i==3 && chanIdx == idle && RNak_ready == 1);
+                chanIdx = RNak;
+		chanVal	= (recseq+1)%3;
+                nakd[(recseq+1)%3]	= 1;
+	</tr>
+    
+
+	<tr label="7" preset="timeout_ack" postset="wait">
+	     	guard (chanIdx == idle && RAck_ready == 1);
+		chanIdx = RAck;
+		chanVal	= lack;
+	</tr>
+</class>

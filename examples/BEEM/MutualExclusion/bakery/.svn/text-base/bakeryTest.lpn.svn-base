@@ -1,0 +1,149 @@
+<var>
+	choosing[2];
+	number[2];
+</var>
+
+<main>
+	P0 process0();
+	P1 process1();
+</main>
+
+<class name="P0" arg="">
+	
+	<const>
+	NCS = 0;
+	choose = 1;
+	for_loop = 2;
+	wait = 3;
+	CS = 4;
+	</const>
+
+
+	<var>
+		j = 0;
+		max = 0;
+	</var>
+
+	<m>
+	NCS
+	</m>
+
+	<tr label="1" preset="NCS" postset="choose">
+		delay(0, inf);
+		choosing[0] = 1;
+		j = 0;
+		max = 0;
+	</tr>
+	
+	<tr label="2" preset="choose" postset="choose">
+		guard(j < 2 && number[j] > max);
+		delay(0, inf);
+		max = number[j];
+		j = j + 1;
+	</tr>
+
+	<tr label="3" preset="choose" postset="choose">
+		guard(j < 2 && number[j] <= max);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+
+	<tr label="4" preset="choose" postset="for_loop">
+		guard(j == 2 && max < 9);
+		delay(0, inf);
+		number[0] = max +1;
+		j = 0;
+		choosing[0] = 0;
+	</tr>
+
+	<tr label="5" preset="for_loop" postset="wait">
+		guard(j < 2 && choosing [j] == 0);
+		delay(0, inf);
+	</tr>
+
+	<tr label="6" preset="wait" postset="for_loop">
+		guard(number[j] == 0 || (number[j] > number[0]) || ((number[j] == number[0]) && 0 <= j));
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+
+	<tr label="7" preset="for_loop" postset="CS">
+		guard(j == 2);
+		delay(0, inf);
+	</tr>
+
+	<tr label="8" preset="CS" postset="NCS">
+		delay(0, inf);
+		number[0] = 0;
+	</tr>
+</class>
+
+<class name="P1" arg="">
+	
+	<const>
+	NCS = 0;
+	choose = 1;
+	for_loop = 2;
+	wait = 3;
+	CS = 4;
+	</const>
+
+
+	<var>
+		j = 0;
+		max = 0;
+	</var>
+
+	<m>
+	NCS
+	</m>
+
+	<tr label="1" preset="NCS" postset="choose">
+		delay(0, inf);
+		choosing[1] = 1;
+		j = 0;
+		max = 0;
+	</tr>
+	
+	<tr label="2" preset="choose" postset="choose">
+		guard(j < 2 && number[j] > max);
+		delay(0, inf);
+		max = number[j];
+		j = j + 1;
+	</tr>
+
+	<tr label="3" preset="choose" postset="choose">
+		guard(j < 2 && number[j] <= max);
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+
+	<tr label="4" preset="choose" postset="for_loop">
+		guard(j == 2 && max < 9);
+		delay(0, inf);
+		number[1] = max + 1;
+		j = 0;
+		choosing[1] = 0;
+	</tr>
+
+	<tr label="5" preset="for_loop" postset="wait">
+		guard(j < 2 && choosing [j] == 0);
+		delay(0, inf);
+	</tr>
+
+	<tr label="6" preset="wait" postset="for_loop">
+		guard(number[j] == 0 || (number[j] > number[1]) || ((number [j] == number[1]) && 1 <= j));
+		delay(0, inf);
+		j = j + 1;
+	</tr>
+
+	<tr label="7" preset="for_loop" postset="CS">
+		guard(j == 2);
+		delay(0, inf);
+	</tr>
+
+	<tr label="8" preset="CS" postset="NCS">
+		delay(0, inf);
+		number[1] = 0;
+	</tr>
+</class>

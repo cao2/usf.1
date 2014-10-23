@@ -1,0 +1,79 @@
+//I originally wanted to have the constants as the argumens
+//Should find 634 states without deadlock
+
+<main>
+	<var>
+		id = 0;
+	</var>
+	
+	Timer t(p0.myT, p1.myT, p2.myT, p3.myT);
+	Proc p0(0, id);
+	Proc p1(1, id);
+	Proc p2(2, id);
+	Proc p3(3, id);
+</main>
+
+<class name="Timer" arg="T0, T1, T2, T3">
+	<const>
+		q = 0;
+	</const>
+	
+	<m>
+		q
+	</m>
+	
+	<tr label="1" preset="q" postset="q">
+		guard(T0 != 0 && T1 != 0 && T2 != 0 && T3 != 0);
+		delay(0, inf);
+		T0 = (T0 - 1) | ((T0 == 255) * 255);
+		T1 = (T1 - 1) | ((T1 == 255) * 255);
+		T2 = (T2 - 1) | ((T2 == 255) * 255);
+		T3 = (T3 - 1) | ((T3 == 255) * 255);
+	</tr>
+</class>
+
+<class name="Proc" arg="myNum, id">
+	<const>
+		NCS =0;
+		try = 1;
+		wait = 2;
+		CS = 3;
+	</const>
+	
+	<var>
+		myT = 255;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="1" preset="NCS" postset="try">
+		guard(id == 0);
+		myT = 3;
+	</tr>
+	
+	<tr label="2" preset="try" postset="wait">
+		myT = 3;
+		id = myNum + 1;
+	</tr>
+	
+	<tr label="3" preset="wait" postset="wait">
+		guard(myT == 0);
+		myT = 255;
+	</tr>
+
+	<tr label="4" preset="wait" postset="CS">
+		guard(myT == 255 && id == (myNum + 1));
+	</tr>
+	
+	<tr label="5" preset="wait" postset="NCS">
+		guard(id != (myNum + 1) && myT == 255);
+	</tr>
+	
+	<tr label="6" preset="CS" postset="NCS">
+		id = 0;
+	</tr>
+	
+</class>
+	

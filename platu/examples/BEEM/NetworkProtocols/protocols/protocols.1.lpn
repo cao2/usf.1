@@ -1,0 +1,285 @@
+// protocols.1
+// if parameter B is defined then the channel can loose at most B messages in a row
+
+	<const>
+		idle 	= 0;
+		K_in	= 1; 
+		K_out	= 2;
+		L_in	= 3;
+		L_out	= 4;
+		send	= 5;
+		receive	= 6;
+	</const>
+
+<main>
+
+	<var>
+		chanIdx	= idle;
+		chanVal	= 0;
+		K_in_ready	= 0; 
+		K_out_ready	= 0;
+		L_in_ready	= 0;
+		L_out_ready	= 0;
+		send_ready	= 0;
+		receive_ready	= 0;
+	</var>
+
+	channel_K	chanK (chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready);
+	channel_L 	chanL (chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready);
+	Producer	prod (chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready);
+	Consumer	csum (chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready);
+	Sender		send (chanIdx, chanVal, K_in_ready, send_ready);
+	Receiver	recv (chanIdx, chanVal, K_out_ready, receive_ready);
+</main>
+
+
+<class name="channel_K" arg="chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready">
+	<const>
+		init	= 0;
+		ready 	= 1;
+		transfer	= 2;
+		data_lost	= 3;
+	</const>
+
+	<var>
+		v 	= 0;
+		lost	= 0; // msg_lost only for property
+	</var>
+
+	<m> init </m>
+
+	
+	<tr label="00" preset="init" postset="ready"> 
+	K_in_ready = 1;
+	</tr>
+
+	<tr label="0" preset="ready" postset="transfer"> 
+	guard (chanIdx == K_in);
+	chanIdx	= idle;
+	v	= chanVal;
+	</tr>
+
+	<tr label="1" preset="transfer" postset="ready"> 
+	guard (lost < 3); 
+	lost	= lost + 1; 
+	K_in_ready	= 1;
+	</tr>
+
+	<tr label="2" preset="transfer" postset="ready">  
+	guard (chanIdx == idle && K_out_ready == 1);
+	chanIdx	= K_out;
+	chanVal	= v;   
+	lost	= 0;
+	K_in_ready = 1; 
+	</tr>
+</class>
+
+
+<class name="channel_L" arg="chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready">
+	<const>
+		ready	= 0;
+		transfer	= 1;
+		dataOK	= 2;
+		init 	= 3;
+	</const>
+
+	<var>
+		v	= 0;
+		lost	= 0; 
+	</var>
+
+
+
+	<m> init </m>
+
+	<tr label="00" preset="init" postset="ready">
+	L_in_ready = 1;
+	</tr>
+
+	<tr label="0" preset="ready" postset="transfer">
+	guard (chanIdx == L_in);
+	chanIdx	= idle;
+	v	= chanVal;
+	L_in_ready	= 0; 
+	</tr>
+
+ 	<tr label="1" preset="transfer" postset="ready"> 
+	guard (lost < 3); 
+	lost 	= lost + 1; 
+	L_in_ready	= 1;
+	</tr>
+ 
+	<tr label="2" preset="transfer" postset="ready">
+	guard (chanIdx == idle && L_out_ready == 1);
+	chanIdx	= L_out;
+	chanVal	= v; 	 
+	lost 	= 0; 
+	L_in_ready	= 1;
+	</tr>
+</class>
+
+
+<class name="Producer" arg="chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready">	
+	<const>
+		ready	= 0;
+		produce0	= 1;
+		produce1	= 2;
+	</const>
+
+	<m> ready </m>
+
+
+	<tr label="0" preset="ready" postset="produce0">
+	guard (chanIdx == idle);
+	</tr>
+
+	<tr label="1" preset="ready" postset="produce1">
+	guard (chanIdx == idle);
+	</tr>
+
+	<tr label="2" preset="produce0" postset="ready"> 
+	guard (chanIdx == idle && send_ready == 1);
+	chanIdx	= send;
+	chanVal	= 0; 
+	</tr>
+
+ 	<tr label="3" preset="produce1" postset="ready">
+	guard (chanIdx == idle && send_ready == 1);
+	chanIdx	= send;
+	chanVal	= 1; 
+	send_ready = 0;
+	</tr>
+</class>
+
+<class name="Consumer" arg="chanIdx, chanVal, 
+				K_in_ready, K_out_ready,
+				L_in_ready, L_out_ready,
+				send_ready, receive_ready">
+	<const>
+		ready	= 0;
+		got_msg	= 1;
+		consume0	= 2;
+		consume1	= 3;
+		init		= 4;
+	</const>
+
+	<var>
+		value	= 0;
+	</var>
+
+	<m> init </m>
+
+	<tr label="00" preset="init" postset="ready">  
+	receive_ready = 1;
+	</tr>
+
+	<tr label="0" preset="ready" postset="got_msg">  
+	guard (chanIdx == receive);
+	value = chanVal;
+	chanIdx	= idle; 
+	receive_ready = 0;
+	</tr>
+
+	<tr label="1" preset="got_msg" postset="consume0"> 
+	guard (value==0); 
+	</tr>
+
+	<tr label="2" preset="got_msg" postset="consume1"> 
+	guard (value == 1); 
+	</tr>
+
+	<tr label="3" preset="consume0" postset="ready">
+	receive_ready = 1;
+	</tr>
+
+	<tr label="4" preset="consume1" postset="ready">
+	receive_ready = 1;
+	</tr>
+</class>
+
+
+<class name="Sender" arg="chanIdx, chanVal, K_in_ready, send_ready">
+	<const>
+	init 	= 0;
+	ready	= 1;
+	sending	= 2;
+	</const>
+
+	<var>
+	value	= 0;
+	</var>
+
+	<m> init </m>
+
+	<tr label="0" preset="init" postset="ready"> 
+	send_ready = 1;
+	</tr>
+
+	<tr label="1" preset="ready" postset="sending"> 
+	guard (chanIdx == send);
+	value = chanVal;
+	chanIdx	= idle;
+	send_ready = 0;
+	</tr>
+
+	<tr label="2" preset="sending" postset="ready">  
+	guard (chanIdx == idle && K_in_ready == 1);
+	chanIdx	= K_in;
+	chanVal	= value;
+	K_in_ready = 0;
+	send_ready = 1;
+	</tr>
+</class>
+
+<class name="Receiver" arg="chanIdx, chanVal, K_out_ready, receive_ready">
+	<const>
+	init		= 3;
+	wait_msg	= 0;
+	got_msg		= 1;
+	</const>
+
+	<var>
+	value	= 0;
+	</var>
+
+	<m> init </m>
+
+	<tr label="00" preset="init" postset="wait_msg"> 
+	K_out_ready	= 1;
+	</tr>
+
+	<tr label="0" preset="wait_msg" postset="got_msg"> 
+	guard (chanIdx == K_out);
+	value	= chanVal;
+	chanIdx	= idle;
+	K_out_ready = 0;
+	</tr>
+
+	<tr label="1" preset="got_msg" postset="wait_msg">
+	guard (chanIdx == idle && receive_ready == 1);
+	chanIdx	= receive;
+	chanVal	= value;
+	K_out_ready = 1;
+	</tr>
+</class>

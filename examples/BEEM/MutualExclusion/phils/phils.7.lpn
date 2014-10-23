@@ -1,0 +1,73 @@
+<main>
+	<var>
+		count = 0;
+	</var>
+	
+	Phil p0(count, p1.myFork);
+	Phil p1(count, p2.myFork);
+	Phil p2(count, p3.myFork);
+	Phil p3(count, p4.myFork);
+	Phil p4(count, p5.myFork);
+	Phil p5(count, p6.myFork);
+	Phil p6(count, p7.myFork);
+	Phil p7(count, p8.myFork);
+	Phil p8(count, p9.myFork);
+	Phil p9(count, p10.myFork);
+	Phil p10(count, p11.myFork);
+	Phil p11(count, p12.myFork);
+	Phil p12(count, p0.myFork);
+</main>
+
+<class name="Phil" arg="count, otherFork">
+	
+	<const>
+		think = 0;
+		inside = 10;
+		one = 1;
+		eat = 2;
+		finish = 3;
+	</const>
+	
+	<var>
+		myFork = 0;
+	</var>
+	
+
+	
+	<m>
+		think
+	</m>
+	
+	<tr label="100" preset="think" postset="inside">
+		guard(count < 9);
+		delay(0, inf);
+		count = (count + 1) % 256;
+	</tr>
+	
+	<tr label="101" preset="inside" postset="think">
+		delay(0, inf);
+		count = count > 0 ? count - 1 : 0;
+	</tr>
+	
+	<tr label="102" preset="inside" postset="one">
+		guard(myFork == 0);
+		delay(0, inf);
+		myFork = 1;
+	</tr>
+	
+	<tr label="1" preset="one" postset="eat">
+		guard(otherFork == 0);
+		delay(0, inf);
+		otherFork = 1;
+	</tr>
+	
+	<tr label="2" preset="eat" postset="finish">
+		delay(0, inf);
+		myFork = 0;
+	</tr>
+	
+	<tr label="3" preset="finish" postset="inside">
+		delay(0, inf);
+		otherFork = 0;
+	</tr>
+</class>

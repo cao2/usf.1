@@ -1,0 +1,619 @@
+<main>
+   WB wb(id.w2, ex.w5, me.w8);
+   ID id(if.w1, ex.w5, wb.w10, if.w11);
+   EX ex(id.w3, me.w7, me.w8);
+   IF if(id.w2, ex.w4);
+   ME me(ex.w6, wb.w9);
+</main>
+
+<class name="WB" arg="w2, w5, w8">
+   <var>
+   w10 = 1;
+   w1_WB = 1;
+   w2_WB = 0;
+   w4_WB = 1;
+   w5_WB = 0;
+   w6_WB = 1;
+   w7_WB = 1;
+   w8_WB = 0;
+   w9 = 0;
+   w9_WB = 1;
+   </var>
+
+   <m>
+   40,   41,   42,   43,   44,   45,   46,   47,   48,   49
+   </m>
+
+   <tr label="180" preset="40" postset="40">
+     guard(w8&& !w1_WB && w7_WB);
+     delay(0, inf);
+     w1_WB = 1;
+   </tr>
+   <tr label="181" preset="40" postset="40">
+     guard(!w8 && w1_WB&& !w7_WB);
+     delay(0, inf);
+     w1_WB = 0;
+   </tr>
+   <tr label="182" preset="41" postset="41">
+     guard(!w10&& !w2_WB);
+     delay(0, inf);
+     w2_WB = 1;
+   </tr>
+   <tr label="183" preset="41" postset="41">
+     guard(w10 && w2_WB);
+     delay(0, inf);
+     w2_WB = 0;
+   </tr>
+   <tr label="184" preset="42" postset="42">
+     guard(!w9 && w1_WB && w2_WB);
+     delay(0, inf);
+     w9 = 1;
+   </tr>
+   <tr label="185" preset="42" postset="42">
+     guard(w9&& !w1_WB&& !w2_WB);
+     delay(0, inf);
+     w9 = 0;
+   </tr>
+   <tr label="186" preset="45" postset="45">
+     guard(w4_WB && w5_WB);
+     delay(0, inf);
+     w4_WB = 0;
+   </tr>
+   <tr label="187" preset="45" postset="45">
+     guard(!w4_WB&& !w5_WB);
+     delay(0, inf);
+     w4_WB = 1;
+   </tr>
+   <tr label="188" preset="43" postset="43">
+     guard(w2 && w5&& !w5_WB && w9_WB);
+     delay(0, inf);
+     w5_WB = 1;
+   </tr>
+   <tr label="189" preset="44" postset="44">
+     guard(!w9&& !w6_WB);
+     delay(0, inf);
+     w6_WB = 1;
+   </tr>
+   <tr label="190" preset="43" postset="43">
+     guard(!w2&& !w5 && w5_WB&& !w9_WB);
+     delay(0, inf);
+     w5_WB = 0;
+   </tr>
+   <tr label="191" preset="44" postset="44">
+     guard(w9 && w6_WB);
+     delay(0, inf);
+     w6_WB = 0;
+   </tr>
+   <tr label="192" preset="46" postset="46">
+     guard(w6_WB&& !w7_WB && w9_WB);
+     delay(0, inf);
+     w7_WB = 1;
+   </tr>
+   <tr label="193" preset="47" postset="47">
+     guard(!w7_WB&& !w8_WB);
+     delay(0, inf);
+     w8_WB = 1;
+   </tr>
+   <tr label="194" preset="46" postset="46">
+     guard(!w6_WB && w7_WB&& !w9_WB);
+     delay(0, inf);
+     w7_WB = 0;
+   </tr>
+   <tr label="195" preset="47" postset="47">
+     guard(w7_WB && w8_WB);
+     delay(0, inf);
+     w8_WB = 0;
+   </tr>
+   <tr label="196" preset="48" postset="48">
+     guard(!w10&& !w8_WB && w9_WB);
+     delay(0, inf);
+     w9_WB = 0;
+   </tr>
+   <tr label="197" preset="48" postset="48">
+     guard(w10 && w8_WB&& !w9_WB);
+     delay(0, inf);
+     w9_WB = 1;
+   </tr>
+   <tr label="198" preset="49" postset="49">
+     guard(w9&& !w10 && w4_WB);
+     delay(0, inf);
+     w10 = 1;
+   </tr>
+   <tr label="199" preset="49" postset="49">
+     guard(!w9 && w10&& !w4_WB);
+     delay(0, inf);
+     w10 = 0;
+   </tr>
+</class>
+
+
+
+<class name="ID" arg="w1, w5, w10, w11">
+
+   <var>
+   w1_ID = 0;
+   w2 = 0;
+   w2_ID = 1;
+   w3 = 0;
+   w4_ID = 1;
+   w5_ID = 0;
+   w6_ID = 1;
+   w7_ID = 1;
+   w8_ID = 0;
+   w9_ID = 0;
+   </var>
+
+   <m>
+   10,   11,   12,   13,   14,   15,   16,   17,   18,   19
+   </m>
+
+
+
+
+   <tr label="60" preset="10" postset="10">
+     guard(w1 && w10&& !w1_ID && w7_ID);
+     delay(0, inf);
+     w1_ID = 1;
+   </tr>
+   <tr label="61" preset="10" postset="10">
+     guard(!w1&& !w10 && w1_ID&& !w7_ID);
+     delay(0, inf);
+     w1_ID = 0;
+   </tr>
+   <tr label="62" preset="11" postset="11">
+     guard(!w3&& !w2_ID);
+     delay(0, inf);
+     w2_ID = 1;
+   </tr>
+   <tr label="63" preset="11" postset="11">
+     guard(w3 && w2_ID);
+     delay(0, inf);
+     w2_ID = 0;
+   </tr>
+   <tr label="64" preset="12" postset="12">
+     guard(!w2 && w1_ID && w2_ID);
+     delay(0, inf);
+     w2 = 1;
+   </tr>
+   <tr label="65" preset="12" postset="12">
+     guard(w2&& !w1_ID&& !w2_ID);
+     delay(0, inf);
+     w2 = 0;
+   </tr>
+   <tr label="66" preset="15" postset="15">
+     guard(w4_ID && w5_ID);
+     delay(0, inf);
+     w4_ID = 0;
+   </tr>
+   <tr label="67" preset="15" postset="15">
+     guard(!w4_ID&& !w5_ID);
+     delay(0, inf);
+     w4_ID = 1;
+   </tr>
+   <tr label="68" preset="13" postset="13">
+     guard(w5 && w11&& !w5_ID && w9_ID);
+     delay(0, inf);
+     w5_ID = 1;
+   </tr>
+   <tr label="69" preset="14" postset="14">
+     guard(!w2&& !w6_ID);
+     delay(0, inf);
+     w6_ID = 1;
+   </tr>
+   <tr label="70" preset="13" postset="13">
+     guard(!w5&& !w11 && w5_ID&& !w9_ID);
+     delay(0, inf);
+     w5_ID = 0;
+   </tr>
+   <tr label="71" preset="14" postset="14">
+     guard(w2 && w6_ID);
+     delay(0, inf);
+     w6_ID = 0;
+   </tr>
+   <tr label="72" preset="16" postset="16">
+     guard(w6_ID&& !w7_ID && w9_ID);
+     delay(0, inf);
+     w7_ID = 1;
+   </tr>
+   <tr label="73" preset="17" postset="17">
+     guard(!w7_ID&& !w8_ID);
+     delay(0, inf);
+     w8_ID = 1;
+   </tr>
+   <tr label="74" preset="16" postset="16">
+     guard(!w6_ID && w7_ID&& !w9_ID);
+     delay(0, inf);
+     w7_ID = 0;
+   </tr>
+   <tr label="75" preset="17" postset="17">
+     guard(w7_ID && w8_ID);
+     delay(0, inf);
+     w8_ID = 0;
+   </tr>
+   <tr label="76" preset="18" postset="18">
+     guard(!w3&& !w8_ID && w9_ID);
+     delay(0, inf);
+     w9_ID = 0;
+   </tr>
+   <tr label="77" preset="18" postset="18">
+     guard(w3 && w8_ID&& !w9_ID);
+     delay(0, inf);
+     w9_ID = 1;
+   </tr>
+   <tr label="78" preset="19" postset="19">
+     guard(w2&& !w3 && w4_ID);
+     delay(0, inf);
+     w3 = 1;
+   </tr>
+   <tr label="79" preset="19" postset="19">
+     guard(!w2 && w3&& !w4_ID);
+     delay(0, inf);
+     w3 = 0;
+   </tr>
+</class>
+
+
+<class name="EX" arg="w3, w7, w8">
+
+   <var>
+	   w2_EX = 1;
+	   w4 = 0;
+	   w4_EX = 1;
+	   w5 = 0;
+	   w5_EX = 0;
+	   w6 = 0;
+	   w6_EX = 1;
+	   w7_EX = 1;
+	   w8_EX = 0;
+	   w9_EX = 0;
+   </var>
+
+   <m>
+		20,   21,   22,   23,   24,   25,   26,   27,   28,   29
+   </m>
+
+   <tr label="100" preset="20" postset="20">
+     guard(w3&& !w4 && w8 && w7_EX);
+     delay(0, inf);
+     w4 = 1;
+   </tr>
+   <tr label="101" preset="20" postset="20">
+     guard(!w3 && w4&& !w8&& !w7_EX);
+     delay(0, inf);
+     w4 = 0;
+   </tr>
+   <tr label="102" preset="21" postset="21">
+     guard(!w6&& !w2_EX);
+     delay(0, inf);
+     w2_EX = 1;
+   </tr>
+   <tr label="103" preset="21" postset="21">
+     guard(w6 && w2_EX);
+     delay(0, inf);
+     w2_EX = 0;
+   </tr>
+   <tr label="104" preset="22" postset="22">
+     guard(w4&& !w5 && w2_EX);
+     delay(0, inf);
+     w5 = 1;
+   </tr>
+   <tr label="105" preset="22" postset="22">
+     guard(!w4 && w5&& !w2_EX);
+     delay(0, inf);
+     w5 = 0;
+   </tr>
+   <tr label="106" preset="25" postset="25">
+     guard(w4_EX && w5_EX);
+     delay(0, inf);
+     w4_EX = 0;
+   </tr>
+   <tr label="107" preset="25" postset="25">
+     guard(!w4_EX&& !w5_EX);
+     delay(0, inf);
+     w4_EX = 1;
+   </tr>
+   <tr label="108" preset="23" postset="23">
+     guard(w7&& !w5_EX && w9_EX);
+     delay(0, inf);
+     w5_EX = 1;
+   </tr>
+   <tr label="109" preset="24" postset="24">
+     guard(!w5&& !w6_EX);
+     delay(0, inf);
+     w6_EX = 1;
+   </tr>
+   <tr label="110" preset="23" postset="23">
+     guard(!w7 && w5_EX&& !w9_EX);
+     delay(0, inf);
+     w5_EX = 0;
+   </tr>
+   <tr label="111" preset="24" postset="24">
+     guard(w5 && w6_EX);
+     delay(0, inf);
+     w6_EX = 0;
+   </tr>
+   <tr label="112" preset="26" postset="26">
+     guard(w6_EX&& !w7_EX && w9_EX);
+     delay(0, inf);
+     w7_EX = 1;
+   </tr>
+   <tr label="113" preset="27" postset="27">
+     guard(!w7_EX&& !w8_EX);
+     delay(0, inf);
+     w8_EX = 1;
+   </tr>
+   <tr label="114" preset="26" postset="26">
+     guard(!w6_EX && w7_EX&& !w9_EX);
+     delay(0, inf);
+     w7_EX = 0;
+   </tr>
+   <tr label="115" preset="27" postset="27">
+     guard(w7_EX && w8_EX);
+     delay(0, inf);
+     w8_EX = 0;
+   </tr>
+   <tr label="116" preset="28" postset="28">
+     guard(!w6&& !w8_EX && w9_EX);
+     delay(0, inf);
+     w9_EX = 0;
+   </tr>
+   <tr label="117" preset="28" postset="28">
+     guard(w6 && w8_EX&& !w9_EX);
+     delay(0, inf);
+     w9_EX = 1;
+   </tr>
+   <tr label="118" preset="29" postset="29">
+     guard(w5&& !w6 && w4_EX);
+     delay(0, inf);
+     w6 = 1;
+   </tr>
+   <tr label="119" preset="29" postset="29">
+     guard(!w5 && w6&& !w4_EX);
+     delay(0, inf);
+     w6 = 0;
+   </tr>
+</class>
+
+
+<class name="IF" arg="w2, w4">
+
+   <var>
+   w1 = 0;
+   w11 = 1;
+   w1_IF = 0;
+   w2_IF = 1;
+   w4_IF = 1;
+   w5_IF = 0;
+   w6_IF = 0;
+   w7_IF = 0;
+   w8_IF = 1;
+   w9_IF = 0;
+   </var>
+
+   <m>
+   0,   1,   2,   3,   4,   5,   6,   7,   8,   9
+   </m>
+
+   <tr label="20" preset="0" postset="0">
+     guard(w4&& !w1_IF && w7_IF);
+     delay(0, inf);
+     w1_IF = 1;
+   </tr>
+   <tr label="21" preset="0" postset="0">
+     guard(!w4 && w1_IF&& !w7_IF);
+     delay(0, inf);
+     w1_IF = 0;
+   </tr>
+   <tr label="22" preset="1" postset="1">
+     guard(!w1&& !w2_IF);
+     delay(0, inf);
+     w2_IF = 1;
+   </tr>
+   <tr label="23" preset="1" postset="1">
+     guard(w1 && w2_IF);
+     delay(0, inf);
+     w2_IF = 0;
+   </tr>
+   <tr label="24" preset="2" postset="2">
+     guard(!w11 && w1_IF && w2_IF);
+     delay(0, inf);
+     w11 = 1;
+   </tr>
+   <tr label="25" preset="2" postset="2">
+     guard(w11&& !w1_IF&& !w2_IF);
+     delay(0, inf);
+     w11 = 0;
+   </tr>
+   <tr label="26" preset="5" postset="5">
+     guard(w4_IF && w5_IF);
+     delay(0, inf);
+     w4_IF = 0;
+   </tr>
+   <tr label="27" preset="5" postset="5">
+     guard(!w4_IF&& !w5_IF);
+     delay(0, inf);
+     w4_IF = 1;
+   </tr>
+   <tr label="28" preset="3" postset="3">
+     guard(w2&& !w5_IF && w9_IF);
+     delay(0, inf);
+     w5_IF = 1;
+   </tr>
+   <tr label="29" preset="4" postset="4">
+     guard(!w11&& !w6_IF);
+     delay(0, inf);
+     w6_IF = 1;
+   </tr>
+   <tr label="30" preset="3" postset="3">
+     guard(!w2 && w5_IF&& !w9_IF);
+     delay(0, inf);
+     w5_IF = 0;
+   </tr>
+   <tr label="31" preset="4" postset="4">
+     guard(w11 && w6_IF);
+     delay(0, inf);
+     w6_IF = 0;
+   </tr>
+   <tr label="32" preset="6" postset="6">
+     guard(w6_IF&& !w7_IF && w9_IF);
+     delay(0, inf);
+     w7_IF = 1;
+   </tr>
+   <tr label="33" preset="7" postset="7">
+     guard(!w7_IF&& !w8_IF);
+     delay(0, inf);
+     w8_IF = 1;
+   </tr>
+   <tr label="34" preset="6" postset="6">
+     guard(!w6_IF && w7_IF&& !w9_IF);
+     delay(0, inf);
+     w7_IF = 0;
+   </tr>
+   <tr label="35" preset="7" postset="7">
+     guard(w7_IF && w8_IF);
+     delay(0, inf);
+     w8_IF = 0;
+   </tr>
+   <tr label="36" preset="8" postset="8">
+     guard(!w1&& !w8_IF && w9_IF);
+     delay(0, inf);
+     w9_IF = 0;
+   </tr>
+   <tr label="37" preset="8" postset="8">
+     guard(w1 && w8_IF&& !w9_IF);
+     delay(0, inf);
+     w9_IF = 1;
+   </tr>
+   <tr label="38" preset="9" postset="9">
+     guard(!w1 && w11 && w4_IF);
+     delay(0, inf);
+     w1 = 1;
+   </tr>
+   <tr label="39" preset="9" postset="9">
+     guard(w1&& !w11&& !w4_IF);
+     delay(0, inf);
+     w1 = 0;
+   </tr>
+</class>
+
+
+<class name="ME" arg="w6, w9">
+
+   <var>
+   w1_ME = 0;
+   w2_ME = 0;
+   w4_ME = 1;
+   w5_ME = 0;
+   w6_ME = 1;
+   w7 = 0;
+   w7_ME = 1;
+   w8 = 1;
+   w8_ME = 0;
+   w9_ME = 1;
+   </var>
+
+   <m>
+   30,   31,   32,   33,   34,   35,   36,   37,   38,   39
+   </m>
+
+   <tr label="140" preset="32" postset="32">
+     guard(w6&& !w1_ME && w7_ME);
+     delay(0, inf);
+     w1_ME = 1;
+   </tr>
+   <tr label="141" preset="32" postset="32">
+     guard(!w6 && w1_ME&& !w7_ME);
+     delay(0, inf);
+     w1_ME = 0;
+   </tr>
+   <tr label="142" preset="33" postset="33">
+     guard(!w8&& !w2_ME);
+     delay(0, inf);
+     w2_ME = 1;
+   </tr>
+   <tr label="143" preset="33" postset="33">
+     guard(w8 && w2_ME);
+     delay(0, inf);
+     w2_ME = 0;
+   </tr>
+   <tr label="144" preset="34" postset="34">
+     guard(!w7 && w1_ME && w2_ME);
+     delay(0, inf);
+     w7 = 1;
+   </tr>
+   <tr label="145" preset="34" postset="34">
+     guard(w7&& !w1_ME&& !w2_ME);
+     delay(0, inf);
+     w7 = 0;
+   </tr>
+   <tr label="146" preset="37" postset="37">
+     guard(w4_ME && w5_ME);
+     delay(0, inf);
+     w4_ME = 0;
+   </tr>
+   <tr label="147" preset="37" postset="37">
+     guard(!w4_ME&& !w5_ME);
+     delay(0, inf);
+     w4_ME = 1;
+   </tr>
+   <tr label="148" preset="35" postset="35">
+     guard(w9&& !w5_ME && w9_ME);
+     delay(0, inf);
+     w5_ME = 1;
+   </tr>
+   <tr label="149" preset="36" postset="36">
+     guard(!w7&& !w6_ME);
+     delay(0, inf);
+     w6_ME = 1;
+   </tr>
+   <tr label="150" preset="35" postset="35">
+     guard(!w9 && w5_ME&& !w9_ME);
+     delay(0, inf);
+     w5_ME = 0;
+   </tr>
+   <tr label="151" preset="36" postset="36">
+     guard(w7 && w6_ME);
+     delay(0, inf);
+     w6_ME = 0;
+   </tr>
+   <tr label="152" preset="38" postset="38">
+     guard(w6_ME&& !w7_ME && w9_ME);
+     delay(0, inf);
+     w7_ME = 1;
+   </tr>
+   <tr label="153" preset="39" postset="39">
+     guard(!w7_ME&& !w8_ME);
+     delay(0, inf);
+     w8_ME = 1;
+   </tr>
+   <tr label="154" preset="38" postset="38">
+     guard(!w6_ME && w7_ME&& !w9_ME);
+     delay(0, inf);
+     w7_ME = 0;
+   </tr>
+   <tr label="155" preset="39" postset="39">
+     guard(w7_ME && w8_ME);
+     delay(0, inf);
+     w8_ME = 0;
+   </tr>
+   <tr label="156" preset="30" postset="30">
+     guard(!w8&& !w8_ME && w9_ME);
+     delay(0, inf);
+     w9_ME = 0;
+   </tr>
+   <tr label="157" preset="30" postset="30">
+     guard(w8 && w8_ME&& !w9_ME);
+     delay(0, inf);
+     w9_ME = 1;
+   </tr>
+   <tr label="158" preset="31" postset="31">
+     guard(w7&& !w8 && w4_ME);
+     delay(0, inf);
+     w8 = 1;
+   </tr>
+   <tr label="159" preset="31" postset="31">
+     guard(!w7 && w8&& !w4_ME);
+     delay(0, inf);
+     w8 = 0;
+   </tr>
+</class>

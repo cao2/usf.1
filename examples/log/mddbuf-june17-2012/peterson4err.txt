@@ -1,0 +1,1 @@
+/Users/zheng/work/workspace/platu/examples/MutualExclusion/peterson/peterson.4.lpn line 57:14 extraneous input '256' expecting SEMICOLON

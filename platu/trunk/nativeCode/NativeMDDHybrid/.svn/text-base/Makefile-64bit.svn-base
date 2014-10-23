@@ -1,0 +1,21 @@
+include Makefile-64bit.inc
+
+all:
+		cd $(THIRD_PARTY_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit
+		cd $(AIG_COMPILE_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit
+		cd $(TEST_PROG_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit
+
+.PHONY: clean
+
+clean:
+		cd $(THIRD_PARTY_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit clean
+		cd $(AIG_COMPILE_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit clean
+		cd $(TEST_PROG_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit clean
+
+.PHONY: distclean
+
+distclean:
+		cd $(THIRD_PARTY_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit distclean
+		cd $(AIG_COMPILE_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit distclean
+		cd $(TEST_PROG_DIR); $(MAKE) $(MFLAGS) -f Makefile-64bit distclean
+

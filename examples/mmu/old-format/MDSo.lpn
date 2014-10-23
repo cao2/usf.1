@@ -1,0 +1,98 @@
+<mod name="MDSo.lpn">
+
+<input>
+mdsi, sswi, mssi, sswo, msso, bo, wao, ssri, ssro
+</input>
+
+<output> 
+mdso 
+</output>
+
+<var>
+w4_c5, w1_c5, w3_c5, w5_c5, w2_c5
+</var>
+
+   <marking>
+   31,   33,   35,   37,   40,   42,   43
+   </marking>
+
+   <statevector>
+   bo = 0;
+   mdsi = 0;
+   mdso = 0;
+   mssi = 0;
+   msso = 0;
+   ssri = 0;
+   ssro = 0;
+   sswi = 0;
+   sswo = 0;
+   w1_c5 = 0;
+   w2_c5 = 0;
+   w3_c5 = 0;
+   w4_c5 = 0;
+   w5_c5 = 1;
+   wao = 0;
+   </statevector>
+
+
+   <transition label="114" preset="31" postset="31">
+     ssri && !wao && !bo && ssro && !w1_c5;
+     (0, inf);
+     w1_c5 = 1;
+   </transition>
+   <transition label="115" preset="31" postset="31">
+     (!ssri || wao || bo || !ssro) && w1_c5;
+     (0, inf);
+     w1_c5 = 0;
+   </transition> 
+   <transition label="117" preset="37" postset="37">
+     sswi && !wao && !bo && sswo && !w2_c5;
+     (0, inf);
+     w2_c5 = 1;
+   </transition>
+   <transition label="118" preset="37" postset="37">
+     (!sswi || wao || bo || !sswo) && w2_c5;
+     (0, inf);
+     w2_c5 = 0;
+   </transition> 
+   <transition label="120" preset="33" postset="33">
+     mssi && !wao && !bo && msso && !w3_c5;
+     (0, inf);
+     w3_c5 = 1;
+   </transition>
+   <transition label="121" preset="33" postset="33">
+     (!mssi || wao || bo || !msso) && w3_c5;
+     (0, inf);
+     w3_c5 = 0;
+   </transition>
+   <transition label="122" preset="35" postset="35">
+     !w1_c5 && !w2_c5 && !w3_c5 && w4_c5;
+     (0, inf);
+     w4_c5 = 0;
+   </transition>
+   <transition label="125" preset="35" postset="35">
+     (w1_c5 || w2_c5 || w3_c5) && !w4_c5;
+     (0, inf);
+     w4_c5 = 1;
+   </transition>
+   <transition label="126" preset="40" postset="40">
+     !mdsi && !ssro && !sswo && !msso && !w5_c5;
+     (0, inf);
+     w5_c5 = 1;
+   </transition>
+   <transition label="128" preset="40" postset="40">
+     (mdsi || ssro || sswo || msso) && w5_c5;
+     (0, inf);
+     w5_c5 = 0;
+   </transition>
+   <transition label="127" preset="42" postset="42">
+     !mdso && w4_c5 && !w5_c5;
+     (0, inf);
+     mdso = 1;
+   </transition>
+   <transition label="129" preset="42" postset="42">
+     mdso && !w4_c5 && w5_c5;
+     (0, inf);
+     mdso = 0;
+   </transition>
+</mod>

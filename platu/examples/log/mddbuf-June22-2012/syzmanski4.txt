@@ -1,0 +1,65 @@
+--> Number of modules: 4
+--> Length of global vecvtor: 12
+--> globalVarList
+[(s[3], 0), (w[2], 0), (a[2], 0), (a[0], 0), (s[1], 0), (a[1], 0), (a[3], 0), (s[2], 0), (w[3], 0), (s[0], 0), (w[0], 0), (w[1], 0)]
+--> gVarIndexMap
+(s[3] 0), (w[2] 1), (a[2] 2), (a[0] 3), (s[1] 4), (a[1] 5), (a[3] 6), (s[2] 7), (w[3] 8), (s[0] 9), (w[0] 10), (w[1] 11), 
+LPN: p0
+-->Internals: 		(p0.j 0 INTERNAL), (p0.myValue 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p0.j 0),  (p0.myValue 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+LPN: p1
+-->Internals: 		(p1.j 0 INTERNAL), (p1.myValue 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p1.j 0),  (p1.myValue 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+LPN: p2
+-->Internals: 		(p2.myValue 0 INTERNAL), (p2.j 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p2.myValue 0),  (p2.j 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+LPN: p3
+-->Internals: 		(p3.j 0 INTERNAL), (p3.myValue 1 INTERNAL), 
+-->Globals: 		(s[3] 2 GLOBAL), (w[2] 3 GLOBAL), (a[2] 4 GLOBAL), (a[0] 5 GLOBAL), (s[1] 6 GLOBAL), (a[1] 7 GLOBAL), (a[3] 8 GLOBAL), (s[2] 9 GLOBAL), (w[3] 10 GLOBAL), (s[0] 11 GLOBAL), (w[0] 12 GLOBAL), (w[1] 13 GLOBAL), 
+--> VarIndexMap: 	(p3.j 0),  (p3.myValue 1),  (s[3] 2),  (w[2] 3),  (a[2] 4),  (a[0] 5),  (s[1] 6),  (a[1] 7),  (a[3] 8),  (s[2] 9),  (w[3] 10),  (s[0] 11),  (w[0] 12),  (w[1] 13),  
+
+---> start search_dfs ...
+---> # LPN transition firings: 787396, # of prjStates found: 248660, stack_depth: 36056 used memory: 148.79507 free memory: 89.13337
+--->  # of global vectors: 513
+---> state table stats: State count: 248660,  MDD node count: 0
+---> # LPN transition firings: 1581264, # of prjStates found: 490214, stack_depth: 71478 used memory: 230.21098 free memory: 128.0006
+--->  # of global vectors: 623
+---> state table stats: State count: 490214,  MDD node count: 0
+---> # LPN transition firings: 2377949, # of prjStates found: 754158, stack_depth: 132107 used memory: 294.79797 free memory: 63.413593
+--->  # of global vectors: 683
+---> state table stats: State count: 754158,  MDD node count: 0
+---> # LPN transition firings: 3166571, # of prjStates found: 1005675, stack_depth: 172246 used memory: 383.04434 free memory: 161.38777
+--->  # of global vectors: 716
+---> state table stats: State count: 1005675,  MDD node count: 0
+---> # LPN transition firings: 3957812, # of prjStates found: 1237611, stack_depth: 195423 used memory: 448.8146 free memory: 95.61754
+--->  # of global vectors: 723
+---> state table stats: State count: 1237611,  MDD node count: 0
+---> # LPN transition firings: 4751667, # of prjStates found: 1449332, stack_depth: 200999 used memory: 505.4852 free memory: 323.51654
+--->  # of global vectors: 727
+---> state table stats: State count: 1449332,  MDD node count: 0
+---> # LPN transition firings: 5543289, # of prjStates found: 1658628, stack_depth: 201917 used memory: 556.0621 free memory: 272.93964
+--->  # of global vectors: 729
+---> state table stats: State count: 1658628,  MDD node count: 0
+---> # LPN transition firings: 6336035, # of prjStates found: 1867732, stack_depth: 203767 used memory: 622.4102 free memory: 206.59149
+--->  # of global vectors: 730
+---> state table stats: State count: 1867732,  MDD node count: 0
+---> # LPN transition firings: 7120069, # of prjStates found: 2075801, stack_depth: 195870 used memory: 663.74646 free memory: 165.25533
+--->  # of global vectors: 735
+---> state table stats: State count: 2075801,  MDD node count: 0
+---> # LPN transition firings: 7878583, # of prjStates found: 2182148, stack_depth: 60731 used memory: 695.0197 free memory: 133.98201
+--->  # of global vectors: 735
+---> state table stats: State count: 2182148,  MDD node count: 0
+---> Search stats:
+	# LPN transition firings: 8550392
+	# of states found: 2313863
+	max_stack_depth: 205358
+	peak total memory: 829 MB
+	peak used memory: 737 MB
+	Total elapsed time = 57.45 sec
+

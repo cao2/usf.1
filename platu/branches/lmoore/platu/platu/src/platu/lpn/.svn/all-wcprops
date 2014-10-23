@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn
+END
+Markings.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/Markings.java
+END
+LPNTranSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/LPNTranSet.java
+END
+VarExpr.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/VarExpr.java
+END
+VarSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/VarSet.java
+END
+VarExprList.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/VarExprList.java
+END
+LPN.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/LPN.java
+END
+VarVal.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/VarVal.java
+END
+VarValSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/VarValSet.java
+END
+IndexVarMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/IndexVarMap.java
+END
+LPNTran.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/LPNTran.java
+END
+DualHashMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/DualHashMap.java
+END
+VarType.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/VarType.java
+END
+LPNTranRelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/platu/!svn/ver/452/branches/lmoore/platu/platu/src/platu/lpn/LPNTranRelation.java
+END

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="trunk/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="PlatuSVN/trunk/nativeCode"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="trunk/lib/antlr-3.3-complete.jar"/>
+	<classpathentry kind="lib" path="trunk/lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="trunk/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="trunk/lib/jgrapht-jdk1.6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

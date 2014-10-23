@@ -1,0 +1,109 @@
+<main>
+	<var>
+		b[3];
+		x = 255;
+		y = 255;
+	</var>
+
+	Proc p0(0, b, x, y);
+	Proc p1(1, b, x, y);
+	Proc p2(2, b, x, y);
+</main>
+
+<class name="Proc" arg="myVal, b[3], x, y">
+	
+	<const>
+		NCS = 0;
+		CS = 1;
+		q1 = 2;
+		q2 = 3;
+		q22 = 4;
+		p = 5;
+		q3 = 6;
+		q4 = 7;
+		q5 = 8;
+		e1 = 9;
+	</const>
+	
+	<var>
+		j = 0;
+	</var>
+	
+	<m>
+		NCS
+	</m>
+	
+	<tr label="0" preset="NCS" postset="q1">
+		delay(0, inf);
+		b[myVal] = 1;
+	</tr>
+	
+	<tr label="1" preset="q1" postset="q2">
+		delay(0, inf);
+		x = myVal;
+	</tr>
+	
+	<tr label="2" preset="q2" postset="q22">
+		guard(y!=255);
+		delay(0, inf);
+		b[myVal] = 0;
+	</tr>
+	
+	<tr label="3" preset="q22" postset="NCS">
+		guard(y==255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="4" preset="q2" postset="p">
+		guard(y==255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="5" preset="p" postset="q3">
+		delay(0, inf);
+		y = myVal;
+	</tr>
+	
+	<tr label="6" preset="q3" postset="CS">
+		guard(x==myVal);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="7" preset="q3" postset="q4">
+		guard(x!=myVal);
+		delay(0, inf);
+		b[myVal] = 0;
+		j = 0;
+	</tr>
+	
+	<tr label="8" preset="q4" postset="q4">
+		guard(j<3 && b[j] == 0);
+		delay(0, inf);
+		j = (j+1) % 256;
+	</tr>
+	
+	<tr label="9" preset="q4" postset="q5">
+		guard(j == 3);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="10" preset="q5" postset="CS">
+		guard(y == myVal);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="11" preset="q5" postset="NCS">
+		guard(y==255);
+		delay(0, inf);
+	</tr>
+	
+	<tr label="12" preset="CS" postset="e1">
+		delay(0, inf);
+		y = 255;
+	</tr>
+	
+	<tr label="13" preset="e1" postset="NCS">
+		delay(0, inf);
+		b[myVal] = 0;
+	</tr>
+</class>
